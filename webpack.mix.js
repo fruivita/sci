@@ -1,3 +1,6 @@
+/**
+ * @see https://laravel.com/docs/9.x/mix
+ */
 const mix = require('laravel-mix');
 
 /*
@@ -12,6 +15,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    .postCss('resources/css/blue.css', 'public/css/blue.css', [
+        require('tailwindcss')('./tailwind.config.js')
+    ])
+    .postCss('resources/css/pdf.css', 'public/css', [])
+    .sourceMaps()
+    .extract()
+    .version();
