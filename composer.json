@@ -1,9 +1,30 @@
 {
-    "name": "laravel/laravel",
+    "name": "fruivita/sci",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Sistema de Contagem de Impressão.",
+    "keywords": [
+        "fruivita",
+        "sci",
+        "impressão",
+        "print",
+        "contagem",
+        "count"
+    ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Fábio Cassiano",
+            "email": "fcno.dev@gmail.com",
+            "homepage": "https://github.com/fcno",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/fruivita/sci/issues",
+        "source": "https://github.com/fruivita/sci",
+        "email": "fruivita.code@gmail.com"
+    },
+    "homepage": "https://github.com/fruivita/sci",
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
