@@ -15,7 +15,30 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'SCI'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Full Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the full name of your application. This value is used when
+    | the framework needs to place the application's full name in a
+    | notification or any other location as required by the application or its
+    | packages.
+    */
+    'full_name' => env('APP_FULL_NAME', 'Sistema de Contagem de Impressão'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Version
+    |--------------------------------------------------------------------------
+    |
+    | This value is the version of your application. This value is used when the
+    | framework needs to place the application's version in a notification or
+    | any other location as required by the application or its packages.
+    */
+    'version' => '1.0.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +92,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Sao_Paulo',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +105,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt-br',
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +118,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'pt-br',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +131,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'pt_BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -175,6 +198,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],
@@ -193,5 +217,42 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
     ])->toArray(),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Limit
+    |--------------------------------------------------------------------------
+    |
+    | Quantidade de itens por página na paginação usada nos relatórios.
+    |
+    */
+
+    'limit' => 15,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Data mínima
+    |--------------------------------------------------------------------------
+    |
+    | Data mínima para geração dos relatórios.
+    | Se alterar o valor, não esquecer de atualizar o valor de atualizar o
+    | arquivo jquery em resources/js/app.js
+    |
+    */
+
+    'min_date' => '01-01-1990',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Data máxima
+    |--------------------------------------------------------------------------
+    |
+    | Data máxima para geração dos relatórios.
+    | Se alterar o valor, não esquecer de atualizar o valor de atualizar o
+    | arquivo jquery em resources/js/app.js
+    |
+    */
+
+    'max_date' => now()->format('d-m-Y'),
 
 ];
