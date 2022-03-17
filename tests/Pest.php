@@ -1,10 +1,10 @@
 <?php
 
-use App\Ldap\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Support\Facades\Auth;
 use LdapRecord\Laravel\Testing\DirectoryEmulator;
+use LdapRecord\Models\ActiveDirectory\User as LdapUser;
 use function Pest\Faker\faker;
 use function Pest\Laravel\post;
 use Tests\CreatesApplication;
@@ -53,21 +53,22 @@ uses(
 */
 
 /**
- * Autentica-se na aplicação com o **samaccountname** informado ou um randômico.
+ * Autentica-se na aplicação com o **samaccountname** informado.
  *
  * Notar que o usuário é primeiro criado no 'active directory', para depois ser
- * autenticado
+ * autenticado.
  *
- * @param string|null $samaccountname
+ * @param string $samaccountname
  *
- * @return \App\Ldap\User|null;
+ * @return \App\Models\User|null;
  */
-function login(?string $samaccountname)
+function login(string $samaccountname)
 {
     $fake = DirectoryEmulator::setup('ldap');
 
-    $ldapUser = User::create([
-        'samaccountname' => $samaccountname ?? faker()->userName(),
+    $ldapUser = LdapUser::create([
+        'cn' => $samaccountname . ' bar baz',
+        'samaccountname' => $samaccountname,
         'objectguid' => faker()->uuid(),
     ]);
 
@@ -84,7 +85,7 @@ function login(?string $samaccountname)
 /**
  * Usuário autenticado.
  *
- * @return \App\Ldap\User|null;
+ * @return \App\Models\User|null;
  */
 function authenticatedUser()
 {

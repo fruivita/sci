@@ -62,7 +62,16 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'ldap',
-            'model' => App\Ldap\User::class,
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
+            'rules' => [],
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => true,
+                'sync_attributes' => [
+                    'name' => 'cn',
+                    'username' => 'samaccountname',
+                ],
+            ],
         ],
 
         // 'users' => [

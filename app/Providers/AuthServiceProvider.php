@@ -32,6 +32,10 @@ class AuthServiceProvider extends ServiceProvider
             $validated = Auth::validate([
                 'samaccountname' => $request->input('username'),
                 'password' => $request->input('password'),
+                'fallback' => [
+                    'username' => $request->input('username'),
+                    'password' => $request->input('password'),
+                ],
             ]);
 
             return $validated ? Auth::getLastAttempted() : null;
