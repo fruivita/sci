@@ -12,7 +12,7 @@
 
     <button
         x-on:click="darkMode = ! darkMode"
-        class="border-primary-500 pl-3 text-left w-full hover:border-l-2"
+        class="border-primary-500 outline-none pl-3 text-left w-full focus:border-l-4 hover:border-l-4"
         title="{{ __('Toggle dark/light mode') }}">
 
         {{-- claro --}}

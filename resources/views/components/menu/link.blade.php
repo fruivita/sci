@@ -15,7 +15,7 @@
 <li>
 
     <a
-        class="block border-primary-500 pl-3 space-x-3 hover:border-l-2"
+        class="block border-primary-500 outline-none pl-3 space-x-3 focus:border-l-4 hover:border-l-4"
         {{ $attributes }}
     >
 

@@ -70,7 +70,7 @@
 
                             @endauth
 
-                            class="bg-primary-500 flex font-extrabold items-center h-24 justify-center rounded-full text-primary-50 w-24"
+                            class="bg-primary-500 flex font-extrabold items-center h-24 justify-center outline-none rounded-full text-primary-50 w-24 focus:ring focus:ring-primary-300"
                         >
 
                             {{ config('app.name') }}
