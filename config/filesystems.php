@@ -36,6 +36,11 @@ return [
             'throw' => false,
         ],
 
+        'log-impressao' => [
+            'driver' => 'local',
+            'root' => env('LOG_IMPRESSAO', false),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
