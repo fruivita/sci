@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,3 +14,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('login');
+    })->name('login');
+
+    Route::post('/', [AuthenticatedSessionController::class, 'store'])
+        ->middleware(['throttle:login']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+    Route::get('home', [HomeController::class, 'index'])->name('home');
+});
