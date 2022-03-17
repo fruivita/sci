@@ -12,12 +12,15 @@
 
 @props(['icon'])
 
+<li>
 
-<div class="block pl-3 space-x-3">
+    <div class="block pl-3 space-x-3">
 
-  <x-icon name="{{ $icon }}" class="inline"/>
+        <x-icon name="{{ $icon }}" class="inline"/>
 
 
-  <span>{{ $slot }}</span>
+        <span>{{ $slot }}</span>
 
-</div>
+    </div>
+
+</li>
