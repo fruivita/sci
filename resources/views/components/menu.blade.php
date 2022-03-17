@@ -11,6 +11,9 @@
 
 <x-menu.group name="{{ __('Functionalities') }}">
 
+    <x-menu.themetoggler/>
+
+
     @auth
 
         <x-menu.fakelink

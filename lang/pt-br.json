@@ -1,5 +1,6 @@
 {
     "Change menu visibility": "Altera a visibilidade do menu",
+    "Dark": "Escuro",
     "Exit the application": "Sai da aplicação",
     "Functionalities": "Funcionalidades",
     "Go to home page": "Ir para a página home",
@@ -8,9 +9,11 @@
     "Inform your network user": "Informe seu usuário de rede",
     "Ldap password": "Senha de rede",
     "Ldap user": "Usuário de rede",
+    "Light": "Claro",
     "Login": "Login",
     "Login in application": "Entra na aplicação",
     "Logout": "Logout",
     "Password": "Senha",
+    "Toggle dark/light mode": "Alterna entre os modos escuro/claro",
     "Username": "Usuário"
 }

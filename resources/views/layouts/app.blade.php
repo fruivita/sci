@@ -10,12 +10,18 @@
 
 
 <!DOCTYPE html>
-<html class="" lang="{{ str_replace('_', '-', App::currentLocale()) }}">
+<html
+    x-data="{ darkMode : false }"
+    x-bind:class="darkMode ? 'dark' : ''"
+    x-init="
+        darkMode = JSON.parse(localStorage.getItem('darkMode'));
+        $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)));"
+    lang="{{ str_replace('_', '-', App::currentLocale()) }}"
+>
 
     <head>
 
         <meta charset="UTF-8">
-        {{-- <meta http-equiv="Refresh" content="3"> --}}
 
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +42,7 @@
     </head>
 
 
-    <body class="bg-primary-50 text-primary-900 text-xl transition dark:bg-secondary-900 dark:text-secondary-50">
+    <body x-cloak class="bg-primary-50 duration-500 text-primary-900 text-xl transition dark:bg-secondary-900 dark:text-secondary-50">
 
         <div>
 
