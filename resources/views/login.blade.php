@@ -24,7 +24,7 @@
                 @csrf
 
 
-                <div class="flex flex-col p-3 space-y-3">
+                <div class="flex flex-col p-3 space-y-6">
 
                     {{-- input para o usuário --}}
                     <x-form.input
