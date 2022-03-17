@@ -14,13 +14,13 @@
         font-bold
         items-center
         justify-center
+        outline-none
         px-4
         py-2
         rounded
         space-x-3
         transition
 
-        focus:outline-none
         focus:ring
         hover:scale-y-125
         lg:hover:scale-110;
