@@ -61,8 +61,8 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'driver' => 'ldap',
+            'model' => App\Ldap\User::class,
         ],
 
         // 'users' => [
@@ -107,5 +107,4 @@ return [
     */
 
     'password_timeout' => 10800,
-
 ];
