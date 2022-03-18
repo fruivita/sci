@@ -26,11 +26,18 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('name', 255)->nullable();
             $table->string('username', 20)->unique();
-            $table->string('password');
-            $table->string('guid')->unique()->nullable();
-            $table->string('domain')->nullable();
+            $table->string('password', 255)->nullable();
+            $table->string('guid', 255)->unique()->nullable();
+            $table->string('domain', 255)->nullable();
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table
+                ->foreign('role_id')
+                ->references('id')
+                ->on('roles')
+                ->onUpdate('cascade');
         });
     }
 

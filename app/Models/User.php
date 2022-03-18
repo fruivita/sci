@@ -43,6 +43,11 @@ class User extends Authenticatable implements LdapAuthenticatable
         'remember_token',
     ];
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
     /**
      * Retorna o usuário autenticado para exibição em tela.
      *
