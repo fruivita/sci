@@ -34,7 +34,7 @@ test('senha é campo obrigatório na autenticação', function () {
     expect(authenticatedUser())->toBeNull();
 });
 
-//happy path
+// Happy path
 test('usuário consegue se autenticar', function () {
     $samaccountname = 'foo';
     $user = login($samaccountname);
