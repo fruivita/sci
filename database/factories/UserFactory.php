@@ -24,11 +24,15 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => null,
+            'name' => rand(0, 1)
+                        ? null
+                        : $this->faker->sentence(3),
+
             'username' => Str::random(20),
+
             'password' => null,
-            'guid' => null,
-            'domain' => null,
+            'guid' => $this->faker->uuid(),
+            'domain' => $this->faker->domainName(),
             'role_id' => null,
         ];
     }

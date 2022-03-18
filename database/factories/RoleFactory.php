@@ -24,7 +24,11 @@ class RoleFactory extends Factory
     {
         return [
             'id' => $this->faker->unique()->randomNumber(),
-            'name' => null,
+
+            'name' => rand(0, 1)
+                        ? null
+                        : $this->faker->sentence(3),
+
             'slug' => $this->faker->unique()->word(),
         ];
     }

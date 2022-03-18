@@ -24,9 +24,16 @@ class PermissionFactory extends Factory
     {
         return [
             'id' => $this->faker->unique()->numberBetween(),
-            'name' => null,
-            'slug' => $this->faker->unique()->word(),
-            'description' => null,
+
+            'name' => rand(0, 1)
+                        ? null
+                        : $this->faker->sentence(3),
+
+            'slug' => str($this->faker->unique()->sentence(3))->slug(),
+
+            'description' => rand(0, 1)
+                                ? null
+                                : $this->faker->text(),
         ];
     }
 }
