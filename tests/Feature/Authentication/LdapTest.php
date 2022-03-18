@@ -35,7 +35,7 @@ test('senha é campo obrigatório na autenticação', function () {
 });
 
 // Happy path
-test('usuário consegue se autenticar', function () {
+test('autenticação cria o objeto da classe user', function () {
     $samaccountname = 'foo';
     $user = login($samaccountname);
 
