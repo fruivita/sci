@@ -66,16 +66,16 @@ function login(string $samaccountname)
 {
     $fake = DirectoryEmulator::setup('ldap');
 
-    $ldapUser = LdapUser::create([
+    $ldap_user = LdapUser::create([
         'cn' => $samaccountname . ' bar baz',
         'samaccountname' => $samaccountname,
         'objectguid' => faker()->uuid(),
     ]);
 
-    $fake->actingAs($ldapUser);
+    $fake->actingAs($ldap_user);
 
     post(route('login'), [
-        'username' => $ldapUser->samaccountname[0],
+        'username' => $ldap_user->samaccountname[0],
         'password' => 'secret',
     ]);
 
