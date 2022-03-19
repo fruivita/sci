@@ -9,7 +9,6 @@
 
     .btn {
         @apply
-        border
         flex
         font-bold
         items-center
@@ -21,45 +20,47 @@
         space-x-3
         transition
 
-        focus:ring
-        hover:scale-y-125
-        lg:hover:scale-110;
+        active:ring
     }
 
     .btn-default {
         @apply
         bg-primary-500
-        border-primary-300
         ring-primary-300
         text-primary-50
 
-        active:bg-primary-100
-        active:text-primary-700
-        focus:border-primary-300;
+        active:border-primary-300
+        hover:bg-primary-900;
     }
 
     .btn-warning {
         @apply
         bg-yellow-500
-        border-yellow-300
         ring-yellow-300
         text-yellow-50
 
-        active:bg-yellow-100
-        active:text-yellow-700
-        focus:border-yellow-300;
+        active:border-yellow-300
+        hover:bg-yellow-900;
+    }
+
+    .btn-cancel {
+        @apply
+        bg-gray-500
+        ring-gray-300
+        text-gray-50
+
+        active:border-gray-300
+        hover:bg-gray-900;
     }
 
     .btn-danger {
         @apply
         bg-red-500
-        border-red-300
         ring-red-300
         text-red-50
 
-        active:bg-red-100
-        active:text-red-700
-        focus:border-red-300;
+        active:border-red-300
+        hover:bg-red-900;
     }
 
     .error {
