@@ -7,7 +7,18 @@
  */
 
 use App\Models\User;
+
+use function Pest\Laravel\get;
 use function Pest\Laravel\post;
+
+// Authorization
+test('rotas privadas não são exibidas para usuários não autenticados', function () {
+    get(route('login'))
+    ->assertDontSee([
+        route('logout'),
+        route('home')
+    ]);
+});
 
 // Rules
 test('username é campo obrigatório na autenticação', function () {
@@ -60,6 +71,16 @@ test('username e name são sincronizados no banco de dados', function () {
     logout();
 });
 
+test('rotas privadas são exibidas para usuários autenticados', function () {
+    login('foo');
+
+    get(route('home'))
+    ->assertSee([
+        route('logout'),
+        route('home')
+    ]);
+});
+
 test('usuário ao fazer logout é redirecionado para a rota login', function () {
     login('foo');
 
@@ -79,7 +100,7 @@ test('usuário ao fazer logout é redirecionado para a rota login', function () 
  * de autenticação (e não apenas de leitura), no domínio. Após o teste apague
  * as dados.
  */
-test('teste real de funcionanmento da autenticação (login e logout)', function () {
+test('teste real de funcionamento da autenticação (login e logout)', function () {
     $username = config('testing.username');
 
     post(route('login'), [
