@@ -11,9 +11,9 @@
 
 <button
     x-on:click="menuVisible = ! menuVisible"
-    class="bg-primary-300 fixed opacity-50 p-3 z-20 dark:bg-secondary-600 lg:hidden"
     id="menu-toggler"
     title="{{ __('Change menu visibility') }}"
+    {{ $attributes->merge([ 'class' => 'bg-primary-300 fixed opacity-50 p-3 dark:bg-secondary-600 lg:hidden' ]) }}
 >
 
     {{-- botão hamburguer --}}

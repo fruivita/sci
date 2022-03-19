@@ -49,11 +49,11 @@
             <div x-data="{ menuVisible : false }">
 
                 {{-- exibe/esconde o menu de navegação --}}
-                <x-menu.toggler/>
+                <x-menu.toggler class="z-30"/>
 
 
                 {{-- navegação / menu lateral --}}
-                <nav x-bind:class="menuVisible || 'hidden'" class="bg-primary-200 border-r-4 border-primary-900 fixed inset-0 overflow-y-auto pt-16 px-3 w-72 dark:bg-secondary-700 dark:border-secondary-50 lg:block">
+                <nav x-bind:class="menuVisible ? '' : 'hidden'" class="z-20 bg-primary-200 border-r-4 border-primary-900 fixed inset-0 overflow-y-auto pt-16 px-3 w-72 dark:bg-secondary-700 dark:border-secondary-50 lg:block">
 
                     {{-- Logo/Home --}}
                     <header class="flex items-center justify-center">
