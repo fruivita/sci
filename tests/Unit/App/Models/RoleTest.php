@@ -11,9 +11,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 
 // Exceptions
-test('lança exceção ao tentar cadastrar perfis em duplicidade, isto é, com slugs iguais', function () {
+test('lança exceção ao tentar cadastrar perfis em duplicidade, isto é, com ids iguais', function () {
     expect(
-        fn () => Role::factory(2)->create(['slug' => 'foo'])
+        fn () => Role::factory(2)->create(['id' => 1])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
@@ -22,10 +22,9 @@ test('lança exceção ao tentar cadastrar perfil com campo inválido', function
         fn () => Role::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['name', Str::random(51), 'Data too long for column'], // máximo 50 caracteres
-    ['name', null,            'cannot be null'],           // obrigatório
-    ['slug', Str::random(51), 'Data too long for column'], // máximo 50 caracteres
-    ['slug', null,            'cannot be null'],           // obrigatório
+    ['name', Str::random(51),         'Data too long for column'], // máximo 50 caracteres
+    ['name', null,                    'cannot be null'],           // obrigatório
+    ['description', Str::random(256), 'Data too long for column'], // máximo 50 caracteres
 ]);
 
 // Happy path
@@ -37,10 +36,17 @@ test('cadastra múltiplos perfis', function () {
     expect(Role::count())->toBe($amount);
 });
 
+test('campos opcionais do perfil são aceitos', function () {
+    Role::factory()
+        ->create(['description' => null]);
+
+    expect(Role::count())->toBe(1);
+});
+
 test('campos do perfil em seu tamanho máximo são aceitos', function () {
     Role::factory()->create([
         'name' => Str::random(50),
-        'slug' => Str::random(50)
+        'description' => Str::random(255)
     ]);
 
     expect(Role::count())->toBe(1);

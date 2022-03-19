@@ -10,9 +10,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 
 // Exceptions
-test('lança exceção ao tentar cadastrar permissões em duplicidade, isto é, com slugs iguais', function () {
+test('lança exceção ao tentar cadastrar permissões em duplicidade, isto é, com ids iguais', function () {
     expect(
-        fn () => Permission::factory(2)->create(['slug' => 'foo'])
+        fn () => Permission::factory(2)->create(['id' => 1])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
@@ -23,10 +23,7 @@ test('lança exceção ao tentar cadastrar permissão com campo inválido', func
 })->with([
     ['name', Str::random(51), 'Data too long for column'],         // máximo 50 caracteres
     ['name', null,            'cannot be null'],                   // obrigatório
-    ['slug', Str::random(51), 'Data too long for column'],         // máximo 50 caracteres
-    ['slug', null,            'cannot be null'],                   // obrigatório
     ['description', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
-    ['description', null,     'cannot be null'],                   // obrigatório
 ]);
 
 // Happy path
@@ -38,10 +35,16 @@ test('cadastra múltiplas permissões', function () {
     expect(Permission::count())->toBe($amount);
 });
 
+test('campos opcionais da permissão são aceitos', function () {
+    Permission::factory()
+        ->create(['description' => null]);
+
+    expect(Permission::count())->toBe(1);
+});
+
 test('campos da permissão em seu tamanho máximo são aceitos', function () {
     Permission::factory()->create([
         'name' => Str::random(50),
-        'slug' => Str::random(50),
         'description' => Str::random(255),
     ]);
 

@@ -25,7 +25,6 @@ class PermissionFactory extends Factory
         return [
             'id' => $this->faker->unique()->numberBetween(1, PHP_INT_MAX),
             'name' => $this->faker->sentence(3),
-            'slug' => str($this->faker->unique()->sentence(3))->slug(),
             'description' => $this->faker->text(),
         ];
     }
