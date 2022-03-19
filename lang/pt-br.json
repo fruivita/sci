@@ -1,8 +1,10 @@
 {
     "Actions": "Ações",
+    "Administrator": "Administrador",
     "Authorizations": "Autorizações",
     "Change menu visibility": "Altera a visibilidade do menu",
     "Dark": "Escuro",
+    "Department manager": "Gestor de departamento",
     "Edit": "Editar",
     "Edit the record": "Edita o registro",
     "Exit the application": "Sai da aplicação",
@@ -12,6 +14,7 @@
     "Go to roles page": "Ir para a página de perfis",
     "Inform your network password": "Informe sua senha de rede",
     "Inform your network user": "Informe seu usuário de rede",
+    "Institutional manager": "Gestor institucional",
     "Ldap password": "Senha de rede",
     "Ldap user": "Usuário de rede",
     "Light": "Claro",
@@ -20,6 +23,7 @@
     "Logout": "Logout",
     "No record found": "Nenhum registro encontrado",
     "of": "de",
+    "Ordinary": "Ordinário",
     "Password": "Senha",
     "Permissions": "Permissões",
     "Records": "Registros",
@@ -28,5 +32,7 @@
     "Roles and permissions": "Perfis e permissões",
     "to": "a",
     "Toggle dark/light mode": "Alterna entre os modos escuro/claro",
-    "Username": "Usuário"
+    "Update role": "Atualizar perfil",
+    "Username": "Usuário",
+    "View any roles": "Listar perfis"
 }
