@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Livewire\Authorization\RoleIndex;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -28,4 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
     Route::get('home', [HomeController::class, 'index'])->name('home');
+
+    Route::prefix('autorização')->name('authorization.')->group(function () {
+        Route::prefix('perfil')->name('roles.')->group(function () {
+            Route::get('/', RoleIndex::class)->name('index')->can('viewAny', Role::class);
+        });
+    });
 });

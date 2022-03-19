@@ -34,3 +34,26 @@
     @endauth
 
 </x-menu.group>
+
+
+@auth
+
+    @if (auth()->user()->can('viewAny', \App\Models\Role::class))
+
+        <x-menu.group name="{{ __('Authorizations') }}">
+
+            @can('viewAny', \App\Models\Role::class)
+
+                <x-menu.link
+                    icon="award"
+                    href="{{ route('authorization.roles.index') }}"
+                    text="{{ __('Roles') }}"
+                    title="{{ __('Go to roles page') }}"/>
+
+            @endcan
+
+        </x-menu.group>
+
+    @endif
+
+@endauth
