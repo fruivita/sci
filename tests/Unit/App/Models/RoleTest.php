@@ -28,6 +28,18 @@ test('lança exceção ao tentar cadastrar perfil com campo inválido', function
 ]);
 
 // Happy path
+test('ids dos perfis estão definidos', function () {
+    expect(Role::ADMINISTRATOR)->toBe(1000)
+    ->and(Role::INSTITUTIONALMANAGER)->toBe(1100)
+    ->and(Role::DEPARTMENTMANAGER)->toBe(1200)
+    ->and(Role::ORDINARY)->toBe(1300);
+});
+
+test('ids dos permissões para administração do perfil estão definidas', function () {
+    expect(Role::VIEWANY)->toBe(10000)
+    ->and(Role::UPDATE)->toBe(13000);
+});
+
 test('cadastra múltiplos perfis', function () {
     $amount = 30;
 

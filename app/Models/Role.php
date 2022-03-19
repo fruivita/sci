@@ -16,6 +16,14 @@ class Role extends Model
 
     public $incrementing = false;
 
+    const ADMINISTRATOR = 1000;
+    const INSTITUTIONALMANAGER = 1100;
+    const DEPARTMENTMANAGER = 1200;
+    const ORDINARY = 1300;
+
+    const VIEWANY = 10000;
+    const UPDATE = 13000;
+
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'permission_role', 'role_id', 'permission_id')->withTimestamps();
