@@ -56,6 +56,16 @@ test('cadastra múltiplos usuários', function () {
     expect(User::count())->toBe($amount);
 });
 
+test('campos opcionais são aceitos', function () {
+    $amount = 30;
+
+    User::factory()
+        ->count($amount)
+        ->create(['name' => null]);
+
+    expect(User::count())->toBe($amount);
+});
+
 test('campos do usuário em seu tamanho máximo são aceitos', function () {
     User::factory()->create([
         'name' => Str::random(255),
