@@ -57,4 +57,25 @@ class User extends Authenticatable implements LdapAuthenticatable
     {
         return $this->username;
     }
+
+    /**
+     * Verifica se o usuário possui a permissão informada.
+     *
+     * @param int $permission_id
+     *
+     * @return bool
+     */
+    public function hasPermission(int $permission_id)
+    {
+        $this->load(['role.permissions' => function ($query) use($permission_id) {
+            $query->select('id')->where('id', $permission_id);
+        }]);
+
+        return
+            $this->role instanceof Role
+            && $this->role->permissions->isNotEmpty()
+            && $this->role->permissions->first()->id === $permission_id
+            ? true
+            : false;
+    }
 }

@@ -51,7 +51,7 @@ test('cadastra múltiplos usuários', function () {
     expect(User::count())->toBe($amount);
 });
 
-test('campos opcionais são aceitos', function () {
+test('campos opcionais do usuário são aceitos', function () {
     User::factory()
         ->create(['name' => null]);
 
@@ -80,6 +80,30 @@ test('um usuário possui um perfil', function () {
     $user->load(['role']);
 
     expect($user->role)->toBeInstanceOf(Role::class);
+});
+
+test('usuário possui uma determinida permissão', function () {
+    $this->seed();
+
+    $user = User::factory()->create(['role_id' => Role::ADMINISTRATOR]);
+
+    expect($user->hasPermission(Role::VIEWANY))->toBeTrue();
+});
+
+test('usuário não possui determinida permissão', function () {
+    $this->seed();
+
+    $user = User::factory()->create(['role_id' => Role::ADMINISTRATOR]);
+
+    expect($user->hasPermission(-1))->toBeFalse();
+});
+
+test('usuário sem perfil não possui permissão', function () {
+    $this->seed();
+
+    $user = User::factory()->create();
+
+    expect($user->hasPermission(Role::VIEWANY))->toBeFalse();
 });
 
 test('forHumans retorna username formatado para exibição', function () {
