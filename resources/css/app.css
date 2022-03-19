@@ -30,6 +30,7 @@
         text-primary-50
 
         active:border-primary-300
+        focus:bg-primary-900
         hover:bg-primary-900;
     }
 
@@ -40,6 +41,7 @@
         text-yellow-50
 
         active:border-yellow-300
+        focus:bg-yellow-900
         hover:bg-yellow-900;
     }
 
@@ -50,6 +52,7 @@
         text-gray-50
 
         active:border-gray-300
+        focus:bg-gray-900
         hover:bg-gray-900;
     }
 
@@ -60,6 +63,7 @@
         text-red-50
 
         active:border-red-300
+        focus:bg-red-900
         hover:bg-red-900;
     }
 
