@@ -9,7 +9,7 @@
 --}}
 
 
-@props(['icon'])
+@props(['icon', 'text'])
 
 
 <li>
@@ -22,7 +22,7 @@
         <x-icon name="{{ $icon }}" class="inline"/>
 
 
-        <span>{{ $slot }}</span>
+        <span>{{ $text }}</span>
 
     </a>
 

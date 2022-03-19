@@ -18,7 +18,7 @@
 
         <x-menu.fakelink
             icon="person"
-        >{{ auth()->user()->forHumans() }}</x-menu.fakelink>
+            text="{{ auth()->user()->forHumans() }}"/>
 
 
         <x-menu.logout/>
@@ -28,8 +28,8 @@
         <x-menu.link
             icon="person"
             href="{{ route('login') }}"
-            title="{{ __('Go to login page') }}"
-        >{{ __('Login') }}</x-menu.link>
+            text="{{ __('Login') }}"
+            title="{{ __('Go to login page') }}"/>
 
     @endauth
 
