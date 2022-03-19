@@ -23,17 +23,10 @@ class PermissionFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->numberBetween(),
-
-            'name' => rand(0, 1)
-                        ? null
-                        : $this->faker->sentence(3),
-
+            'id' => $this->faker->unique()->numberBetween(1, PHP_INT_MAX),
+            'name' => $this->faker->sentence(3),
             'slug' => str($this->faker->unique()->sentence(3))->slug(),
-
-            'description' => rand(0, 1)
-                                ? null
-                                : $this->faker->text(),
+            'description' => $this->faker->text(),
         ];
     }
 }

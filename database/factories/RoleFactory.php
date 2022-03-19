@@ -23,12 +23,8 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->randomNumber(),
-
-            'name' => rand(0, 1)
-                        ? null
-                        : $this->faker->sentence(3),
-
+            'id' => $this->faker->unique()->numberBetween(1, PHP_INT_MAX),
+            'name' => $this->faker->sentence(3),
             'slug' => $this->faker->unique()->word(),
         ];
     }

@@ -25,6 +25,7 @@ test('lança exceção ao tentar cadastrar perfil com campo inválido', function
     )->toThrow(QueryException::class, $message);
 })->with([
     ['name', Str::random(51), 'Data too long for column'], // máximo 50 caracteres
+    ['name', null,            'cannot be null'],           // obrigatório
     ['slug', Str::random(51), 'Data too long for column'], // máximo 50 caracteres
     ['slug', null,            'cannot be null'],           // obrigatório
 ]);

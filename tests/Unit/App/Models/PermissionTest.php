@@ -24,9 +24,11 @@ test('lança exceção ao tentar cadastrar permissão com campo inválido', func
     )->toThrow(QueryException::class, $message);
 })->with([
     ['name', Str::random(51), 'Data too long for column'],         // máximo 50 caracteres
+    ['name', null,            'cannot be null'],                   // obrigatório
     ['slug', Str::random(51), 'Data too long for column'],         // máximo 50 caracteres
     ['slug', null,            'cannot be null'],                   // obrigatório
     ['description', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
+    ['description', null,     'cannot be null'],                   // obrigatório
 ]);
 
 // Happy path
