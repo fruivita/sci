@@ -12,9 +12,7 @@ use Illuminate\Support\Str;
 // Exceptions
 test('lança exceção ao tentar cadastrar permissões em duplicidade, isto é, com slugs iguais', function () {
     expect(
-        fn () => Permission::factory()
-            ->count(2)
-            ->create(['slug' => 'foo'])
+        fn () => Permission::factory(2)->create(['slug' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
@@ -35,9 +33,7 @@ test('lança exceção ao tentar cadastrar permissão com campo inválido', func
 test('cadastra múltiplas permissões', function () {
     $amount = 30;
 
-    Permission::factory()
-        ->count($amount)
-        ->create();
+    Permission::factory($amount)->create();
 
     expect(Permission::count())->toBe($amount);
 });

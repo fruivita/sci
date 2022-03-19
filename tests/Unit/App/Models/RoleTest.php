@@ -13,9 +13,7 @@ use Illuminate\Support\Str;
 // Exceptions
 test('lança exceção ao tentar cadastrar perfis em duplicidade, isto é, com slugs iguais', function () {
     expect(
-        fn () => Role::factory()
-            ->count(2)
-            ->create(['slug' => 'foo'])
+        fn () => Role::factory(2)->create(['slug' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
@@ -34,9 +32,7 @@ test('lança exceção ao tentar cadastrar perfil com campo inválido', function
 test('cadastra múltiplos perfis', function () {
     $amount = 30;
 
-    Role::factory()
-        ->count($amount)
-        ->create();
+    Role::factory($amount)->create();
 
     expect(Role::count())->toBe($amount);
 });

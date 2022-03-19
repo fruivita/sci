@@ -12,15 +12,11 @@ use Illuminate\Support\Str;
 // Exceptions
 test('lança exceção ao tentar cadastrar usuários em duplicidade, isto é, com username ou guid iguais', function () {
     expect(
-        fn () => User::factory()
-            ->count(2)
-            ->create(['username' => 'foo'])
+        fn () => User::factory(2)->create(['username' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 
     expect(
-        fn () => User::factory()
-            ->count(2)
-            ->create(['guid' => 'foo'])
+        fn () => User::factory(2)->create(['guid' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
@@ -49,21 +45,17 @@ test('lança exceção ao tentar definir relacionamento inválido', function ($f
 test('cadastra múltiplos usuários', function () {
     $amount = 30;
 
-    User::factory()
-        ->count($amount)
+    User::factory($amount)
         ->create();
 
     expect(User::count())->toBe($amount);
 });
 
 test('campos opcionais são aceitos', function () {
-    $amount = 30;
-
     User::factory()
-        ->count($amount)
         ->create(['name' => null]);
 
-    expect(User::count())->toBe($amount);
+    expect(User::count())->toBe(1);
 });
 
 test('campos do usuário em seu tamanho máximo são aceitos', function () {
