@@ -12,6 +12,9 @@
 @props(['error' => false, 'icon', 'id', 'text', 'title'])
 
 
+@php $id = $id ?? md5(random_int(PHP_INT_MIN, PHP_INT_MAX)); @endphp
+
+
 {{-- container do input --}}
 <div class="text-left w-full" title="{{ $title }}">
 
@@ -56,6 +59,7 @@
     </div>
 
 
+    {{-- exibição de eventual mensagem de erro --}}
     @if ($error)
 
         <p class="text-red-500 text-right text-sm">{{ $error }}</p>
