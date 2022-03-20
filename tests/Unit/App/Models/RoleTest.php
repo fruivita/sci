@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 // Exceptions
@@ -26,6 +27,39 @@ test('lança exceção ao tentar cadastrar perfil com campo inválido', function
     ['name', null,                    'cannot be null'],           // obrigatório
     ['description', Str::random(256), 'Data too long for column'], // máximo 50 caracteres
 ]);
+
+// Failures
+test('método updateAndSync faz rollback em casa de falha na atualização do perfil', function () {
+    $role_name = 'foo';
+    $role_description = 'bar';
+
+    $role = Role::factory()->create([
+        'name' => $role_name,
+        'description' => $role_description
+    ]);
+
+    $role->name = 'new foo';
+    $role->description = 'new bar';
+
+    // relacionamento com permissões inexistentes
+    $saved = $role->updateAndSync([1, 2]);
+
+    $role->refresh()->load('permissions');
+
+    expect($saved)->toBeFalse()
+    ->and($role->name)->toBe($role_name)
+    ->and($role->description)->toBe($role_description)
+    ->and($role->permissions)->toBeEmpty();
+});
+
+test('método updateAndSync cria log em casa de falha na atualização do perfil', function () {
+    Log::shouldReceive('error')->once();
+
+    $role = Role::factory()->create();
+
+    // relacionamento com permissões inexistentes
+    $role->updateAndSync([1, 2]);
+});
 
 // Happy path
 test('ids dos perfis estão definidos', function () {
@@ -86,4 +120,29 @@ test('um perfil possui vários usuários', function () {
     $role = Role::with('users')->first();
 
     expect($role->users)->toHaveCount($amount);
+});
+
+test('método updateAndSync salva os novos atributos e cria relacionamento com as permissões informadas', function () {
+    $role_name = 'foo';
+    $role_description = 'bar';
+
+    $role = Role::factory()->create([
+        'name' => 'baz',
+        'description' => 'foo bar baz'
+    ]);
+
+    Permission::factory()->create(['id' => 1]);
+    Permission::factory()->create(['id' => 2]);
+    Permission::factory()->create(['id' => 3]);
+
+    $role->name = $role_name;
+    $role->description = $role_description;
+
+    $saved = $role->updateAndSync([1, 3]);
+    $role->refresh()->load('permissions');
+
+    expect($saved)->toBeTrue()
+    ->and($role->name)->toBe($role_name)
+    ->and($role->description)->toBe($role_description)
+    ->and($role->permissions->modelKeys())->toBe([1, 3]);
 });
