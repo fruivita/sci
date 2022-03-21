@@ -6,6 +6,9 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * @see https://laravel.com/docs/9.x/authorization
+ */
 class RolePolicy
 {
     use HandlesAuthorization;
