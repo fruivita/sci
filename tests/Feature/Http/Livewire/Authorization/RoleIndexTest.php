@@ -43,6 +43,23 @@ test('exibir o modal de edição do perfil requer permissão específica', funct
         ->assertForbidden();
 });
 
+test('atualizar o perfil requer permissão específica', function () {
+    $role = grantPermission(Role::UPDATE);
+
+    // concede permissão para abrir o modal de edição
+    $livewire = Livewire::test(RoleIndex::class)
+        ->call('showEditModal', $role->id);
+
+    // remove a permissão
+    revokePermission(Role::UPDATE);
+
+    $livewire
+        ->set('editing.name', 'foo')
+        ->set('editing.description', 'foo')
+        ->call('save')
+        ->assertForbidden();
+})->only();
+
 // Rules
 test('nome do perfil é obrigatório', function () {
     $role = grantPermission(Role::UPDATE);
