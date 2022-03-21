@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Authorization;
 
+use App\Enums\Policy;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -11,30 +12,16 @@ use Livewire\WithPagination;
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class RoleLivewire extends Component
+class RoleLivewireUpdate extends Component
 {
     use WithPagination, AuthorizesRequests;
-
-    /**
-     * Visibilidade do modal de edição do perfil.
-     *
-     * @var bool
-     */
-    public $show_edit_modal = false;
 
     /**
      * Perfil que está em edição.
      *
      * @var \App\Models\Role
      */
-    public Role $editing;
-
-    /**
-     * Todas as permissões existentes.
-     *
-     * @var \Illuminate\Database\Eloquent\Collection<\App\Models\Permission>
-     */
-    public $permissions;
+    public Role $role;
 
     /**
      * Chaves das permissões que serão associadas ao perfil em edição.
@@ -51,15 +38,15 @@ class RoleLivewire extends Component
     protected function rules()
     {
         return [
-            'editing.name' => [
+            'role.name' => [
                 'bail',
                 'required',
                 'string',
                 'max:50',
-                "unique:roles,name,{$this->editing->id}"
+                "unique:roles,name,{$this->role->id}"
             ],
 
-            'editing.description' => [
+            'role.description' => [
                 'bail',
                 'nullable',
                 'string',
@@ -83,8 +70,8 @@ class RoleLivewire extends Component
     protected function validationAttributes()
     {
         return [
-            'editing.name' => __('Name'),
-            'editing.description' => __('Description'),
+            'role.name' => __('Name'),
+            'role.description' => __('Description'),
             'selected' => __('Permission'),
         ];
     }
@@ -100,37 +87,33 @@ class RoleLivewire extends Component
     }
 
     /**
-     * Renderiza o view.
+     * Monta o componente.
+     *
+     * Acionado uma única vez ao inicializar o componente.
+     *
+     * @return void
+     */
+    public function mount()
+    {
+        $this->authorize(Policy::Update->value, Role::class);
+
+        $this->role->load('permissions');
+
+        $this->selected = $this->role->permissions->pluck('id')->toArray();
+    }
+
+    /**
+     * Renderiza o componente.
      *
      * @return \Illuminate\Http\Response
      */
     public function render()
     {
-        return view('livewire.authorization.role', [
-            'roles' => Role::paginate(config('app.limit'))
+        $this->authorize(Policy::Update->value, Role::class);
+
+        return view('livewire.authorization.role.edit', [
+            'permissions' => Permission::paginate(config('app.limit'))
         ])->layout('layouts.app');
-    }
-
-    /**
-     * Exibe o modal de edição do perfil
-     *
-     * @param \App\Models\Role $editing
-     *
-     * @return void
-     */
-    public function showEditModal(Role $editing)
-    {
-        $this->authorize('update', Role::class);
-
-        $this->editing = $editing->load(['permissions' => function($query) {
-            $query->select('id');
-        }]);
-
-        $this->permissions = Permission::select('id', 'name', 'description')->get();
-
-        $this->selected = $this->editing->permissions->pluck('id')->toArray();
-
-        $this->show_edit_modal = true;
     }
 
     /**
@@ -140,9 +123,9 @@ class RoleLivewire extends Component
      */
     public function update()
     {
-        $this->authorize('update', Role::class);
+        $this->authorize(Policy::Update->value, Role::class);
         $this->validate();
 
-        $this->editing->updateAndSync($this->selected);
+        $this->role->updateAndSync($this->selected);
     }
 }

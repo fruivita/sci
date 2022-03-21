@@ -2,7 +2,8 @@
 
 use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\Authorization\RoleLivewire;
+use App\Http\Livewire\Authorization\RoleLivewireIndex;
+use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -34,7 +35,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('autorização')->name('authorization.')->group(function () {
         Route::prefix('perfil')->name('roles.')->group(function () {
-            Route::get('/', RoleLivewire::class)->name('index')->can(Policy::ViewAny->value, Role::class);
+            Route::get('/', RoleLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Role::class);
+            Route::get('edit/{role}', RoleLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Role::class);
         });
     });
 });
