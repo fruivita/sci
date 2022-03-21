@@ -56,7 +56,7 @@ test('atualizar o perfil requer permissão específica', function () {
     $livewire
     ->set('editing.name', 'foo')
     ->set('editing.description', 'foo')
-    ->call('save')
+    ->call('update')
     ->assertForbidden();
 });
 
@@ -67,7 +67,7 @@ test('nome do perfil é obrigatório', function () {
     Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.name', '')
-    ->call('save')
+    ->call('update')
     ->assertHasErrors(['editing.name' => 'required']);
 });
 
@@ -77,7 +77,7 @@ test('nome do perfil deve ser uma string', function () {
     Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.name', ['bar'])
-    ->call('save')
+    ->call('update')
     ->assertHasErrors(['editing.name' => 'string']);
 });
 
@@ -87,7 +87,7 @@ test('nome do perfil deve ter no máximo 50 caracteres', function () {
     Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.name', Str::random(51))
-    ->call('save')
+    ->call('update')
     ->assertHasErrors(['editing.name' => 'max']);
 });
 
@@ -97,7 +97,7 @@ test('descrição do perfil deve ser uma string', function () {
     Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.description', ['bar'])
-    ->call('save')
+    ->call('update')
     ->assertHasErrors(['editing.description' => 'string']);
 });
 
@@ -107,7 +107,7 @@ test('description do perfil deve ter no máximo 255 caracteres', function () {
     Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.description', Str::random(256))
-    ->call('save')
+    ->call('update')
     ->assertHasErrors(['editing.description' => 'max']);
 });
 
@@ -117,7 +117,7 @@ test('ids das permissões que serão associadas ao perfil deve ser um array', fu
     Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('selected', 1)
-    ->call('save')
+    ->call('update')
     ->assertHasErrors(['selected' => 'array']);
 });
 
@@ -127,7 +127,7 @@ test('ids das permissões que serão associadas ao perfil devem existir previame
     Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('selected', [-10])
-    ->call('save')
+    ->call('update')
     ->assertHasErrors(['selected' => 'exists']);
 });
 
@@ -171,7 +171,7 @@ test('é possível atualizar um perfil com permissão específica', function () 
     ->set('editing.name', 'foo')
     ->set('editing.description', 'bar')
     ->set('selected', [$permission->id])
-    ->call('save');
+    ->call('update');
 
     $editing->refresh();
 

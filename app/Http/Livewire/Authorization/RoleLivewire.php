@@ -133,11 +133,11 @@ class RoleLivewire extends Component
     }
 
     /**
-     * Define a view padrão para a paginação.
+     * Atualiza o perfil em edição.
      *
      * @return void
      */
-    public function save()
+    public function update()
     {
         $this->authorize('update', Role::class);
         $this->validate();

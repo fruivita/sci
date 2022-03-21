@@ -97,7 +97,7 @@
     @can('update', \App\Models\Role::class)
 
         {{-- modal de edição da role --}}
-        <form wire:submit.prevent="save" method="POST">
+        <form wire:submit.prevent="update" method="POST">
 
             <x-modal>
 
