@@ -4,7 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
-use App\Http\Livewire\Authorization\RoleIndex;
+use App\Http\Livewire\Authorization\RoleLivewire;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Str;
@@ -38,7 +38,7 @@ test('não é possível listar perfis sem permissão específica', function () {
 test('exibir o modal de edição do perfil requer permissão específica', function () {
     $role = Role::factory()->create();
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->assertForbidden();
 });
@@ -47,7 +47,7 @@ test('atualizar o perfil requer permissão específica', function () {
     $role = grantPermission(Role::UPDATE);
 
     // concede permissão para abrir o modal de edição
-    $livewire = Livewire::test(RoleIndex::class)
+    $livewire = Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id);
 
     // remove a permissão
@@ -64,7 +64,7 @@ test('atualizar o perfil requer permissão específica', function () {
 test('nome do perfil é obrigatório', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.name', '')
     ->call('save')
@@ -74,7 +74,7 @@ test('nome do perfil é obrigatório', function () {
 test('nome do perfil deve ser uma string', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.name', ['bar'])
     ->call('save')
@@ -84,7 +84,7 @@ test('nome do perfil deve ser uma string', function () {
 test('nome do perfil deve ter no máximo 50 caracteres', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.name', Str::random(51))
     ->call('save')
@@ -94,7 +94,7 @@ test('nome do perfil deve ter no máximo 50 caracteres', function () {
 test('descrição do perfil deve ser uma string', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.description', ['bar'])
     ->call('save')
@@ -104,7 +104,7 @@ test('descrição do perfil deve ser uma string', function () {
 test('description do perfil deve ter no máximo 255 caracteres', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('editing.description', Str::random(256))
     ->call('save')
@@ -114,7 +114,7 @@ test('description do perfil deve ter no máximo 255 caracteres', function () {
 test('ids das permissões que serão associadas ao perfil deve ser um array', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('selected', 1)
     ->call('save')
@@ -124,7 +124,7 @@ test('ids das permissões que serão associadas ao perfil deve ser um array', fu
 test('ids das permissões que serão associadas ao perfil devem existir previamente no banco de dados', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->set('selected', [-10])
     ->call('save')
@@ -135,13 +135,13 @@ test('ids das permissões que serão associadas ao perfil devem existir previame
 test('renderiza o componente livewire correto para listar os perfis', function () {
     grantPermission(Role::VIEWANY);
 
-    get(route('authorization.roles.index'))->assertSeeLivewire(RoleIndex::class);
+    get(route('authorization.roles.index'))->assertSeeLivewire(RoleLivewire::class);
 });
 
 test('exibir o modal de edição do perfil é possível com permissão específica', function () {
     $role = grantPermission(Role::UPDATE);
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $role->id)
     ->assertOk();
 });
@@ -166,7 +166,7 @@ test('é possível atualizar um perfil com permissão específica', function () 
     ->and($editing->description)->not()->toBe('bar')
     ->and($editing->permissions)->toBeEmpty();
 
-    Livewire::test(RoleIndex::class)
+    Livewire::test(RoleLivewire::class)
     ->call('showEditModal', $editing->id)
     ->set('editing.name', 'foo')
     ->set('editing.description', 'bar')

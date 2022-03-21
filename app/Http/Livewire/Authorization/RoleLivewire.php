@@ -11,12 +11,12 @@ use Livewire\WithPagination;
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class RoleIndex extends Component
+class RoleLivewire extends Component
 {
     use WithPagination, AuthorizesRequests;
 
     /**
-     * Se o modal para edição do Perfil deve ser exibido.
+     * Visibilidade do modal de edição do perfil.
      *
      * @var bool
      */
@@ -105,7 +105,7 @@ class RoleIndex extends Component
      */
     public function render()
     {
-        return view('livewire.authorization.role-index', [
+        return view('livewire.authorization.role', [
             'roles' => Role::paginate(config('app.limit'))
         ])->layout('layouts.app');
     }

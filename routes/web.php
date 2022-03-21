@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\Authorization\RoleIndex;
+use App\Http\Livewire\Authorization\RoleLivewire;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('autorização')->name('authorization.')->group(function () {
         Route::prefix('perfil')->name('roles.')->group(function () {
-            Route::get('/', RoleIndex::class)->name('index')->can('viewAny', Role::class);
+            Route::get('/', RoleLivewire::class)->name('index')->can('viewAny', Role::class);
         });
     });
 });
