@@ -33,7 +33,7 @@
         </header>
 
 
-        <div class="px-24 py-3 bg-primary-100 dark:bg-secondary-800">
+        <div class="px-24 py-3 bg-primary-50 dark:bg-secondary-900">
 
             {{ $content }}
 
