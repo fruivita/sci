@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Authorization\RoleLivewire;
 use App\Models\Role;
@@ -33,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('autorização')->name('authorization.')->group(function () {
         Route::prefix('perfil')->name('roles.')->group(function () {
-            Route::get('/', RoleLivewire::class)->name('index')->can('viewAny', Role::class);
+            Route::get('/', RoleLivewire::class)->name('index')->can(Policy::ViewAny->value, Role::class);
         });
     });
 });

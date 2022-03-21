@@ -60,7 +60,7 @@
 
                             <div class="flex justify-center">
 
-                                @can('update', \App\Models\Role::class)
+                                @can(\App\Enums\Policy::Update->value, \App\Models\Role::class)
 
                                     <x-button
                                         wire:click="showEditModal({{ $role->id }})"
@@ -94,7 +94,7 @@
     </x-container>
 
 
-    @can('update', \App\Models\Role::class)
+    @can(\App\Enums\Policy::Update->value, \App\Models\Role::class)
 
         {{-- modal de edição da role --}}
         <form wire:submit.prevent="update" method="POST">

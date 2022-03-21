@@ -38,11 +38,11 @@
 
 @auth
 
-    @if (auth()->user()->can('viewAny', \App\Models\Role::class))
+    @if (auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class))
 
         <x-menu.group name="{{ __('Authorizations') }}">
 
-            @can('viewAny', \App\Models\Role::class)
+            @can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
 
                 <x-menu.link
                     icon="award"
