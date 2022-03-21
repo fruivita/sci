@@ -13,7 +13,7 @@
 
 
 <article
-    {{ $attributes->merge(['class' =>'pt-6 space-y-12']) }}
+    {{ $attributes->merge(['class' =>'py-6 space-y-12']) }}
     {{ $attributes }}
 >
 
