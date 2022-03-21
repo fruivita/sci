@@ -102,8 +102,8 @@ test('um perfil possui várias permissões', function () {
     $amount = 3;
 
     Role::factory()
-        ->has(Permission::factory($amount), 'permissions')
-        ->create();
+    ->has(Permission::factory($amount), 'permissions')
+    ->create();
 
     $role = Role::with('permissions')->first();
 
@@ -114,8 +114,8 @@ test('um perfil possui vários usuários', function () {
     $amount = 3;
 
     Role::factory()
-        ->has(User::factory($amount), 'users')
-        ->create();
+    ->has(User::factory($amount), 'users')
+    ->create();
 
     $role = Role::with('users')->first();
 

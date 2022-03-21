@@ -46,14 +46,14 @@ test('cadastra múltiplos usuários', function () {
     $amount = 30;
 
     User::factory($amount)
-        ->create();
+    ->create();
 
     expect(User::count())->toBe($amount);
 });
 
 test('campos opcionais do usuário são aceitos', function () {
     User::factory()
-        ->create(['name' => null]);
+    ->create(['name' => null]);
 
     expect(User::count())->toBe(1);
 });
@@ -74,8 +74,8 @@ test('um usuário possui um perfil', function () {
     $role = Role::factory()->create();
 
     $user = User::factory()
-                ->for($role, 'role')
-                ->create();
+    ->for($role, 'role')
+    ->create();
 
     $user->load(['role']);
 

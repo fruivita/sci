@@ -25,22 +25,22 @@ test('renderização da página de listagem do perfis é restrito aos usuários 
     logout();
 
     get(route('authorization.roles.index'))
-        ->assertRedirect(route('login'))
-        ->assertDontSee(route('authorization.roles.index'));
+    ->assertRedirect(route('login'))
+    ->assertDontSee(route('authorization.roles.index'));
 });
 
 test('não é possível listar perfis sem permissão específica', function () {
     get(route('authorization.roles.index'))
-        ->assertForbidden()
-        ->assertDontSee(route('authorization.roles.index'));
+    ->assertForbidden()
+    ->assertDontSee(route('authorization.roles.index'));
 });
 
 test('exibir o modal de edição do perfil requer permissão específica', function () {
     $role = Role::factory()->create();
 
     Livewire::test(RoleIndex::class)
-        ->call('showEditModal', $role->id)
-        ->assertForbidden();
+    ->call('showEditModal', $role->id)
+    ->assertForbidden();
 });
 
 test('atualizar o perfil requer permissão específica', function () {
@@ -48,17 +48,17 @@ test('atualizar o perfil requer permissão específica', function () {
 
     // concede permissão para abrir o modal de edição
     $livewire = Livewire::test(RoleIndex::class)
-        ->call('showEditModal', $role->id);
+    ->call('showEditModal', $role->id);
 
     // remove a permissão
     revokePermission(Role::UPDATE);
 
     $livewire
-        ->set('editing.name', 'foo')
-        ->set('editing.description', 'foo')
-        ->call('save')
-        ->assertForbidden();
-})->only();
+    ->set('editing.name', 'foo')
+    ->set('editing.description', 'foo')
+    ->call('save')
+    ->assertForbidden();
+});
 
 // Rules
 test('nome do perfil é obrigatório', function () {
@@ -142,16 +142,16 @@ test('exibir o modal de edição do perfil é possível com permissão específi
     $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
-        ->call('showEditModal', $role->id)
-        ->assertOk();
+    ->call('showEditModal', $role->id)
+    ->assertOk();
 });
 
 test('é possível listar perfis com permissão específica', function () {
     grantPermission(Role::VIEWANY);
 
     get(route('authorization.roles.index'))
-        ->assertOk()
-        ->assertSee(route('authorization.roles.index'));
+    ->assertOk()
+    ->assertSee(route('authorization.roles.index'));
 });
 
 test('é possível atualizar um perfil com permissão específica', function () {
@@ -167,11 +167,11 @@ test('é possível atualizar um perfil com permissão específica', function () 
     ->and($editing->permissions)->toBeEmpty();
 
     Livewire::test(RoleIndex::class)
-        ->call('showEditModal', $editing->id)
-        ->set('editing.name', 'foo')
-        ->set('editing.description', 'bar')
-        ->set('selected', [$permission->id])
-        ->call('save');
+    ->call('showEditModal', $editing->id)
+    ->set('editing.name', 'foo')
+    ->set('editing.description', 'bar')
+    ->set('selected', [$permission->id])
+    ->call('save');
 
     $editing->refresh();
 

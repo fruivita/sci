@@ -115,15 +115,14 @@ function logout()
  */
 function grantPermission(int $permission_id)
 {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => $permission_id]))
-        ->create();
+    $role = Role::factory()
+    ->hasAttached(Permission::factory()->create(['id' => $permission_id]))
+    ->create();
 
     authenticatedUser()
-        ->role()
-        ->associate($role)
-        ->save();
+    ->role()
+    ->associate($role)
+    ->save();
 
     return $role;
 }
@@ -138,7 +137,7 @@ function grantPermission(int $permission_id)
 function revokePermission(int $permission_id)
 {
     authenticatedUser()
-        ->role
-        ->permissions()
-        ->detach($permission_id);
+    ->role
+    ->permissions()
+    ->detach($permission_id);
 }
