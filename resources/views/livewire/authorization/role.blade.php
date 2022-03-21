@@ -124,7 +124,6 @@
                             :error="$errors->first('editing.description')"
                             icon="blockquote-left"
                             placeholder="{{ __('About the profile') }}"
-                            required
                             text="{{ __('Description') }}"
                             title="{{ __('About the profile') }}"/>
 
