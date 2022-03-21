@@ -10,9 +10,13 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 
 // Exceptions
-test('lança exceção ao tentar cadastrar permissões em duplicidade, isto é, com ids iguais', function () {
+test('lança exceção ao tentar cadastrar permissões em duplicidade, isto é, com ids ou nomes iguais', function () {
     expect(
         fn () => Permission::factory(2)->create(['id' => 1])
+    )->toThrow(QueryException::class, 'Duplicate entry');
+
+    expect(
+        fn () => Permission::factory(2)->create(['name' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 

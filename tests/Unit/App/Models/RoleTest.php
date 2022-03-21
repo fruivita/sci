@@ -16,6 +16,10 @@ test('lança exceção ao tentar cadastrar perfis em duplicidade, isto é, com i
     expect(
         fn () => Role::factory(2)->create(['id' => 1])
     )->toThrow(QueryException::class, 'Duplicate entry');
+
+    expect(
+        fn () => Role::factory(2)->create(['name' => 'foo'])
+    )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
 test('lança exceção ao tentar cadastrar perfil com campo inválido', function ($field, $value, $message) {

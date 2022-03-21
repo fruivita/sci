@@ -55,7 +55,8 @@ class RoleLivewire extends Component
                 'bail',
                 'required',
                 'string',
-                'max:50'
+                'max:50',
+                "unique:roles,name,{$this->editing->id}"
             ],
 
             'editing.description' => [

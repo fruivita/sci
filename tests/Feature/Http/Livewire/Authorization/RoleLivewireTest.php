@@ -91,6 +91,17 @@ test('nome do perfil deve ter no máximo 50 caracteres', function () {
     ->assertHasErrors(['editing.name' => 'max']);
 });
 
+test('nome do perfil deve ser único', function () {
+    $role = grantPermission(Role::UPDATE);
+    Role::factory()->create(['name' => 'foo']);
+
+    Livewire::test(RoleLivewire::class)
+    ->call('showEditModal', $role->id)
+    ->set('editing.name', 'foo')
+    ->call('update')
+    ->assertHasErrors(['editing.name' => 'unique']);
+});
+
 test('descrição do perfil deve ser uma string', function () {
     $role = grantPermission(Role::UPDATE);
 
