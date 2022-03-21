@@ -128,58 +128,66 @@
                             title="{{ __('About the profile') }}"/>
 
 
-                        <x-table>
+                        <div class="overflow-x-auto">
 
-                            <x-slot name="head">
+                            <x-table class="table-fixed">
 
-                                <x-table.heading>{{ __('Checkbox') }}</x-table.heading>
+                                <x-slot name="head">
 
+                                    <x-table.heading class="w-14">
 
-                                <x-table.heading>{{ __('Permission') }}</x-table.heading>
+                                        <x-form.checkbox/>
 
-
-                                <x-table.heading>{{ __('Description') }}</x-table.heading>
-
-                            </x-slot>
+                                    </x-table.heading>
 
 
-                            <x-slot name="body">
-
-                                @forelse ($permissions ?? [] as $permission)
-
-                                    <x-table.row>
-
-                                        <x-table.cell>
-
-                                            <x-form.checkbox
-                                                wire:key="permission-{{ $permission->id }}"
-                                                wire:model.defer="selected"
-                                                :checked="$editing->permissions->contains($permission->id)"
-                                                value="{{ $permission->id }}"/>
-
-                                        </x-table.cell>
+                                    <x-table.heading class="w-32">{{ __('Permission') }}</x-table.heading>
 
 
-                                        <x-table.cell>{{ $permission->name }}</x-table.cell>
+                                    <x-table.heading class="w-96">{{ __('Description') }}</x-table.heading>
+
+                                </x-slot>
 
 
-                                        <x-table.cell>{{ $permission->description }}</x-table.cell>
+                                <x-slot name="body">
 
-                                    </x-table.row>
+                                    @forelse ($permissions ?? [] as $permission)
 
-                                @empty
+                                        <x-table.row>
 
-                                    <x-table.row>
+                                            <x-table.cell>
 
-                                        <x-table.cell colspan="3">{{ __('No record found') }}</x-table.cell>
+                                                <x-form.checkbox
+                                                    wire:key="permission-{{ $permission->id }}"
+                                                    wire:model.defer="selected"
+                                                    :checked="$editing->permissions->contains($permission->id)"
+                                                    value="{{ $permission->id }}"/>
 
-                                    </x-table.row>
+                                            </x-table.cell>
 
-                                @endforelse
 
-                            </x-slot>
+                                            <x-table.cell>{{ $permission->name }}</x-table.cell>
 
-                        </x-table>
+
+                                            <x-table.cell>{{ $permission->description }}</x-table.cell>
+
+                                        </x-table.row>
+
+                                    @empty
+
+                                        <x-table.row>
+
+                                            <x-table.cell colspan="3">{{ __('No record found') }}</x-table.cell>
+
+                                        </x-table.row>
+
+                                    @endforelse
+
+                                </x-slot>
+
+                            </x-table>
+
+                        </div>
 
 
                         @error('selected')
