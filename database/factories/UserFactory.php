@@ -26,12 +26,12 @@ class UserFactory extends Factory
         return [
             'name' => rand(0, 1)
                         ? null
-                        : $this->faker->sentence(3),
+                        : $this->faker->text(50),
 
-            'username' => Str::random(20),
+            'username' => $this->faker->unique()->text(20),
 
             'password' => null,
-            'guid' => $this->faker->uuid(),
+            'guid' => $this->faker->unique()->uuid(),
             'domain' => $this->faker->domainName(),
             'role_id' => null,
         ];
