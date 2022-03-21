@@ -36,11 +36,7 @@ test('não é possível listar perfis sem permissão específica', function () {
 });
 
 test('exibir o modal de edição do perfil requer permissão específica', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::VIEWANY]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = Role::factory()->create();
 
     Livewire::test(RoleIndex::class)
         ->call('showEditModal', $role->id)
@@ -49,11 +45,7 @@ test('exibir o modal de edição do perfil requer permissão específica', funct
 
 // Rules
 test('nome do perfil é obrigatório', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
     ->call('showEditModal', $role->id)
@@ -63,11 +55,7 @@ test('nome do perfil é obrigatório', function () {
 });
 
 test('nome do perfil deve ser uma string', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
     ->call('showEditModal', $role->id)
@@ -77,11 +65,7 @@ test('nome do perfil deve ser uma string', function () {
 });
 
 test('nome do perfil deve ter no máximo 50 caracteres', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
     ->call('showEditModal', $role->id)
@@ -91,11 +75,7 @@ test('nome do perfil deve ter no máximo 50 caracteres', function () {
 });
 
 test('descrição do perfil deve ser uma string', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
     ->call('showEditModal', $role->id)
@@ -105,11 +85,7 @@ test('descrição do perfil deve ser uma string', function () {
 });
 
 test('description do perfil deve ter no máximo 255 caracteres', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
     ->call('showEditModal', $role->id)
@@ -119,11 +95,7 @@ test('description do perfil deve ter no máximo 255 caracteres', function () {
 });
 
 test('ids das permissões que serão associadas ao perfil deve ser um array', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
     ->call('showEditModal', $role->id)
@@ -133,11 +105,7 @@ test('ids das permissões que serão associadas ao perfil deve ser um array', fu
 });
 
 test('ids das permissões que serão associadas ao perfil devem existir previamente no banco de dados', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
     ->call('showEditModal', $role->id)
@@ -148,21 +116,13 @@ test('ids das permissões que serão associadas ao perfil devem existir previame
 
 // Happy path
 test('renderiza o componente livewire correto para listar os perfis', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::VIEWANY]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    grantPermission(Role::VIEWANY);
 
     get(route('authorization.roles.index'))->assertSeeLivewire(RoleIndex::class);
 });
 
 test('exibir o modal de edição do perfil é possível com permissão específica', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    $role = grantPermission(Role::UPDATE);
 
     Livewire::test(RoleIndex::class)
         ->call('showEditModal', $role->id)
@@ -170,11 +130,7 @@ test('exibir o modal de edição do perfil é possível com permissão específi
 });
 
 test('é possível listar perfis com permissão específica', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::VIEWANY]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    grantPermission(Role::VIEWANY);
 
     get(route('authorization.roles.index'))
         ->assertOk()
@@ -182,11 +138,7 @@ test('é possível listar perfis com permissão específica', function () {
 });
 
 test('é possível atualizar um perfil com permissão específica', function () {
-    $role =
-    Role::factory()
-        ->hasAttached(Permission::factory()->create(['id' => Role::UPDATE]))
-        ->create();
-    authenticatedUser()->role()->associate($role);
+    grantPermission(Role::UPDATE);
 
     $editing = Role::factory()->create();
     $editing->load('permissions');

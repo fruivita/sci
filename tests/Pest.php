@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +62,7 @@ uses(
  *
  * @param string $samaccountname
  *
- * @return \App\Models\User|null;
+ * @return \App\Models\User|null
  */
 function login(string $samaccountname)
 {
@@ -85,7 +87,7 @@ function login(string $samaccountname)
 /**
  * Usuário autenticado.
  *
- * @return \App\Models\User|null;
+ * @return \App\Models\User|null
  */
 function authenticatedUser()
 {
@@ -95,9 +97,48 @@ function authenticatedUser()
 /**
  * Faz o logout na aplicação.
  *
- * @return void;
+ * @return void
  */
 function logout()
 {
     post(route('logout'));
+}
+
+/**
+ * Cria um perfil com a permissão informada e o atribui ao usuário autenticado.
+ *
+ * Retorna o perfil criado.
+ *
+ * @param int $permission_id
+ *
+ * @return \App\Models\Role
+ */
+function grantPermission(int $permission_id)
+{
+    $role =
+    Role::factory()
+        ->hasAttached(Permission::factory()->create(['id' => $permission_id]))
+        ->create();
+
+    authenticatedUser()
+        ->role()
+        ->associate($role)
+        ->save();
+
+    return $role;
+}
+
+/**
+ * Remove a permissão do usuário.
+ *
+ * @param int $permission_id
+ *
+ * @return void
+ */
+function revokePermission(int $permission_id)
+{
+    authenticatedUser()
+        ->role
+        ->permissions()
+        ->detach($permission_id);
 }

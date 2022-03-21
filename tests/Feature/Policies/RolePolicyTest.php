@@ -26,9 +26,8 @@ test('usuário sem permissão não pode atualizar um perfil', function () {
 
 // Happy path
 test('usuário com permissão pode listar os perfis', function () {
-    $this->seed();
     $user = login('foo');
-    $user->role_id = Role::ADMINISTRATOR;
+    grantPermission(Role::VIEWANY);
 
     expect((new RolePolicy)->viewAny($user))->toBeTrue();
 
@@ -36,9 +35,8 @@ test('usuário com permissão pode listar os perfis', function () {
 });
 
 test('usuário com permissão pode atualizar um perfil', function () {
-    $this->seed();
     $user = login('foo');
-    $user->role_id = Role::ADMINISTRATOR;
+    grantPermission(Role::UPDATE);
 
     expect((new RolePolicy)->update($user))->toBeTrue();
 
