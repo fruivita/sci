@@ -64,7 +64,7 @@
     {{-- exibição de eventual mensagem de erro --}}
     @if ($error)
 
-        <p class="text-red-500 text-right text-sm">{{ $error }}</p>
+        <p class="text-red-500 text-sm">{{ $error }}</p>
 
     @endif
 
