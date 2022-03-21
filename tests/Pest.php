@@ -107,11 +107,9 @@ function logout()
 /**
  * Cria um perfil com a permissão informada e o atribui ao usuário autenticado.
  *
- * Retorna o perfil criado.
- *
  * @param int $permission_id
  *
- * @return \App\Models\Role
+ * @return void
  */
 function grantPermission(int $permission_id)
 {
@@ -123,8 +121,6 @@ function grantPermission(int $permission_id)
     ->role()
     ->associate($role)
     ->save();
-
-    return $role;
 }
 
 /**
