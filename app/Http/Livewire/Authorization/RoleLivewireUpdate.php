@@ -26,7 +26,7 @@ class RoleLivewireUpdate extends Component
     /**
      * Chaves das permissões que serão associadas ao perfil em edição.
      *
-     * @var int[]
+     * @var strings[]
      */
     public $selected = [];
 
@@ -99,7 +99,13 @@ class RoleLivewireUpdate extends Component
 
         $this->role->load('permissions');
 
-        $this->selected = $this->role->permissions->pluck('id')->toArray();
+        // converte-se o id em string para evitar erros na seleção dos checkbox
+        $this->selected = $this
+                            ->role
+                            ->permissions
+                            ->pluck('id')
+                            ->map(fn($id) => (string) $id)
+                            ->toArray();
     }
 
     /**
