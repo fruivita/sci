@@ -9,9 +9,6 @@
 --}}
 
 
-@props(['header'])
-
-
 <table
     {{ $attributes->merge(['class' => 'w-full text-center']) }}
     {{ $attributes->except('class') }}
