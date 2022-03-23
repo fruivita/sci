@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Authorization;
 
-use App\Enums\CheckboxAction;
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithCheckboxActions;
 use App\Models\Permission;
@@ -148,33 +147,33 @@ class RoleLivewireUpdate extends Component
     }
 
     /**
-     * Todos os ids que devem ser marcados no carregamento inicial (mount) da
-     * página.
+     * Todos as linhas (ids dos checkbox) que devem ser selecionados no
+     * carregamento inicial (mount) da página.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function toCheck()
+    public function rowsToCheck()
     {
         return $this->role->permissions;
     }
 
     /**
-     * Todos os ids dos checkboxs disponíveis para marcação.
+     * Todos as linhas (ids dos checkbox) disponíveis para seleção.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function allCheckable()
+    public function allCheckableRows()
     {
         return Permission::select('id')->get();
     }
 
     /**
-     * Range restrito de ids dos checkboxs disponíveis para marcação.
-     * Em regra os ids dos checkbox exibidos na página atual da paginação.
+     * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra
+     * as linhas atualmente exibidas na página.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function currentlyCheckable()
+    public function currentlyCheckableRows()
     {
         return $this->permissions;
     }

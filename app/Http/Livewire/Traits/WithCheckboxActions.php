@@ -13,7 +13,7 @@ use App\Enums\CheckboxAction;
 trait WithCheckboxActions
 {
     /**
-     * Chaves dos checkbox que marcados.
+     * Chaves dos checkbox devem ser marcados.
      *
      * @var string[]
      */
@@ -32,27 +32,27 @@ trait WithCheckboxActions
     public $checkbox_action = '';
 
     /**
-     * Todos os ids que devem ser marcados no carregamento inicial (mount) da
-     * página.
+     * Todos as linhas (ids dos checkbox) que devem ser selecionados no
+     * carregamento inicial (mount) da página.
      *
      * @return \Illuminate\Support\Collection
      */
-    abstract public function toCheck();
+    abstract public function rowsToCheck();
 
     /**
-     * Todos os ids dos checkbox disponíveis para marcação.
+     * Todos as linhas (ids dos checkbox) disponíveis para seleção.
      *
      * @return \Illuminate\Support\Collection
      */
-    abstract public function allCheckable();
+    abstract public function allCheckableRows();
 
     /**
-     * Range restrito de ids dos checkbox disponíveis para marcação.
-     * Em regra os ids dos checkbox exibidos na página atual da paginação.
+     * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra
+     * as linhas atualmente exibidas na página.
      *
      * @return \Illuminate\Support\Collection
      */
-    abstract public function currentlyCheckable();
+    abstract public function currentlyCheckableRows();
 
     /**
      * Inicializa os valores dos checkbox que devem ser marcados quando a trait
@@ -62,7 +62,7 @@ trait WithCheckboxActions
      */
     public function mountWithCheckboxActions()
     {
-        $select = $this->toCheck()->pluck('id');
+        $select = $this->rowsToCheck()->pluck('id');
 
         $this->selected = $this->toStandardArray($select);
     }
@@ -106,7 +106,7 @@ trait WithCheckboxActions
      */
     public function getCheckAllProperty()
     {
-        $select = $this->allCheckable()->pluck('id');
+        $select = $this->allCheckableRows()->pluck('id');
 
         return $this->toStandardArray($select);
     }
@@ -134,7 +134,7 @@ trait WithCheckboxActions
      */
     public function getCheckAllPageProperty()
     {
-        $current = $this->currentlyCheckable()->pluck('id');
+        $current = $this->currentlyCheckableRows()->pluck('id');
 
         $select = collect($this->selected)->concat($current)->unique();
 
@@ -151,7 +151,7 @@ trait WithCheckboxActions
      */
     public function getUncheckAllPageProperty()
     {
-        $current = $this->currentlyCheckable()->pluck('id');
+        $current = $this->currentlyCheckableRows()->pluck('id');
 
         $select = collect($this->selected)->diff($current);
 
