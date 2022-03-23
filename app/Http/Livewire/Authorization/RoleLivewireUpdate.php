@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Authorization;
 
 use App\Enums\CheckboxAction;
 use App\Enums\Policy;
+use App\Http\Livewire\Traits\WithCheckboxActions;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -15,7 +16,7 @@ use Livewire\WithPagination;
  */
 class RoleLivewireUpdate extends Component
 {
-    use WithPagination, AuthorizesRequests;
+    use WithPagination, AuthorizesRequests, WithCheckboxActions;
 
     /**
      * Perfil que está em edição.
@@ -23,25 +24,6 @@ class RoleLivewireUpdate extends Component
      * @var \App\Models\Role
      */
     public Role $role;
-
-    /**
-     * Chaves das permissões que serão associadas ao perfil em edição.
-     *
-     * @var string[]
-     */
-    public $selected = [];
-
-    /**
-     * Action que será executada nos checkbox da tabela.
-     *
-     * - check_all - marca todos os registros
-     * - uncheck_all - desmarca todos os registros
-     * - check_all_page - marca todos os registros em exibição na página
-     * - uncheck_all_page - desmarca todos os registros em exibição na página
-     *
-     * @var string
-     */
-    public $checkbox_action = '';
 
     /**
      * Regras para a validação dos inputs.
@@ -112,15 +94,6 @@ class RoleLivewireUpdate extends Component
         $this->authorize(Policy::Update->value, Role::class);
 
         $this->role->load('permissions');
-
-        // converte-se o id em string para evitar erros na seleção dos checkbox
-        $this->selected = $this
-                            ->role
-                            ->permissions
-                            ->pluck('id')
-                            ->map(fn($id) => (string) $id)
-                            ->values()
-                            ->toArray();
     }
 
     /**
@@ -175,98 +148,34 @@ class RoleLivewireUpdate extends Component
     }
 
     /**
-     * Executa a action informada.
+     * Todos os ids que devem ser marcados no carregamento inicial (mount) da
+     * página.
      *
-     * As actions permitidas são:
-     * - check_all - marca todos os registros
-     * - uncheck_all - desmarca todos os registros
-     * - check_all_page - marca todos os registros em exibição na página
-     * - uncheck_all_page - desmarca todos os registros em exibição na página
-     *
-     * @return void
-     *
-     * @see https://laravel-livewire.com/docs/2.x/properties#computed-properties
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function updatedCheckboxAction()
+    public function toCheck()
     {
-        $this->validateOnly('checkbox_action', [
-            'checkbox_action' => [
-                'bail',
-                'nullable',
-                'string',
-                'in:' . CheckboxAction::values()->implode(','),
-            ]
-        ]);
-
-        empty($this->checkbox_action) ?: $this->{$this->checkbox_action};
+        return $this->role->permissions;
     }
 
     /**
-     * Retorna todos os ids dos checkboxs que devem ser marcados respondendo à
-     * action check_all.
+     * Todos os ids dos checkboxs disponíveis para marcação.
      *
-     * Nesse caso, todos os ids existentes na entidade.
-     *
-     * @return string[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getCheckAllProperty()
+    public function allCheckable()
     {
-        $this->selected = Permission::select('id')
-                            ->pluck('id')
-                            ->map(fn($id) => (string) $id)
-                            ->values()
-                            ->toArray();
+        return Permission::select('id')->get();
     }
 
     /**
-     * Retorna todos os ids dos checkboxs que devem ser desmarcados respondendo
-     * à action uncheck_all.
+     * Range restrito de ids dos checkboxs disponíveis para marcação.
+     * Em regra os ids dos checkbox exibidos na página atual da paginação.
      *
-     * Nesse caso, todos os ids existentes na entidade.
-     *
-     * @return string[]
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getUncheckAllProperty()
+    public function currentlyCheckable()
     {
-        $this->selected = [];
-    }
-
-    /**
-     * Retorna todos os ids dos checkboxs que devem ser marcados respondendo à
-     * action check_all_age.
-     *
-     * Nesse caso, todos os ids exibidos na página atual.
-     *
-     * @return string[]
-     */
-    public function getCheckAllPageProperty()
-    {
-        $current = $this->permissions->pluck('id');
-
-        $this->selected = collect($this->selected)
-                            ->concat($current)
-                            ->unique()
-                            ->map(fn($id) => (string) $id)
-                            ->values()
-                            ->toArray();
-    }
-
-    /**
-     * Retorna todos os ids dos checkboxs que devem ser desmarcados respondendo
-     * à action uncheck_all_page.
-     *
-     * Nesse caso, todos os ids exibidos na página atual.
-     *
-     * @return string[]
-     */
-    public function getUncheckAllPageProperty()
-    {
-        $current = $this->permissions->pluck('id');
-
-        $this->selected = collect($this->selected)
-                            ->diff($current)
-                            ->map(fn($id) => (string) $id)
-                            ->values()
-                            ->toArray();
+        return $this->permissions;
     }
 }
