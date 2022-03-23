@@ -39,7 +39,7 @@
 
                         <x-table.cell>
 
-                            <ul class="divide-y">
+                            <ul class="divide-y divide-primary-200 dark:divide-secondary-600">
 
                                 @forelse ($role->permissions ?? [] as $permission)
 
