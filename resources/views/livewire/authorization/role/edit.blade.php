@@ -45,7 +45,22 @@
 
                             <x-table.heading class="w-14">
 
-                                <x-form.checkbox/>
+                                <select wire:key="checkbox-action" wire:model="checkbox_action" class="bg-primary-300 rounded w-14 dark:bg-secondary-500">
+
+                                    <option value=""></option>
+
+
+                                    @foreach (\App\Enums\CheckboxAction::cases() as $action)
+
+                                        <option value="{{ $action->value }}">
+
+                                            {{ $action->label() }}
+
+                                        </option>
+
+                                    @endforeach
+
+                                </select>
 
                             </x-table.heading>
 
@@ -59,6 +74,24 @@
 
 
                         <x-slot name="body">
+
+                            <x-table.row>
+
+                                <x-table.cell class="text-left" colspan="3">
+
+                                    <p>
+
+                                        <span class="font-bold">
+
+                                            {{ __(':attribute records selected from :total"', ['attribute' => is_array($selected) ? count($selected) : 0, 'total' => $permissions->total()]) }}
+
+                                        </span>
+
+                                    </p>
+
+                                </x-table.cell>
+
+                            </x-table.row>
 
                             @forelse ( $permissions ?? [] as $permission )
 

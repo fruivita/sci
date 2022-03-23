@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\CheckboxAction;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
@@ -137,6 +138,48 @@ test('é possível renderizar o componente de edição do perfil com permissão 
     get(route('authorization.roles.edit', $this->role))
     ->assertOk()
     ->assertSeeLivewire(RoleLivewireUpdate::class);
+});
+
+test('define as permissões que devem ser pre-selecionadas de acodo com os relacionamentos da entidade', function () {
+    grantPermission(Role::UPDATE);
+
+    $related = 20;
+
+    Permission::factory(30)->create();
+    $role = Role::factory()
+            ->has(Permission::factory($related), 'permissions')
+            ->create();
+
+    $role->load('permissions');
+
+    $selected = $role
+                    ->permissions
+                    ->pluck('id')
+                    ->map(fn($id) => (string) $id)
+                    ->values()
+                    ->toArray();
+
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $role])
+    ->assertCount('selected', $related)
+    ->assertSet('selected', $selected);
+});
+
+test('actions de manipulação do checkbox das permissões funcionam como esperado', function () {
+    grantPermission(Role::UPDATE);
+
+    Permission::factory(50)->create();
+    $role = Role::factory()->create();
+
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $role])
+    ->assertCount('selected', 0)
+    ->set('checkbox_action', CheckboxAction::CheckAll->value)
+    ->assertCount('selected', 51)
+    ->set('checkbox_action', CheckboxAction::UncheckAll->value)
+    ->assertCount('selected', 0)
+    ->set('checkbox_action', CheckboxAction::CheckAllPage->value)
+    ->assertCount('selected', config('app.limit'))
+    ->set('checkbox_action', CheckboxAction::UncheckAllPage->value)
+    ->assertCount('selected', 0);
 });
 
 test('é possível atualizar um perfil com permissão específica', function () {
