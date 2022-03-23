@@ -58,6 +58,8 @@ trait WithCheckboxActions
      * Inicializa os valores dos checkbox que devem ser marcados quando a trait
      * é inicializada pela primeira vez.
      *
+     * Executado junto ao mount do componente.
+     *
      * @return void
      */
     public function mountWithCheckboxActions()
