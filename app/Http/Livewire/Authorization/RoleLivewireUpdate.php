@@ -82,16 +82,25 @@ class RoleLivewireUpdate extends Component
     }
 
     /**
-     * Monta o componente.
+     * Runs on every request, immediately after the component is instantiated,
+     * but before any other lifecycle methods are called
      *
-     * Acionado uma única vez ao inicializar o componente.
+     * @return void
+     */
+    public function boot()
+    {
+        $this->authorize(Policy::Update->value, Role::class);
+    }
+
+    /**
+     * Runs once, immediately after the component is instantiated, but before
+     * render() is called. This is only called once on initial page load and
+     * never called again, even on component refreshes
      *
      * @return void
      */
     public function mount()
     {
-        $this->authorize(Policy::Update->value, Role::class);
-
         $this->role->load('permissions');
     }
 
@@ -112,8 +121,6 @@ class RoleLivewireUpdate extends Component
      */
     public function render()
     {
-        $this->authorize(Policy::Update->value, Role::class);
-
         return view('livewire.authorization.role.edit', [
             'permissions' => $this->permissions
         ])->layout('layouts.app');
@@ -126,7 +133,6 @@ class RoleLivewireUpdate extends Component
      */
     public function update()
     {
-        $this->authorize(Policy::Update->value, Role::class);
         $this->validate();
 
         $this->role->updateAndSync($this->selected);
