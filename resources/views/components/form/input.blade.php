@@ -84,7 +84,7 @@
 
 
         {{-- exibição de eventual mensagem de erro --}}
-        <p class="text-red-500 text-sm">{{ $error }}</p>
+        <x-error>{{ $error }}</x-error>
 
 
         {{-- exibição eventual do contador de caracteres --}}

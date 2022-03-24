@@ -97,6 +97,7 @@
 
                             </x-table.row>
 
+
                             @forelse ( $permissions ?? [] as $permission )
 
                                 <x-table.row>
@@ -133,9 +134,10 @@
 
                     </x-table>
 
+
                     @error('selected')
 
-                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                        <x-error>{{ $message }}</x-error>
 
                     @enderror
 
