@@ -21,6 +21,7 @@
                     wire:model.defer="role.name"
                     :error="$errors->first('role.name')"
                     icon="award"
+                    maxlength="50"
                     placeholder="{{ __('New role name') }}"
                     required
                     text="{{ __('Name') }}"
@@ -32,6 +33,7 @@
                     wire:model.defer="role.description"
                     :error="$errors->first('role.description')"
                     icon="blockquote-left"
+                    maxlength="255"
                     placeholder="{{ __('About the profile') }}"
                     text="{{ __('Description') }}"
                     title="{{ __('About the profile') }}"/>
