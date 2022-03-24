@@ -87,7 +87,7 @@
 
                                         <span class="font-bold">
 
-                                            {{ __(':attribute records selected from :total"', ['attribute' => is_array($selected) ? count($selected) : 0, 'total' => $permissions->total()]) }}
+                                            {{ __(':attribute records selected from :total', ['attribute' => is_array($selected) ? count($selected) : 0, 'total' => $permissions->total()]) }}
 
                                         </span>
 
@@ -106,7 +106,7 @@
 
                                         <x-form.checkbox
                                             wire:key="permission-{{ $permission->id }}"
-                                            wire:model.defer="selected"
+                                            wire:model="selected"
                                             :checked="$role->permissions->contains($permission->id)"
                                             value="{{ $permission->id }}"/>
 
