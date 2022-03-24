@@ -26,7 +26,8 @@
                     required
                     text="{{ __('Name') }}"
                     title="{{ __('New role name') }}"
-                    type="text"/>
+                    type="text"
+                    withcounter/>
 
 
                 <x-form.textarea
@@ -36,7 +37,8 @@
                     maxlength="255"
                     placeholder="{{ __('About the profile') }}"
                     text="{{ __('Description') }}"
-                    title="{{ __('About the profile') }}"/>
+                    title="{{ __('About the profile') }}"
+                    withcounter/>
 
 
                 <div class="overflow-x-auto">

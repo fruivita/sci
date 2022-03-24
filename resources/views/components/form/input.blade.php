@@ -1,22 +1,35 @@
 {{--
     Input padrão.
 
+    Props:
+    - error: mensagem de erro que deverá ser exibida
+    - icon: ícone svg que será exibido no input
+    - id: id do input
+    - text: texto de descrição/significado do input
+    - title: title do input
+    - withcounter: se é necessário exibir o contador de caracteres digitados
+
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
+    @see https://icons.getbootstrap.com/
 --}}
 
 
-@props(['error' => false, 'icon', 'id', 'text', 'title'])
+@props(['error' => '', 'icon', 'id', 'text', 'title', 'withcounter' => false])
 
 
 @php $id = $id ?? md5(random_int(PHP_INT_MIN, PHP_INT_MAX)); @endphp
 
 
 {{-- container do input --}}
-<div class="text-left w-full" title="{{ $title }}">
+<div
+    @if ($withcounter) x-data="{ counter: 0 }"@endif
+    class="text-left w-full"
+    title="{{ $title }}"
+>
 
     {{-- texto acima do input --}}
     <label class="font-bold text-lg" for="{{ $id }}">
@@ -45,6 +58,14 @@
 
         {{-- input propriamente dito --}}
         <input
+
+            @if ($withcounter)
+
+                x-on:keyup="counter = $el.value.length"
+                x-ref="message"
+
+            @endif
+
             id="{{ $id }}"
             name="{{ $id }}"
             {{
@@ -59,11 +80,27 @@
     </div>
 
 
-    {{-- exibição de eventual mensagem de erro --}}
-    @if ($error)
+    <div class="flex justify-between space-x-3">
 
+
+        {{-- exibição de eventual mensagem de erro --}}
         <p class="text-red-500 text-sm">{{ $error }}</p>
 
-    @endif
+
+        {{-- exibição eventual do contador de caracteres --}}
+        @if ($withcounter)
+
+            <p
+                x-show="counter"
+                class="text-right text-primary-500 text-sm whitespace-nowrap dark:text-secondary-500"
+            >
+
+                <span x-text="counter + ' / ' + $refs.message.maxLength"></span>
+
+            </p>
+
+        @endif
+
+    </div>
 
 </div>
