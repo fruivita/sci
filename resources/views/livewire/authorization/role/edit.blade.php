@@ -79,7 +79,7 @@
 
                         <x-slot name="body">
 
-                            <x-table.row>
+                            <x-table.row wire:loading.delay.class="opacity-30">
 
                                 <x-table.cell class="text-left" colspan="3">
 
@@ -100,7 +100,7 @@
 
                             @forelse ( $permissions ?? [] as $permission )
 
-                                <x-table.row>
+                                <x-table.row wire:loading.delay.class="opacity-30">
 
                                     <x-table.cell>
 
