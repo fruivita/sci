@@ -2,15 +2,21 @@
     Elemento não clicável que imita, visualmente, os links do menu, isto é,
     para ser exibido no menu por questões estéticas.
 
+    Props:
+    - icon: ícone svg que será exibido
+    - text: texto de descrição/significado do item do menu
+
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
+    @see https://icons.getbootstrap.com/
 --}}
 
 
 @props(['icon', 'text'])
+
 
 <li>
 

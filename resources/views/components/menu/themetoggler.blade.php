@@ -6,7 +6,9 @@
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
+    @see https://icons.getbootstrap.com/
 --}}
+
 
 <li>
 

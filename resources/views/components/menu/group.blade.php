@@ -1,11 +1,15 @@
 {{--
     Agrupamento dos links do menu principal.
 
+    Props:
+    - name: nome do agrupamento do menu
+
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
+    @see https://icons.getbootstrap.com/
 --}}
 
 

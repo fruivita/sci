@@ -6,6 +6,7 @@
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
+    @see https://icons.getbootstrap.com/
     @see https://www.chromium.org/developers/design-documents/create-amazing-password-forms
 --}}
 

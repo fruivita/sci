@@ -3,10 +3,10 @@
 
     Props:
     - error: mensagem de erro que deverá ser exibida
-    - icon: ícone svg que será exibido no input
-    - id: id do input
-    - text: texto de descrição/significado do input
-    - title: title do input
+    - icon: ícone svg que será exibido
+    - id: id do item
+    - text: texto de descrição/significado do item
+    - title: title do item
     - withcounter: se é necessário exibir o contador de caracteres digitados
 
     @see https://laravel.com/docs/9.x/blade

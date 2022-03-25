@@ -1,11 +1,18 @@
 {{--
     Button padrão.
 
+    Props:
+    - color: estilo css que deve ser aplicado ao button
+    - icon: ícone svg que será exibido
+    - prepend: se o text do button deve vir antes ou depois do icon
+    - text: texto de descrição/significado do item
+
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
+    @see https://icons.getbootstrap.com/
 --}}
 
 
