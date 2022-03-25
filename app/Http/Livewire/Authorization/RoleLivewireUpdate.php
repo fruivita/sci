@@ -135,7 +135,13 @@ class RoleLivewireUpdate extends Component
     {
         $this->validate();
 
-        $this->role->updateAndSync($this->selected);
+        $saved = $this->role->updateAndSync($this->selected);
+
+        $msg = $saved === true
+                ? __('Saved!')
+                : __('Failure!');
+
+        $this->emitSelf('feedback', $msg);
     }
 
     /**

@@ -182,6 +182,14 @@ test('actions de manipulação do checkbox das permissões funcionam como espera
     ->assertCount('selected', 0);
 });
 
+test('emite evento de feedback ao atualizar um perfil', function () {
+    grantPermission(Role::UPDATE);
+
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
+    ->call('update')
+    ->assertEmitted('feedback', __('Saved!'));
+});
+
 test('é possível atualizar um perfil com permissão específica', function () {
     grantPermission(Role::UPDATE);
 
