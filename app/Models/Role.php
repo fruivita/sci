@@ -23,8 +23,8 @@ class Role extends Model
     const DEPARTMENTMANAGER = 1200;
     const ORDINARY = 1300;
 
-    const VIEWANY = 10000;
-    const UPDATE = 13000;
+    const VIEWANY = 100001;
+    const UPDATE = 100003;
 
     public function permissions()
     {
