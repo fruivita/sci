@@ -18,14 +18,14 @@ trait WithCaching
      *
      * @var false
      */
-    public $use_cache = false;
+    private $use_cache = false;
 
     /**
      * Define que o cache deve ser utilizado.
      *
      * @return void
      */
-    public function useCache()
+    private function useCache()
     {
         $this->use_cache = true;
     }
@@ -42,7 +42,7 @@ trait WithCaching
      *
      * @return mixed
      */
-    public function cache(string $key, Closure $callback)
+    private function cache(string $key, Closure $callback)
     {
         $key = $key . $this->id;
 

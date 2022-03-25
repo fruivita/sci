@@ -158,7 +158,7 @@ class RoleLivewireUpdate extends Component
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function rowsToCheck()
+    private function rowsToCheck()
     {
         return $this->role->permissions;
     }
@@ -168,7 +168,7 @@ class RoleLivewireUpdate extends Component
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function allCheckableRows()
+    private function allCheckableRows()
     {
         return Permission::select('id')->get();
     }
@@ -179,7 +179,7 @@ class RoleLivewireUpdate extends Component
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function currentlyCheckableRows()
+    private function currentlyCheckableRows()
     {
         return $this->permissions;
     }
