@@ -49,6 +49,13 @@
                         :error="$errors->first('per_page')"/>
 
 
+                    @error('checkbox_action')
+
+                        <x-error>{{ $message }}</x-error>
+
+                    @enderror
+
+
                     <x-table class="table-fixed">
 
                         <x-slot name="head">
