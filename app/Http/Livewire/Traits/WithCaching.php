@@ -16,7 +16,7 @@ trait WithCaching
     /**
      * O cache deve ser utilizado?
      *
-     * @var false
+     * @var bool
      */
     private $use_cache = false;
 
