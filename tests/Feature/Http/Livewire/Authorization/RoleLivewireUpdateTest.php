@@ -8,6 +8,7 @@ use App\Enums\CheckboxAction;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 
@@ -220,6 +221,58 @@ test('paginação retorna a quantidade de permissões esperadas', function () {
     ->assertSessionHas('per_page', 50)
     ->set('per_page', 100)
     ->assertSessionHas('per_page', 100);
+});
+
+test('getCheckAllProperty é registrado em cache com expiração de um minuto', function () {
+    grantPermission(Role::UPDATE);
+
+    Permission::factory(5)->create();
+
+    $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role]);
+
+    expect(Cache::missing($livewire->id))->toBeTrue();
+
+    $livewire->set('checkbox_action', CheckboxAction::CheckAll->value);
+
+    // não serão contabilizados pois o cache já foi registrado por 1 minuto
+    Permission::factory(3)->create();
+
+    expect(Cache::has($livewire->id))->toBeTrue()
+    ->and(Cache::get($livewire->id))->toHaveCount(6);
+
+    // expirará o cache
+    $this->travel(61)->seconds();
+    expect(Cache::missing($livewire->id))->toBeTrue();
+
+    $this->travelBack();
+    Cache::forget($livewire->id);
+});
+
+test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
+    grantPermission(Role::UPDATE);
+
+    Permission::factory(5)->create();
+
+    $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
+    ->set('checkbox_action', CheckboxAction::CheckAll->value);
+
+    // não serão contabilizados pois o cache já foi registrado por 1 minuto
+    Permission::factory(3)->create();
+
+    $livewire
+    ->set('checkbox_action', CheckboxAction::CheckAll->value)
+    ->assertCount('CheckAll', 6);
+
+    // expirará o cache
+    $this->travel(61)->seconds();
+
+    // contabiliza as novas inserções após expirado
+    $livewire
+    ->set('checkbox_action', CheckboxAction::CheckAll->value)
+    ->assertCount('CheckAll', 9);
+
+    $this->travelBack();
+    Cache::forget($livewire->id);
 });
 
 test('emite evento de feedback ao atualizar um perfil', function () {
