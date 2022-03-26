@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => Role::INSTITUTIONALMANAGER,
                 'name' => __('Institutional manager'),
-                'description' => __("Role with full access to the application's business functions. Does not have access to application administration functions."),
+                'description' => __("Role with full access to the application's business functions. Does not have access to administration functions."),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
