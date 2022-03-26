@@ -115,7 +115,7 @@ trait WithCheckboxActions
     {
         $this->useCache();
 
-        return $this->cache($this->id, function () {
+        return $this->cache('', function () {
             $select = $this->allCheckableRows()->pluck('id');
 
             return $this->toStandardArray($select);
