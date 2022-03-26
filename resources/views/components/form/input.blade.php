@@ -2,7 +2,7 @@
     Input padrão.
 
     Props:
-    - error: mensagem de erro que deverá ser exibida
+    - error: mensagem de erro que será exibida
     - icon: ícone svg que será exibido
     - id: id do item
     - text: texto de descrição/significado do item
