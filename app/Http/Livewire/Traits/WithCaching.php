@@ -37,6 +37,8 @@ trait WithCaching
      * Se a chave já existir no cache, o item será retornado, caso contrário
      * o cache será criado e então retornado ao chamador.
      *
+     * A chave informada será contatenada com o id do componente Livewire.
+     *
      * @param string $key chave do cache
      * @param \Closure $callback
      *
