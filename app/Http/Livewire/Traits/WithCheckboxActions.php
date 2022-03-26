@@ -86,14 +86,15 @@ trait WithCheckboxActions
      */
     public function updatedCheckboxAction()
     {
-        $this->validateOnly('checkbox_action', [
-            'checkbox_action' => [
+        $this->validateOnly(
+            field: 'checkbox_action',
+            rules: ['checkbox_action' => [
                 'bail',
                 'nullable',
                 'string',
-                'in:' . CheckboxAction::values()->implode(','),
-            ]
-        ]);
+                'in:' . CheckboxAction::values()->implode(',')]],
+            attributes: ['checkbox_action' => __('Action')]
+        );
 
         if (! empty($this->checkbox_action)) {
             $this->selected = $this->{$this->checkbox_action};

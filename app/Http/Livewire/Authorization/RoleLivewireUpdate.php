@@ -67,7 +67,6 @@ class RoleLivewireUpdate extends Component
             'role.name' => __('Name'),
             'role.description' => __('Description'),
             'selected' => __('Permission'),
-            'checkbox_action' => __('Action'),
         ];
     }
 
