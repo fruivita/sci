@@ -131,6 +131,14 @@ test('ids das permissões que serão associadas ao perfil devem existir previame
     ->assertHasErrors(['selected' => 'exists']);
 });
 
+test('não aceita paginação fora das opções oferecidas', function () {
+    grantPermission(Role::UPDATE);
+
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
+    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->assertHasErrors(['per_page' => 'in']);
+});
+
 // Happy path
 test('é possível renderizar o componente de edição do perfil com permissão específica', function () {
     grantPermission(Role::UPDATE);
@@ -177,9 +185,41 @@ test('actions de manipulação do checkbox das permissões funcionam como espera
     ->set('checkbox_action', CheckboxAction::UncheckAll->value)
     ->assertCount('selected', 0)
     ->set('checkbox_action', CheckboxAction::CheckAllPage->value)
-    ->assertCount('selected', config('app.limit'))
+    ->assertCount('selected', 10)
     ->set('checkbox_action', CheckboxAction::UncheckAllPage->value)
     ->assertCount('selected', 0);
+});
+
+test('paginação cria as variáveis de sessão', function () {
+    grantPermission(Role::UPDATE);
+
+    Permission::factory(120)->create();
+
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
+    ->assertCount('permissions', 10)
+    ->set('per_page', 10)
+    ->assertCount('permissions', 10)
+    ->set('per_page', 25)
+    ->assertCount('permissions', 25)
+    ->set('per_page', 50)
+    ->assertCount('permissions', 50)
+    ->set('per_page', 100)
+    ->assertCount('permissions', 100);
+});
+
+test('paginação retorna a quantidade de permissões esperadas', function () {
+    grantPermission(Role::UPDATE);
+
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
+    ->assertSessionMissing('per_page')
+    ->set('per_page', 10)
+    ->assertSessionHas('per_page', 10)
+    ->set('per_page', 25)
+    ->assertSessionHas('per_page', 25)
+    ->set('per_page', 50)
+    ->assertSessionHas('per_page', 50)
+    ->set('per_page', 100)
+    ->assertSessionHas('per_page', 100);
 });
 
 test('emite evento de feedback ao atualizar um perfil', function () {

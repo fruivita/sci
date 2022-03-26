@@ -44,6 +44,11 @@
 
                 <div class="overflow-x-auto">
 
+                    <x-table.perpage
+                        wire:model="per_page"
+                        :error="$errors->first('per_page')"/>
+
+
                     <x-table class="table-fixed">
 
                         <x-slot name="head">

@@ -4,18 +4,18 @@ namespace App\Http\Livewire\Authorization;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithCheckboxActions;
+use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
 class RoleLivewireUpdate extends Component
 {
-    use WithPagination, AuthorizesRequests, WithCheckboxActions;
+    use AuthorizesRequests, WithCheckboxActions, WithPerPagePagination;
 
     /**
      * Perfil que está em edição.
@@ -111,7 +111,7 @@ class RoleLivewireUpdate extends Component
      */
     public function getPermissionsProperty()
     {
-        return Permission::paginate(config('app.limit'));
+        return $this->applyPagination(Permission::query());
     }
 
     /**
