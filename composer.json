@@ -36,7 +36,8 @@
         "laravel/fortify": "^1.11",
         "laravel/framework": "^9.2",
         "laravel/tinker": "^2.7",
-        "livewire/livewire": "^2.10"
+        "livewire/livewire": "^2.10",
+        "staudenmeir/eloquent-eager-limit": "^1.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
