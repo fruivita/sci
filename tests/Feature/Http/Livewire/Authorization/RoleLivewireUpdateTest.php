@@ -52,9 +52,14 @@ test('não é possível atualizar o perfil sem permissão específica', function
     // remove a permissão
     revokePermission(Role::UPDATE);
 
+    // expira o cache das permissões em 5 segundos
+    $this->travel(6)->seconds();
+
     $livewire
     ->call('update')
     ->assertForbidden();
+
+    $this->travelBack();
 });
 
 // Rules

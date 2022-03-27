@@ -4,15 +4,12 @@ namespace App\Policies;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
  * @see https://laravel.com/docs/9.x/authorization
  */
-class RolePolicy
+class RolePolicy extends Policy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can view any models.
      *
@@ -21,7 +18,7 @@ class RolePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermission(Role::VIEWANY);
+        return $this->hasPermissionWithCache($user, Role::VIEWANY);
     }
 
     /**
@@ -32,6 +29,6 @@ class RolePolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermission(Role::UPDATE);
+        return $this->hasPermissionWithCache($user, Role::UPDATE);
     }
 }
