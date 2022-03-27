@@ -17,7 +17,7 @@ trait WithPerPagePagination
     /**
      * Paginação utilização.
      *
-     * @var bool
+     * @var int
      */
     public $per_page = 10;
 
