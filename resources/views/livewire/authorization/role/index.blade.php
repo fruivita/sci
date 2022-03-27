@@ -51,7 +51,7 @@
 
                                         <li class="text-right">
 
-                                            <a class="link" href="#">Visualizar todas</a>
+                                            <a class="link" href="#">{{ __('View all') }}</a>
 
                                         </li>
 
