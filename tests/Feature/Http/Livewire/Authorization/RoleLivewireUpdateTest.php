@@ -58,8 +58,6 @@ test('não é possível atualizar o perfil sem permissão específica', function
     $livewire
     ->call('update')
     ->assertForbidden();
-
-    $this->travelBack();
 });
 
 // Rules
@@ -248,9 +246,6 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     // expirará o cache
     $this->travel(61)->seconds();
     expect(Cache::missing($livewire->id))->toBeTrue();
-
-    $this->travelBack();
-    Cache::forget($livewire->id);
 });
 
 test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
@@ -275,9 +270,6 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
     ->assertCount('CheckAll', 9);
-
-    $this->travelBack();
-    Cache::forget($livewire->id);
 });
 
 test('emite evento de feedback ao atualizar um perfil', function () {

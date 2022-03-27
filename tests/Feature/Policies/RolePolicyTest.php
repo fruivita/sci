@@ -52,7 +52,6 @@ test('permissão de listagem dos perfis é persistida em cache por 5 segundos', 
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeFalse();
 
-    $this->travelBack();
     logout();
 });
 
@@ -82,7 +81,6 @@ test('permissão de atualização dos perfis é persistida em cache por 5 segund
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeFalse();
 
-    $this->travelBack();
     logout();
 });
 
