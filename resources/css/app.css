@@ -99,9 +99,13 @@
 
     .link {
         @apply
-        decoration-primary-900
-        dark:decoration-secondary-50
-        hover:underline
+        font-bold
+        underline
+
+        focus:text-primary-600
+        hover:text-primary-600
+        dark:focus:text-secondary-300
+        dark:hover:text-secondary-300
     }
 
     .warning {
