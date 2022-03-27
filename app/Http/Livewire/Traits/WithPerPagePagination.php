@@ -35,6 +35,16 @@ trait WithPerPagePagination
     }
 
     /**
+     * Define a view padrão para a paginação.
+     *
+     * @return string
+     */
+    public function paginationView()
+    {
+        return 'components.pagination';
+    }
+
+    /**
      * Define paginação e a persiste na seção para ser utilizada como
      * preferência durante toda a navegação do usuário.
      *

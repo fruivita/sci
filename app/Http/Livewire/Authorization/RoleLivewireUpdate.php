@@ -71,16 +71,6 @@ class RoleLivewireUpdate extends Component
     }
 
     /**
-     * Define a view padrão para a paginação.
-     *
-     * @return string
-     */
-    public function paginationView()
-    {
-        return 'components.pagination';
-    }
-
-    /**
      * Runs on every request, immediately after the component is instantiated,
      * but before any other lifecycle methods are called
      *
