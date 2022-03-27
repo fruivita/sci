@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 /**
  * @see https://laravel.com/docs/9.x/eloquent
  */
 class Permission extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEagerLimit;
 
     protected $table = 'permissions';
 

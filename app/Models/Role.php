@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 /**
  * @see https://laravel.com/docs/9.x/eloquent
  */
 class Role extends Model
 {
-    use HasFactory;
+    use HasFactory, HasEagerLimit;
 
     protected $table = 'roles';
 
