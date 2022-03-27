@@ -90,7 +90,9 @@ class RoleLivewireUpdate extends Component
      */
     public function mount()
     {
-        $this->role->load('permissions');
+        $this->role->load(['permissions' => function ($query) {
+            $query->select('id');
+        }]);
     }
 
     /**
@@ -100,7 +102,7 @@ class RoleLivewireUpdate extends Component
      */
     public function getPermissionsProperty()
     {
-        return $this->applyPagination(Permission::query());
+        return $this->applyPagination(Permission::orderBy('id', 'asc'));
     }
 
     /**

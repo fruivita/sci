@@ -36,8 +36,8 @@ class RoleLivewireIndex extends Component
     {
         return $this->applyPagination(
             Role::with(['permissions' => function ($query) {
-                $query->limit($this->limit);
-            }])
+                $query->orderBy('id', 'asc')->limit($this->limit);
+            }])->orderBy('id', 'asc')
         );
     }
 
