@@ -194,7 +194,7 @@ test('actions de manipulação do checkbox das permissões funcionam como espera
     ->assertCount('selected', 0);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('paginação retorna a quantidade de permissões esperada', function () {
     grantPermission(Role::UPDATE);
 
     Permission::factory(120)->create();
@@ -211,7 +211,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertCount('permissions', 100);
 });
 
-test('paginação retorna a quantidade de permissões esperadas', function () {
+test('paginação cria as variáveis de sessão', function () {
     grantPermission(Role::UPDATE);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
