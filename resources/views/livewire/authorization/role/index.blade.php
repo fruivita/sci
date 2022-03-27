@@ -14,6 +14,18 @@
 
     <x-container>
 
+        <x-table.perpage
+            wire:model="per_page"
+            :error="$errors->first('per_page')"/>
+
+
+        @error('checkbox_action')
+
+            <x-error>{{ $message }}</x-error>
+
+        @enderror
+
+
         <x-table>
 
             <x-slot name="head">

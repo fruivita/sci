@@ -4,27 +4,17 @@ namespace App\Http\Livewire\Authorization;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithLimit;
+use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
 class RoleLivewireIndex extends Component
 {
-    use WithPagination, AuthorizesRequests, WithLimit;
-
-    /**
-     * Define a view padrão para a paginação.
-     *
-     * @return string
-     */
-    public function paginationView()
-    {
-        return 'components.pagination';
-    }
+    use WithPerPagePagination, AuthorizesRequests, WithLimit;
 
     /**
      * Runs on every request, immediately after the component is instantiated,
@@ -42,11 +32,13 @@ class RoleLivewireIndex extends Component
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getRoleWithPermissionsProperty()
+    public function getRolesProperty()
     {
-        return Role::with(['permissions' => function ($query) {
-            $query->limit($this->limit);
-        }])->paginate(config('app.limit'));
+        return $this->applyPagination(
+            Role::with(['permissions' => function ($query) {
+                $query->limit($this->limit);
+            }])
+        );
     }
 
     /**
@@ -57,7 +49,7 @@ class RoleLivewireIndex extends Component
     public function render()
     {
         return view('livewire.authorization.role.index', [
-            'roles' => $this->roleWithPermissions
+            'roles' => $this->roles
         ])->layout('layouts.app');
     }
 }
