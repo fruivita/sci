@@ -40,7 +40,9 @@
     "Pagination": "Paginação",
     "Password": "Senha",
     "Permission": "Permissão",
+    "Permission to list all permissions.": "Permissão para listar todas as permissões.",
     "Permission to list all roles.": "Permissão para listar todas os perfis.",
+    "Permission to update permissions.": "Permissão para atualizar as permissões.",
     "Permission to update roles.": "Permissão para atualizar os perfis.",
     "Permissions": "Permissões",
     "Previous": "Anterior",
@@ -63,7 +65,9 @@
     "Toggle dark/light mode": "Alterna entre os modos escuro/claro",
     "Uncheck all": "Desmarcar todos",
     "Uncheck all on page": "Desmarcar todos na página",
+    "Update permission": "Atualizar permissão",
     "Update role": "Atualizar perfil",
     "Username": "Usuário",
+    "View any permissions": "Listar permissões",
     "View any roles": "Listar perfis"
 }
