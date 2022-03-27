@@ -46,6 +46,17 @@
 
                                     <li>{{ $permission->name }}</li>
 
+
+                                    @if ($loop->last)
+
+                                        <li class="text-right">
+
+                                            <a class="link" href="#">Visualizar todas</a>
+
+                                        </li>
+
+                                    @endif
+
                                 @empty
 
                                     <li>{{ __('No record found') }}</li>
