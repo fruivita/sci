@@ -104,7 +104,7 @@ class RoleLivewireUpdate extends Component
     }
 
     /**
-     * Computed property para a lista de permissões paginadas.
+     * Computed property para a listar as permissões paginadas.
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */

@@ -15,7 +15,7 @@ trait WithPerPagePagination
     use WithPagination;
 
     /**
-     * Paginação utilização.
+     * Paginação padrão.
      *
      * @var int
      */
@@ -56,8 +56,7 @@ trait WithPerPagePagination
     }
 
     /**
-     * Define paginação e a persiste na seção para ser utilizada como
-     * preferência durante toda a navegação do usuário.
+     * Aplica a paginação na query informada.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *
