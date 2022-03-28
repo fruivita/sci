@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -68,9 +69,30 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
             [
+                'id' => Role::VIEW,
+                'name' => __('View role'),
+                'description' => __('Permission to view roles individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s')
+            ],
+            [
                 'id' => Role::UPDATE,
                 'name' => __('Update role'),
                 'description' => __('Permission to update roles.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'id' => Permission::VIEWANY,
+                'name' => __('View any permissions'),
+                'description' => __('Permission to list all permissions.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'id' => Permission::UPDATE,
+                'name' => __('Update permission'),
+                'description' => __('Permission to update permissions.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ]
@@ -85,7 +107,25 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => Role::VIEW,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => Role::UPDATE,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => Permission::VIEWANY,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => Permission::UPDATE,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],

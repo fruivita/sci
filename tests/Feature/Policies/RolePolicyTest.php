@@ -17,6 +17,14 @@ test('usuário sem permissão não pode listar os perfis', function () {
     logout();
 });
 
+test('usuário sem permissão não pode visualizar individualmente um perfil', function () {
+    $user = login('foo');
+
+    expect((new RolePolicy)->update($user))->toBeFalse();
+
+    logout();
+});
+
 test('usuário sem permissão não pode atualizar um perfil', function () {
     $user = login('foo');
 
@@ -49,6 +57,35 @@ test('permissão de listagem dos perfis é persistida em cache por 5 segundos', 
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new RolePolicy)->viewAny($user))->toBeFalse()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeFalse();
+
+    logout();
+});
+
+test('permissão de visualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
+    $user = login('foo');
+    grantPermission(Role::VIEW);
+
+    $key = authenticatedUser()->username . Role::VIEW;
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new RolePolicy)->view($user))->toBeTrue()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue();
+
+    revokePermission(Role::VIEW);
+
+    // permissão ainda está em cache
+    expect(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue()
+    ->and((new RolePolicy)->view($user))->toBeTrue();
+
+    // expira o cache
+    $this->travel(6)->seconds();
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new RolePolicy)->view($user))->toBeFalse()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeFalse();
 
@@ -93,6 +130,15 @@ test('usuário com permissão pode listar os perfis', function () {
     logout();
 });
 
+test('usuário com permissão pode visualizar individualmente um perfil', function () {
+    $user = login('foo');
+    grantPermission(Role::VIEW);
+
+    expect((new RolePolicy)->view($user))->toBeTrue();
+
+    logout();
+});
+
 test('usuário com permissão pode atualizar um perfil', function () {
     $user = login('foo');
     grantPermission(Role::UPDATE);
@@ -101,4 +147,3 @@ test('usuário com permissão pode atualizar um perfil', function () {
 
     logout();
 });
-

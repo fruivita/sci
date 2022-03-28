@@ -25,6 +25,7 @@ class Role extends Model
     const ORDINARY = 1300;
 
     const VIEWANY = 100001;
+    const VIEW = 100002;
     const UPDATE = 100003;
 
     public function permissions()

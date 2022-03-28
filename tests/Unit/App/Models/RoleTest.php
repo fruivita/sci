@@ -75,6 +75,7 @@ test('ids dos perfis estão definidos', function () {
 
 test('ids dos permissões para administração do perfil estão definidas', function () {
     expect(Role::VIEWANY)->toBe(100001)
+    ->and(Role::VIEW)->toBe(100002)
     ->and(Role::UPDATE)->toBe(100003);
 });
 
