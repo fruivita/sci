@@ -12,8 +12,6 @@ use App\Enums\CheckboxAction;
  */
 trait WithCheckboxActions
 {
-    use WithCaching;
-
     /**
      * Chaves dos checkbox devem ser marcados.
      *
@@ -113,13 +111,9 @@ trait WithCheckboxActions
      */
     public function getCheckAllProperty()
     {
-        $this->useCache();
+        $select = $this->allCheckableRows()->pluck('id');
 
-        return $this->cache('', function () {
-            $select = $this->allCheckableRows()->pluck('id');
-
-            return $this->toStandardArray($select);
-        });
+        return $this->toStandardArray($select);
     }
 
     /**

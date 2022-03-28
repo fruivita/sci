@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Authorization;
 
 use App\Enums\Policy;
+use App\Http\Livewire\Traits\WithCaching;
 use App\Http\Livewire\Traits\WithCheckboxActions;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Permission;
@@ -15,7 +16,7 @@ use Livewire\Component;
  */
 class RoleLivewireUpdate extends Component
 {
-    use AuthorizesRequests, WithCheckboxActions, WithPerPagePagination;
+    use AuthorizesRequests, WithCheckboxActions, WithPerPagePagination, WithCaching;
 
     /**
      * Perfil que está em edição.
@@ -167,7 +168,11 @@ class RoleLivewireUpdate extends Component
      */
     private function allCheckableRows()
     {
-        return Permission::select('id')->get();
+        $this->useCache();
+
+        return $this->cache('', function () {
+            return Permission::select('id')->get();
+        });
     }
 
     /**
