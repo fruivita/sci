@@ -3,11 +3,11 @@
 namespace App\Http\Livewire\Authorization;
 
 use App\Enums\Policy;
-use App\Http\Livewire\Traits\WithCaching;
 use App\Http\Livewire\Traits\WithCheckboxActions;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Traits\WithCaching;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
@@ -170,8 +170,11 @@ class RoleLivewireUpdate extends Component
     {
         $this->useCache();
 
-        return $this->cache('', function () {
-            return Permission::select('id')->get();
+        return $this->cache(
+            key: $this->id,
+            seconds: 60,
+            callback: function () {
+                return Permission::select('id')->get();
         });
     }
 
