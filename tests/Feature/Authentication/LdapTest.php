@@ -71,16 +71,6 @@ test('username e name são sincronizados no banco de dados', function () {
     logout();
 });
 
-test('rotas privadas são exibidas para usuários autenticados', function () {
-    login('foo');
-
-    get(route('home'))
-    ->assertSee([
-        route('logout'),
-        route('home')
-    ]);
-});
-
 test('usuário ao fazer logout é redirecionado para a rota login', function () {
     login('foo');
 

@@ -84,6 +84,5 @@ test('é possível listar perfis com permissão específica', function () {
 
     get(route('authorization.roles.index'))
     ->assertOk()
-    ->assertSee(route('authorization.roles.index'))
     ->assertSeeLivewire(RoleLivewireIndex::class);
 });
