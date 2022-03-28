@@ -16,7 +16,7 @@
 
         <div class="space-y-6">
 
-            <div class="bg-primary-100 p-3 rounded">
+            <div class="bg-primary-100 p-3 rounded dark:bg-secondary-800">
 
                 <p class="font-bold">{{ __('Description') }}</p>
 
