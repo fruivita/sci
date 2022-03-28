@@ -3,6 +3,7 @@
 use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Authorization\RoleLivewireIndex;
+use App\Http\Livewire\Authorization\RoleLivewireShow;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('autorização')->name('authorization.')->group(function () {
         Route::prefix('perfil')->name('roles.')->group(function () {
             Route::get('/', RoleLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Role::class);
+            Route::get('show/{role}', RoleLivewireShow::class)->name('show')->can(Policy::View->value, Role::class);
             Route::get('edit/{role}', RoleLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Role::class);
         });
     });
