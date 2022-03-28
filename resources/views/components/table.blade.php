@@ -11,7 +11,7 @@
 
 
 <table
-    {{ $attributes->merge(['class' => 'w-full text-center']) }}
+    {{ $attributes->merge(['class' => 'text-center w-full']) }}
     {{ $attributes->except('class') }}
 >
 
