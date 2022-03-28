@@ -61,11 +61,7 @@
 
                                     @if ($loop->last)
 
-                                        <li class="text-right">
-
-                                            <a class="link" href="#">{{ __('View all') }}</a>
-
-                                        </li>
+                                        <li class="font-bold text-right">{{ __('There may be more') }}</li>
 
                                     @endif
 
@@ -82,7 +78,18 @@
 
                         <x-table.cell>
 
-                            <div class="flex justify-center">
+                            <div class="flex flex-col justify-center space-y-3">
+
+                                @can(\App\Enums\Policy::View->value, \App\Models\Role::class)
+
+                                    <x-linkbutton
+                                        icon="pencil-square"
+                                        href="{{ route('authorization.roles.show', ['role' => $role]) }}"
+                                        text="{{ __('Show') }}"
+                                        title="{{ __('Show the record') }}"/>
+
+                                @endcan
+
 
                                 @can(\App\Enums\Policy::Update->value, \App\Models\Role::class)
 
