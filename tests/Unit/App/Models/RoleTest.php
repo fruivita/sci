@@ -151,3 +151,17 @@ test('método updateAndSync salva os novos atributos e cria relacionamento com a
     ->and($role->description)->toBe($role_description)
     ->and($role->permissions->modelKeys())->toBe([1, 3]);
 });
+
+test('perfil administrador possui todas as permissões', function ($permission) {
+    $this->seed();
+
+    $user = User::factory()->create(['role_id' => Role::ADMINISTRATOR]);
+
+    expect($user->hasPermission($permission))->toBeTrue();
+})->with([
+    Role::VIEWANY,
+    Role::VIEW,
+    Role::UPDATE,
+    Permission::VIEWANY,
+    Permission::UPDATE
+]);
