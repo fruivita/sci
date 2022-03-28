@@ -44,6 +44,7 @@
     "Permission to list all roles.": "Permissão para listar todas os perfis.",
     "Permission to update permissions.": "Permissão para atualizar as permissões.",
     "Permission to update roles.": "Permissão para atualizar os perfis.",
+    "Permission to view roles individually.": "Permissão para visualizar os perfis individualmente.",
     "Permissions": "Permissões",
     "Previous": "Anterior",
     "Records": "Registros",
@@ -61,6 +62,7 @@
     "Show all records": "Exibe todos os registros",
     "Show next record": "Exibe o próximo registro",
     "Show previous record": "Exibe o registro anterior",
+    "There may be more": "Podem existir mais",
     "to": "a",
     "Toggle dark/light mode": "Alterna entre os modos escuro/claro",
     "Uncheck all": "Desmarcar todos",
@@ -68,7 +70,7 @@
     "Update permission": "Atualizar permissão",
     "Update role": "Atualizar perfil",
     "Username": "Usuário",
-    "View all": "Visualizar todos",
     "View any permissions": "Listar permissões",
-    "View any roles": "Listar perfis"
+    "View any roles": "Listar perfis",
+    "View role": "Visualizar perfil"
 }
