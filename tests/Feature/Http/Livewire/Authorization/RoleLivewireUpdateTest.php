@@ -31,7 +31,7 @@ test('não é possível editar o perfil sem estar autenticado', function () {
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de edião do perfil sem permissão específica', function () {
+test('não é possível executar a rota de edição do perfil sem permissão específica', function () {
     get(route('authorization.roles.edit', $this->role))
     ->assertForbidden();
 });
@@ -108,7 +108,7 @@ test('descrição do perfil deve ser uma string', function () {
     ->assertHasErrors(['role.description' => 'string']);
 });
 
-test('description do perfil deve ter no máximo 255 caracteres', function () {
+test('descrição do perfil deve ter no máximo 255 caracteres', function () {
     grantPermission(Role::UPDATE);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
