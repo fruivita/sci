@@ -40,21 +40,21 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => Role::INSTITUTIONALMANAGER,
                 'name' => __('Institutional manager'),
-                'description' => __("Role with full access to the application's business functions. Does not have access to administration functions."),
+                'description' => __("Role with access to all the application's business functions. Does not have access to administration functions."),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
             [
                 'id' => Role::DEPARTMENTMANAGER,
                 'name' => __('Department manager'),
-                'description' => __("Role with access to the application's business functions restricted to the department itself."),
+                'description' => __("Role with access to the application's business functions restricted to the department itself. Does not have access to administration functions."),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
             [
                 'id' => Role::ORDINARY,
                 'name' => __('Ordinary'),
-                'description' => __('Role with access to minimum functions.'),
+                'description' => __('Role with access to only minimal functions.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ]
@@ -63,36 +63,36 @@ class DatabaseSeeder extends Seeder
         DB::table('permissions')->insert([
             [
                 'id' => Role::VIEWANY,
-                'name' => __('View any roles'),
+                'name' => __('Role: View all'),
                 'description' => __('Permission to list all roles.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
             [
                 'id' => Role::VIEW,
-                'name' => __('View role'),
+                'name' => __('Role: View one'),
                 'description' => __('Permission to view roles individually.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
             [
                 'id' => Role::UPDATE,
-                'name' => __('Update role'),
-                'description' => __('Permission to update roles.'),
+                'name' => __('Role: Update one'),
+                'description' => __('Permission to update roles individually.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
             [
                 'id' => Permission::VIEWANY,
-                'name' => __('View any permissions'),
+                'name' => __('Permission: View all'),
                 'description' => __('Permission to list all permissions.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ],
             [
                 'id' => Permission::UPDATE,
-                'name' => __('Update permission'),
-                'description' => __('Permission to update permissions.'),
+                'name' => __('Permission: Update one'),
+                'description' => __('Permission to update permissions individually.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s')
             ]
