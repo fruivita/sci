@@ -85,6 +85,16 @@
 
             </div>
 
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-end">
+
+                <x-linkbutton
+                    icon="award"
+                    href="{{ route('authorization.roles.index') }}"
+                    text="{{ __('Roles') }}"
+                    title="{{ __('Show all records') }}"/>
+
+            </div>
+
         </div>
 
     </x-container>
