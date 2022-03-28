@@ -44,14 +44,14 @@
                 @enderror
 
 
-                <x-table class="table-fixed">
+                <x-table>
 
                     <x-slot name="head">
 
-                        <x-table.heading class="w-32">{{ __('Permission') }}</x-table.heading>
+                        <x-table.heading>{{ __('Permission') }}</x-table.heading>
 
 
-                        <x-table.heading class="w-96">{{ __('Description') }}</x-table.heading>
+                        <x-table.heading>{{ __('Description') }}</x-table.heading>
 
                     </x-slot>
 

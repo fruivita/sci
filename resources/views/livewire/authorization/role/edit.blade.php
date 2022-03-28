@@ -56,11 +56,11 @@
                     @enderror
 
 
-                    <x-table class="table-fixed">
+                    <x-table>
 
                         <x-slot name="head">
 
-                            <x-table.heading class="w-14">
+                            <x-table.heading>
 
                                 <select wire:key="checkbox-action" wire:model="checkbox_action" class="bg-primary-300 rounded w-14 dark:bg-secondary-500">
 
@@ -82,10 +82,10 @@
                             </x-table.heading>
 
 
-                            <x-table.heading class="w-32">{{ __('Permission') }}</x-table.heading>
+                            <x-table.heading>{{ __('Permission') }}</x-table.heading>
 
 
-                            <x-table.heading class="w-96">{{ __('Description') }}</x-table.heading>
+                            <x-table.heading>{{ __('Description') }}</x-table.heading>
 
                         </x-slot>
 
