@@ -74,27 +74,19 @@
 
         <p class="text-sm leading-5">
 
-          {{ __('Records') }}
+          <span>{{ __('Records') }}</span>
 
 
-          @if ($paginator->firstItem())
-
-            <span class="font-medium">{{ $paginator->firstItem() }}</span>
+          <span class="font-medium">{{ $paginator->firstItem() }}</span>
 
 
-            {{ __('to') }}
+          <span>{{ __('to') }}</span>
 
 
-            <span class="font-medium">{{ $paginator->lastItem() }}</span>
-
-          @else
-
-            {{ $paginator->count() }}
-
-          @endif
+          <span class="font-medium">{{ $paginator->lastItem() }}</span>
 
 
-          {{ __('of') }}
+          <span>{{ __('of') }}</span>
 
 
           <span class="font-medium">{{ $paginator->total() }}</span>
