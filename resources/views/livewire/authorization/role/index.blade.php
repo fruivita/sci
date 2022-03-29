@@ -84,7 +84,7 @@
 
                                     <x-linkbutton
                                         icon="pencil-square"
-                                        href="{{ route('authorization.roles.show', ['role' => $role]) }}"
+                                        href="{{ route('authorization.roles.show', $role->id) }}"
                                         text="{{ __('Show') }}"
                                         title="{{ __('Show the record') }}"/>
 

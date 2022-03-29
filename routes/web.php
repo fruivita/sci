@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('autorização')->name('authorization.')->group(function () {
         Route::prefix('perfil')->name('roles.')->group(function () {
             Route::get('/', RoleLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Role::class);
-            Route::get('show/{role}', RoleLivewireShow::class)->name('show')->can(Policy::View->value, Role::class);
+            Route::get('show/{role_id}', RoleLivewireShow::class)->name('show')->can(Policy::View->value, Role::class);
             Route::get('edit/{role}', RoleLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Role::class);
         });
     });

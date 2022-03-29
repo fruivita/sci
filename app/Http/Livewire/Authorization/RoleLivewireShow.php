@@ -17,6 +17,13 @@ class RoleLivewireShow extends Component
     use AuthorizesRequests, WithPerPagePagination, WithCaching;
 
     /**
+     * Id do perfil que está em exibição.
+     *
+     * @var int
+     */
+    public $role_id;
+
+    /**
      * Perfil que está em exibição.
      *
      * @var \App\Models\Role
@@ -32,6 +39,47 @@ class RoleLivewireShow extends Component
     public function boot()
     {
         $this->authorize(Policy::View->value, Role::class);
+    }
+
+    /**
+     * Runs once, immediately after the component is instantiated, but before
+     * render() is called. This is only called once on initial page load and
+     * never called again, even on component refreshes
+     *
+     * @param int $role_id
+     *
+     * @return void
+     */
+    public function mount(int $role_id)
+    {
+        $this->role_id = $role_id;
+    }
+
+    /**
+     * Runs on every request, after the component is mounted or hydrated, but
+     * before any update methods are called
+     */
+    public function booted()
+    {
+        $this->useCache();
+
+        $this->role = $this->cache(
+            key: $this->id,
+            seconds: 60,
+            callback: function() {
+                return Role::query()
+                ->addSelect(['previous' => Role::select('id')
+                    ->where('id', '<' , $this->role_id)
+                    ->orderBy('id', 'desc')
+                    ->take(1)
+                ])
+                ->addSelect(['next' => Role::select('id')
+                    ->where('id', '>', $this->role_id)
+                    ->orderBy('id', 'asc')
+                    ->take(1)
+                ])
+                ->findOrFail($this->role_id);
+        });
     }
 
     /**

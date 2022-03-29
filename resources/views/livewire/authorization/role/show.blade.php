@@ -12,7 +12,44 @@
 
 <x-page header="{{ $role->name }}">
 
-    <x-container>
+    <x-container class="space-y-6">
+
+        <div class="flex justify-between">
+
+            @isset($role->previous)
+
+                <x-linkbutton
+                    class="md:inline-flex"
+                    icon="chevron-double-left"
+                    href="{{ route('authorization.roles.show', $role->previous) }}"
+                    prepend="true"
+                    text="{{ __('Previous') }}"
+                    title="{{ __('Show previous record') }}"/>
+
+            @else
+
+              <div></div>
+
+            @endisset
+
+
+            @isset($role->next)
+
+                <x-linkbutton
+                    class="md:inline-flex"
+                    icon="chevron-double-right"
+                    href="{{ route('authorization.roles.show', $role->next) }}"
+                    text="{{ __('Next') }}"
+                    title="{{ __('Show next record') }}"/>
+
+            @else
+
+                <div></div>
+
+            @endisset
+
+        </div>
+
 
         <div class="space-y-6">
 
