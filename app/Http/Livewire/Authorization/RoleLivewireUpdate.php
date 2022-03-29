@@ -31,14 +31,14 @@ class RoleLivewireUpdate extends Component
     /**
      * Id do registro anterior.
      *
-     * @var int
+     * @var null|int
      */
     public $previous;
 
     /**
      * Id do próximo registro.
      *
-     * @var int
+     * @var null|int
      */
     public $next;
 
