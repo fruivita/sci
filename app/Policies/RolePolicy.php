@@ -13,8 +13,9 @@ class RolePolicy extends Policy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
      */
     public function viewAny(User $user)
     {
@@ -24,8 +25,9 @@ class RolePolicy extends Policy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
      */
     public function view(User $user)
     {
@@ -35,8 +37,9 @@ class RolePolicy extends Policy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
      */
     public function update(User $user)
     {

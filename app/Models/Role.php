@@ -13,23 +13,24 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
  */
 class Role extends Model
 {
-    use HasFactory, HasEagerLimit;
+    use HasFactory;
+    use HasEagerLimit;
 
     protected $table = 'roles';
 
     public $incrementing = false;
 
-    const ADMINISTRATOR = 1000;
-    const INSTITUTIONALMANAGER = 1100;
-    const DEPARTMENTMANAGER = 1200;
-    const ORDINARY = 1300;
+    public const ADMINISTRATOR = 1000;
+    public const INSTITUTIONALMANAGER = 1100;
+    public const DEPARTMENTMANAGER = 1200;
+    public const ORDINARY = 1300;
 
-    const VIEWANY = 100001;
-    const VIEW = 100002;
-    const UPDATE = 100003;
+    public const VIEWANY = 100001;
+    public const VIEW = 100002;
+    public const UPDATE = 100003;
 
     /**
-     * Relacionamento perfil (N:M) permissões
+     * Relacionamento perfil (N:M) permissões.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -39,7 +40,7 @@ class Role extends Model
     }
 
     /**
-     * Relacionamento perfil (1:N) usuários
+     * Relacionamento perfil (1:N) usuários.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -58,7 +59,7 @@ class Role extends Model
     public static function previous(int $id)
     {
         return self::select('id')
-        ->where('id', '<' , $id)
+        ->where('id', '<', $id)
         ->orderBy('id', 'desc')
         ->take(1);
     }
@@ -73,7 +74,7 @@ class Role extends Model
     public static function next(int $id)
     {
         return self::select('id')
-        ->where('id', '>' , $id)
+        ->where('id', '>', $id)
         ->orderBy('id', 'asc')
         ->take(1);
     }

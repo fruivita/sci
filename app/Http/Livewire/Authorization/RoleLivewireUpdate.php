@@ -16,7 +16,10 @@ use Livewire\Component;
  */
 class RoleLivewireUpdate extends Component
 {
-    use AuthorizesRequests, WithCheckboxActions, WithPerPagePagination, WithCaching;
+    use AuthorizesRequests;
+    use WithCheckboxActions;
+    use WithPerPagePagination;
+    use WithCaching;
 
     /**
      * Perfil que está em edição.
@@ -38,21 +41,21 @@ class RoleLivewireUpdate extends Component
                 'required',
                 'string',
                 'max:50',
-                "unique:roles,name,{$this->role->id}"
+                "unique:roles,name,{$this->role->id}",
             ],
 
             'role.description' => [
                 'bail',
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'selected' => [
                 'bail',
                 'nullable',
                 'array',
-                'exists:permissions,id'
+                'exists:permissions,id',
             ],
         ];
     }
@@ -73,7 +76,7 @@ class RoleLivewireUpdate extends Component
 
     /**
      * Runs on every request, immediately after the component is instantiated,
-     * but before any other lifecycle methods are called
+     * but before any other lifecycle methods are called.
      *
      * @return void
      */
@@ -85,7 +88,7 @@ class RoleLivewireUpdate extends Component
     /**
      * Runs once, immediately after the component is instantiated, but before
      * render() is called. This is only called once on initial page load and
-     * never called again, even on component refreshes
+     * never called again, even on component refreshes.
      *
      * @return void
      */
@@ -114,7 +117,7 @@ class RoleLivewireUpdate extends Component
     public function render()
     {
         return view('livewire.authorization.role.edit', [
-            'permissions' => $this->permissions
+            'permissions' => $this->permissions,
         ])->layout('layouts.app');
     }
 
@@ -175,7 +178,8 @@ class RoleLivewireUpdate extends Component
             seconds: 60,
             callback: function () {
                 return Permission::select('id')->get();
-        });
+            }
+        );
     }
 
     /**

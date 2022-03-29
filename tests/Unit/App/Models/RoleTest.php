@@ -39,7 +39,7 @@ test('método updateAndSync faz rollback em casa de falha na atualização do pe
 
     $role = Role::factory()->create([
         'name' => $role_name,
-        'description' => $role_description
+        'description' => $role_description,
     ]);
 
     $role->name = 'new foo';
@@ -97,7 +97,7 @@ test('campos opcionais do perfil são aceitos', function () {
 test('campos do perfil em seu tamanho máximo são aceitos', function () {
     Role::factory()->create([
         'name' => Str::random(50),
-        'description' => Str::random(255)
+        'description' => Str::random(255),
     ]);
 
     expect(Role::count())->toBe(1);
@@ -133,7 +133,7 @@ test('método updateAndSync salva os novos atributos e cria relacionamento com a
 
     $role = Role::factory()->create([
         'name' => 'baz',
-        'description' => 'foo bar baz'
+        'description' => 'foo bar baz',
     ]);
 
     Permission::factory()->create(['id' => 1]);
@@ -163,7 +163,7 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     Role::VIEW,
     Role::UPDATE,
     Permission::VIEWANY,
-    Permission::UPDATE
+    Permission::UPDATE,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {

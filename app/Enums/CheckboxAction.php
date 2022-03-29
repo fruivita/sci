@@ -13,7 +13,6 @@ enum CheckboxAction: string
     case UncheckAll = 'uncheck_all';
     case CheckAllPage = 'check_all_page';
     case UncheckAllPage = 'uncheck_all_page';
-
     /**
      * Nome para exibição do tipo de ação para o checkbox.
      *

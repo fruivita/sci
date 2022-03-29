@@ -9,8 +9,6 @@ use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 
 /**
- * Usuários
- *
  * Os usuários são sincronizados com o servidor LDAP.
  *
  * @see https://laravel.com/docs/9.x/eloquent
@@ -18,7 +16,9 @@ use LdapRecord\Laravel\Auth\LdapAuthenticatable;
  */
 class User extends Authenticatable implements LdapAuthenticatable
 {
-    use HasFactory, Notifiable, AuthenticatesWithLdap;
+    use HasFactory;
+    use Notifiable;
+    use AuthenticatesWithLdap;
 
     /**
      * The attributes that are mass assignable.
@@ -44,7 +44,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     ];
 
     /**
-     * Relacionamento usuário (N:1) perfil
+     * Relacionamento usuário (N:1) perfil.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -72,7 +72,7 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
     public function hasPermission(int $permission_id)
     {
-        $this->load(['role.permissions' => function ($query) use($permission_id) {
+        $this->load(['role.permissions' => function ($query) use ($permission_id) {
             $query->select('id')->where('id', $permission_id);
         }]);
 

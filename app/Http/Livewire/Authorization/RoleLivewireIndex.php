@@ -14,11 +14,13 @@ use Livewire\Component;
  */
 class RoleLivewireIndex extends Component
 {
-    use WithPerPagePagination, AuthorizesRequests, WithLimit;
+    use WithPerPagePagination;
+    use AuthorizesRequests;
+    use WithLimit;
 
     /**
      * Runs on every request, immediately after the component is instantiated,
-     * but before any other lifecycle methods are called
+     * but before any other lifecycle methods are called.
      *
      * @return void
      */
@@ -49,7 +51,7 @@ class RoleLivewireIndex extends Component
     public function render()
     {
         return view('livewire.authorization.role.index', [
-            'roles' => $this->roles
+            'roles' => $this->roles,
         ])->layout('layouts.app');
     }
 }

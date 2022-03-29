@@ -7,7 +7,6 @@
  */
 
 use App\Models\User;
-
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
@@ -16,7 +15,7 @@ test('rotas privadas não são exibidas para usuários não autenticados', funct
     get(route('login'))
     ->assertDontSee([
         route('logout'),
-        route('home')
+        route('home'),
     ]);
 });
 

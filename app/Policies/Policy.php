@@ -13,7 +13,8 @@ use Illuminate\Auth\Access\HandlesAuthorization;
  */
 abstract class Policy
 {
-    use HandlesAuthorization, WithCaching;
+    use HandlesAuthorization;
+    use WithCaching;
 
     /**
      * Determina se o usuário possui a permissão informada.
@@ -22,7 +23,7 @@ abstract class Policy
      * queries repetitivas, em especial, em um mesmo request.
      *
      * @param \App\Models\User $user
-     * @param int $permission
+     * @param int              $permission
      *
      * @return bool
      */

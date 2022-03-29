@@ -7,7 +7,6 @@
 use App\Http\Livewire\Authorization\RoleLivewireIndex;
 use App\Models\Role;
 use Livewire\Livewire;
-
 use function Pest\Laravel\get;
 
 beforeEach(function () {

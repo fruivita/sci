@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Traits;
 use App\Enums\CheckboxAction;
 
 /**
- * Trait idealizada para ser utilizada em componente livewire que precise
+ * Trait idealizada para ser utilizada em componente livewire que precise.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  * @see https://laravel-livewire.com/docs/2.x/traits
@@ -92,7 +92,7 @@ trait WithCheckboxActions
                 'bail',
                 'nullable',
                 'string',
-                'in:' . CheckboxAction::values()->implode(',')]],
+                'in:' . CheckboxAction::values()->implode(','), ]],
             attributes: ['checkbox_action' => __('Action')]
         );
 
@@ -179,7 +179,7 @@ trait WithCheckboxActions
     private function toStandardArray($collection)
     {
         return $collection
-                ->map(fn($id) => (string) $id)
+                ->map(fn ($id) => (string) $id)
                 ->values()
                 ->toArray();
     }

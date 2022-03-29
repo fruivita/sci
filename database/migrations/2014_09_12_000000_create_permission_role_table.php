@@ -23,7 +23,7 @@ return new class extends Migration {
 
             $table->unique([
                 'permission_id',
-                'role_id'
+                'role_id',
             ]);
 
             $table
@@ -51,4 +51,3 @@ return new class extends Migration {
         Schema::dropIfExists('permission_role');
     }
 };
-

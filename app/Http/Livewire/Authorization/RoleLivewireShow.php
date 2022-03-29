@@ -14,7 +14,9 @@ use Livewire\Component;
  */
 class RoleLivewireShow extends Component
 {
-    use AuthorizesRequests, WithPerPagePagination, WithCaching;
+    use AuthorizesRequests;
+    use WithPerPagePagination;
+    use WithCaching;
 
     /**
      * Id do perfil que está em exibição.
@@ -32,7 +34,7 @@ class RoleLivewireShow extends Component
 
     /**
      * Runs on every request, immediately after the component is instantiated,
-     * but before any other lifecycle methods are called
+     * but before any other lifecycle methods are called.
      *
      * @return void
      */
@@ -44,7 +46,7 @@ class RoleLivewireShow extends Component
     /**
      * Runs once, immediately after the component is instantiated, but before
      * render() is called. This is only called once on initial page load and
-     * never called again, even on component refreshes
+     * never called again, even on component refreshes.
      *
      * @param int $role_id
      *
@@ -57,7 +59,7 @@ class RoleLivewireShow extends Component
 
     /**
      * Runs on every request, after the component is mounted or hydrated, but
-     * before any update methods are called
+     * before any update methods are called.
      */
     public function booted()
     {
@@ -66,12 +68,13 @@ class RoleLivewireShow extends Component
         $this->role = $this->cache(
             key: $this->id,
             seconds: 60,
-            callback: function() {
+            callback: function () {
                 return Role::query()
                 ->addSelect(['previous' => Role::previous($this->role_id)])
                 ->addSelect(['next' => Role::next($this->role_id)])
                 ->findOrFail($this->role_id);
-        });
+            }
+        );
     }
 
     /**
@@ -94,7 +97,7 @@ class RoleLivewireShow extends Component
     public function render()
     {
         return view('livewire.authorization.role.show', [
-            'permissions' => $this->permissions
+            'permissions' => $this->permissions,
         ])->layout('layouts.app');
     }
 }

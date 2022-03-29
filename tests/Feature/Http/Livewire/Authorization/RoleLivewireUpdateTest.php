@@ -11,7 +11,6 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
-
 use function Pest\Laravel\get;
 
 beforeEach(function () {
@@ -167,7 +166,7 @@ test('define as permissões que devem ser pre-selecionadas de acodo com os relac
     $selected = $role
                     ->permissions
                     ->pluck('id')
-                    ->map(fn($id) => (string) $id)
+                    ->map(fn ($id) => (string) $id)
                     ->values()
                     ->toArray();
 
