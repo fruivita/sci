@@ -12,7 +12,44 @@
 
 <x-page header="{{ __('Edit the role') }}">
 
-    <x-container>
+    <x-container class="space-y-6">
+
+        <div class="flex justify-between">
+
+            @isset($previous)
+
+                <x-linkbutton
+                    class="md:inline-flex"
+                    icon="chevron-double-left"
+                    href="{{ route('authorization.roles.edit', $previous) }}"
+                    prepend="true"
+                    text="{{ __('Previous') }}"
+                    title="{{ __('Show previous record') }}"/>
+
+            @else
+
+              <div></div>
+
+            @endisset
+
+
+            @isset($next)
+
+                <x-linkbutton
+                    class="md:inline-flex"
+                    icon="chevron-double-right"
+                    href="{{ route('authorization.roles.edit', $next) }}"
+                    text="{{ __('Next') }}"
+                    title="{{ __('Show next record') }}"/>
+
+            @else
+
+                <div></div>
+
+            @endisset
+
+        </div>
+
 
         <form wire:submit.prevent="update" method="POST">
 

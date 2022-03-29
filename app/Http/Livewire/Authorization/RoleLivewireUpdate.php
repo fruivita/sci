@@ -29,6 +29,20 @@ class RoleLivewireUpdate extends Component
     public Role $role;
 
     /**
+     * Id do registro anterior.
+     *
+     * @var int
+     */
+    public $previous;
+
+    /**
+     * Id do próximo registro.
+     *
+     * @var int
+     */
+    public $next;
+
+    /**
      * Regras para a validação dos inputs.
      *
      * @return array<string, mixed>
@@ -97,6 +111,9 @@ class RoleLivewireUpdate extends Component
         $this->role->load(['permissions' => function ($query) {
             $query->select('id');
         }]);
+
+        $this->setPrevious();
+        $this->setNext();
     }
 
     /**
@@ -174,7 +191,7 @@ class RoleLivewireUpdate extends Component
         $this->useCache();
 
         return $this->cache(
-            key: $this->id,
+            key: 'all-checkable' . $this->id,
             seconds: 60,
             callback: function () {
                 return Permission::select('id')->get();
@@ -191,5 +208,41 @@ class RoleLivewireUpdate extends Component
     private function currentlyCheckableRows()
     {
         return $this->permissions;
+    }
+
+    /**
+     * Define o id do registro anterior.
+     *
+     * @return void
+     */
+    private function setPrevious()
+    {
+        $this->useCache();
+
+        $this->previous = $this->cache(
+            key: 'previous' . $this->id,
+            seconds: 60,
+            callback: function () {
+                return optional(Role::previous($this->role->id)->first())->id;
+            }
+        );
+    }
+
+    /**
+     * Define o id do próximo registro.
+     *
+     * @return void
+     */
+    private function setNext()
+    {
+        $this->useCache();
+
+        $this->next = $this->cache(
+            key: 'next' . $this->id,
+            seconds: 60,
+            callback: function () {
+                return optional(Role::next($this->role->id)->first())->id;
+            }
+        );
     }
 }

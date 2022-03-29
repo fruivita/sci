@@ -232,19 +232,19 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
 
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role]);
 
-    expect(Cache::missing($livewire->id))->toBeTrue();
+    expect(Cache::missing('all-checkable' . $livewire->id))->toBeTrue();
 
     $livewire->set('checkbox_action', CheckboxAction::CheckAll->value);
 
     // não serão contabilizados pois o cache já foi registrado por 1 minuto
     Permission::factory(3)->create();
 
-    expect(Cache::has($livewire->id))->toBeTrue()
-    ->and(Cache::get($livewire->id))->toHaveCount(6);
+    expect(Cache::has('all-checkable' . $livewire->id))->toBeTrue()
+    ->and(Cache::get('all-checkable' . $livewire->id))->toHaveCount(6);
 
     // expirará o cache
     $this->travel(61)->seconds();
-    expect(Cache::missing($livewire->id))->toBeTrue();
+    expect(Cache::missing('all-checkable' . $livewire->id))->toBeTrue();
 });
 
 test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
@@ -301,4 +301,49 @@ test('é possível atualizar um perfil com permissão específica', function () 
     expect($this->role->name)->toBe('new foo')
     ->and($this->role->description)->toBe('new bar')
     ->and($this->role->permissions->first()->id)->toBe($permission->id);
+});
+
+test('next e previous são registrados em cache com expirarção de um minuto', function () {
+    grantPermission(Role::UPDATE);
+
+    $role_1 = Role::factory()->create(['id' => 1]);
+    $role_2 = Role::factory()->create(['id' => 2]);
+    $role_3 = Role::factory()->create(['id' => 3]);
+
+    $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $role_2]);
+
+    expect(Cache::has('previous' . $livewire->id))->toBeTrue()
+    ->and(Cache::get('previous' . $livewire->id))->toBe($role_1->id)
+    ->and(Cache::has('next' . $livewire->id))->toBeTrue()
+    ->and(Cache::get('next' . $livewire->id))->toBe($role_3->id);
+
+    // expirará o cache
+    $this->travel(61)->seconds();
+    expect(Cache::missing('previous' . $livewire->id))->toBeTrue()
+    ->and(Cache::missing('next' . $livewire->id))->toBeTrue();
+});
+
+test('next e previous estão definidos durante a edição individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
+    $this->role->delete();
+    grantPermission(Role::UPDATE);
+
+    $role_1 = Role::factory()->create(['id' => 1]);
+    $role_2 = Role::factory()->create(['id' => 2]);
+    $role_3 = Role::factory()->create(['id' => 3]);
+    $role_4 = Role::orderBy('id', 'desc')->first();
+
+    // possui anterior e próximo
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $role_2])
+    ->assertSet('previous', 1)
+    ->assertSet('next', 3);
+
+    // possui apenas próximo
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $role_1])
+    ->assertSet('previous', null)
+    ->assertSet('next', 2);
+
+    // possui apenas anterior
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $role_4])
+    ->assertSet('previous', 3)
+    ->assertSet('next', null);
 });
