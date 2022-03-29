@@ -165,3 +165,21 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     Permission::VIEWANY,
     Permission::UPDATE
 ]);
+
+test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
+    $role_1 = Role::factory()->create(['id' => 1]);
+    $role_2 = Role::factory()->create(['id' => 2]);
+    $role_3 = Role::factory()->create(['id' => 3]);
+
+    expect(Role::previous($role_3->id)->first()->id)->toBe($role_2->id)
+    ->and(Role::previous($role_1->id)->first())->toBeNull();
+});
+
+test('next retorna o registro posterior correto, mesmo sendo o último', function () {
+    $role_1 = Role::factory()->create(['id' => 1]);
+    $role_2 = Role::factory()->create(['id' => 2]);
+    $role_3 = Role::factory()->create(['id' => 3]);
+
+    expect(Role::next($role_1->id)->first()->id)->toBe($role_2->id)
+    ->and(Role::next($role_3->id)->first())->toBeNull();
+});

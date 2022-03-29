@@ -68,16 +68,8 @@ class RoleLivewireShow extends Component
             seconds: 60,
             callback: function() {
                 return Role::query()
-                ->addSelect(['previous' => Role::select('id')
-                    ->where('id', '<' , $this->role_id)
-                    ->orderBy('id', 'desc')
-                    ->take(1)
-                ])
-                ->addSelect(['next' => Role::select('id')
-                    ->where('id', '>', $this->role_id)
-                    ->orderBy('id', 'asc')
-                    ->take(1)
-                ])
+                ->addSelect(['previous' => Role::previous($this->role_id)])
+                ->addSelect(['next' => Role::next($this->role_id)])
                 ->findOrFail($this->role_id);
         });
     }

@@ -39,6 +39,36 @@ class Role extends Model
     }
 
     /**
+     * Registro anterior ao id informado.
+     *
+     * @param int $id id do modelo
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public static function previous(int $id)
+    {
+        return self::select('id')
+        ->where('id', '<' , $id)
+        ->orderBy('id', 'desc')
+        ->take(1);
+    }
+
+    /**
+     * Registro posterior ao id informado.
+     *
+     * @param int $id id do modelo
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public static function next(int $id)
+    {
+        return self::select('id')
+        ->where('id', '>' , $id)
+        ->orderBy('id', 'asc')
+        ->take(1);
+    }
+
+    /**
      * Atualiza um perfil no banco de dados e syncroniza seus permissões.
      *
      * @param array|int|null $permissions ids das permissões
