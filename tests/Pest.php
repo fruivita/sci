@@ -77,7 +77,7 @@ function login(string $samaccountname)
     $fake->actingAs($ldap_user);
 
     post(route('login'), [
-        'username' => $ldap_user->samaccountname[0],
+        'username' => $ldap_user->samaccountname[0],// @phpstan-ignore-line
         'password' => 'secret',
     ]);
 
@@ -89,9 +89,9 @@ function login(string $samaccountname)
  *
  * @return \App\Models\User|null
  */
-function authenticatedUser()
+function authenticatedUser()// @phpstan-ignore-line
 {
-    return Auth::user();
+    return Auth::user();// @phpstan-ignore-line
 }
 
 /**

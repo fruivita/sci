@@ -50,7 +50,7 @@ trait WithPerPagePagination
      *
      * @param string $value paginação
      *
-     * @return value
+     * @return void
      */
     public function updatedPerPage($value)
     {
@@ -68,7 +68,7 @@ trait WithPerPagePagination
     /**
      * Aplica a paginação na query informada.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Contracts\Database\Query\Builder $query
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */

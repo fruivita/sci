@@ -21,6 +21,9 @@ abstract class Policy
      * Utiliza cache de curta duração para armazenar a permissão evitando-se
      * queries repetitivas, em especial, em um mesmo request.
      *
+     * @param \App\Models\User $user
+     * @param int $permission
+     *
      * @return bool
      */
     protected function hasPermissionWithCache(User $user, int $permission)

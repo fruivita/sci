@@ -53,7 +53,7 @@ class Role extends Model
      *
      * @param int $id id do modelo
      *
-     * @return Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function previous(int $id)
     {
@@ -68,7 +68,7 @@ class Role extends Model
      *
      * @param int $id id do modelo
      *
-     * @return Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function next(int $id)
     {
