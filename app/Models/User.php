@@ -43,6 +43,11 @@ class User extends Authenticatable implements LdapAuthenticatable
         'remember_token',
     ];
 
+    /**
+     * Relacionamento usuário (N:1) perfil
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');

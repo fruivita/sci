@@ -28,11 +28,21 @@ class Role extends Model
     const VIEW = 100002;
     const UPDATE = 100003;
 
+    /**
+     * Relacionamento perfil (N:M) permissões
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'permission_role', 'role_id', 'permission_id')->withTimestamps();
     }
 
+    /**
+     * Relacionamento perfil (1:N) usuários
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function users()
     {
         return $this->hasMany(User::class, 'role_id', 'id');
