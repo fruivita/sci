@@ -48,6 +48,8 @@ trait WithPerPagePagination
      * Define paginação e a persiste na seção para ser utilizada como
      * preferência durante toda a navegação do usuário.
      *
+     * Runs after a property called $per_page is updated
+     *
      * @param string $value paginação
      *
      * @return void

@@ -198,7 +198,7 @@ class RoleLivewireUpdate extends Component
     }
 
     /**
-     * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra
+     * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra,
      * as linhas atualmente exibidas na página.
      *
      * @return \Illuminate\Database\Eloquent\Collection
