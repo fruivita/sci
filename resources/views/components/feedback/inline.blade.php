@@ -14,18 +14,20 @@
 --}}
 
 <span
-    x-data="{ showInlineFeedback : false , message : '' }"
+    x-data="{ showInlineFeedback : false , message : '', type : '' }"
     x-init="
-        @this.on('feedback', ( e ) => {
+        @this.on('feedback', ( m, t ) => {
             setTimeout(() => {
                 showInlineFeedback = false;
             }, 2500);
             showInlineFeedback = true;
-            message = e;
+            message = m;
+            type = t;
         })
     "
     x-show="showInlineFeedback"
     x-text="message"
     x-transition.duration.500ms
+    x-bind:class="(type == 'success') ? 'text-green-500' : 'text-red-500'"
     class="font-bold text-center"
 ></span>
