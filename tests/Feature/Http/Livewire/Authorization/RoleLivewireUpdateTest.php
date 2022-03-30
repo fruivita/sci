@@ -5,6 +5,7 @@
  */
 
 use App\Enums\CheckboxAction;
+use App\Enums\FeedbackType;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
@@ -276,7 +277,7 @@ test('emite evento de feedback ao atualizar um perfil', function () {
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->call('update')
-    ->assertEmitted('feedback', __('Saved!'));
+    ->assertEmitted('feedback', __('Success!'), FeedbackType::Success);
 });
 
 test('é possível atualizar um perfil com permissão específica', function () {

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Authorization;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithCheckboxActions;
+use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Permission;
 use App\Models\Role;
@@ -20,6 +21,7 @@ class RoleLivewireUpdate extends Component
     use WithCheckboxActions;
     use WithPerPagePagination;
     use WithCaching;
+    use WithFeedbackEvents;
 
     /**
      * Perfil que está em edição.
@@ -149,11 +151,7 @@ class RoleLivewireUpdate extends Component
 
         $saved = $this->role->updateAndSync($this->selected);
 
-        $msg = $saved === true
-                ? __('Saved!')
-                : __('Failure!');
-
-        $this->emitSelf('feedback', $msg);
+        $this->emitSaveInlineFeebackSelf($saved);
     }
 
     /**
