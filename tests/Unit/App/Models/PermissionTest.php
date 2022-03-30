@@ -68,7 +68,7 @@ test('método updateAndSync cria log em casa de falha na atualização da permis
 test('ids dos permissões para administração do perfil estão definidas', function () {
     expect(Permission::VIEWANY)->toBe(110001)
     ->and(Permission::VIEW)->toBe(110002)
-    ->and(Permission::UPDATE)->toBe(110003);
+    ->and(Permission::UPDATE)->toBe(110004);
 });
 
 test('cadastra múltiplas permissões', function () {

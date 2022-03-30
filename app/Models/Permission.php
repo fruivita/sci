@@ -22,7 +22,7 @@ class Permission extends Model
 
     public const VIEWANY = 110001;
     public const VIEW = 110002;
-    public const UPDATE = 110003;
+    public const UPDATE = 110004;
 
     /**
      * Relacionamento permissão (M:N) perfis.
