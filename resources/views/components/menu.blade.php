@@ -53,6 +53,17 @@
 
             @endcan
 
+
+            @can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
+
+                <x-menu.link
+                    icon="vector-pen"
+                    href="{{ route('authorization.permissions.index') }}"
+                    text="{{ __('Permissions') }}"
+                    title="{{ __('Go to permissions page') }}"/>
+
+            @endcan
+
         </x-menu.group>
 
     @endif
