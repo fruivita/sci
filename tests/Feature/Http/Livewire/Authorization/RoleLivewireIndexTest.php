@@ -78,7 +78,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível listar perfis com permissão específica', function () {
+test('é possível listar os perfis com permissão específica', function () {
     grantPermission(Role::VIEWANY);
 
     get(route('authorization.roles.index'))
