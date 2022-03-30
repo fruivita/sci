@@ -21,8 +21,8 @@
         transition
 
         active:ring
-        disabled:opacity-25
         disabled:cursor-not-allowed
+        disabled:opacity-25
     }
 
     .btn-default {
