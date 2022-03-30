@@ -80,7 +80,7 @@ class Role extends Model
     }
 
     /**
-     * Atualiza um perfil no banco de dados e syncroniza seus permissões.
+     * Atualiza um perfil no banco de dados e syncroniza suas permissões.
      *
      * @param array|int|null $permissions ids das permissões
      *
