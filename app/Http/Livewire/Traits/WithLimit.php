@@ -15,5 +15,5 @@ trait WithLimit
      *
      * @var int
      */
-    private $limit = 10;
+    public $limit = 10;
 }
