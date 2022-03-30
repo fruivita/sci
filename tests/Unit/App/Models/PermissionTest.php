@@ -52,7 +52,7 @@ test('método updateAndSync faz rollback em casa de falha na atualização da pe
     expect($saved)->toBeFalse()
     ->and($permission->name)->toBe($permission_name)
     ->and($permission->description)->toBe($permission_description)
-    ->and($permission->permissions)->toBeEmpty();
+    ->and($permission->roles)->toBeEmpty();
 });
 
 test('método updateAndSync cria log em casa de falha na atualização da permissão', function () {
