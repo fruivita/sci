@@ -90,6 +90,13 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
+                'id' => Permission::VIEW,
+                'name' => __('Permission: View one'),
+                'description' => __('Permission to view permissions individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'id' => Permission::UPDATE,
                 'name' => __('Permission: Update one'),
                 'description' => __('Permission to update permissions individually.'),
@@ -120,6 +127,12 @@ class DatabaseSeeder extends Seeder
             [
                 'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => Permission::VIEWANY,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => Permission::VIEW,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
