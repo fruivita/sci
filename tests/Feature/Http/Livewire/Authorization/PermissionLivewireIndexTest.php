@@ -22,14 +22,12 @@ test('não é possível listar as permissões sem estar autenticado', function (
     logout();
 
     get(route('authorization.permissions.index'))
-    ->assertRedirect(route('login'))
-    ->assertDontSee(route('authorization.permissions.index'));
+    ->assertRedirect(route('login'));
 });
 
 test('não é possível executar a rota de listagem das permissões sem permissão específica', function () {
     get(route('authorization.permissions.index'))
-    ->assertForbidden()
-    ->assertDontSee(route('authorization.permissions.index'));
+    ->assertForbidden();
 });
 
 test('não é possível renderizar o componente de listagem das permissões sem permissão específica', function () {

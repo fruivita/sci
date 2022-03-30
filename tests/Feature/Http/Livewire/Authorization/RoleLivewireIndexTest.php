@@ -22,14 +22,12 @@ test('não é possível listar os perfis sem estar autenticado', function () {
     logout();
 
     get(route('authorization.roles.index'))
-    ->assertRedirect(route('login'))
-    ->assertDontSee(route('authorization.roles.index'));
+    ->assertRedirect(route('login'));
 });
 
 test('não é possível executar a rota de listagem dos perfis sem permissão específica', function () {
     get(route('authorization.roles.index'))
-    ->assertForbidden()
-    ->assertDontSee(route('authorization.roles.index'));
+    ->assertForbidden();
 });
 
 test('não é possível renderizar o componente de listagem dos perfis sem permissão específica', function () {
