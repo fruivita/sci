@@ -39,4 +39,18 @@ abstract class Policy
             }
         );
     }
+
+    /**
+     * Determina se o usuário possui a permissão informada, sem armazenar em
+     * cache o resultado.
+     *
+     * @param \App\Models\User $user
+     * @param int              $permission
+     *
+     * @return bool
+     */
+    protected function hasPermissionWithoutCache(User $user, int $permission)
+    {
+        return (bool) $user->hasPermission($permission);
+    }
 }
