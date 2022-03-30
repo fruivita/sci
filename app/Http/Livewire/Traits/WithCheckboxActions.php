@@ -37,14 +37,14 @@ trait WithCheckboxActions
      *
      * @return \Illuminate\Support\Collection
      */
-    abstract public function rowsToCheck();
+    abstract private function rowsToCheck();
 
     /**
      * Todos as linhas (ids dos checkbox) disponíveis para seleção.
      *
      * @return \Illuminate\Support\Collection
      */
-    abstract public function allCheckableRows();
+    abstract private function allCheckableRows();
 
     /**
      * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra
@@ -52,13 +52,13 @@ trait WithCheckboxActions
      *
      * @return \Illuminate\Support\Collection
      */
-    abstract public function currentlyCheckableRows();
+    abstract private function currentlyCheckableRows();
 
     /**
      * Inicializa os valores dos checkbox que devem ser marcados quando a trait
      * é inicializada pela primeira vez.
      *
-     * 	Runs once, immediately after the component is instantiated, but before
+     * Runs once, immediately after the component is instantiated, but before
      * render() is called. This is only called once on initial page load and
      * never called again, even on component refreshes.
      *
@@ -79,6 +79,8 @@ trait WithCheckboxActions
      * - uncheck_all - desmarca todos os registros
      * - check_all_page - marca todos os registros em exibição na página
      * - uncheck_all_page - desmarca todos os registros em exibição na página
+     *
+     * Runs after a property called $checkbox_action is updated
      *
      * @return void
      *
