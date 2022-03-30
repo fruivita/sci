@@ -73,9 +73,9 @@
                     :error="$errors->first('role.description')"
                     icon="blockquote-left"
                     maxlength="255"
-                    placeholder="{{ __('About the profile') }}"
+                    placeholder="{{ __('About the role') }}"
                     text="{{ __('Description') }}"
-                    title="{{ __('About the profile') }}"
+                    title="{{ __('About the role') }}"
                     withcounter/>
 
 
