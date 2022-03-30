@@ -163,6 +163,7 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     Role::VIEW,
     Role::UPDATE,
     Permission::VIEWANY,
+    Permission::VIEW,
     Permission::UPDATE,
 ]);
 

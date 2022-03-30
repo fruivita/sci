@@ -7,6 +7,7 @@
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 // Exceptions
@@ -30,7 +31,46 @@ test('lança exceção ao tentar cadastrar permissão com campo inválido', func
     ['description', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
 ]);
 
+// Failures
+test('método updateAndSync faz rollback em casa de falha na atualização da permissão', function () {
+    $permission_name = 'foo';
+    $permission_description = 'bar';
+
+    $permission = Permission::factory()->create([
+        'name' => $permission_name,
+        'description' => $permission_description,
+    ]);
+
+    $permission->name = 'new foo';
+    $permission->description = 'new bar';
+
+    // relacionamento com perfis inexistentes
+    $saved = $permission->updateAndSync([1, 2]);
+
+    $permission->refresh()->load('roles');
+
+    expect($saved)->toBeFalse()
+    ->and($permission->name)->toBe($permission_name)
+    ->and($permission->description)->toBe($permission_description)
+    ->and($permission->permissions)->toBeEmpty();
+});
+
+test('método updateAndSync cria log em casa de falha na atualização da permissão', function () {
+    Log::shouldReceive('error')->once();
+
+    $permission = Permission::factory()->create();
+
+    // relacionamento com perfis inexistentes
+    $permission->updateAndSync([1, 2]);
+});
+
 // Happy path
+test('ids dos permissões para administração do perfil estão definidas', function () {
+    expect(Permission::VIEWANY)->toBe(110001)
+    ->and(Permission::VIEW)->toBe(110002)
+    ->and(Permission::UPDATE)->toBe(110003);
+});
+
 test('cadastra múltiplas permissões', function () {
     $amount = 30;
 
@@ -65,4 +105,47 @@ test('uma permissão pertente a diversos perfis', function () {
     $permission = Permission::with('roles')->first();
 
     expect($permission->roles)->toHaveCount($amount);
+});
+
+test('método updateAndSync salva os novos atributos e cria relacionamento com os perfis informadas', function () {
+    $permission_name = 'foo';
+    $permission_description = 'bar';
+
+    $permission = Permission::factory()->create([
+        'name' => 'baz',
+        'description' => 'foo bar baz',
+    ]);
+
+    Role::factory()->create(['id' => 1]);
+    Role::factory()->create(['id' => 2]);
+    Role::factory()->create(['id' => 3]);
+
+    $permission->name = $permission_name;
+    $permission->description = $permission_description;
+
+    $saved = $permission->updateAndSync([1, 3]);
+    $permission->refresh()->load('roles');
+
+    expect($saved)->toBeTrue()
+    ->and($permission->name)->toBe($permission_name)
+    ->and($permission->description)->toBe($permission_description)
+    ->and($permission->roles->modelKeys())->toBe([1, 3]);
+});
+
+test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
+    $permission_1 = Permission::factory()->create(['id' => 1]);
+    $permission_2 = Permission::factory()->create(['id' => 2]);
+    $permission_3 = Permission::factory()->create(['id' => 3]);
+
+    expect(Permission::previous($permission_3->id)->first()->id)->toBe($permission_2->id)
+    ->and(Permission::previous($permission_1->id)->first())->toBeNull();
+});
+
+test('next retorna o registro posterior correto, mesmo sendo o último', function () {
+    $permission_1 = Permission::factory()->create(['id' => 1]);
+    $permission_2 = Permission::factory()->create(['id' => 2]);
+    $permission_3 = Permission::factory()->create(['id' => 3]);
+
+    expect(Permission::next($permission_1->id)->first()->id)->toBe($permission_2->id)
+    ->and(Permission::next($permission_3->id)->first())->toBeNull();
 });
