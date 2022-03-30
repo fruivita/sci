@@ -59,7 +59,7 @@
                                     <li>{{ $permission->name }}</li>
 
 
-                                    @if ($loop->last)
+                                    @if ($loop->last && $role->permissions->count() == $this->limit)
 
                                         <li class="font-bold text-right">{{ __('There may be more') }}</li>
 
