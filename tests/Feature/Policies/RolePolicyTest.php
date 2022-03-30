@@ -92,7 +92,7 @@ test('permissão de visualizar individualmente um perfil é persistida em cache 
     logout();
 });
 
-test('permissão de atualização dos perfis é persistida em cache por 5 segundos', function () {
+test('permissão de atualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
     $user = login('foo');
     grantPermission(Role::UPDATE);
 
@@ -139,7 +139,7 @@ test('usuário com permissão pode visualizar individualmente um perfil', functi
     logout();
 });
 
-test('usuário com permissão pode atualizar um perfil', function () {
+test('usuário com permissão pode atualizar individualmente um perfil', function () {
     $user = login('foo');
     grantPermission(Role::UPDATE);
 
