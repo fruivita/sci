@@ -6,6 +6,7 @@
 
 use App\Enums\CheckboxAction;
 
+// Happy path
 test('CheckboxAction enum corretamente definidos', function () {
     expect(CheckboxAction::CheckAll->value)->toBe('check_all')
     ->and(CheckboxAction::UncheckAll->value)->toBe('uncheck_all')

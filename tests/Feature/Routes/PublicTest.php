@@ -6,6 +6,7 @@
 
 use function Pest\Laravel\get;
 
+// Happy path
 test('rota de login está disponível sem necessidade de autenticação', function () {
     logout();
 

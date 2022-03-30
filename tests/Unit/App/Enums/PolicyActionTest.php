@@ -6,6 +6,7 @@
 
 use App\Enums\Policy;
 
+// Happy path
 test('Policy enum corretamente definidos', function () {
     expect(Policy::ViewAny->value)->toBe('viewAny')
     ->and(Policy::View->value)->toBe('view')
