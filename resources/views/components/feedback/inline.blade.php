@@ -29,5 +29,5 @@
     x-text="message"
     x-transition.duration.500ms
     x-bind:class="(type == 'success') ? 'text-green-500' : 'text-red-500'"
-    class="font-bold text-center"
+    class="cursor-default font-bold text-center"
 ></span>
