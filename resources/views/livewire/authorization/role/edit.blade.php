@@ -129,7 +129,7 @@
 
                         <x-slot name="body">
 
-                            <x-table.row wire:loading.delay.class="opacity-30">
+                            <x-table.row wire:loading.delay.class="opacity-25">
 
                                 <x-table.cell class="text-left" colspan="3">
 
@@ -150,12 +150,14 @@
 
                             @forelse ( $permissions ?? [] as $permission )
 
-                                <x-table.row wire:loading.delay.class="opacity-30">
+                                <x-table.row wire:loading.delay.class="opacity-25">
 
                                     <x-table.cell>
 
                                         <x-form.checkbox
                                             wire:key="permission-{{ $permission->id }}"
+                                            wire:loading.delay.attr="disabled"
+                                            wire:loading.delay.class="cursor-not-allowed"
                                             wire:model="selected"
                                             :checked="$role->permissions->contains($permission->id)"
                                             value="{{ $permission->id }}"/>
@@ -198,7 +200,10 @@
 
                     <x-feedback.inline/>
 
+
                     <x-button
+                        wire:target="update"
+                        wire:loading.delay.attr="disabled"
                         icon="save"
                         text="{{ __('Save') }}"
                         title="{{ __('Save the record') }}"
