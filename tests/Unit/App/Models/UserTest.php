@@ -42,6 +42,10 @@ test('lança exceção ao tentar definir relacionamento inválido', function ($f
 ]);
 
 // Happy path
+test('ids dos permissões para administração do usúario estão definidas', function () {
+    expect(User::SIMULATION_CREATE)->toBe(120103);
+});
+
 test('cadastra múltiplos usuários', function () {
     $amount = 30;
 

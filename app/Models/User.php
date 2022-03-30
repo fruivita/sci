@@ -20,6 +20,8 @@ class User extends Authenticatable implements LdapAuthenticatable
     use Notifiable;
     use AuthenticatesWithLdap;
 
+    public const SIMULATION_CREATE = 120103;
+
     /**
      * The attributes that are mass assignable.
      *
