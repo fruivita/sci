@@ -10,13 +10,13 @@ namespace App\Enums;
  */
 enum Policy: string
 {
-    case ViewAny = 'viewAny';
+    case ViewAny = 'view-any';
     case View = 'view';
     case Create = 'create';
     case Update = 'update';
     case Restore = 'restore';
     case Delete = 'delete';
-    case ForceDelete = 'forceDelete';
+    case ForceDelete = 'force-delete';
     case SimulationCreate = 'simulation-create';
     case SimulationDelete = 'simulation-delete';
 }

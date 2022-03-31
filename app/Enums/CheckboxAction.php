@@ -9,10 +9,10 @@ namespace App\Enums;
  */
 enum CheckboxAction: string
 {
-    case CheckAll = 'check_all';
-    case UncheckAll = 'uncheck_all';
-    case CheckAllPage = 'check_all_page';
-    case UncheckAllPage = 'uncheck_all_page';
+    case CheckAll = 'check-all';
+    case UncheckAll = 'uncheck-all';
+    case CheckAllPage = 'check-all-page';
+    case UncheckAllPage = 'uncheck-all-page';
     /**
      * Nome para exibição do tipo de ação para o checkbox.
      *

@@ -22,10 +22,10 @@ trait WithCheckboxActions
     /**
      * Actions de seleção de checkbox disponíveis.
      *
-     * - check_all - marca todos os registros
-     * - uncheck_all - desmarca todos os registros
-     * - check_all_page - marca todos os registros em exibição na página
-     * - uncheck_all_page - desmarca todos os registros em exibição na página
+     * - check-all - marca todos os registros
+     * - uncheck-all - desmarca todos os registros
+     * - check-all-page - marca todos os registros em exibição na página
+     * - uncheck-all-page - desmarca todos os registros em exibição na página
      *
      * @var string
      */
@@ -75,10 +75,10 @@ trait WithCheckboxActions
      * Executa a action informada.
      *
      * As actions permitidas são:
-     * - check_all - marca todos os registros
-     * - uncheck_all - desmarca todos os registros
-     * - check_all_page - marca todos os registros em exibição na página
-     * - uncheck_all_page - desmarca todos os registros em exibição na página
+     * - check-all - marca todos os registros
+     * - uncheck-all - desmarca todos os registros
+     * - check-all-page - marca todos os registros em exibição na página
+     * - uncheck-all-page - desmarca todos os registros em exibição na página
      *
      * Runs after a property called $checkbox_action is updated
      *
@@ -105,7 +105,7 @@ trait WithCheckboxActions
 
     /**
      * Retorna todos os ids dos checkbox que devem ser marcados respondendo à
-     * action check_all.
+     * action check-all.
      *
      * Nesse caso, todos os ids existentes na entidade.
      *
@@ -120,7 +120,7 @@ trait WithCheckboxActions
 
     /**
      * Retorna todos os ids dos checkbox que devem ser desmarcados respondendo
-     * à action uncheck_all.
+     * à action uncheck-all.
      *
      * Nesse caso, todos os ids existentes na entidade.
      *
@@ -133,7 +133,7 @@ trait WithCheckboxActions
 
     /**
      * Retorna todos os ids dos checkbox que devem ser marcados respondendo à
-     * action check_all_age.
+     * action check-all-page.
      *
      * Nesse caso, todos os ids exibidos na página atual.
      *
@@ -150,7 +150,7 @@ trait WithCheckboxActions
 
     /**
      * Retorna todos os ids dos checkbox que devem ser desmarcados respondendo
-     * à action uncheck_all_page.
+     * à action uncheck-all-page.
      *
      * Nesse caso, todos os ids exibidos na página atual.
      *

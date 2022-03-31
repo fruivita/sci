@@ -8,10 +8,10 @@ use App\Enums\CheckboxAction;
 
 // Happy path
 test('CheckboxAction enum corretamente definidos', function () {
-    expect(CheckboxAction::CheckAll->value)->toBe('check_all')
-    ->and(CheckboxAction::UncheckAll->value)->toBe('uncheck_all')
-    ->and(CheckboxAction::CheckAllPage->value)->toBe('check_all_page')
-    ->and(CheckboxAction::UncheckAllPage->value)->toBe('uncheck_all_page');
+    expect(CheckboxAction::CheckAll->value)->toBe('check-all')
+    ->and(CheckboxAction::UncheckAll->value)->toBe('uncheck-all')
+    ->and(CheckboxAction::CheckAllPage->value)->toBe('check-all-page')
+    ->and(CheckboxAction::UncheckAllPage->value)->toBe('uncheck-all-page');
 });
 
 test('CheckboxAction enum label definido', function () {
@@ -22,5 +22,5 @@ test('CheckboxAction enum label definido', function () {
 });
 
 test('CheckboxAction enum values definido', function () {
-    expect(CheckboxAction::values()->toArray())->toBe(['check_all', 'uncheck_all', 'check_all_page', 'uncheck_all_page']);
+    expect(CheckboxAction::values()->toArray())->toBe(['check-all', 'uncheck-all', 'check-all-page', 'uncheck-all-page']);
 });
