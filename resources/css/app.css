@@ -32,8 +32,8 @@
         text-primary-50
 
         active:border-primary-300
-        focus:bg-primary-900
-        hover:bg-primary-900;
+        focus:bg-primary-600
+        hover:bg-primary-600;
     }
 
     .btn-warning {
@@ -43,8 +43,8 @@
         text-yellow-50
 
         active:border-yellow-300
-        focus:bg-yellow-900
-        hover:bg-yellow-900;
+        focus:bg-yellow-600
+        hover:bg-yellow-600;
     }
 
     .btn-cancel {
@@ -54,8 +54,8 @@
         text-gray-50
 
         active:border-gray-300
-        focus:bg-gray-900
-        hover:bg-gray-900;
+        focus:bg-gray-600
+        hover:bg-gray-600;
     }
 
     .btn-danger {
@@ -65,8 +65,8 @@
         text-red-50
 
         active:border-red-300
-        focus:bg-red-900
-        hover:bg-red-900;
+        focus:bg-red-600
+        hover:bg-red-600;
     }
 
     .error {
