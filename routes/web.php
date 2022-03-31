@@ -8,6 +8,7 @@ use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
 use App\Http\Livewire\Authorization\RoleLivewireIndex;
 use App\Http\Livewire\Authorization\RoleLivewireShow;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
+use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -50,5 +51,10 @@ Route::middleware('auth')->group(function () {
             Route::get('show/{permission_id}', PermissionLivewireShow::class)->name('show')->can(Policy::View->value, Permission::class);
             Route::get('edit/{permission}', PermissionLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Permission::class);
         });
+    });
+
+    Route::prefix('simulacao')->name('simulation.')->group(function () {
+        Route::get('create', SimulationLivewireCreate::class)->name('create')->can(Policy::SimulationCreate->value);
+        Route::delete('/', [SimulationLivewireCreate::class,'destroy'])->name('destroy')->can(Policy::SimulationDelete->value);
     });
 });
