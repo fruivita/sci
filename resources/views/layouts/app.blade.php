@@ -92,6 +92,14 @@
             {{-- conteúdo principal --}}
             <main class="lg:ml-72 lg:px-6">
 
+                {{-- será adicionada quando houver simulação --}}
+                @if(session()->has('simulator'))
+
+                    <x-feedback.simulation />
+
+                @endif
+
+
                 {{ $slot }}
 
             </main>
