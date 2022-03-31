@@ -17,4 +17,7 @@ enum Policy: string
     case Restore = 'restore';
     case Delete = 'delete';
     case ForceDelete = 'forceDelete';
+
+    case SimulationCreate = 'simulation-create';
+    case SimulationDelete = 'simulation-delete';
 }

@@ -14,5 +14,7 @@ test('Policy enum corretamente definidos', function () {
     ->and(Policy::Update->value)->toBe('update')
     ->and(Policy::Restore->value)->toBe('restore')
     ->and(Policy::Delete->value)->toBe('delete')
-    ->and(Policy::ForceDelete->value)->toBe('forceDelete');
+    ->and(Policy::ForceDelete->value)->toBe('forceDelete')
+    ->and(Policy::SimulationCreate->value)->toBe('simulation-create')
+    ->and(Policy::SimulationDelete->value)->toBe('simulation-delete');
 });
