@@ -27,6 +27,7 @@
     @else
 
         <x-menu.link
+            class="{{ request()->routeIs('login') ? 'active': '' }}"
             icon="person"
             href="{{ route('login') }}"
             text="{{ __('Login') }}"
@@ -49,6 +50,7 @@
             @can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
 
                 <x-menu.link
+                    class="{{ request()->routeIs('authorization.roles.*') ? 'active': '' }}"
                     icon="award"
                     href="{{ route('authorization.roles.index') }}"
                     text="{{ __('Roles') }}"
@@ -60,6 +62,7 @@
             @can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
 
                 <x-menu.link
+                    class="{{ request()->routeIs('authorization.permissions.*') ? 'active': '' }}"
                     icon="vector-pen"
                     href="{{ route('authorization.permissions.index') }}"
                     text="{{ __('Permissions') }}"
@@ -81,6 +84,7 @@
             @can(\App\Enums\Policy::SimulationCreate->value)
 
                 <x-menu.link
+                    class="{{ request()->routeIs('simulation.*') ? 'active': '' }}"
                     icon="people"
                     href="{{ route('simulation.create') }}"
                     text="{{ __('Simulation') }}"
