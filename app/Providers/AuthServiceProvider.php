@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Enums\Policy;
+use App\Policies\SimulationPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Fortify\Fortify;
 
 class AuthServiceProvider extends ServiceProvider
@@ -26,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define(Policy::SimulationCreate->value, [SimulationPolicy::class, 'create']);
+        Gate::define(Policy::SimulationDelete->value, [SimulationPolicy::class, 'delete']);
 
         // autenticação
         Fortify::authenticateUsing(function ($request) {
