@@ -165,6 +165,9 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     Permission::VIEWANY,
     Permission::VIEW,
     Permission::UPDATE,
+    User::VIEWANY,
+    User::UPDATE,
+    User::SIMULATION_CREATE,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {

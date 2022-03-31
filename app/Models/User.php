@@ -20,6 +20,8 @@ class User extends Authenticatable implements LdapAuthenticatable
     use Notifiable;
     use AuthenticatesWithLdap;
 
+    public const VIEWANY = 120001;
+    public const UPDATE = 120003;
     public const SIMULATION_CREATE = 120103;
 
     /**

@@ -105,6 +105,20 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
+                'id' => User::VIEWANY,
+                'name' => __('User: View all'),
+                'description' => __('Permission to list all users.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => User::UPDATE,
+                'name' => __('User: Update one'),
+                'description' => __('Permission to update users individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'id' => User::SIMULATION_CREATE,
                 'name' => __('Simulation: Create'),
                 'description' => __('Permission to simulate using the application as if it were another user.'),
@@ -147,6 +161,18 @@ class DatabaseSeeder extends Seeder
             [
                 'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => Permission::UPDATE,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => User::VIEWANY,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => User::UPDATE,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
