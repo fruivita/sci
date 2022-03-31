@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
-    Route::prefix('autorização')->name('authorization.')->group(function () {
+    Route::prefix('autorizacao')->name('authorization.')->group(function () {
         Route::prefix('perfil')->name('roles.')->group(function () {
             Route::get('/', RoleLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Role::class);
             Route::get('show/{role_id}', RoleLivewireShow::class)->name('show')->can(Policy::View->value, Role::class);
