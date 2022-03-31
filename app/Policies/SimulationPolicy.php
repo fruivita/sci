@@ -32,6 +32,6 @@ class SimulationPolicy extends Policy
      */
     public function delete(User $user)
     {
-        return session()->has('simulated');
+        return session()->has('simulator');
     }
 }

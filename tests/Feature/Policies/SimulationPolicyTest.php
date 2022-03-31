@@ -56,7 +56,7 @@ test('usuário com permissão pode criar uma simulação', function () {
 });
 
 test('usuário pode desfazer uma simulação se ela existe em sua sessão', function () {
-    session()->put('simulated', 'bar');
+    session()->put('simulator', 'bar');
 
     expect((new SimulationPolicy)->delete($this->user))->toBeTrue();
 });
