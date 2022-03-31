@@ -39,7 +39,10 @@
 
 @auth
 
-    @if (auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class))
+    @if (
+        auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
+        || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
+    )
 
         <x-menu.group name="{{ __('Authorizations') }}">
 
@@ -61,6 +64,27 @@
                     href="{{ route('authorization.permissions.index') }}"
                     text="{{ __('Permissions') }}"
                     title="{{ __('Go to permissions page') }}"/>
+
+            @endcan
+
+        </x-menu.group>
+
+    @endif
+
+
+    @if (
+        auth()->user()->can(\App\Enums\Policy::SimulationCreate->value)
+    )
+
+        <x-menu.group name="{{ __('Tests') }}">
+
+            @can(\App\Enums\Policy::SimulationCreate->value)
+
+                <x-menu.link
+                    icon="people"
+                    href="{{ route('simulation.create') }}"
+                    text="{{ __('Simulation') }}"
+                    title="{{ __('Go to simulation page') }}"/>
 
             @endcan
 
