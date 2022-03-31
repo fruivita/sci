@@ -18,9 +18,13 @@ parameters:
 
   # https://phpstan.org/config-reference#universal-object-crates
   universalObjectCratesClasses:
+    - App\Http\Livewire\Authorization\PermissionLivewireIndex
+    - App\Http\Livewire\Authorization\PermissionLivewireShow
+    - App\Http\Livewire\Authorization\PermissionLivewireUpdate
     - App\Http\Livewire\Authorization\RoleLivewireIndex
     - App\Http\Livewire\Authorization\RoleLivewireShow
     - App\Http\Livewire\Authorization\RoleLivewireUpdate
+    - LdapRecord\Models\ActiveDirectory\User
 
   # https://phpstan.org/user-guide/ignoring-errors
   ignoreErrors:
