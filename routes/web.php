@@ -55,6 +55,6 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('simulacao')->name('simulation.')->group(function () {
         Route::get('create', SimulationLivewireCreate::class)->name('create')->can(Policy::SimulationCreate->value);
-        Route::delete('/', [SimulationLivewireCreate::class,'destroy'])->name('destroy')->can(Policy::SimulationDelete->value);
+        Route::delete('/', [SimulationLivewireCreate::class, 'destroy'])->name('destroy')->can(Policy::SimulationDelete->value);
     });
 });

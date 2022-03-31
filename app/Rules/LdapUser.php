@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
-use LdapRecord\Models\ActiveDirectory\User;
 use Illuminate\Contracts\Validation\Rule;
+use LdapRecord\Models\ActiveDirectory\User;
 
 /**
  * Verifica se o samaccountname é válido, isto é, se existe no servidor LDAP.
