@@ -84,7 +84,6 @@
 
     <div class="flex justify-between space-x-3">
 
-
         {{-- exibição de eventual mensagem de erro --}}
         <x-error>{{ $error }}</x-error>
 
