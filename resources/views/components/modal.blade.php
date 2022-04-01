@@ -26,7 +26,8 @@
     <article
         x-on:click.away="open = false"
         x-on:keyup.escape.window="open = false"
-        class="divide-y w-full z-40 lg:w-10/12">
+        class="divide-y w-full z-40 lg:w-10/12"
+    >
 
         <header class="bg-primary-300 rounded-t-lg p-3 dark:bg-secondary-600">
 
@@ -46,7 +47,7 @@
         </div>
 
 
-        <footer class="bg-primary-300 flex flex-col justify-end p-3 rounded-b-lg space-x-0 space-y-3 dark:bg-secondary-600 lg:flex-row lg:space-x-3 lg:space-y-0">
+        <footer class="bg-primary-300 flex flex-col justify-end p-3 rounded-b-lg space-x-0 space-y-3 dark:bg-secondary-600 lg:flex-row lg:items-center lg:space-x-3 lg:space-y-0">
 
             {{ $footer }}
 
