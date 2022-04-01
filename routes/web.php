@@ -8,9 +8,11 @@ use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
 use App\Http\Livewire\Authorization\RoleLivewireIndex;
 use App\Http\Livewire\Authorization\RoleLivewireShow;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
+use App\Http\Livewire\Authorization\UserLivewireIndex;
 use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -50,6 +52,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/', PermissionLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Permission::class);
             Route::get('show/{permission_id}', PermissionLivewireShow::class)->name('show')->can(Policy::View->value, Permission::class);
             Route::get('edit/{permission}', PermissionLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Permission::class);
+        });
+
+        Route::prefix('usuario')->name('users.')->group(function () {
+            Route::get('/', UserLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, User::class);
         });
     });
 
