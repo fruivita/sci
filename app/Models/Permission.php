@@ -20,8 +20,25 @@ class Permission extends Model
 
     public $incrementing = false;
 
+    /**
+     * Id da permissão de visualizar todas as permissões.
+     *
+     * @var int
+     */
     public const VIEWANY = 110001;
+
+    /**
+     * Id da permissão de visualizar uma permissão.
+     *
+     * @var int
+     */
     public const VIEW = 110002;
+
+    /**
+     * Id da permissão de atualizar uma permissão.
+     *
+     * @var int
+     */
     public const UPDATE = 110004;
 
     /**
