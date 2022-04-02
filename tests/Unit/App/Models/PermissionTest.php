@@ -150,7 +150,7 @@ test('next retorna o registro posterior correto, mesmo sendo o último', functio
     ->and(Permission::next($permission_3->id)->first())->toBeNull();
 });
 
-test('retorna os perfis usando o escopo default definido', function () {
+test('retorna as permissões usando o escopo de ordenação default definido', function () {
     $first = 1;
     $second = 2;
     $third = 3;
@@ -164,4 +164,4 @@ test('retorna os perfis usando o escopo default definido', function () {
     expect($permissions->get(0)->id)->toBe($first)
     ->and($permissions->get(1)->id)->toBe($second)
     ->and($permissions->get(2)->id)->toBe($third);
-})->only();
+});

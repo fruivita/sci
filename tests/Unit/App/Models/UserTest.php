@@ -121,7 +121,7 @@ test('forHumans retorna username formatado para exibição', function () {
     logout();
 });
 
-test('retorna os usuários usando o escopo default definido', function () {
+test('retorna os usuários usando o escopo de ordenação default definido', function () {
     $first = ['name' => 'foo', 'username' => 'bar'];
     $second = ['name' => 'foo', 'username' => 'baz'];
     $third = ['name' => null, 'username' => 'barr'];

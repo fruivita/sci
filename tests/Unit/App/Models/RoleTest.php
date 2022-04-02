@@ -188,7 +188,7 @@ test('next retorna o registro posterior correto, mesmo sendo o último', functio
     ->and(Role::next($role_3->id)->first())->toBeNull();
 });
 
-test('retorna os perfis usando o escopo default definido', function () {
+test('retorna os perfis usando o escopo de ordenação default definido', function () {
     $first = 1;
     $second = 2;
     $third = 3;
