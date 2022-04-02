@@ -67,6 +67,26 @@ class Role extends Model
     }
 
     /**
+     * Ordenação padrão do modelo.
+     *
+     * Essa ordenação não deve ser alterada, visto que o processo de delegação
+     * a leva para determinar o perfil de maior privilégios (menor id) e o de
+     * menor privilégio (maior id).
+     *
+     * Se essa ordenação for alterada, deve revisar o processo de delegação
+     * para os ajustes necessários.
+     *
+     * Ordem: Id asc
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDefaultOrder($query)
+    {
+        return $query->orderBy('id', 'asc');
+    }
+
+    /**
      * Registro anterior ao id informado.
      *
      * @param int $id id do modelo

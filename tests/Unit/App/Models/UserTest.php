@@ -120,3 +120,22 @@ test('forHumans retorna username formatado para exibição', function () {
 
     logout();
 });
+
+test('retorna os usuários usando o escopo default definido', function () {
+    $first = ['name' => 'foo', 'username' => 'bar'];
+    $second = ['name' => 'foo', 'username' => 'baz'];
+    $third = ['name' => null, 'username' => 'barr'];
+    $fourth = ['name' => null, 'username' => 'barz'];
+
+    User::factory()->create($second);
+    User::factory()->create($first);
+    User::factory()->create($fourth);
+    User::factory()->create($third);
+
+    $users = User::defaultOrder()->get();
+
+    expect($users->get(0)->username)->toBe($first['username'])
+    ->and($users->get(1)->username)->toBe($second['username'])
+    ->and($users->get(2)->username)->toBe($third['username'])
+    ->and($users->get(3)->username)->toBe($fourth['username']);
+});

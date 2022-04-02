@@ -111,7 +111,7 @@ class PermissionLivewireUpdate extends Component
     public function mount()
     {
         $this->permission->load(['roles' => function ($query) {
-            $query->select('id');
+            $query->select('id')->defaultOrder();
         }]);
 
         $this->setPrevious();
@@ -125,7 +125,7 @@ class PermissionLivewireUpdate extends Component
      */
     public function getRolesProperty()
     {
-        return $this->applyPagination(Role::orderBy('id', 'asc'));
+        return $this->applyPagination(Role::query()->defaultOrder());
     }
 
     /**

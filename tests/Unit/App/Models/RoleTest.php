@@ -187,3 +187,19 @@ test('next retorna o registro posterior correto, mesmo sendo o último', functio
     expect(Role::next($role_1->id)->first()->id)->toBe($role_2->id)
     ->and(Role::next($role_3->id)->first())->toBeNull();
 });
+
+test('retorna os perfis usando o escopo default definido', function () {
+    $first = 1;
+    $second = 2;
+    $third = 3;
+
+    Role::factory()->create(['id' => $third]);
+    Role::factory()->create(['id' => $first]);
+    Role::factory()->create(['id' => $second]);
+
+    $roles = Role::defaultOrder()->get();
+
+    expect($roles->get(0)->id)->toBe($first)
+    ->and($roles->get(1)->id)->toBe($second)
+    ->and($roles->get(2)->id)->toBe($third);
+});

@@ -125,7 +125,7 @@ class RoleLivewireUpdate extends Component
      */
     public function getPermissionsProperty()
     {
-        return $this->applyPagination(Permission::orderBy('id', 'asc'));
+        return $this->applyPagination(Permission::query()->defaultOrder());
     }
 
     /**

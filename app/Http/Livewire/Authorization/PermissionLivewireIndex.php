@@ -38,8 +38,8 @@ class PermissionLivewireIndex extends Component
     {
         return $this->applyPagination(
             Permission::with(['roles' => function ($query) {
-                $query->orderBy('id', 'asc')->limit($this->limit);
-            }])->orderBy('id', 'asc')
+                $query->defaultOrder()->limit($this->limit);
+            }])->defaultOrder()
         );
     }
 

@@ -85,7 +85,7 @@ class RoleLivewireShow extends Component
     public function getPermissionsProperty()
     {
         return $this->applyPagination(
-            $this->role->permissions()->orderBy('id', 'asc')
+            $this->role->permissions()->defaultOrder()
         );
     }
 

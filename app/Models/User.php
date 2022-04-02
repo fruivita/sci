@@ -87,6 +87,27 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     /**
+     * Ordenação padrão do modelo.
+     *
+     * Ordem:
+     * - 1º Nome por ordem alfabética asc
+     * - 2º Nomes com valor nulo
+     * - Critério de desempate: username asc
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @see https://learnsql.com/blog/how-to-order-rows-with-nulls/
+     */
+    public function scopeDefaultOrder($query)
+    {
+        return $query
+                ->orderByRaw('name IS NULL')
+                ->orderBy('name', 'asc')
+                ->orderBy('username', 'asc');
+    }
+
+    /**
      * Verifica se o usuário possui a permissão informada.
      *
      * @param int $permission_id

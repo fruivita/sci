@@ -84,16 +84,11 @@ class UserLivewireIndex extends Component
      * Computed property para listar os usuários paginados e seu perfil.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     *
-     * @see https://learnsql.com/blog/how-to-order-rows-with-nulls/
      */
     public function getUsersProperty()
     {
         return $this->applyPagination(
-            User::with('role')
-                ->orderByRaw('name IS NULL')
-                ->orderBy('name', 'asc')
-                ->orderBy('username', 'asc')
+            User::with('role')->defaultOrder()
         );
     }
 
@@ -122,7 +117,7 @@ class UserLivewireIndex extends Component
 
         $this->editing = $user->load('role');
 
-        $this->roles = Role::select('id', 'name')->orderBy('id', 'asc')->get();
+        $this->roles = Role::select('id', 'name')->defaultOrder()->get();
 
         $this->show_edit_modal = true;
     }
