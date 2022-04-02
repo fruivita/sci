@@ -280,6 +280,28 @@ test('emite evento de feedback ao atualizar uma permissão', function () {
     ->assertEmitted('feedback', __('Success!'), FeedbackType::Success);
 });
 
+test('descrição e perfis associados são opcionais na atualização da permissão', function () {
+    grantPermission(Permission::UPDATE);
+
+    $permission = Permission::factory()
+    ->has(Role::factory(1), 'roles')
+    ->create(['description' => 'foo']);
+
+    expect($permission->roles)->toHaveCount(1)
+    ->and($permission->description)->toBe('foo');
+
+    Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission])
+    ->set('permission.description', null)
+    ->set('selected', null)
+    ->call('update')
+    ->assertOk();
+
+    $permission->refresh()->load('roles');
+
+    expect($permission->roles)->toBeEmpty(1)
+    ->and($permission->description)->toBeNull();
+});
+
 test('é possível atualizar uma permissão com permissão específica', function () {
     grantPermission(Permission::UPDATE);
 
