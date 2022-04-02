@@ -40,7 +40,7 @@
         </header>
 
 
-        <div class="px-0 py-3 bg-primary-50 dark:bg-secondary-900 lg:px-24">
+        <div class="px-3 py-6 bg-primary-50 dark:bg-secondary-900 lg:px-24">
 
             {{ $content }}
 
