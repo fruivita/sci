@@ -125,7 +125,7 @@
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-end">
 
                 <x-linkbutton
-                    icon="award"
+                    icon="vector-pen"
                     href="{{ route('authorization.permissions.index') }}"
                     text="{{ __('Permissions') }}"
                     title="{{ __('Show all records') }}"/>

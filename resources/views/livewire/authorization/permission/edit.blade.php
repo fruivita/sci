@@ -213,7 +213,7 @@
 
 
                     <x-linkbutton
-                        icon="award"
+                        icon="vector-pen"
                         href="{{ route('authorization.permissions.index') }}"
                         text="{{ __('Permissions') }}"
                         title="{{ __('Show all records') }}"/>

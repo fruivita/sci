@@ -83,7 +83,7 @@
                                 @can(\App\Enums\Policy::View->value, \App\Models\Permission::class)
 
                                     <x-linkbutton
-                                        icon="pencil-square"
+                                        icon="eye"
                                         href="{{ route('authorization.permissions.show', $permission->id) }}"
                                         text="{{ __('Show') }}"
                                         title="{{ __('Show the record') }}"/>
