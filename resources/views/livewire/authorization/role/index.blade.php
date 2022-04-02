@@ -36,7 +36,7 @@
                 <x-table.heading>{{ __('Permissions') }}</x-table.heading>
 
 
-                <x-table.heading>{{ __('Actions') }}</x-table.heading>
+                <x-table.heading class="w-10">{{ __('Actions') }}</x-table.heading>
 
             </x-slot>
 
