@@ -20,8 +20,27 @@ class User extends Authenticatable implements LdapAuthenticatable
     use Notifiable;
     use AuthenticatesWithLdap;
 
+    protected $table = 'users';
+
+    /**
+     * Id da permissão de visualizar um usuário.
+     *
+     * @var int
+     */
     public const VIEWANY = 120001;
+
+    /**
+     * Id da permissão de atualizar um usuário.
+     *
+     * @var int
+     */
     public const UPDATE = 120003;
+
+    /**
+     * Id da permissão de criar uma simulação de usuário.
+     *
+     * @var int
+     */
     public const SIMULATION_CREATE = 120103;
 
     /**
