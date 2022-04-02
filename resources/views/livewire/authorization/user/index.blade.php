@@ -118,7 +118,6 @@
                             wire:loading.delay.attr="disabled"
                             wire:loading.delay.class="cursor-not-allowed"
                             wire:model.defer="editing.role_id"
-                            wire:target="update"
                             :error="$errors->first('editing.role_id')"
                             icon="award"
                             required

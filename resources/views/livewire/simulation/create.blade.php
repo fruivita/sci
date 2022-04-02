@@ -41,8 +41,6 @@
 
 
                 <x-button
-                    wire:target="store"
-                    wire:loading.delay.attr="disabled"
                     icon="play-circle"
                     text="{{ __('Simulate') }}"
                     title="{{ __('Simulate the informed user') }}"

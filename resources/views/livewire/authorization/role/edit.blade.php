@@ -99,7 +99,11 @@
 
                             <x-table.heading>
 
-                                <select wire:key="checkbox-action" wire:model="checkbox_action" class="bg-primary-300 rounded w-14 dark:bg-secondary-500">
+                                <select
+                                    wire:key="checkbox-action"
+                                    wire:model="checkbox_action"
+                                    class="bg-primary-300 rounded w-14 dark:bg-secondary-500"
+                                >
 
                                     <option value=""></option>
 
@@ -202,8 +206,6 @@
 
 
                     <x-button
-                        wire:target="update"
-                        wire:loading.delay.attr="disabled"
                         icon="save"
                         text="{{ __('Save') }}"
                         title="{{ __('Save the record') }}"
