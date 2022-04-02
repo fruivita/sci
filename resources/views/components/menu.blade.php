@@ -43,6 +43,7 @@
     @if (
         auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
         || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
+        || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
     )
 
         <x-menu.group name="{{ __('Authorizations') }}">
@@ -67,6 +68,18 @@
                     href="{{ route('authorization.permissions.index') }}"
                     text="{{ __('Permissions') }}"
                     title="{{ __('Go to permissions page') }}"/>
+
+            @endcan
+
+
+            @can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('authorization.users.*') ? 'active': '' }}"
+                    icon="person-check"
+                    href="{{ route('authorization.users.index') }}"
+                    text="{{ __('Users') }}"
+                    title="{{ __('Go to users page') }}"/>
 
             @endcan
 
