@@ -8,13 +8,14 @@ use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\User;
 use App\Rules\LdapUser;
 use App\Rules\NotCurrentUser;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
+    $this->seed(RoleSeeder::class);
+
     login('foo');
 });
 
@@ -184,14 +185,14 @@ test('simulação importa o usuário para o banco de dados', function () {
     login('bar');
     grantPermission(User::SIMULATION_CREATE);
 
-    expect(DB::table('users')->where('username', 'foo')->count())->toBe(0);
+    expect(User::where('username', 'foo')->first())->toBeEmpty();
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', 'foo')
     ->call('store')
     ->assertOk();
 
-    expect(DB::table('users')->where('username', 'foo')->count())->toBe(1);
+    expect(User::where('username', 'foo')->get())->toHaveCount(1);
 });
 
 test('simulação troca o usuário autenticado e ao finalizá-la, volta ao usuário anterior', function () {

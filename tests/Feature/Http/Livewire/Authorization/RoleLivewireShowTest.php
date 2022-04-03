@@ -11,7 +11,9 @@ use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
+    $this->seed(RoleSeeder::class);
     $this->role = Role::factory()->create(['name' => 'foo', 'description' => 'bar']);
+
     login('foo');
 });
 
@@ -23,12 +25,12 @@ afterEach(function () {
 test('não é possível visualizar individualmente um perfil sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.roles.show', $this->role->id))
+    get(route('authorization.roles.show', $this->role))
     ->assertRedirect(route('login'));
 });
 
 test('não é possível executar a rota de visualização individual do perfil sem permissão específica', function () {
-    get(route('authorization.roles.show', $this->role->id))
+    get(route('authorization.roles.show', $this->role))
     ->assertForbidden();
 });
 
@@ -41,7 +43,7 @@ test('não é possível renderizar o componente de visualização individual do 
 test('não aceita paginação fora das opções oferecidas', function () {
     grantPermission(Role::VIEW);
 
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
+    Livewire::test(RoleLivewireShow::class, ['role_id' =>$this->role->id])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
@@ -50,7 +52,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 test('é possível renderizar o componente de visualização individual do perfil com permissão específica', function () {
     grantPermission(Role::VIEW);
 
-    get(route('authorization.roles.show', $this->role->id))
+    get(route('authorization.roles.show', $this->role))
     ->assertOk()
     ->assertSeeLivewire(RoleLivewireShow::class);
 });
@@ -58,7 +60,9 @@ test('é possível renderizar o componente de visualização individual do perfi
 test('paginação retorna a quantidade de permissões esperada', function () {
     grantPermission(Role::VIEW);
 
-    $permissions = Permission::factory(120)->create();
+    Permission::factory(120)->create();
+    $permissions = Permission::all();
+
     $this->role->permissions()->sync($permissions);
 
     Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
@@ -91,7 +95,7 @@ test('paginação cria as variáveis de sessão', function () {
 test('é possível visualizar individualmente um perfil com permissão específica', function () {
     grantPermission(Role::VIEW);
 
-    get(route('authorization.roles.show', $this->role->id))
+    get(route('authorization.roles.show', $this->role))
     ->assertOk()
     ->assertSeeLivewire(RoleLivewireShow::class);
 });
@@ -100,23 +104,18 @@ test('next e previous estão presentes no perfil durante a visualização indivi
     $this->role->delete();
     grantPermission(Role::VIEW);
 
-    $role_1 = Role::factory()->create(['id' => 1]);
-    $role_2 = Role::factory()->create(['id' => 2]);
-    $role_3 = Role::factory()->create(['id' => 3]);
-    $role_4 = Role::orderBy('id', 'desc')->first();
-
     // possui anterior e próximo
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $role_2->id])
-    ->assertSet('role.previous', 1)
-    ->assertSet('role.next', 3);
+    Livewire::test(RoleLivewireShow::class, ['role_id' => Role::INSTITUTIONALMANAGER])
+    ->assertSet('role.previous', Role::ADMINISTRATOR)
+    ->assertSet('role.next', Role::DEPARTMENTMANAGER);
 
     // possui apenas próximo
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $role_1->id])
+    Livewire::test(RoleLivewireShow::class, ['role_id' => Role::ADMINISTRATOR])
     ->assertSet('role.previous', null)
-    ->assertSet('role.next', 2);
+    ->assertSet('role.next', Role::INSTITUTIONALMANAGER);
 
     // possui apenas anterior
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $role_4->id])
-    ->assertSet('role.previous', 3)
+    Livewire::test(RoleLivewireShow::class, ['role_id' => Role::ORDINARY])
+    ->assertSet('role.previous', Role::DEPARTMENTMANAGER)
     ->assertSet('role.next', null);
 });

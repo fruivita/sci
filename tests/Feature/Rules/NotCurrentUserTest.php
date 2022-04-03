@@ -15,6 +15,7 @@ test('sem usuário autenticado, a validação retorna false', function () {
 
 // Happy path
 test('valida se o usuário informado não é o usuário autenticado', function ($value, $expect) {
+    $this->seed(RoleSeeder::class);
     login('foo');
     $rule = new NotCurrentUser();
 

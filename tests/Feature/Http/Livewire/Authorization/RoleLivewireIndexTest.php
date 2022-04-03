@@ -10,6 +10,8 @@ use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
+    $this->seed(RoleSeeder::class);
+
     login('foo');
 });
 

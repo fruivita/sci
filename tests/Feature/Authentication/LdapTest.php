@@ -6,6 +6,7 @@
  * @see https://ldaprecord.com/docs/laravel/v2/auth/testing/
  */
 
+use App\Models\Role;
 use App\Models\User;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -32,8 +33,6 @@ test('username é campo obrigatório na autenticação', function () {
 });
 
 test('senha é campo obrigatório na autenticação', function () {
-    logout();
-
     post(route('login'), [
         'username' => 'foo',
         'password' => null,
@@ -46,6 +45,8 @@ test('senha é campo obrigatório na autenticação', function () {
 
 // Happy path
 test('autenticação cria o objeto da classe user', function () {
+    $this->seed(RoleSeeder::class);
+
     $samaccountname = 'foo';
     $user = login($samaccountname);
 
@@ -56,6 +57,8 @@ test('autenticação cria o objeto da classe user', function () {
 });
 
 test('username e name são sincronizados no banco de dados', function () {
+    $this->seed(RoleSeeder::class);
+
     expect(User::count())->toBe(0);
 
     $samaccountname = 'foo';
@@ -70,7 +73,21 @@ test('username e name são sincronizados no banco de dados', function () {
     logout();
 });
 
+test('perfil ordinário (perfil padrão para novos usuários) é atribuído ao usuário ao ser sincronizado', function () {
+    $this->seed(RoleSeeder::class);
+
+    login('foo');
+
+    $user = User::with('role')->first();
+
+    expect($user->role->id)->toBe(Role::ORDINARY);
+
+    logout();
+});
+
 test('usuário ao fazer logout é redirecionado para a rota login', function () {
+    $this->seed(RoleSeeder::class);
+
     login('foo');
 
     expect(authenticatedUser())->toBeInstanceOf(User::class);
@@ -90,6 +107,8 @@ test('usuário ao fazer logout é redirecionado para a rota login', function () 
  * as dados.
  */
 test('teste real de funcionamento da autenticação (login e logout)', function () {
+    $this->seed(RoleSeeder::class);
+
     $username = config('testing.username');
 
     post(route('login'), [

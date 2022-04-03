@@ -15,6 +15,7 @@ use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
+    $this->seed(RoleSeeder::class);
     $this->role = Role::factory()->create(['name' => 'foo', 'description' => 'bar']);
     login('foo');
 });
@@ -103,7 +104,7 @@ test('descrição do perfil deve ser uma string', function () {
     grantPermission(Role::UPDATE);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
-    ->set('role.description', ['bar'])
+    ->set('role.description', ['baz'])
     ->call('update')
     ->assertHasErrors(['role.description' => 'string']);
 });
@@ -155,29 +156,28 @@ test('é possível renderizar o componente de edição do perfil com permissão 
 test('define as permissões que devem ser pre-selecionadas de acodo com os relacionamentos da entidade', function () {
     grantPermission(Role::UPDATE);
 
-    $related = 20;
-
     Permission::factory(30)->create();
     $role = Role::factory()
-            ->has(Permission::factory($related), 'permissions')
+            ->has(Permission::factory(20), 'permissions')
             ->create();
 
     $role->load('permissions');
 
     $selected = $role
-                    ->permissions
-                    ->pluck('id')
-                    ->map(fn ($id) => (string) $id)
-                    ->values()
-                    ->toArray();
+                ->permissions
+                ->pluck('id')
+                ->map(fn ($id) => (string) $id)
+                ->values()
+                ->toArray();
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $role])
-    ->assertCount('selected', $related)
+    ->assertCount('selected', 20)
     ->assertSet('selected', $selected);
 });
 
 test('actions de manipulação do checkbox das permissões funcionam como esperado', function () {
     grantPermission(Role::UPDATE);
+    $count = Permission::count();
 
     Permission::factory(50)->create();
     $role = Role::factory()->create();
@@ -185,7 +185,7 @@ test('actions de manipulação do checkbox das permissões funcionam como espera
     Livewire::test(RoleLivewireUpdate::class, ['role' => $role])
     ->assertCount('selected', 0)
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
-    ->assertCount('selected', 51)
+    ->assertCount('selected', $count + 50)
     ->set('checkbox_action', CheckboxAction::UncheckAll->value)
     ->assertCount('selected', 0)
     ->set('checkbox_action', CheckboxAction::CheckAllPage->value)
@@ -228,8 +228,7 @@ test('paginação cria as variáveis de sessão', function () {
 
 test('getCheckAllProperty é registrado em cache com expiração de um minuto', function () {
     grantPermission(Role::UPDATE);
-
-    Permission::factory(5)->create();
+    $count = Permission::count();
 
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role]);
 
@@ -241,7 +240,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     Permission::factory(3)->create();
 
     expect(Cache::has('all-checkable' . $livewire->id))->toBeTrue()
-    ->and(Cache::get('all-checkable' . $livewire->id))->toHaveCount(6);
+    ->and(Cache::get('all-checkable' . $livewire->id))->toHaveCount($count);
 
     // expirará o cache
     $this->travel(61)->seconds();
@@ -250,8 +249,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
 
 test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
     grantPermission(Role::UPDATE);
-
-    Permission::factory(5)->create();
+    $count = Permission::count();
 
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('checkbox_action', CheckboxAction::CheckAll->value);
@@ -261,7 +259,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
 
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
-    ->assertCount('CheckAll', 6);
+    ->assertCount('CheckAll', $count);
 
     // expirará o cache
     $this->travel(61)->seconds();
@@ -269,7 +267,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     // contabiliza as novas inserções após expirado
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
-    ->assertCount('CheckAll', 9);
+    ->assertCount('CheckAll', $count + 3);
 });
 
 test('emite evento de feedback ao atualizar um perfil', function () {
@@ -307,11 +305,11 @@ test('é possível atualizar um perfil com permissão específica', function () 
 
     $this->role->load('permissions');
 
-    $permission = Permission::first();
-
     expect($this->role->name)->toBe('foo')
     ->and($this->role->description)->toBe('bar')
     ->and($this->role->permissions)->toBeEmpty();
+
+    $permission = Permission::first();
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('role.name', 'new foo')
@@ -350,23 +348,22 @@ test('next e previous estão definidos durante a edição individual dos perfis,
     $this->role->delete();
     grantPermission(Role::UPDATE);
 
-    $role_1 = Role::factory()->create(['id' => 1]);
-    $role_2 = Role::factory()->create(['id' => 2]);
-    $role_3 = Role::factory()->create(['id' => 3]);
-    $role_4 = Role::orderBy('id', 'desc')->first();
+    $first = Role::find(Role::ADMINISTRATOR);
+    $second = Role::find(Role::INSTITUTIONALMANAGER);
+    $last = Role::find(Role::ORDINARY);
 
     // possui anterior e próximo
-    Livewire::test(RoleLivewireUpdate::class, ['role' => $role_2])
-    ->assertSet('previous', 1)
-    ->assertSet('next', 3);
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $second])
+    ->assertSet('previous', Role::ADMINISTRATOR)
+    ->assertSet('next', Role::DEPARTMENTMANAGER);
 
     // possui apenas próximo
-    Livewire::test(RoleLivewireUpdate::class, ['role' => $role_1])
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $first])
     ->assertSet('previous', null)
-    ->assertSet('next', 2);
+    ->assertSet('next', Role::INSTITUTIONALMANAGER);
 
     // possui apenas anterior
-    Livewire::test(RoleLivewireUpdate::class, ['role' => $role_4])
-    ->assertSet('previous', 3)
+    Livewire::test(RoleLivewireUpdate::class, ['role' => $last])
+    ->assertSet('previous', Role::DEPARTMENTMANAGER)
     ->assertSet('next', null);
 });

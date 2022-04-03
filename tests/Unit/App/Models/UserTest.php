@@ -49,17 +49,13 @@ test('ids dos permissões para administração do usúario estão definidas', fu
 });
 
 test('cadastra múltiplos usuários', function () {
-    $amount = 30;
+    User::factory(30)->create();
 
-    User::factory($amount)
-    ->create();
-
-    expect(User::count())->toBe($amount);
+    expect(User::count())->toBe(30);
 });
 
 test('campos opcionais do usuário são aceitos', function () {
-    User::factory()
-    ->create(['name' => null]);
+    User::factory()->create(['name' => null]);
 
     expect(User::count())->toBe(1);
 });
@@ -88,31 +84,27 @@ test('um usuário possui um perfil', function () {
     expect($user->role)->toBeInstanceOf(Role::class);
 });
 
-test('usuário possui uma determinida permissão', function () {
-    $this->seed();
+test('hasPermission informa se o usuário possui ou não determinada permissão', function () {
+    $this->seed(RoleSeeder::class);
 
-    $user = User::factory()->create(['role_id' => Role::ADMINISTRATOR]);
+    login('foo');
 
-    expect($user->hasPermission(Role::VIEWANY))->toBeTrue();
-});
+    expect(authenticatedUser()->hasPermission(User::SIMULATION_CREATE))->toBeFalse();
 
-test('usuário não possui determinida permissão', function () {
-    $this->seed();
+    grantPermission(User::SIMULATION_CREATE);
 
-    $user = User::factory()->create(['role_id' => Role::ADMINISTRATOR]);
+    expect(authenticatedUser()->hasPermission(User::SIMULATION_CREATE))->toBeTrue();
 
-    expect($user->hasPermission(-1))->toBeFalse();
-});
+    revokePermission(User::SIMULATION_CREATE);
 
-test('usuário sem perfil não possui permissão', function () {
-    $this->seed();
+    expect(authenticatedUser()->hasPermission(User::SIMULATION_CREATE))->toBeFalse();
 
-    $user = User::factory()->create();
-
-    expect($user->hasPermission(Role::VIEWANY))->toBeFalse();
+    logout();
 });
 
 test('forHumans retorna username formatado para exibição', function () {
+    $this->seed(RoleSeeder::class);
+
     $samaccountname = 'foo';
     $user = login($samaccountname);
 

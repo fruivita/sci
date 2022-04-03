@@ -13,6 +13,8 @@ use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
+    $this->seed(RoleSeeder::class);
+
     login('foo');
 });
 
@@ -69,14 +71,14 @@ test('não é possível atualizar um usuário sem permissão específica', funct
 test('os perfis não estão disponíveis se o modal não puder ser carregadado', function () {
     grantPermission(User::VIEWANY);
 
-    expect(Role::count())->toBe(1);
+    expect(Role::count())->toBeGreaterThan(1);
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('roles', null)
     ->call('edit', authenticatedUser()->id)
     ->assertSet('roles', null);
 
-    expect(Role::count())->toBe(1);
+    expect(Role::count())->toBeGreaterThan(1);
 });
 
 // Rules
@@ -166,14 +168,14 @@ test('os perfis estão disponíveis se o modal puder ser carregadado', function 
     grantPermission(User::VIEWANY);
     grantPermission(User::UPDATE);
 
-    expect(Role::count())->toBe(1);
+    expect(Role::count())->toBe(4);
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('roles', null)
     ->call('edit', authenticatedUser()->id)
-    ->assertCount('roles', 1);
+    ->assertCount('roles', 4);
 
-    expect(Role::count())->toBe(1);
+    expect(Role::count())->toBe(4);
 });
 
 test('emite evento de feedback ao atualizar um usuário', function () {
@@ -187,27 +189,21 @@ test('emite evento de feedback ao atualizar um usuário', function () {
 });
 
 test('é possível atualizar um usuário com permissão específica', function () {
+    logout();
+    login('bar');
     grantPermission(User::VIEWANY);
     grantPermission(User::UPDATE);
 
-    $user = authenticatedUser();
-
-    $old_role = Role::first();
-
-    $new_role = Role::factory()
-    ->hasAttached(Permission::get(), relationship: 'permissions')
-    ->create();
-
-    expect($user->role->id)->toBe($old_role->id);
+    $user = User::where('username', 'foo')->first();
 
     Livewire::test(UserLivewireIndex::class)
-    ->call('edit', authenticatedUser()->id)
-    ->assertSet('editing.role_id', $old_role->id)
-    ->set('editing.role_id', $new_role->id)
+    ->call('edit', $user)
+    ->assertSet('editing.role_id', Role::ORDINARY)
+    ->set('editing.role_id', Role::ADMINISTRATOR)
     ->call('update')
     ->assertOk();
 
     $user->refresh()->load('role');
 
-    expect($user->role->id)->toBe($new_role->id);
+    expect($user->role->id)->toBe(Role::ADMINISTRATOR);
 });

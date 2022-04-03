@@ -15,7 +15,9 @@ use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
+    $this->seed(RoleSeeder::class);
     $this->permission = Permission::factory()->create(['name' => 'foo', 'description' => 'bar']);
+
     login('foo');
 });
 
@@ -103,7 +105,7 @@ test('descrição da permissão deve ser uma string', function () {
     grantPermission(Permission::UPDATE);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
-    ->set('permission.description', ['bar'])
+    ->set('permission.description', ['baz'])
     ->call('update')
     ->assertHasErrors(['permission.description' => 'string']);
 });
@@ -152,32 +154,31 @@ test('é possível renderizar o componente de edição da permissão com permiss
     ->assertSeeLivewire(PermissionLivewireUpdate::class);
 });
 
-test('define os perfis que devem ser pre-selecionadas de acodo com os relacionamentos da entidade', function () {
+test('define os perfis que devem ser pre-selecionadas de acodo com os relacionamentos da permissão', function () {
     grantPermission(Permission::UPDATE);
-
-    $related = 20;
 
     Role::factory(30)->create();
     $permission = Permission::factory()
-            ->has(Role::factory($related), 'roles')
+            ->has(Role::factory(20), 'roles')
             ->create();
 
     $permission->load('roles');
 
     $selected = $permission
-                    ->roles
-                    ->pluck('id')
-                    ->map(fn ($id) => (string) $id)
-                    ->values()
-                    ->toArray();
+                ->roles
+                ->pluck('id')
+                ->map(fn ($id) => (string) $id)
+                ->values()
+                ->toArray();
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission])
-    ->assertCount('selected', $related)
+    ->assertCount('selected', 20)
     ->assertSet('selected', $selected);
 });
 
 test('actions de manipulação do checkbox dos perfis funcionam como esperado', function () {
     grantPermission(Permission::UPDATE);
+    $count = Role::count();
 
     Role::factory(50)->create();
     $permission = Permission::factory()->create();
@@ -185,7 +186,7 @@ test('actions de manipulação do checkbox dos perfis funcionam como esperado', 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission])
     ->assertCount('selected', 0)
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
-    ->assertCount('selected', 51)
+    ->assertCount('selected', $count + 50)
     ->set('checkbox_action', CheckboxAction::UncheckAll->value)
     ->assertCount('selected', 0)
     ->set('checkbox_action', CheckboxAction::CheckAllPage->value)
@@ -228,8 +229,7 @@ test('paginação cria as variáveis de sessão', function () {
 
 test('getCheckAllProperty é registrado em cache com expiração de um minuto', function () {
     grantPermission(Permission::UPDATE);
-
-    Role::factory(5)->create();
+    $count = Role::count();
 
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission]);
 
@@ -241,7 +241,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     Role::factory(3)->create();
 
     expect(Cache::has('all-checkable' . $livewire->id))->toBeTrue()
-    ->and(Cache::get('all-checkable' . $livewire->id))->toHaveCount(6);
+    ->and(Cache::get('all-checkable' . $livewire->id))->toHaveCount($count);
 
     // expirará o cache
     $this->travel(61)->seconds();
@@ -250,8 +250,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
 
 test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
     grantPermission(Permission::UPDATE);
-
-    Role::factory(5)->create();
+    $count = Role::count();
 
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('checkbox_action', CheckboxAction::CheckAll->value);
@@ -261,7 +260,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
 
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
-    ->assertCount('CheckAll', 6);
+    ->assertCount('CheckAll', $count);
 
     // expirará o cache
     $this->travel(61)->seconds();
@@ -269,7 +268,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     // contabiliza as novas inserções após expirado
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
-    ->assertCount('CheckAll', 9);
+    ->assertCount('CheckAll', $count + 3);
 });
 
 test('emite evento de feedback ao atualizar uma permissão', function () {
@@ -307,11 +306,11 @@ test('é possível atualizar uma permissão com permissão específica', functio
 
     $this->permission->load('roles');
 
-    $role = Role::first();
-
     expect($this->permission->name)->toBe('foo')
     ->and($this->permission->description)->toBe('bar')
     ->and($this->permission->roles)->toBeEmpty();
+
+    $role = Role::first();
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('permission.name', 'new foo')
@@ -347,26 +346,26 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
 });
 
 test('next e previous estão definidos durante a edição individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {
-    $this->permission->delete();
+    Permission::whereNotNull('id')->delete();
+
+    $first = Permission::factory()->create(['id' => Permission::VIEWANY]);
+    $second = Permission::factory()->create(['id' => Permission::VIEW]);
+    $last = Permission::factory()->create(['id' => Permission::UPDATE]);
+
     grantPermission(Permission::UPDATE);
 
-    $permission_1 = Permission::factory()->create(['id' => 1]);
-    $permission_2 = Permission::factory()->create(['id' => 2]);
-    $permission_3 = Permission::factory()->create(['id' => 3]);
-    $permission_4 = Permission::orderBy('id', 'desc')->first();
-
     // possui anterior e próximo
-    Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission_2])
-    ->assertSet('previous', 1)
-    ->assertSet('next', 3);
+    Livewire::test(PermissionLivewireUpdate::class, ['permission' => $second])
+    ->assertSet('previous', Permission::VIEWANY)
+    ->assertSet('next', Permission::UPDATE);
 
     // possui apenas próximo
-    Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission_1])
+    Livewire::test(PermissionLivewireUpdate::class, ['permission' => $first])
     ->assertSet('previous', null)
-    ->assertSet('next', 2);
+    ->assertSet('next', Permission::VIEW);
 
     // possui apenas anterior
-    Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission_4])
-    ->assertSet('previous', 3)
+    Livewire::test(PermissionLivewireUpdate::class, ['permission' => $last])
+    ->assertSet('previous', Permission::VIEW)
     ->assertSet('next', null);
 });

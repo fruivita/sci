@@ -9,6 +9,8 @@ use App\Policies\PermissionPolicy;
 use Illuminate\Support\Facades\Cache;
 
 beforeEach(function () {
+    $this->seed(RoleSeeder::class);
+
     $this->user = login('foo');
 });
 

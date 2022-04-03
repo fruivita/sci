@@ -80,16 +80,13 @@ test('ids dos permissões para administração do perfil estão definidas', func
 });
 
 test('cadastra múltiplos perfis', function () {
-    $amount = 30;
+    Role::factory(30)->create();
 
-    Role::factory($amount)->create();
-
-    expect(Role::count())->toBe($amount);
+    expect(Role::count())->toBe(30);
 });
 
 test('campos opcionais do perfil são aceitos', function () {
-    Role::factory()
-        ->create(['description' => null]);
+    Role::factory()->create(['description' => null]);
 
     expect(Role::count())->toBe(1);
 });
@@ -104,27 +101,23 @@ test('campos do perfil em seu tamanho máximo são aceitos', function () {
 });
 
 test('um perfil possui várias permissões', function () {
-    $amount = 3;
-
     Role::factory()
-    ->has(Permission::factory($amount), 'permissions')
+    ->has(Permission::factory(3), 'permissions')
     ->create();
 
     $role = Role::with('permissions')->first();
 
-    expect($role->permissions)->toHaveCount($amount);
+    expect($role->permissions)->toHaveCount(3);
 });
 
 test('um perfil possui vários usuários', function () {
-    $amount = 3;
-
     Role::factory()
-    ->has(User::factory($amount), 'users')
+    ->has(User::factory(3), 'users')
     ->create();
 
     $role = Role::with('users')->first();
 
-    expect($role->users)->toHaveCount($amount);
+    expect($role->users)->toHaveCount(3);
 });
 
 test('método updateAndSync salva os novos atributos e cria relacionamento com as permissões informadas', function () {
@@ -173,19 +166,17 @@ test('perfil administrador possui todas as permissões', function ($permission) 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
     $role_1 = Role::factory()->create(['id' => 1]);
     $role_2 = Role::factory()->create(['id' => 2]);
-    $role_3 = Role::factory()->create(['id' => 3]);
 
-    expect(Role::previous($role_3->id)->first()->id)->toBe($role_2->id)
+    expect(Role::previous($role_2->id)->first()->id)->toBe($role_1->id)
     ->and(Role::previous($role_1->id)->first())->toBeNull();
 });
 
 test('next retorna o registro posterior correto, mesmo sendo o último', function () {
     $role_1 = Role::factory()->create(['id' => 1]);
     $role_2 = Role::factory()->create(['id' => 2]);
-    $role_3 = Role::factory()->create(['id' => 3]);
 
     expect(Role::next($role_1->id)->first()->id)->toBe($role_2->id)
-    ->and(Role::next($role_3->id)->first())->toBeNull();
+    ->and(Role::next($role_2->id)->first())->toBeNull();
 });
 
 test('retorna os perfis usando o escopo de ordenação default definido', function () {
@@ -202,4 +193,11 @@ test('retorna os perfis usando o escopo de ordenação default definido', functi
     expect($roles->get(0)->id)->toBe($first)
     ->and($roles->get(1)->id)->toBe($second)
     ->and($roles->get(2)->id)->toBe($third);
+});
+
+test('perfis estão na ordem hierárquica correta', function () {
+    // perfil com menor id possui maior hierarquia funcional na aplicação
+    expect(Role::ADMINISTRATOR)->toBeLessThan(Role::INSTITUTIONALMANAGER)
+    ->and(Role::INSTITUTIONALMANAGER)->toBeLessThan(Role::DEPARTMENTMANAGER)
+    ->and(Role::DEPARTMENTMANAGER)->toBeLessThan(Role::ORDINARY);
 });

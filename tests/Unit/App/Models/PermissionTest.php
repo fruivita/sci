@@ -72,16 +72,13 @@ test('ids dos permissões para administração do perfil estão definidas', func
 });
 
 test('cadastra múltiplas permissões', function () {
-    $amount = 30;
+    Permission::factory(30)->create();
 
-    Permission::factory($amount)->create();
-
-    expect(Permission::count())->toBe($amount);
+    expect(Permission::count())->toBe(30);
 });
 
 test('campos opcionais da permissão são aceitos', function () {
-    Permission::factory()
-        ->create(['description' => null]);
+    Permission::factory()->create(['description' => null]);
 
     expect(Permission::count())->toBe(1);
 });
@@ -96,15 +93,13 @@ test('campos da permissão em seu tamanho máximo são aceitos', function () {
 });
 
 test('uma permissão pertente a diversos perfis', function () {
-    $amount = 3;
-
-    Permission::factory()
-        ->has(Role::factory($amount), 'roles')
+    $permission = Permission::factory()
+        ->has(Role::factory(3), 'roles')
         ->create();
 
-    $permission = Permission::with('roles')->first();
+    $permission->load('roles');
 
-    expect($permission->roles)->toHaveCount($amount);
+    expect($permission->roles)->toHaveCount(3);
 });
 
 test('método updateAndSync salva os novos atributos e cria relacionamento com os perfis informadas', function () {
@@ -135,19 +130,17 @@ test('método updateAndSync salva os novos atributos e cria relacionamento com o
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
-    $permission_3 = Permission::factory()->create(['id' => 3]);
 
-    expect(Permission::previous($permission_3->id)->first()->id)->toBe($permission_2->id)
+    expect(Permission::previous($permission_2->id)->first()->id)->toBe($permission_1->id)
     ->and(Permission::previous($permission_1->id)->first())->toBeNull();
 });
 
 test('next retorna o registro posterior correto, mesmo sendo o último', function () {
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
-    $permission_3 = Permission::factory()->create(['id' => 3]);
 
     expect(Permission::next($permission_1->id)->first()->id)->toBe($permission_2->id)
-    ->and(Permission::next($permission_3->id)->first())->toBeNull();
+    ->and(Permission::next($permission_2->id)->first())->toBeNull();
 });
 
 test('retorna as permissões usando o escopo de ordenação default definido', function () {
