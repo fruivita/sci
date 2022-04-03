@@ -102,7 +102,11 @@
 
     @isset($editing)
 
-        <form wire:submit.prevent="update" method="POST">
+        <form
+            wire:key="editing-user-modal-{{ $editing->id }}"
+            wire:submit.prevent="update"
+            method="POST"
+        >
 
             <x-modal>
 
