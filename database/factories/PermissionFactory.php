@@ -5,6 +5,8 @@ namespace Database\Factories;
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+use function App\maxSafeInteger;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Permission>
  *
@@ -23,7 +25,7 @@ class PermissionFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->unique()->numberBetween(1, PHP_INT_MAX),
+            'id' => $this->faker->unique()->numberBetween(1, maxSafeInteger()),
             'name' => $this->faker->unique()->text(50),
             'description' => $this->faker->text(255),
         ];
