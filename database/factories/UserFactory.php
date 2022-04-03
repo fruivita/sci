@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,7 +33,7 @@ class UserFactory extends Factory
             'password' => null,
             'guid' => $this->faker->unique()->uuid(),
             'domain' => $this->faker->domainName(),
-            'role_id' => null,
+            'role_id' => Role::factory(),
         ];
     }
 }
