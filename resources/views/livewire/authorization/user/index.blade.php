@@ -67,6 +67,7 @@
 
                                     <x-button
                                         wire:click="edit({{ $user->id }})"
+                                        wire:key="edit-button-{{ $user->id }}"
                                         icon="pencil-square"
                                         text="{{ __('Edit') }}"
                                         title="{{ __('Edit the record') }}"
