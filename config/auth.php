@@ -69,6 +69,7 @@ return [
                 'sync_attributes' => [
                     'name' => 'cn',
                     'username' => 'samaccountname',
+                    \App\Ldap\RoleAttributeHandler::class,
                 ],
             ],
         ],
