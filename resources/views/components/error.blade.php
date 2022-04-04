@@ -10,4 +10,4 @@
 --}}
 
 
-<p class="text-red-500 text-sm">{{ $slot }}</p>
+<p {{ $attributes->merge(['class' => 'text-red-500 text-sm']) }}>{{ $slot }}</p>
