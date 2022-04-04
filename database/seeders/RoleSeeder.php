@@ -51,6 +51,5 @@ class RoleSeeder extends Seeder
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
         ]);
-
     }
 }

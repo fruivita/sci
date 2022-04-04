@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
+use function App\maxSafeInteger;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
-use function App\maxSafeInteger;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>

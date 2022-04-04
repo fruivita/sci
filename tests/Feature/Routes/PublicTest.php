@@ -5,7 +5,6 @@
  */
 
 use Database\Seeders\RoleSeeder;
-
 use function Pest\Laravel\get;
 
 // Happy path

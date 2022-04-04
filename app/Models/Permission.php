@@ -56,7 +56,8 @@ class Permission extends Model
      *
      * Ordem: Id asc
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeDefaultOrder($query)

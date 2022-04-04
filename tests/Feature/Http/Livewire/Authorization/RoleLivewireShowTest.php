@@ -44,7 +44,7 @@ test('não é possível renderizar o componente de visualização individual do 
 test('não aceita paginação fora das opções oferecidas', function () {
     grantPermission(Role::VIEW);
 
-    Livewire::test(RoleLivewireShow::class, ['role_id' =>$this->role->id])
+    Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });

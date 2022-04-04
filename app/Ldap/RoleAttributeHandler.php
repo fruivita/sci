@@ -17,7 +17,7 @@ class RoleAttributeHandler
      * Esse perfil somente é definido para os usuários sem perfil na aplicação.
      * Não há sobrescrita me perfis já definidos.
      *
-     * @param \App\Models\User $user
+     * @param \App\Models\User                        $user
      * @param \LdapRecord\Models\ActiveDirectory\User $ldap
      *
      * @return void

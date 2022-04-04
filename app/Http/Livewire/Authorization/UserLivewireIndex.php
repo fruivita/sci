@@ -42,7 +42,7 @@ class UserLivewireIndex extends Component
     public $show_edit_modal = false;
 
     /**
-     * Termo pesquisável informado pelo usuário
+     * Termo pesquisável informado pelo usuário.
      *
      * @var string
      */
@@ -122,7 +122,7 @@ class UserLivewireIndex extends Component
         return [
             'term' => [
                 'except' => '',
-                'as' => strtolower(__('Search'))
+                'as' => strtolower(__('Search')),
             ],
         ];
     }
@@ -138,7 +138,7 @@ class UserLivewireIndex extends Component
     {
         Validator::make(
             data: ['term' => $value],
-            rules: ['term' => ['nullable', 'string', 'max:50',]],
+            rules: ['term' => ['nullable', 'string', 'max:50']],
             customAttributes: ['term' => __('Searchable term')]
         )->validate();
 

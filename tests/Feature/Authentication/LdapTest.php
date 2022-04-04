@@ -9,7 +9,6 @@
 use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
-
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 

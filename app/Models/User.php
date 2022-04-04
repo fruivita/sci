@@ -95,7 +95,8 @@ class User extends Authenticatable implements LdapAuthenticatable
      * - 2º Nomes com valor nulo
      * - Critério de desempate: username asc
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @see https://learnsql.com/blog/how-to-order-rows-with-nulls/
@@ -134,8 +135,8 @@ class User extends Authenticatable implements LdapAuthenticatable
      *
      * O filtro se aplica à sigla e ao nome do usuário por meio de cláusula OR.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param string|null $term
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string|null                           $term
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
