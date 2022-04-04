@@ -81,7 +81,7 @@
                 @enderror
 
 
-                <x-table>
+                <x-table wire:loading.delay.class="opacity-25">
 
                     <x-slot name="head">
 
@@ -97,7 +97,7 @@
 
                         @forelse ( $permissions ?? [] as $permission )
 
-                            <x-table.row wire:loading.delay.class="opacity-30">
+                            <x-table.row>
 
                                 <x-table.cell>{{ $permission->name }}</x-table.cell>
 

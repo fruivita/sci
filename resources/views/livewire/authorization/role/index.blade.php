@@ -26,7 +26,7 @@
         @enderror
 
 
-        <x-table>
+        <x-table wire:loading.delay.class="opacity-25">
 
             <x-slot name="head">
 
