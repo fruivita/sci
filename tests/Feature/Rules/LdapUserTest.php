@@ -5,6 +5,7 @@
  */
 
 use App\Rules\LdapUser;
+use Database\Seeders\RoleSeeder;
 
 // Happy path
 test('valida se o usuário existe ou não no servidor LDAP', function ($value, $expect) {

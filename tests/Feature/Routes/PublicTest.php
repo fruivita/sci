@@ -4,6 +4,8 @@
  * @see https://pestphp.com/docs/
  */
 
+use Database\Seeders\RoleSeeder;
+
 use function Pest\Laravel\get;
 
 // Happy path

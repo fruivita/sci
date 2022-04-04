@@ -6,6 +6,7 @@
 
 use App\Models\Permission;
 use App\Policies\PermissionPolicy;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 
 beforeEach(function () {

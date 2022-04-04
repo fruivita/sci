@@ -9,6 +9,7 @@ use App\Enums\FeedbackType;
 use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
@@ -297,7 +298,7 @@ test('descrição e perfis associados são opcionais na atualização da permiss
 
     $permission->refresh()->load('roles');
 
-    expect($permission->roles)->toBeEmpty(1)
+    expect($permission->roles)->toBeEmpty()
     ->and($permission->description)->toBeNull();
 });
 

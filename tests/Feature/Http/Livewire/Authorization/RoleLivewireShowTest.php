@@ -7,6 +7,7 @@
 use App\Http\Livewire\Authorization\RoleLivewireShow;
 use App\Models\Permission;
 use App\Models\Role;
+use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 

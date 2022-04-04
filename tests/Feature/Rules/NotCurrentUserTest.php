@@ -5,6 +5,7 @@
  */
 
 use App\Rules\NotCurrentUser;
+use Database\Seeders\RoleSeeder;
 
 // Rules
 test('sem usuário autenticado, a validação retorna false', function () {

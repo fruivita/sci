@@ -9,6 +9,7 @@ use App\Http\Livewire\Authorization\UserLivewireIndex;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use function Pest\Laravel\get;

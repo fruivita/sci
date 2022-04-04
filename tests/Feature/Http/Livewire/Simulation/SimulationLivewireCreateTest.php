@@ -8,6 +8,7 @@ use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\User;
 use App\Rules\LdapUser;
 use App\Rules\NotCurrentUser;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use function Pest\Laravel\delete;

@@ -6,6 +6,7 @@
 
 use App\Models\User;
 use App\Policies\UserPolicy;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 
 beforeEach(function () {

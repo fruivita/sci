@@ -6,6 +6,7 @@
 
 use App\Http\Livewire\Authorization\RoleLivewireIndex;
 use App\Models\Role;
+use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 
