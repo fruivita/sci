@@ -8,6 +8,7 @@ use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 /**
@@ -39,6 +40,13 @@ class UserLivewireIndex extends Component
      * @var bool
      */
     public $show_edit_modal = false;
+
+    /**
+     * Termo pesquisável informado pelo usuário
+     *
+     * @var string
+     */
+    public $term;
 
     /**
      * Regras para a validação dos inputs.
@@ -88,7 +96,7 @@ class UserLivewireIndex extends Component
     public function getUsersProperty()
     {
         return $this->applyPagination(
-            User::with('role')->defaultOrder()
+            User::with('role')->search($this->term)->defaultOrder()
         );
     }
 
@@ -102,6 +110,39 @@ class UserLivewireIndex extends Component
         return view('livewire.authorization.user.index', [
             'users' => $this->users,
         ])->layout('layouts.app');
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, mixed>
+     */
+    protected function queryString()
+    {
+        return [
+            'term' => [
+                'except' => '',
+                'as' => strtolower(__('Search'))
+            ],
+        ];
+    }
+
+    /**
+     * Runs before a property called $Term is updated.
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function updatingTerm($value)
+    {
+        Validator::make(
+            data: ['term' => $value],
+            rules: ['term' => ['nullable', 'string', 'max:50',]],
+            customAttributes: ['term' => __('Searchable term')]
+        )->validate();
+
+        $this->resetPage();
     }
 
     /**

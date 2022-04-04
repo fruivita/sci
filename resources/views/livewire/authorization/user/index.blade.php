@@ -12,6 +12,12 @@
 
 <x-page header="{{ __('Users and role') }}">
 
+    <x-search
+        wire:model.debounce.500ms="term"
+        :error="$errors->first('term')"
+        withcounter/>
+
+
     <x-container>
 
         <x-table.perpage
@@ -26,7 +32,7 @@
         @enderror
 
 
-        <x-table>
+        <x-table wire:loading.delay.class="opacity-25">
 
             <x-slot name="head">
 
@@ -68,6 +74,8 @@
                                     <x-button
                                         wire:click="edit({{ $user->id }})"
                                         wire:key="edit-button-{{ $user->id }}"
+                                        wire:loading.delay.attr="disabled"
+                                        wire:loading.delay.class="cursor-not-allowed"
                                         icon="pencil-square"
                                         text="{{ __('Edit') }}"
                                         title="{{ __('Edit the record') }}"
@@ -131,10 +139,7 @@
 
                             @foreach ($roles ?? [] as $role)
 
-                                <option
-                                    value="{{ $role->id }}"
-                                    @selected($role->id == $editing->role->id)
-                                >
+                                <option value="{{ $role->id }}">
 
                                     {{ $role->name }}
 

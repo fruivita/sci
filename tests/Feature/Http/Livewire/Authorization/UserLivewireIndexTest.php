@@ -9,6 +9,7 @@ use App\Http\Livewire\Authorization\UserLivewireIndex;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 
@@ -110,6 +111,32 @@ test('id do perfil que será associado ao usuário deve existir previamente no b
     ->set('editing.role_id', -1)
     ->call('update')
     ->assertHasErrors(['editing.role_id' => 'exists']);
+});
+
+test('termo pesquisável deve ser uma string', function () {
+    grantPermission(User::VIEWANY);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->set('term', ['foo'])
+    ->assertHasErrors(['term' => 'string']);
+});
+
+test('termo pesquisável deve ter no máximo 50 caracteres', function () {
+    grantPermission(User::VIEWANY);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->set('term', Str::random(51))
+    ->assertHasErrors(['term' => 'max']);
+});
+
+test('termo pesquisável está sujeito à validação em tempo real', function () {
+    grantPermission(User::VIEWANY);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->set('term', Str::random(50))
+    ->assertHasNoErrors()
+    ->set('term', Str::random(51))
+    ->assertHasErrors(['term' => 'max']);
 });
 
 // Happy path
