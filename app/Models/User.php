@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -99,7 +100,7 @@ class User extends Authenticatable implements LdapAuthenticatable
      *
      * @see https://learnsql.com/blog/how-to-order-rows-with-nulls/
      */
-    public function scopeDefaultOrder($query)
+    public function scopeDefaultOrder(Builder $query)
     {
         return $query
                 ->orderByRaw('name IS NULL')
@@ -126,5 +127,24 @@ class User extends Authenticatable implements LdapAuthenticatable
             && $this->role->permissions->first()->id === $permission_id
             ? true
             : false;
+    }
+
+    /**
+     * Registros filtrados pelo termo informado.
+     *
+     * O filtro se aplica à sigla e ao nome do usuário por meio de cláusula OR.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param string|null $term
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function scopeSearch(Builder $query, string $term = null)
+    {
+        return $query->when($term, function ($query, $term) {
+            $query
+                ->where('username', 'like', "%{$term}%")
+                ->orWhere('name', 'like', "%{$term}%");
+        });
     }
 }

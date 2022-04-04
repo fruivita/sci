@@ -131,3 +131,15 @@ test('retorna os usuários usando o escopo de ordenação default definido', fun
     ->and($users->get(2)->username)->toBe($third['username'])
     ->and($users->get(3)->username)->toBe($fourth['username']);
 });
+
+test('a pesquisa, com o termo parcial ou não, retorna os valores esperados', function () {
+    User::factory()->create(['username' => 'foo', 'name' => 'foo']);
+    User::factory()->create(['username' => 'bar', 'name' => 'foo bar']);
+    User::factory()->create(['username' => 'foo baz', 'name' => 'foo bar baz']);
+
+    expect(User::search('fo')->get())->toHaveCount(3)
+    ->and(User::search('bar')->get())->toHaveCount(2)
+    ->and(User::search('az')->get())->toHaveCount(1)
+    ->and(User::search('foo bar ba')->get())->toHaveCount(1)
+    ->and(User::search('foo baz')->get())->toHaveCount(1);
+});
