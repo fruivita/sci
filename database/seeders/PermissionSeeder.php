@@ -85,6 +85,13 @@ class PermissionSeeder extends Seeder
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'id' => PermissionType::ImportationCreate->value,
+                'name' => __('Importation: Create'),
+                'description' => __('Permission to request forced data import.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }
