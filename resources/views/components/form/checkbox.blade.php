@@ -17,7 +17,7 @@
 @props(['checked' => false, 'text' => null])
 
 
-<label class="flex items-center justify-center">
+<label class="flex items-center">
 
     <input
         @checked($checked)
