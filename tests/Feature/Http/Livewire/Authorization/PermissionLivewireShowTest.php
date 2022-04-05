@@ -31,7 +31,7 @@ test('não é possível visualizar individualmente uma permissão sem estar aute
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de visualização individual da permissão sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual da permissão', function () {
     get(route('authorization.permissions.show', $this->permission))
     ->assertForbidden();
 });

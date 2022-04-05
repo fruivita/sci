@@ -29,7 +29,7 @@ test('não é possível listar os perfis sem estar autenticado', function () {
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de listagem dos perfis sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos perfis', function () {
     get(route('authorization.roles.index'))
     ->assertForbidden();
 });

@@ -29,7 +29,7 @@ test('não é possível listar as permissões sem estar autenticado', function (
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de listagem das permissões sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem das permissões', function () {
     get(route('authorization.permissions.index'))
     ->assertForbidden();
 });

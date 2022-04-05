@@ -32,7 +32,7 @@ test('não é possível listar os usuários sem estar autenticado', function () 
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de listagem dos usuários sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos usuários sem permissão específica', function () {
     get(route('authorization.users.index'))
     ->assertForbidden();
 });

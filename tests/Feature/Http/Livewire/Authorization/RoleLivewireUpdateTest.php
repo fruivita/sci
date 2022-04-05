@@ -34,7 +34,7 @@ test('não é possível editar o perfil sem estar autenticado', function () {
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de edição do perfil sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de edição do perfil', function () {
     get(route('authorization.roles.edit', $this->role))
     ->assertForbidden();
 });

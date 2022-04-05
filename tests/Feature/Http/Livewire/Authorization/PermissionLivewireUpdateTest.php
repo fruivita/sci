@@ -35,7 +35,7 @@ test('não é possível editar a permissão sem estar autenticado', function () 
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de edição da permissão sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de edição da permissão', function () {
     get(route('authorization.permissions.edit', $this->permission))
     ->assertForbidden();
 });

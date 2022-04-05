@@ -31,7 +31,7 @@ test('não é possível visualizar individualmente um perfil sem estar autentica
     ->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de visualização individual do perfil sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual do perfil', function () {
     get(route('authorization.roles.show', $this->role))
     ->assertForbidden();
 });

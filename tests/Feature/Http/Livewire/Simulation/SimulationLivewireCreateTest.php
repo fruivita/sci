@@ -32,13 +32,13 @@ test('não é possível simular usuário sem estar autenticado', function () {
     get(route('simulation.create'))->assertRedirect(route('login'));
 });
 
-test('não é possível desfazer simulação sem estar autenticado', function () {
+test('autenticado, mas sem permissão específica, não é possível desfazer simulação', function () {
     logout();
 
     delete(route('simulation.destroy'))->assertRedirect(route('login'));
 });
 
-test('não é possível executar a rota de simulação sem permissão específica', function () {
+test('autenticado, mas sem permissão específica, não é possível executar a rota de simulação', function () {
     get(route('simulation.create'))->assertForbidden();
 });
 
