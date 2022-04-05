@@ -22,4 +22,6 @@ enum PermissionType: int
     case UserUpdate = 120004;
 
     case SimulationCreate = 130003;
+
+    case ImportationCreate = 140003;
 }

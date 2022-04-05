@@ -19,4 +19,5 @@ enum Policy: string
     case ForceDelete = 'force-delete';
     case SimulationCreate = 'simulation-create';
     case SimulationDelete = 'simulation-delete';
+    case ImportationCreate = 'importation-create';
 }

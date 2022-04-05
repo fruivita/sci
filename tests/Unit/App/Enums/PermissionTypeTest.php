@@ -27,3 +27,7 @@ test('ids das permissões para administração do usúario estão definidas', fu
 test('ids das permissões para criar uma simulação de uso estão definidas', function () {
     expect(PermissionType::SimulationCreate->value)->toBe(130003);
 });
+
+test('ids das permissões para importação de dados de uso estão definidas', function () {
+    expect(PermissionType::ImportationCreate->value)->toBe(140003);
+});
