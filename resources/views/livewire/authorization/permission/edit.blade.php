@@ -97,7 +97,7 @@
 
                         <x-slot name="head">
 
-                            <x-table.heading>
+                            <x-table.heading class="text-left">
 
                                 <select
                                     wire:key="checkbox-action"
