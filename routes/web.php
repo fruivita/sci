@@ -2,6 +2,7 @@
 
 use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
+use App\Http\Livewire\Administration\ImportationLivewireCreate;
 use App\Http\Livewire\Authorization\PermissionLivewireIndex;
 use App\Http\Livewire\Authorization\PermissionLivewireShow;
 use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
@@ -57,6 +58,10 @@ Route::middleware('auth')->group(function () {
         Route::prefix('usuario')->name('users.')->group(function () {
             Route::get('/', UserLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, User::class);
         });
+    });
+
+    Route::prefix('importacao')->name('importation.')->group(function () {
+        Route::get('create', ImportationLivewireCreate::class)->name('create')->can(Policy::ImportationCreate->value);
     });
 
     Route::prefix('simulacao')->name('simulation.')->group(function () {

@@ -41,6 +41,28 @@
 @auth
 
     @if (
+            auth()->user()->can(\App\Enums\Policy::ImportationCreate->value)
+        )
+
+        <x-menu.group name="{{ __('Administration') }}">
+
+            @can(\App\Enums\Policy::ImportationCreate->value)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('importation.*') ? 'active': '' }}"
+                    icon="people"
+                    href="{{ route('importation.create') }}"
+                    text="{{ __('Importation') }}"
+                    title="{{ __('Go to data importation page') }}"/>
+
+            @endcan
+
+        </x-menu.group>
+
+    @endif
+
+
+    @if (
         auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
         || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
         || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
