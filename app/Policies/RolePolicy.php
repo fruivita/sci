@@ -20,7 +20,7 @@ class RolePolicy extends Policy
      */
     public function viewAny(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::RoleViewAny->value);
+        return $this->hasPermissionWithCache($user, PermissionType::RoleViewAny);
     }
 
     /**
@@ -32,7 +32,7 @@ class RolePolicy extends Policy
      */
     public function view(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::RoleView->value);
+        return $this->hasPermissionWithCache($user, PermissionType::RoleView);
     }
 
     /**
@@ -44,6 +44,6 @@ class RolePolicy extends Policy
      */
     public function update(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::RoleUpdate->value);
+        return $this->hasPermissionWithCache($user, PermissionType::RoleUpdate);
     }
 }

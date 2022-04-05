@@ -147,15 +147,15 @@ test('perfil administrador possui todas as permissões', function ($permission) 
 
     expect($user->hasPermission($permission))->toBeTrue();
 })->with([
-    PermissionType::RoleViewAny->value,
-    PermissionType::RoleView->value,
-    PermissionType::RoleUpdate->value,
-    PermissionType::PermissionViewAny->value,
-    PermissionType::PermissionView->value,
-    PermissionType::PermissionUpdate->value,
-    PermissionType::UserViewAny->value,
-    PermissionType::UserUpdate->value,
-    PermissionType::SimulationCreate->value,
+    PermissionType::RoleViewAny,
+    PermissionType::RoleView,
+    PermissionType::RoleUpdate,
+    PermissionType::PermissionViewAny,
+    PermissionType::PermissionView,
+    PermissionType::PermissionUpdate,
+    PermissionType::UserViewAny,
+    PermissionType::UserUpdate,
+    PermissionType::SimulationCreate,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {

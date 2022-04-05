@@ -21,7 +21,7 @@ class SimulationPolicy extends Policy
     {
         return
             session()->missing('simulated')
-            && $this->hasPermissionWithoutCache($user, PermissionType::SimulationCreate->value);
+            && $this->hasPermissionWithoutCache($user, PermissionType::SimulationCreate);
     }
 
     /**

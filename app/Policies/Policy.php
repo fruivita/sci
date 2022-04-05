@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionType;
 use App\Models\User;
 use App\Traits\WithCaching;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -23,16 +24,16 @@ abstract class Policy
      * queries repetitivas, em especial, em um mesmo request.
      *
      * @param \App\Models\User $user
-     * @param int              $permission
+     * @param \App\Enums\PermissionType $permission
      *
      * @return bool
      */
-    protected function hasPermissionWithCache(User $user, int $permission)
+    protected function hasPermissionWithCache(User $user, PermissionType $permission)
     {
         $this->useCache();
 
         return (bool) $this->cache(
-            key: $user->username . $permission,
+            key: $user->username . $permission->value,
             seconds: 5,
             callback: function () use ($user, $permission) {
                 return $user->hasPermission($permission);
@@ -45,11 +46,11 @@ abstract class Policy
      * cache o resultado.
      *
      * @param \App\Models\User $user
-     * @param int              $permission
+     * @param \App\Enums\PermissionType $permission
      *
      * @return bool
      */
-    protected function hasPermissionWithoutCache(User $user, int $permission)
+    protected function hasPermissionWithoutCache(User $user, PermissionType $permission)
     {
         return (bool) $user->hasPermission($permission);
     }

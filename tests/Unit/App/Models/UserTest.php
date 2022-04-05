@@ -85,15 +85,15 @@ test('hasPermission informa se o usuário possui ou não determinada permissão'
 
     login('foo');
 
-    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate->value))->toBeFalse();
+    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate))->toBeFalse();
 
     grantPermission(PermissionType::SimulationCreate->value);
 
-    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate->value))->toBeTrue();
+    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate))->toBeTrue();
 
     revokePermission(PermissionType::SimulationCreate->value);
 
-    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate->value))->toBeFalse();
+    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate))->toBeFalse();
 
     logout();
 });
