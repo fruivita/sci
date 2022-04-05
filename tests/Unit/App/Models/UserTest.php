@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
@@ -43,12 +44,6 @@ test('lança exceção ao tentar definir relacionamento inválido', function ($f
 ]);
 
 // Happy path
-test('ids dos permissões para administração do usúario estão definidas', function () {
-    expect(User::VIEWANY)->toBe(120001)
-    ->and(User::UPDATE)->toBe(120003)
-    ->and(User::SIMULATION_CREATE)->toBe(120103);
-});
-
 test('cadastra múltiplos usuários', function () {
     User::factory(30)->create();
 
@@ -90,15 +85,15 @@ test('hasPermission informa se o usuário possui ou não determinada permissão'
 
     login('foo');
 
-    expect(authenticatedUser()->hasPermission(User::SIMULATION_CREATE))->toBeFalse();
+    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate->value))->toBeFalse();
 
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
-    expect(authenticatedUser()->hasPermission(User::SIMULATION_CREATE))->toBeTrue();
+    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate->value))->toBeTrue();
 
-    revokePermission(User::SIMULATION_CREATE);
+    revokePermission(PermissionType::SimulationCreate->value);
 
-    expect(authenticatedUser()->hasPermission(User::SIMULATION_CREATE))->toBeFalse();
+    expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate->value))->toBeFalse();
 
     logout();
 });

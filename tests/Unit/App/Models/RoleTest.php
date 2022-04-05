@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -71,12 +72,6 @@ test('ids dos perfis estão definidos', function () {
     ->and(Role::INSTITUTIONALMANAGER)->toBe(1100)
     ->and(Role::DEPARTMENTMANAGER)->toBe(1200)
     ->and(Role::ORDINARY)->toBe(1300);
-});
-
-test('ids dos permissões para administração do perfil estão definidas', function () {
-    expect(Role::VIEWANY)->toBe(100001)
-    ->and(Role::VIEW)->toBe(100002)
-    ->and(Role::UPDATE)->toBe(100003);
 });
 
 test('cadastra múltiplos perfis', function () {
@@ -152,15 +147,15 @@ test('perfil administrador possui todas as permissões', function ($permission) 
 
     expect($user->hasPermission($permission))->toBeTrue();
 })->with([
-    Role::VIEWANY,
-    Role::VIEW,
-    Role::UPDATE,
-    Permission::VIEWANY,
-    Permission::VIEW,
-    Permission::UPDATE,
-    User::VIEWANY,
-    User::UPDATE,
-    User::SIMULATION_CREATE,
+    PermissionType::RoleViewAny->value,
+    PermissionType::RoleView->value,
+    PermissionType::RoleUpdate->value,
+    PermissionType::PermissionViewAny->value,
+    PermissionType::PermissionView->value,
+    PermissionType::PermissionUpdate->value,
+    PermissionType::UserViewAny->value,
+    PermissionType::UserUpdate->value,
+    PermissionType::SimulationCreate->value,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {

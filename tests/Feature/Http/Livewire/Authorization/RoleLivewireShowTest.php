@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\RoleLivewireShow;
 use App\Models\Permission;
 use App\Models\Role;
@@ -42,7 +43,7 @@ test('não é possível renderizar o componente de visualização individual do 
 
 // Rules
 test('não aceita paginação fora das opções oferecidas', function () {
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
     Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
@@ -51,7 +52,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 
 // Happy path
 test('é possível renderizar o componente de visualização individual do perfil com permissão específica', function () {
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
     get(route('authorization.roles.show', $this->role))
     ->assertOk()
@@ -59,7 +60,7 @@ test('é possível renderizar o componente de visualização individual do perfi
 });
 
 test('paginação retorna a quantidade de permissões esperada', function () {
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
     Permission::factory(120)->create();
     $permissions = Permission::all();
@@ -79,7 +80,7 @@ test('paginação retorna a quantidade de permissões esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
     Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
     ->assertSessionMissing('per_page')
@@ -94,7 +95,7 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('é possível visualizar individualmente um perfil com permissão específica', function () {
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
     get(route('authorization.roles.show', $this->role))
     ->assertOk()
@@ -103,7 +104,7 @@ test('é possível visualizar individualmente um perfil com permissão específi
 
 test('next e previous estão presentes no perfil durante a visualização individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
     $this->role->delete();
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
     // possui anterior e próximo
     Livewire::test(RoleLivewireShow::class, ['role_id' => Role::INSTITUTIONALMANAGER])

@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Models\Permission;
 use App\Policies\PermissionPolicy;
 use Database\Seeders\RoleSeeder;
@@ -34,16 +35,16 @@ test('usuário sem permissão não pode atualizar uma permissão', function () {
 
 // Happy path
 test('permissão de listagem das permissões é persistida em cache por 5 segundos', function () {
-    grantPermission(Permission::VIEWANY);
+    grantPermission(PermissionType::PermissionViewAny->value);
 
-    $key = authenticatedUser()->username . Permission::VIEWANY;
+    $key = authenticatedUser()->username . PermissionType::PermissionViewAny->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->viewAny($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(Permission::VIEWANY);
+    revokePermission(PermissionType::PermissionViewAny->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -60,16 +61,16 @@ test('permissão de listagem das permissões é persistida em cache por 5 segund
 });
 
 test('permissão de visualizar individualmente uma permissão é persistida em cache por 5 segundos', function () {
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
-    $key = authenticatedUser()->username . Permission::VIEW;
+    $key = authenticatedUser()->username . PermissionType::PermissionView->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->view($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(Permission::VIEW);
+    revokePermission(PermissionType::PermissionView->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -86,16 +87,16 @@ test('permissão de visualizar individualmente uma permissão é persistida em c
 });
 
 test('permissão de atualizar individualmente uma permissão é persistida em cache por 5 segundos', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
-    $key = authenticatedUser()->username . Permission::UPDATE;
+    $key = authenticatedUser()->username . PermissionType::PermissionUpdate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->update($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(Permission::UPDATE);
+    revokePermission(PermissionType::PermissionUpdate->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -112,19 +113,19 @@ test('permissão de atualizar individualmente uma permissão é persistida em ca
 });
 
 test('usuário com permissão pode listar as permissões', function () {
-    grantPermission(Permission::VIEWANY);
+    grantPermission(PermissionType::PermissionViewAny->value);
 
     expect((new PermissionPolicy)->viewAny($this->user))->toBeTrue();
 });
 
 test('usuário com permissão pode visualizar individualmente uma permissão', function () {
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
     expect((new PermissionPolicy)->view($this->user))->toBeTrue();
 });
 
 test('usuário com permissão pode atualizar individualmente uma permissão', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     expect((new PermissionPolicy)->update($this->user))->toBeTrue();
 });

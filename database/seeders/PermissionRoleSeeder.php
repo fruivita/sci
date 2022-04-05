@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionType;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -23,55 +24,55 @@ class PermissionRoleSeeder extends Seeder
         DB::table('permission_role')->insert([
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => Role::VIEWANY,
+                'permission_id' => PermissionType::RoleViewAny->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => Role::VIEW,
+                'permission_id' => PermissionType::RoleView->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => Role::UPDATE,
+                'permission_id' => PermissionType::RoleUpdate->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => Permission::VIEWANY,
+                'permission_id' => PermissionType::PermissionViewAny->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => Permission::VIEW,
+                'permission_id' => PermissionType::PermissionView->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => Permission::UPDATE,
+                'permission_id' => PermissionType::PermissionUpdate->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => User::VIEWANY,
+                'permission_id' => PermissionType::UserViewAny->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => User::UPDATE,
+                'permission_id' => PermissionType::UserUpdate->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => User::SIMULATION_CREATE,
+                'permission_id' => PermissionType::SimulationCreate->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],

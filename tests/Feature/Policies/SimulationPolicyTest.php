@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Models\User;
 use App\Policies\SimulationPolicy;
 use Database\Seeders\RoleSeeder;
@@ -25,7 +26,7 @@ test('usuário sem permissão não pode criar uma simulação', function () {
 });
 
 test('usuário não pode criar, simultaneamente, duas simulações na mesma sessão', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
     session()->put('simulated', 'bar');
 
     expect((new SimulationPolicy)->create($this->user))->toBeFalse();
@@ -37,15 +38,15 @@ test('usuário não pode desfazer uma simulação se ela não existe em sua sess
 
 // Happy path
 test('permissão de criar uma simulação não é persistida em cache', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
-    $key = authenticatedUser()->username . User::SIMULATION_CREATE;
+    $key = authenticatedUser()->username . PermissionType::SimulationCreate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new SimulationPolicy)->create($this->user))->toBeTrue()
     ->and(Cache::missing($key))->toBeTrue();
 
-    revokePermission(User::SIMULATION_CREATE);
+    revokePermission(PermissionType::SimulationCreate->value);
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new SimulationPolicy)->create($this->user))->toBeFalse()
@@ -53,7 +54,7 @@ test('permissão de criar uma simulação não é persistida em cache', function
 });
 
 test('usuário com permissão pode criar uma simulação', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     expect((new SimulationPolicy)->create($this->user))->toBeTrue();
 });

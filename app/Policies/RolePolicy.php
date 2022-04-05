@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionType;
 use App\Models\Role;
 use App\Models\User;
 
@@ -19,7 +20,7 @@ class RolePolicy extends Policy
      */
     public function viewAny(User $user)
     {
-        return $this->hasPermissionWithCache($user, Role::VIEWANY);
+        return $this->hasPermissionWithCache($user, PermissionType::RoleViewAny->value);
     }
 
     /**
@@ -31,7 +32,7 @@ class RolePolicy extends Policy
      */
     public function view(User $user)
     {
-        return $this->hasPermissionWithCache($user, Role::VIEW);
+        return $this->hasPermissionWithCache($user, PermissionType::RoleView->value);
     }
 
     /**
@@ -43,6 +44,6 @@ class RolePolicy extends Policy
      */
     public function update(User $user)
     {
-        return $this->hasPermissionWithCache($user, Role::UPDATE);
+        return $this->hasPermissionWithCache($user, PermissionType::RoleUpdate->value);
     }
 }

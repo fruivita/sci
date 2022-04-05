@@ -6,6 +6,7 @@
 
 use App\Enums\CheckboxAction;
 use App\Enums\FeedbackType;
+use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
@@ -45,7 +46,7 @@ test('não é possível renderizar o componente de edição da permissão sem pe
 });
 
 test('não é possível atualizar a permissão sem permissão específica', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     // concede permissão para abrir o página de edição
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
@@ -53,7 +54,7 @@ test('não é possível atualizar a permissão sem permissão específica', func
     ->set('permission.description', 'new bar');
 
     // remove a permissão
-    revokePermission(Permission::UPDATE);
+    revokePermission(PermissionType::PermissionUpdate->value);
 
     // expira o cache das permissões em 5 segundos
     $this->travel(6)->seconds();
@@ -65,7 +66,7 @@ test('não é possível atualizar a permissão sem permissão específica', func
 
 // Rules
 test('nome da permissão é obrigatório', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('permission.name', '')
@@ -74,7 +75,7 @@ test('nome da permissão é obrigatório', function () {
 });
 
 test('nome da permissão deve ser uma string', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('permission.name', ['bar'])
@@ -83,7 +84,7 @@ test('nome da permissão deve ser uma string', function () {
 });
 
 test('nome da permissão deve ter no máximo 50 caracteres', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('permission.name', Str::random(51))
@@ -92,7 +93,7 @@ test('nome da permissão deve ter no máximo 50 caracteres', function () {
 });
 
 test('nome da permissão deve ser único', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     $permission = Permission::factory()->create(['name' => 'another foo']);
 
@@ -103,7 +104,7 @@ test('nome da permissão deve ser único', function () {
 });
 
 test('descrição da permissão deve ser uma string', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('permission.description', ['baz'])
@@ -112,7 +113,7 @@ test('descrição da permissão deve ser uma string', function () {
 });
 
 test('descrição da permissão deve ter no máximo 255 caracteres', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('permission.description', Str::random(256))
@@ -121,7 +122,7 @@ test('descrição da permissão deve ter no máximo 255 caracteres', function ()
 });
 
 test('ids dos perfis que serão associadas à permissão deve ser um array', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('selected', 1)
@@ -130,7 +131,7 @@ test('ids dos perfis que serão associadas à permissão deve ser um array', fun
 });
 
 test('ids dos perfis que serão associadas à permissão devem existir previamente no banco de dados', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('selected', [-10])
@@ -139,7 +140,7 @@ test('ids dos perfis que serão associadas à permissão devem existir previamen
 });
 
 test('não aceita paginação fora das opções oferecidas', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
@@ -148,7 +149,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 
 // Happy path
 test('é possível renderizar o componente de edição da permissão com permissão específica', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     get(route('authorization.permissions.edit', $this->permission))
     ->assertOk()
@@ -156,7 +157,7 @@ test('é possível renderizar o componente de edição da permissão com permiss
 });
 
 test('define os perfis que devem ser pre-selecionadas de acodo com os relacionamentos da permissão', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Role::factory(30)->create();
     $permission = Permission::factory()
@@ -178,7 +179,7 @@ test('define os perfis que devem ser pre-selecionadas de acodo com os relacionam
 });
 
 test('actions de manipulação do checkbox dos perfis funcionam como esperado', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
     $count = Role::count();
 
     Role::factory(50)->create();
@@ -197,7 +198,7 @@ test('actions de manipulação do checkbox dos perfis funcionam como esperado', 
 });
 
 test('paginação retorna a quantidade de perfis esperada', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Role::factory(120)->create();
 
@@ -214,7 +215,7 @@ test('paginação retorna a quantidade de perfis esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->assertSessionMissing('per_page')
@@ -229,7 +230,7 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('getCheckAllProperty é registrado em cache com expiração de um minuto', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
     $count = Role::count();
 
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission]);
@@ -250,7 +251,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
 });
 
 test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
     $count = Role::count();
 
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
@@ -273,7 +274,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
 });
 
 test('emite evento de feedback ao atualizar uma permissão', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->call('update')
@@ -281,7 +282,7 @@ test('emite evento de feedback ao atualizar uma permissão', function () {
 });
 
 test('descrição e perfis associados são opcionais na atualização da permissão', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     $permission = Permission::factory()
     ->has(Role::factory(1), 'roles')
@@ -303,7 +304,7 @@ test('descrição e perfis associados são opcionais na atualização da permiss
 });
 
 test('é possível atualizar uma permissão com permissão específica', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     $this->permission->load('roles');
 
@@ -327,7 +328,7 @@ test('é possível atualizar uma permissão com permissão específica', functio
 });
 
 test('next e previous são registrados em cache com expirarção de um minuto', function () {
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
@@ -349,24 +350,24 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
 test('next e previous estão definidos durante a edição individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {
     Permission::whereNotNull('id')->delete();
 
-    $first = Permission::factory()->create(['id' => Permission::VIEWANY]);
-    $second = Permission::factory()->create(['id' => Permission::VIEW]);
-    $last = Permission::factory()->create(['id' => Permission::UPDATE]);
+    $first = Permission::factory()->create(['id' => PermissionType::PermissionViewAny->value]);
+    $second = Permission::factory()->create(['id' => PermissionType::PermissionView->value]);
+    $last = Permission::factory()->create(['id' => PermissionType::PermissionUpdate->value]);
 
-    grantPermission(Permission::UPDATE);
+    grantPermission(PermissionType::PermissionUpdate->value);
 
     // possui anterior e próximo
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $second])
-    ->assertSet('previous', Permission::VIEWANY)
-    ->assertSet('next', Permission::UPDATE);
+    ->assertSet('previous', PermissionType::PermissionViewAny->value)
+    ->assertSet('next', PermissionType::PermissionUpdate->value);
 
     // possui apenas próximo
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $first])
     ->assertSet('previous', null)
-    ->assertSet('next', Permission::VIEW);
+    ->assertSet('next', PermissionType::PermissionView->value);
 
     // possui apenas anterior
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $last])
-    ->assertSet('previous', Permission::VIEW)
+    ->assertSet('previous', PermissionType::PermissionView->value)
     ->assertSet('next', null);
 });

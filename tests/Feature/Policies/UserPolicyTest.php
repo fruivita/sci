@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use Database\Seeders\RoleSeeder;
@@ -30,16 +31,16 @@ test('usuário sem permissão não pode atualizar um usuário', function () {
 
 // Happy path
 test('permissão de listagem dos usuários é persistida em cache por 5 segundos', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
-    $key = authenticatedUser()->username . User::VIEWANY;
+    $key = authenticatedUser()->username . PermissionType::UserViewAny->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new UserPolicy)->viewAny($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(User::VIEWANY);
+    revokePermission(PermissionType::UserViewAny->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -56,16 +57,16 @@ test('permissão de listagem dos usuários é persistida em cache por 5 segundos
 });
 
 test('permissão de atualizar individualmente um usuário é persistida em cache por 5 segundos', function () {
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserUpdate->value);
 
-    $key = authenticatedUser()->username . User::UPDATE;
+    $key = authenticatedUser()->username . PermissionType::UserUpdate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new UserPolicy)->update($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(User::UPDATE);
+    revokePermission(PermissionType::UserUpdate->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -82,13 +83,13 @@ test('permissão de atualizar individualmente um usuário é persistida em cache
 });
 
 test('usuário com permissão pode listar os usuários', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     expect((new UserPolicy)->viewAny($this->user))->toBeTrue();
 });
 
 test('usuário com permissão pode atualizar individualmente um usuário', function () {
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserUpdate->value);
 
     expect((new UserPolicy)->update($this->user))->toBeTrue();
 });

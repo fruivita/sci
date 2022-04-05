@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\PermissionLivewireShow;
 use App\Models\Permission;
 use App\Models\Role;
@@ -42,7 +43,7 @@ test('não é possível renderizar o componente de visualização individual da 
 
 // Rules
 test('não aceita paginação fora das opções oferecidas', function () {
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
     Livewire::test(PermissionLivewireShow::class, ['permission_id' => $this->permission->id])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
@@ -51,7 +52,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 
 // Happy path
 test('é possível renderizar o componente de visualização individual da permissão com permissão específica', function () {
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
     get(route('authorization.permissions.show', $this->permission))
     ->assertOk()
@@ -59,7 +60,7 @@ test('é possível renderizar o componente de visualização individual da permi
 });
 
 test('paginação retorna a quantidade de perfis esperada', function () {
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
     Role::factory(120)->create();
     $roles = Role::all();
@@ -79,7 +80,7 @@ test('paginação retorna a quantidade de perfis esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
     Livewire::test(PermissionLivewireShow::class, ['permission_id' => $this->permission->id])
     ->assertSessionMissing('per_page')
@@ -94,7 +95,7 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('é possível visualizar individualmente uma permissão com permissão específica', function () {
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
     get(route('authorization.permissions.show', $this->permission->id))
     ->assertOk()
@@ -104,23 +105,23 @@ test('é possível visualizar individualmente uma permissão com permissão espe
 test('next e previous estão presentes na permissão durante a visualização individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {
     Permission::whereNotNull('id')->delete();
 
-    Permission::factory()->create(['id' => Permission::VIEWANY]);
-    Permission::factory()->create(['id' => Permission::UPDATE]);
+    Permission::factory()->create(['id' => PermissionType::PermissionViewAny->value]);
+    Permission::factory()->create(['id' => PermissionType::PermissionUpdate->value]);
 
-    grantPermission(Permission::VIEW);
+    grantPermission(PermissionType::PermissionView->value);
 
     // possui anterior e próximo
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => Permission::VIEW])
-    ->assertSet('permission.previous', Permission::VIEWANY)
-    ->assertSet('permission.next', Permission::UPDATE);
+    Livewire::test(PermissionLivewireShow::class, ['permission_id' => PermissionType::PermissionView->value])
+    ->assertSet('permission.previous', PermissionType::PermissionViewAny->value)
+    ->assertSet('permission.next', PermissionType::PermissionUpdate->value);
 
     // possui apenas próximo
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => Permission::VIEWANY])
+    Livewire::test(PermissionLivewireShow::class, ['permission_id' => PermissionType::PermissionViewAny->value])
     ->assertSet('permission.previous', null)
-    ->assertSet('permission.next', Permission::VIEW);
+    ->assertSet('permission.next', PermissionType::PermissionView->value);
 
     // possui apenas anterior
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => Permission::UPDATE])
-    ->assertSet('permission.previous', Permission::VIEW)
+    Livewire::test(PermissionLivewireShow::class, ['permission_id' => PermissionType::PermissionUpdate->value])
+    ->assertSet('permission.previous', PermissionType::PermissionView->value)
     ->assertSet('permission.next', null);
 });

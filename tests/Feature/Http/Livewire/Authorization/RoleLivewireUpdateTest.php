@@ -6,6 +6,7 @@
 
 use App\Enums\CheckboxAction;
 use App\Enums\FeedbackType;
+use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
@@ -44,7 +45,7 @@ test('não é possível renderizar o componente de edição do perfil sem permis
 });
 
 test('não é possível atualizar o perfil sem permissão específica', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     // concede permissão para abrir o página de edição
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
@@ -52,7 +53,7 @@ test('não é possível atualizar o perfil sem permissão específica', function
     ->set('role.description', 'new bar');
 
     // remove a permissão
-    revokePermission(Role::UPDATE);
+    revokePermission(PermissionType::RoleUpdate->value);
 
     // expira o cache das permissões em 5 segundos
     $this->travel(6)->seconds();
@@ -64,7 +65,7 @@ test('não é possível atualizar o perfil sem permissão específica', function
 
 // Rules
 test('nome do perfil é obrigatório', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('role.name', '')
@@ -73,7 +74,7 @@ test('nome do perfil é obrigatório', function () {
 });
 
 test('nome do perfil deve ser uma string', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('role.name', ['bar'])
@@ -82,7 +83,7 @@ test('nome do perfil deve ser uma string', function () {
 });
 
 test('nome do perfil deve ter no máximo 50 caracteres', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('role.name', Str::random(51))
@@ -91,7 +92,7 @@ test('nome do perfil deve ter no máximo 50 caracteres', function () {
 });
 
 test('nome do perfil deve ser único', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     $role = Role::factory()->create(['name' => 'another foo']);
 
@@ -102,7 +103,7 @@ test('nome do perfil deve ser único', function () {
 });
 
 test('descrição do perfil deve ser uma string', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('role.description', ['baz'])
@@ -111,7 +112,7 @@ test('descrição do perfil deve ser uma string', function () {
 });
 
 test('descrição do perfil deve ter no máximo 255 caracteres', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('role.description', Str::random(256))
@@ -120,7 +121,7 @@ test('descrição do perfil deve ter no máximo 255 caracteres', function () {
 });
 
 test('ids das permissões que serão associadas ao perfil deve ser um array', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('selected', 1)
@@ -129,7 +130,7 @@ test('ids das permissões que serão associadas ao perfil deve ser um array', fu
 });
 
 test('ids das permissões que serão associadas ao perfil devem existir previamente no banco de dados', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('selected', [-10])
@@ -138,7 +139,7 @@ test('ids das permissões que serão associadas ao perfil devem existir previame
 });
 
 test('não aceita paginação fora das opções oferecidas', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
@@ -147,7 +148,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 
 // Happy path
 test('é possível renderizar o componente de edição do perfil com permissão específica', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     get(route('authorization.roles.edit', $this->role))
     ->assertOk()
@@ -155,7 +156,7 @@ test('é possível renderizar o componente de edição do perfil com permissão 
 });
 
 test('define as permissões que devem ser pre-selecionadas de acodo com os relacionamentos da entidade', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Permission::factory(30)->create();
     $role = Role::factory()
@@ -177,7 +178,7 @@ test('define as permissões que devem ser pre-selecionadas de acodo com os relac
 });
 
 test('actions de manipulação do checkbox das permissões funcionam como esperado', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
     $count = Permission::count();
 
     Permission::factory(50)->create();
@@ -196,7 +197,7 @@ test('actions de manipulação do checkbox das permissões funcionam como espera
 });
 
 test('paginação retorna a quantidade de permissões esperada', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Permission::factory(120)->create();
 
@@ -213,7 +214,7 @@ test('paginação retorna a quantidade de permissões esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->assertSessionMissing('per_page')
@@ -228,7 +229,7 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('getCheckAllProperty é registrado em cache com expiração de um minuto', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
     $count = Permission::count();
 
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role]);
@@ -249,7 +250,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
 });
 
 test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
     $count = Permission::count();
 
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
@@ -272,7 +273,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
 });
 
 test('emite evento de feedback ao atualizar um perfil', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->call('update')
@@ -280,7 +281,7 @@ test('emite evento de feedback ao atualizar um perfil', function () {
 });
 
 test('descrição e permissões associados são opcionais na atualização do perfil', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     $role = Role::factory()
     ->has(Permission::factory(1), 'permissions')
@@ -302,7 +303,7 @@ test('descrição e permissões associados são opcionais na atualização do pe
 });
 
 test('é possível atualizar um perfil com permissão específica', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     $this->role->load('permissions');
 
@@ -326,7 +327,7 @@ test('é possível atualizar um perfil com permissão específica', function () 
 });
 
 test('next e previous são registrados em cache com expirarção de um minuto', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     $role_1 = Role::factory()->create(['id' => 1]);
     $role_2 = Role::factory()->create(['id' => 2]);
@@ -347,7 +348,7 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
 
 test('next e previous estão definidos durante a edição individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
     $this->role->delete();
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     $first = Role::find(Role::ADMINISTRATOR);
     $second = Role::find(Role::INSTITUTIONALMANAGER);

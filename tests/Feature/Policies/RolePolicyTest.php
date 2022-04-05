@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Models\Role;
 use App\Policies\RolePolicy;
 use Database\Seeders\RoleSeeder;
@@ -34,16 +35,16 @@ test('usuário sem permissão não pode atualizar um perfil', function () {
 
 // Happy path
 test('permissão de listagem dos perfis é persistida em cache por 5 segundos', function () {
-    grantPermission(Role::VIEWANY);
+    grantPermission(PermissionType::RoleViewAny->value);
 
-    $key = authenticatedUser()->username . Role::VIEWANY;
+    $key = authenticatedUser()->username . PermissionType::RoleViewAny->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new RolePolicy)->viewAny($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(Role::VIEWANY);
+    revokePermission(PermissionType::RoleViewAny->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -60,16 +61,16 @@ test('permissão de listagem dos perfis é persistida em cache por 5 segundos', 
 });
 
 test('permissão de visualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
-    $key = authenticatedUser()->username . Role::VIEW;
+    $key = authenticatedUser()->username . PermissionType::RoleView->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new RolePolicy)->view($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(Role::VIEW);
+    revokePermission(PermissionType::RoleView->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -86,16 +87,16 @@ test('permissão de visualizar individualmente um perfil é persistida em cache 
 });
 
 test('permissão de atualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
-    $key = authenticatedUser()->username . Role::UPDATE;
+    $key = authenticatedUser()->username . PermissionType::RoleUpdate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new RolePolicy)->update($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
-    revokePermission(Role::UPDATE);
+    revokePermission(PermissionType::RoleUpdate->value);
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -112,19 +113,19 @@ test('permissão de atualizar individualmente um perfil é persistida em cache p
 });
 
 test('usuário com permissão pode listar os perfis', function () {
-    grantPermission(Role::VIEWANY);
+    grantPermission(PermissionType::RoleViewAny->value);
 
     expect((new RolePolicy)->viewAny($this->user))->toBeTrue();
 });
 
 test('usuário com permissão pode visualizar individualmente um perfil', function () {
-    grantPermission(Role::VIEW);
+    grantPermission(PermissionType::RoleView->value);
 
     expect((new RolePolicy)->view($this->user))->toBeTrue();
 });
 
 test('usuário com permissão pode atualizar individualmente um perfil', function () {
-    grantPermission(Role::UPDATE);
+    grantPermission(PermissionType::RoleUpdate->value);
 
     expect((new RolePolicy)->update($this->user))->toBeTrue();
 });

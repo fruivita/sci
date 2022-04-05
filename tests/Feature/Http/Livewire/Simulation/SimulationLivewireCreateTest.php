@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\User;
 use App\Rules\LdapUser;
@@ -42,7 +43,7 @@ test('não é possível executar a rota de simulação sem permissão específic
 });
 
 test('não é possível executar a rota para desfazer a simulação se ela não existir', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     delete(route('simulation.destroy'))->assertForbidden();
 });
@@ -55,7 +56,7 @@ test('não é possível renderizar o componente de simulação sem permissão es
 test('não é possível renderizar o componente com outra simulação em andamento', function () {
     logout();
     login('bar');
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', 'foo')
@@ -68,7 +69,7 @@ test('não é possível renderizar o componente com outra simulação em andamen
 test('não é possível simular usuário com outra simulação em andamento', function () {
     logout();
     login('bar');
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', 'foo')
@@ -81,7 +82,7 @@ test('não é possível simular usuário com outra simulação em andamento', fu
 
 test('não é possível desfazer simulação se ela não existir', function () {
     login('bar');
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->call('destroy')
@@ -90,7 +91,7 @@ test('não é possível desfazer simulação se ela não existir', function () {
 
 // Rules
 test('username do simulado é obrigatório', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', '')
@@ -99,7 +100,7 @@ test('username do simulado é obrigatório', function () {
 });
 
 test('username do simulado deve ser uma string', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', ['bar'])
@@ -108,7 +109,7 @@ test('username do simulado deve ser uma string', function () {
 });
 
 test('username do simulado deve ter no máximo 20 caracteres', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', Str::random(21))
@@ -117,7 +118,7 @@ test('username do simulado deve ter no máximo 20 caracteres', function () {
 });
 
 test('username do simulado deve ser diferente do usuário autenticado, pois não se pode simular o próprio usuário', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', 'foo')
@@ -126,7 +127,7 @@ test('username do simulado deve ser diferente do usuário autenticado, pois não
 });
 
 test('username do simulado deve existir no servidor LDAP', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', 'bar')
@@ -136,7 +137,7 @@ test('username do simulado deve existir no servidor LDAP', function () {
 
 // Happy path
 test('é possível renderizar o componente de simulação com permissão específica', function () {
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     get(route('simulation.create'))
     ->assertOk()
@@ -146,7 +147,7 @@ test('é possível renderizar o componente de simulação com permissão especí
 test('simulação cria as variáveis de sessão e redireciona à pagina home', function () {
     logout();
     login('bar');
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', 'foo')
@@ -162,7 +163,7 @@ test('simulação cria as variáveis de sessão e redireciona à pagina home', f
 test('feedback é exibido ao usuário quando a simulação está ativa e quando ela é finalizada', function () {
     logout();
     login('bar');
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
     ->set('username', 'foo')
@@ -184,7 +185,7 @@ test('simulação importa o usuário para o banco de dados', function () {
     User::where('username', 'foo')->delete();
 
     login('bar');
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     expect(User::where('username', 'foo')->first())->toBeEmpty();
 
@@ -199,7 +200,7 @@ test('simulação importa o usuário para o banco de dados', function () {
 test('simulação troca o usuário autenticado e ao finalizá-la, volta ao usuário anterior', function () {
     logout();
     login('bar');
-    grantPermission(User::SIMULATION_CREATE);
+    grantPermission(PermissionType::SimulationCreate->value);
 
     expect(auth()->user()->username)->toBe('bar');
 

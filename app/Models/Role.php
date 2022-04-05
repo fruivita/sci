@@ -26,27 +26,6 @@ class Role extends Model
     public const ORDINARY = 1300;
 
     /**
-     * Id da permissão de visualizar todos os perfis.
-     *
-     * @var int
-     */
-    public const VIEWANY = 100001;
-
-    /**
-     * Id da permissão de visualizar um perfil.
-     *
-     * @var int
-     */
-    public const VIEW = 100002;
-
-    /**
-     * Id da permissão de atualizar um perfil.
-     *
-     * @var int
-     */
-    public const UPDATE = 100003;
-
-    /**
      * Relacionamento perfil (N:M) permissões.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

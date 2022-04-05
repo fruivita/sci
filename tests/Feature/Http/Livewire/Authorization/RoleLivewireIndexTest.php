@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\RoleLivewireIndex;
 use App\Models\Role;
 use Database\Seeders\RoleSeeder;
@@ -39,7 +40,7 @@ test('não é possível renderizar o componente de listagem dos perfis sem permi
 
 // Rules
 test('não aceita paginação fora das opções oferecidas', function () {
-    grantPermission(Role::VIEWANY);
+    grantPermission(PermissionType::RoleViewAny->value);
 
     Livewire::test(RoleLivewireIndex::class)
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
@@ -48,7 +49,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 
 // Happy path
 test('paginação retorna a quantidade de perfis esperada', function () {
-    grantPermission(Role::VIEWANY);
+    grantPermission(PermissionType::RoleViewAny->value);
 
     Role::factory(120)->create();
 
@@ -65,7 +66,7 @@ test('paginação retorna a quantidade de perfis esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
-    grantPermission(Role::VIEWANY);
+    grantPermission(PermissionType::RoleViewAny->value);
 
     Livewire::test(RoleLivewireIndex::class)
     ->assertSessionMissing('per_page')
@@ -80,7 +81,7 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('é possível listar os perfis com permissão específica', function () {
-    grantPermission(Role::VIEWANY);
+    grantPermission(PermissionType::RoleViewAny->value);
 
     get(route('authorization.roles.index'))
     ->assertOk()

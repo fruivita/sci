@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionType;
 use App\Models\User;
 
 /**
@@ -20,7 +21,7 @@ class SimulationPolicy extends Policy
     {
         return
             session()->missing('simulated')
-            && $this->hasPermissionWithoutCache($user, User::SIMULATION_CREATE);
+            && $this->hasPermissionWithoutCache($user, PermissionType::SimulationCreate->value);
     }
 
     /**

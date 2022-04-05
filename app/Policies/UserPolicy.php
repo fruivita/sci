@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PermissionType;
 use App\Models\User;
 
 /**
@@ -18,7 +19,7 @@ class UserPolicy extends Policy
      */
     public function viewAny(User $user)
     {
-        return $this->hasPermissionWithCache($user, User::VIEWANY);
+        return $this->hasPermissionWithCache($user, PermissionType::UserViewAny->value);
     }
 
     /**
@@ -30,6 +31,6 @@ class UserPolicy extends Policy
      */
     public function update(User $user)
     {
-        return $this->hasPermissionWithCache($user, User::UPDATE);
+        return $this->hasPermissionWithCache($user, PermissionType::UserUpdate->value);
     }
 }

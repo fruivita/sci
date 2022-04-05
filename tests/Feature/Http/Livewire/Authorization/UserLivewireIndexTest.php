@@ -5,6 +5,7 @@
  */
 
 use App\Enums\FeedbackType;
+use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\UserLivewireIndex;
 use App\Models\Role;
 use App\Models\User;
@@ -41,7 +42,7 @@ test('não é possível renderizar o componente de listagem dos usuários sem pe
 });
 
 test('não é possível exibir o modal de edição de usuário sem permissão específica', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('show_edit_modal', false)
@@ -51,15 +52,15 @@ test('não é possível exibir o modal de edição de usuário sem permissão es
 });
 
 test('não é possível atualizar um usuário sem permissão específica', function () {
-    grantPermission(User::VIEWANY);
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
 
     $livewire = Livewire::test(UserLivewireIndex::class)
     ->assertSet('show_edit_modal', false)
     ->call('edit', authenticatedUser()->id)
     ->assertSet('show_edit_modal', true);
 
-    revokePermission(User::UPDATE);
+    revokePermission(PermissionType::UserUpdate->value);
 
     // expira o cache das permissões em 5 segundos
     $this->travel(6)->seconds();
@@ -70,7 +71,7 @@ test('não é possível atualizar um usuário sem permissão específica', funct
 });
 
 test('os perfis não estão disponíveis se o modal não puder ser carregadado', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     expect(Role::count())->toBeGreaterThan(1);
 
@@ -84,7 +85,7 @@ test('os perfis não estão disponíveis se o modal não puder ser carregadado',
 
 // Rules
 test('não aceita paginação fora das opções oferecidas', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
@@ -92,8 +93,8 @@ test('não aceita paginação fora das opções oferecidas', function () {
 });
 
 test('id do perfil que será associado ao usuário deve ser um inteiro', function () {
-    grantPermission(User::VIEWANY);
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->call('edit', authenticatedUser()->id)
@@ -103,8 +104,8 @@ test('id do perfil que será associado ao usuário deve ser um inteiro', functio
 });
 
 test('id do perfil que será associado ao usuário deve existir previamente no banco de dados', function () {
-    grantPermission(User::VIEWANY);
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->call('edit', authenticatedUser()->id)
@@ -114,7 +115,7 @@ test('id do perfil que será associado ao usuário deve existir previamente no b
 });
 
 test('termo pesquisável deve ser uma string', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->set('term', ['foo'])
@@ -122,7 +123,7 @@ test('termo pesquisável deve ser uma string', function () {
 });
 
 test('termo pesquisável deve ter no máximo 50 caracteres', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->set('term', Str::random(51))
@@ -130,7 +131,7 @@ test('termo pesquisável deve ter no máximo 50 caracteres', function () {
 });
 
 test('termo pesquisável está sujeito à validação em tempo real', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->set('term', Str::random(50))
@@ -141,7 +142,7 @@ test('termo pesquisável está sujeito à validação em tempo real', function (
 
 // Happy path
 test('é possível renderizar o componente de listagem dos usuários com permissão específica', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     get(route('authorization.users.index'))
     ->assertOk()
@@ -149,7 +150,7 @@ test('é possível renderizar o componente de listagem dos usuários com permiss
 });
 
 test('paginação retorna a quantidade de usuários esperada', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     User::factory(120)->create();
 
@@ -166,7 +167,7 @@ test('paginação retorna a quantidade de usuários esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
-    grantPermission(User::VIEWANY);
+    grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSessionMissing('per_page')
@@ -181,8 +182,8 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('é possível exibir o modal de edição de usuário com permissão específica', function () {
-    grantPermission(User::VIEWANY);
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('show_edit_modal', false)
@@ -192,8 +193,8 @@ test('é possível exibir o modal de edição de usuário com permissão especí
 });
 
 test('os perfis estão disponíveis se o modal puder ser carregadado', function () {
-    grantPermission(User::VIEWANY);
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
 
     expect(Role::count())->toBe(4);
 
@@ -206,8 +207,8 @@ test('os perfis estão disponíveis se o modal puder ser carregadado', function 
 });
 
 test('emite evento de feedback ao atualizar um usuário', function () {
-    grantPermission(User::VIEWANY);
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
 
     Livewire::test(UserLivewireIndex::class)
     ->call('edit', authenticatedUser()->id)
@@ -218,8 +219,8 @@ test('emite evento de feedback ao atualizar um usuário', function () {
 test('é possível atualizar um usuário com permissão específica', function () {
     logout();
     login('bar');
-    grantPermission(User::VIEWANY);
-    grantPermission(User::UPDATE);
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
 
     $user = User::where('username', 'foo')->first();
 
