@@ -107,6 +107,9 @@
         </div>
 
 
+        {{-- mensagem de retorno ao usuário --}}
+        <livewire:flash />
+
         {{-- javascript --}}
         @livewireScripts
         <script src="{{ mix('/js/app.js') }}"></script>

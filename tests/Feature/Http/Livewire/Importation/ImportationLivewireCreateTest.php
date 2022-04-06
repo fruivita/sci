@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\FeedbackType;
 use App\Enums\ImportationType;
 use App\Enums\PermissionType;
 use App\Http\Livewire\Administration\ImportationLivewireCreate;
@@ -99,4 +100,16 @@ test('dispara job de todos os importáveis', function () {
 
     // Bus::assertDispatched(ImportPrintLog::class);
     Bus::assertDispatched(ImportCorporateStructure::class);
+});
+
+test('da feedback ao usuário se a importação for solicitada corretamente', function () {
+    grantPermission(PermissionType::ImportationCreate->value);
+
+    Livewire::test(ImportationLivewireCreate::class)
+    ->set('import', [ImportationType::Corporate->value, ImportationType::PrintLog->value])
+    ->call('store')
+    ->assertEmitted('showFlash', [
+        'type' => FeedbackType::Success->value,
+        'message' => __('The requested data import has been scheduled to run. In a few minutes, the data will be available.')
+    ]);
 });

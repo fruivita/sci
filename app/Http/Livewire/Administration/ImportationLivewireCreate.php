@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Administration;
 
+use App\Enums\FeedbackType;
 use App\Enums\ImportationType;
 use App\Enums\Policy;
 use App\Jobs\ImportCorporateStructure;
@@ -84,5 +85,10 @@ class ImportationLivewireCreate extends Component
         ImportCorporateStructure::dispatchIf(
             in_array(ImportationType::Corporate->value, $this->import)
         )->onQueue(ImportationType::Corporate->queue());
+
+        $this->emitTo('flash', 'showFlash', [
+            'type' => FeedbackType::Success->value,
+            'message' => __('The requested data import has been scheduled to run. In a few minutes, the data will be available.'),
+        ]);
     }
 }
