@@ -31,4 +31,21 @@ trait WithFeedbackEvents
 
         $this->emitSelf('feedback', $msg, $feedback);
     }
+
+    /**
+     * Emite evento de feedback para ser exibido no componente flash com a
+     * mensagem informada.
+     *
+     * @param FeedbackType $feedback_type
+     * @param string $message
+     *
+     * @return void
+     */
+    private function flash(FeedbackType $feedback_type, string $message)
+    {
+        $this->emitTo('flash', 'showFlash', [
+            'type' => $feedback_type->value,
+            'message' => $message,
+        ]);
+    }
 }

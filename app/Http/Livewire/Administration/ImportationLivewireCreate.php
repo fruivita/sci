@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Administration;
 use App\Enums\FeedbackType;
 use App\Enums\ImportationType;
 use App\Enums\Policy;
+use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Jobs\ImportCorporateStructure;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -15,6 +16,7 @@ use Livewire\Component;
 class ImportationLivewireCreate extends Component
 {
     use AuthorizesRequests;
+    use WithFeedbackEvents;
 
     /**
      * Importações que serão executadas
@@ -86,9 +88,9 @@ class ImportationLivewireCreate extends Component
             in_array(ImportationType::Corporate->value, $this->import)
         )->onQueue(ImportationType::Corporate->queue());
 
-        $this->emitTo('flash', 'showFlash', [
-            'type' => FeedbackType::Success->value,
-            'message' => __('The requested data import has been scheduled to run. In a few minutes, the data will be available.'),
-        ]);
+        $this->flash(
+            FeedbackType::Success,
+            __('The requested data import has been scheduled to run. In a few minutes, the data will be available.'),
+        );
     }
 }
