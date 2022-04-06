@@ -28,6 +28,7 @@
 
                 {{-- estrutura corporativa --}}
                 <x-form.checkbox
+                    wire:loading.delay.class="cursor-not-allowed"
                     wire:model.defer="import"
                     name="import"
                     text="{{ \App\Enums\ImportationType::Corporate->label() }}"
@@ -36,6 +37,7 @@
 
                 {{-- log de impressão --}}
                 <x-form.checkbox
+                    wire:loading.delay.class="cursor-not-allowed"
                     wire:model.defer="import"
                     name="import"
                     text="{{ \App\Enums\ImportationType::PrintLog->label() }}"
