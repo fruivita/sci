@@ -107,6 +107,7 @@
     "Simulation activated by :attribute": "Simulação ativada por :attribute",
     "Success!": "Sucesso!",
     "Tests": "Testes",
+    "The requested data import has been scheduled to run. In a few minutes, the data will be available.": "A importação dos dados solicitada foi escalonada para execução. Em alguns minutos, os dados estarão disponíveis.",
     "There may be more": "Podem existir mais",
     "to": "a",
     "Toggle dark/light mode": "Alterna entre os modos escuro/claro",
