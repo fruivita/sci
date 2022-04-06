@@ -84,7 +84,7 @@
         @apply w-6 h-6;
     }
 
-    .info {
+    .success {
         @apply
         bg-green-100
         border-green-900
