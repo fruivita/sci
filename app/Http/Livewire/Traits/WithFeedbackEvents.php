@@ -22,10 +22,10 @@ trait WithFeedbackEvents
     private function emitSaveInlineFeebackSelf(bool $success)
     {
         if ($success === true) {
-            $msg = __('Success!');
+            $msg = FeedbackType::Success->label();
             $feedback = FeedbackType::Success;
         } else {
-            $msg = __('Error!');
+            $msg = FeedbackType::Error->label();
             $feedback = FeedbackType::Error;
         }
 
