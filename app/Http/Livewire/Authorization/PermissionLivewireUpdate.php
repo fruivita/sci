@@ -151,7 +151,7 @@ class PermissionLivewireUpdate extends Component
 
         $saved = $this->permission->updateAndSync($this->selected);
 
-        $this->emitSaveInlineFeebackSelf($saved);
+        $this->flashSelf($saved);
     }
 
     /**

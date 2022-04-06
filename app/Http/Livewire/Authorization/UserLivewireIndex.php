@@ -176,6 +176,6 @@ class UserLivewireIndex extends Component
 
         $saved = $this->editing->save();
 
-        $this->emitSaveInlineFeebackSelf($saved);
+        $this->flashSelf($saved);
     }
 }

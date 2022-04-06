@@ -9,43 +9,57 @@ use App\Enums\FeedbackType;
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  * @see https://laravel-livewire.com/docs/2.x/traits
+ * @see https://laravel-livewire.com/docs/2.x/events
  */
 trait WithFeedbackEvents
 {
     /**
-     * Emite evento sobre o resultado de operações do tipo save.
+     * Emite evento de feedback para o próprio componente decidir onde melhor
+     * será exibi-lo.
+     *
+     * A mensagem informada será exibida ou, se não informada, será utilizada a
+     * mensagem padrão.
      *
      * @param bool $success se o comando foi executao com sucesso
+     * @param string|null $message
      *
      * @return void
      */
-    private function emitSaveInlineFeebackSelf(bool $success)
+    private function flashSelf(bool $success, string $message = null)
     {
         if ($success === true) {
-            $msg = FeedbackType::Success->label();
             $feedback = FeedbackType::Success;
+            $msg = $message ?? FeedbackType::Success->label();
         } else {
-            $msg = FeedbackType::Error->label();
             $feedback = FeedbackType::Error;
+            $msg = $message ?? FeedbackType::Error->label();
         }
 
-        $this->emitSelf('feedback', $msg, $feedback);
+        $this->emitSelf('feedback', $feedback, $msg);
     }
 
     /**
      * Emite evento de feedback para ser exibido no componente flash com a
      * mensagem informada.
      *
-     * @param FeedbackType $feedback_type
-     * @param string $message
+     * A mensagem informada será exibida ou, se não informada, será utilizada a
+     * mensagem padrão.
+     *
+     * @param bool $success se o comando foi executao com sucesso
+     * @param string|null $message
      *
      * @return void
      */
-    private function flash(FeedbackType $feedback_type, string $message)
+    private function flash(bool $success, string $message = null)
     {
-        $this->emitTo('flash', 'showFlash', [
-            'type' => $feedback_type->value,
-            'message' => $message,
-        ]);
+        if ($success === true) {
+            $feedback = FeedbackType::Success;
+            $msg = $message ?? FeedbackType::Success->label();
+        } else {
+            $feedback = FeedbackType::Error;
+            $msg = $message ?? FeedbackType::Error->label();
+        }
+
+        $this->emitTo('flash', 'showFlash', $feedback->value, $msg);
     }
 }

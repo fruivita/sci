@@ -278,7 +278,7 @@ test('emite evento de feedback ao atualizar uma permissão', function () {
 
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->call('update')
-    ->assertEmitted('feedback', __('Success!'), FeedbackType::Success);
+    ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
 test('descrição e perfis associados são opcionais na atualização da permissão', function () {

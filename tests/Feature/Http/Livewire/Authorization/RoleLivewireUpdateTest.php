@@ -277,7 +277,7 @@ test('emite evento de feedback ao atualizar um perfil', function () {
 
     Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->call('update')
-    ->assertEmitted('feedback', __('Success!'), FeedbackType::Success);
+    ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
 test('descrição e permissões associados são opcionais na atualização do perfil', function () {

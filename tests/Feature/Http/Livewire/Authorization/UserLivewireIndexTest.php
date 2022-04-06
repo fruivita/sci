@@ -213,7 +213,7 @@ test('emite evento de feedback ao atualizar um usuário', function () {
     Livewire::test(UserLivewireIndex::class)
     ->call('edit', authenticatedUser()->id)
     ->call('update')
-    ->assertEmitted('feedback', __('Success!'), FeedbackType::Success);
+    ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
 test('é possível atualizar um usuário com permissão específica', function () {

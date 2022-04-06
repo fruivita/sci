@@ -89,7 +89,7 @@ class ImportationLivewireCreate extends Component
         )->onQueue(ImportationType::Corporate->queue());
 
         $this->flash(
-            FeedbackType::Success,
+            true,
             __('The requested data import has been scheduled to run. In a few minutes, the data will be available.'),
         );
     }

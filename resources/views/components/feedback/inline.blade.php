@@ -14,7 +14,7 @@
 --}}
 
 <span
-    x-data="{ showInlineFeedback : false , message : '', type : '' }"
+    x-data="{ showInlineFeedback : false , type : '', message : '' }"
     x-init="
         @this.on('feedback', ( m, t ) => {
             setTimeout(() => {

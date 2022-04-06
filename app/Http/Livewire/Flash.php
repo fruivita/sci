@@ -62,20 +62,17 @@ class Flash extends Component
     protected $listeners = ['showFlash' => 'showFlash'];
 
     /**
-     * Exibe o componente.
+     * Configura o componente e o exibe.
      *
-     * O array $params possui dois índices:
-     * - type: tipo de mensagem que será exibida (success e erro)
-     * - message: mensagem que será exibida
-     *
-     * @param array array<string, string>
+     * @param string $type tipo de mensagem que será exibida (success e erro)
+     * @param string $message mensagem que será exibida
      *
      * @return void
      */
-    public function showFlash(array $params)
+    public function showFlash(string $type, string $message)
     {
-        $this->{$params['type']}();
-        $this->message = $params['message'];
+        $this->{$type}();
+        $this->message = $message;
         $this->visible = '';
     }
 

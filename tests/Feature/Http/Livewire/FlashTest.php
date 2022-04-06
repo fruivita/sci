@@ -11,10 +11,7 @@ use Livewire\Livewire;
 // Happy path
 test('propriedades da mensagem success são definidas corretamente', function () {
     Livewire::test(Flash::class)
-    ->call('showFlash', [
-        'type' => FeedbackType::Success->value,
-        'message' =>  'foo',
-    ])
+    ->call('showFlash', FeedbackType::Success->value, 'foo')
     ->assertSet('visible', '')
     ->assertSet('css', FeedbackType::Success->value)
     ->assertSet('icon', FeedbackType::Success->icon())
@@ -24,10 +21,7 @@ test('propriedades da mensagem success são definidas corretamente', function ()
 
 test('propriedades da mensagem error são definidas corretamente', function () {
     Livewire::test(Flash::class)
-    ->call('showFlash', [
-        'type' => FeedbackType::Error->value,
-        'message' =>  'foo',
-    ])
+    ->call('showFlash', FeedbackType::Error->value, 'foo')
     ->assertSet('visible', '')
     ->assertSet('css', FeedbackType::Error->value)
     ->assertSet('icon', FeedbackType::Error->icon())
@@ -37,10 +31,7 @@ test('propriedades da mensagem error são definidas corretamente', function () {
 
 test('método hide reseta as propriedades', function () {
     Livewire::test(Flash::class)
-    ->call('showFlash', [
-        'type' => FeedbackType::Error->value,
-        'message' =>  'foo',
-    ])
+    ->call('showFlash', FeedbackType::Error->value, 'foo')
     ->assertSet('visible', '')
     ->assertSet('css', FeedbackType::Error->value)
     ->assertSet('icon', FeedbackType::Error->icon())

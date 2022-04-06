@@ -151,7 +151,7 @@ class RoleLivewireUpdate extends Component
 
         $saved = $this->role->updateAndSync($this->selected);
 
-        $this->emitSaveInlineFeebackSelf($saved);
+        $this->flashSelf($saved);
     }
 
     /**
