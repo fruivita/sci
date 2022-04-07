@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('department_id')->nullable();
-            $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('printer_id');
             $table->unsignedBigInteger('server_id');
 
@@ -37,7 +37,7 @@ return new class extends Migration {
                 'date',
                 'time',
                 'client_id',
-                'person_id',
+                'user_id',
                 'printer_id',
                 'server_id',
             ]);
@@ -64,9 +64,9 @@ return new class extends Migration {
                 ->onUpdate('cascade');
 
             $table
-                ->foreign('person_id')
+                ->foreign('user_id')
                 ->references('id')
-                ->on('persons')
+                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

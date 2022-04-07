@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use App\Enums\PermissionType;
+use FruiVita\Corporate\Models\User as CorporateUser;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
@@ -16,13 +15,10 @@ use LdapRecord\Laravel\Auth\LdapAuthenticatable;
  * @see https://laravel.com/docs/9.x/eloquent
  * @see https://ldaprecord.com/docs/laravel/v2/auth/database
  */
-class User extends Authenticatable implements LdapAuthenticatable
+class User extends CorporateUser implements LdapAuthenticatable
 {
-    use HasFactory;
     use Notifiable;
     use AuthenticatesWithLdap;
-
-    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -35,6 +31,9 @@ class User extends Authenticatable implements LdapAuthenticatable
         'password',
         'guid',
         'domain',
+        'department_id',
+        'occupation_id',
+        'duty_id'
     ];
 
     /**
@@ -48,6 +47,8 @@ class User extends Authenticatable implements LdapAuthenticatable
     ];
 
     /**
+     * Perfil de um usuário.
+     *
      * Relacionamento usuário (N:1) perfil.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

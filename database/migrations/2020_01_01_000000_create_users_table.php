@@ -24,15 +24,33 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('duty_id')->nullable();
+            $table->unsignedBigInteger('occupation_id')->nullable();
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->string('name', 255)->nullable();
             $table->string('username', 20)->unique();
             $table->string('password', 255)->nullable();
             $table->string('guid', 255)->unique()->nullable();
             $table->string('domain', 255)->nullable();
-            $table->unsignedBigInteger('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
+            $table
+                ->foreign('department_id')
+                ->references('id')
+                ->on('departments')
+                ->onUpdate('cascade');
+            $table
+                ->foreign('duty_id')
+                ->references('id')
+                ->on('duties')
+                ->onUpdate('cascade');
+            $table
+                ->foreign('occupation_id')
+                ->references('id')
+                ->on('occupations')
+                ->onUpdate('cascade');
             $table
                 ->foreign('role_id')
                 ->references('id')

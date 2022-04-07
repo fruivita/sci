@@ -8,7 +8,7 @@ use App\Jobs\ImportCorporateStructure;
 use App\Models\Department;
 use App\Models\Duty;
 use App\Models\Occupation;
-use App\Models\Person;
+use App\Models\User;
 
 // Happy path
 test('job importa a estrutura corporativa', function () {
@@ -17,5 +17,5 @@ test('job importa a estrutura corporativa', function () {
     expect(Occupation::count())->toBe(3)
     ->and(Duty::count())->toBe(3)
     ->and(Department::count())->toBe(5)
-    ->and(Person::count())->toBe(5);
+    ->and(User::count())->toBe(5);
 });

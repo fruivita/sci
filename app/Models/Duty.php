@@ -5,7 +5,7 @@ namespace App\Models;
 use FruiVita\Corporate\Models\Duty as CorporateDuty;
 
 /**
- * Função comissionada de uma determinada pessoa
+ * Função comissionada de um determinado usuário.
  *
  * @see https://laravel.com/docs/9.x/eloquent
  */
