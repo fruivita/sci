@@ -17,9 +17,7 @@ class OccupationFactory extends Factory
     protected $model = Occupation::class;
 
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function definition()
     {

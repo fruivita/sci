@@ -17,9 +17,7 @@ class PermissionFactory extends Factory
     protected $model = Permission::class;
 
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function definition()
     {

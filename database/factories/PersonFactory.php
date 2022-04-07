@@ -17,9 +17,7 @@ class PersonFactory extends Factory
     protected $model = Person::class;
 
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function definition()
     {
