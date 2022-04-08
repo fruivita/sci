@@ -36,6 +36,17 @@
         hover:bg-primary-600;
     }
 
+    .btn-success {
+        @apply
+        bg-blue-500
+        ring-blue-300
+        text-blue-50
+
+        active:border-blue-300
+        focus:bg-blue-600
+        hover:bg-blue-600;
+    }
+
     .btn-warning {
         @apply
         bg-yellow-500
