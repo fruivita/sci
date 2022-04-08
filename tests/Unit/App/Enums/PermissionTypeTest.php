@@ -31,3 +31,7 @@ test('ids das permissões para criar uma simulação de uso estão definidas', f
 test('ids das permissões para importação de dados de uso estão definidas', function () {
     expect(PermissionType::ImportationCreate->value)->toBe(140003);
 });
+
+test('ids das permissões para delegação de perfil estão definidas', function () {
+    expect(PermissionType::DelegationViewAny->value)->toBe(150001);
+});
