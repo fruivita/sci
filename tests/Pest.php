@@ -105,9 +105,7 @@ function logout()
 }
 
 /**
- * Atribui a permissão informada ao usuário autenticado. Se o usuário não
- * possuir nenhum perfil, ele será criado para que a associação com a permissão
- * seja possível.
+ * Atribui a permissão informada ao usuário autenticado.
  *
  * @param int $permission_id
  *
@@ -119,22 +117,11 @@ function grantPermission(int $permission_id)
         return Permission::factory()->create(['id' => $permission_id]);
     });
 
-    $user = authenticatedUser()->load('role');
-
-    if ($user->role === null) {
-        $role = Role::firstOr(function () {
-            return Permission::factory()->create();
-        });
-
-        $user->role()->associate($role);
-
-        $user->save();
-    } else {
-        $user
+    authenticatedUser()
+        ->refresh()
         ->role
         ->permissions()
         ->attach($permission);
-    }
 }
 
 /**

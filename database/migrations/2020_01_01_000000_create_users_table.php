@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,7 +28,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('duty_id')->nullable();
             $table->unsignedBigInteger('occupation_id')->nullable();
-            $table->unsignedBigInteger('role_id')->nullable();
+            $table->unsignedBigInteger('role_id')->default(Role::ORDINARY);
             $table->string('name', 255)->nullable();
             $table->string('username', 20)->unique();
             $table->string('password', 255)->nullable();

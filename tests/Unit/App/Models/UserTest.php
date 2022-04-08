@@ -80,6 +80,18 @@ test('um usuário possui um perfil', function () {
     expect($user->role)->toBeInstanceOf(Role::class);
 });
 
+test('perfil padrão do usuário é ordinário', function () {
+    $this->seed(RoleSeeder::class);
+
+    $user = User::create([
+        'username' => 'foo',
+    ]);
+
+    $user->refresh();
+
+    expect($user->role->id)->toBe(Role::ORDINARY);
+});
+
 test('hasPermission informa se o usuário possui ou não determinada permissão', function () {
     $this->seed(RoleSeeder::class);
 
