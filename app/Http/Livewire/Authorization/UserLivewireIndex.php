@@ -96,7 +96,7 @@ class UserLivewireIndex extends Component
     public function getUsersProperty()
     {
         return $this->applyPagination(
-            User::with('role')->search($this->term)->defaultOrder()
+            User::search($this->term)->defaultOrder()
         );
     }
 
@@ -156,7 +156,7 @@ class UserLivewireIndex extends Component
     {
         $this->authorize(Policy::Update->value, User::class);
 
-        $this->editing = $user->load('role');
+        $this->editing = $user;
 
         $this->roles = Role::select('id', 'name')->defaultOrder()->get();
 

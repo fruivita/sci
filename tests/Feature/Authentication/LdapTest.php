@@ -79,7 +79,7 @@ test('perfil ordinário (perfil padrão para novos usuários) é atribuído ao u
 
     login('foo');
 
-    $user = User::with('role')->first();
+    $user = User::first();
 
     expect($user->role->id)->toBe(Role::ORDINARY);
 

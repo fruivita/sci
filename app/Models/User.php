@@ -47,6 +47,13 @@ class User extends CorporateUser implements LdapAuthenticatable
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['role'];
+
+    /**
      * Perfil de um usuário.
      *
      * Relacionamento usuário (N:1) perfil.

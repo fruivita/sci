@@ -231,7 +231,7 @@ test('é possível atualizar um usuário com permissão específica', function (
     ->call('update')
     ->assertOk();
 
-    $user->refresh()->load('role');
+    $user->refresh();
 
     expect($user->role->id)->toBe(Role::ADMINISTRATOR);
 });
