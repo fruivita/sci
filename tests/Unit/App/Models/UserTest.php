@@ -258,3 +258,35 @@ test('revokeDelegatedUsers remove as delegações feitas pelo usuário', functio
     ->and($user_baz->role_id)->toBe(Role::ORDINARY)
     ->and($user_baz->role_granted_by)->toBeNull();
 });
+
+test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações feitas pelo usuário', function () {
+    $this->seed(RoleSeeder::class);
+
+    $user_foo = User::factory()->create([
+        'role_id' => Role::INSTITUTIONALMANAGER
+    ]);
+
+    $user_bar = User::factory()->create([
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $user_foo->id,
+    ]);
+
+    $user_baz = User::factory()->create([
+        'role_id' => Role::DEPARTMENTMANAGER,
+        'role_granted_by' => $user_foo->id,
+    ]);
+
+    $user_foo->role_id = Role::ADMINISTRATOR;
+    $user_foo->updateAndRevokeDelegatedUsers();
+
+    $user_foo->refresh();
+    $user_bar->refresh();
+    $user_baz->refresh();
+
+    expect($user_foo->role_id)->toBe(Role::ADMINISTRATOR)
+    ->and($user_foo->role_granted_by)->toBeNull()
+    ->and($user_bar->role_id)->toBe(Role::ORDINARY)
+    ->and($user_bar->role_granted_by)->toBeNull()
+    ->and($user_baz->role_id)->toBe(Role::ORDINARY)
+    ->and($user_baz->role_granted_by)->toBeNull();
+});

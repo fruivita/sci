@@ -174,7 +174,7 @@ class UserLivewireIndex extends Component
 
         $this->validate();
 
-        $saved = $this->editing->save();
+        $saved = $this->editing->updateAndRevokeDelegatedUsers();
 
         $this->flashSelf($saved);
     }

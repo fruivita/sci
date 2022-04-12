@@ -109,32 +109,11 @@ class User extends CorporateUser implements LdapAuthenticatable
      */
     public function revokeDelegation()
     {
-        try {
-            DB::beginTransaction();
+        $this->role()->associate(Role::ORDINARY);
 
-            $this->role()->associate(Role::ORDINARY);
+        $this->delegator()->dissociate();
 
-            $this->delegator()->dissociate();
-
-            $this->push();
-
-            $this->revokeDelegatedUsers();
-
-            DB::commit();
-
-            return true;
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            Log::error(
-                __('Delegate removal failed'),
-                [
-                    'exception' => $th,
-                ]
-            );
-
-            return false;
-        }
+        $this->updateAndRevokeDelegatedUsers();
     }
 
     /**
@@ -150,6 +129,38 @@ class User extends CorporateUser implements LdapAuthenticatable
             'role_granted_by' => null,
             'role_id' => Role::ORDINARY
         ]);
+    }
+
+    /**
+     * Atualiza as propriedades do usuário e remove as delegações feitas por
+     * ele.
+     *
+     * @return bool
+     */
+    public function updateAndRevokeDelegatedUsers()
+    {
+        try {
+            DB::beginTransaction();
+
+            $this->revokeDelegatedUsers();
+
+            $this->save();
+
+            DB::commit();
+
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            Log::error(
+                __('User update failed'),
+                [
+                    'exception' => $th,
+                ]
+            );
+
+            return false;
+        }
     }
 
     /**
