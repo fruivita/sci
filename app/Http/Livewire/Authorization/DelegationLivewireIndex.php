@@ -62,7 +62,7 @@ class DelegationLivewireIndex extends Component
             ->role()
             ->associate(auth()->user()->role);
 
-        $delegated->push();
+        $delegated->save();
     }
 
     /**
