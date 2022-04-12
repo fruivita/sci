@@ -3,6 +3,7 @@
 use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Administration\ImportationLivewireCreate;
+use App\Http\Livewire\Authorization\DelegationLivewireIndex;
 use App\Http\Livewire\Authorization\PermissionLivewireIndex;
 use App\Http\Livewire\Authorization\PermissionLivewireShow;
 use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
@@ -43,6 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
 
     Route::prefix('autorizacao')->name('authorization.')->group(function () {
+        Route::prefix('delegacao')->name('delegations.')->group(function () {
+            Route::get('/', DelegationLivewireIndex::class)->name('index');
+        });
+
         Route::prefix('perfil')->name('roles.')->group(function () {
             Route::get('/', RoleLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Role::class);
             Route::get('show/{role_id}', RoleLivewireShow::class)->name('show')->can(Policy::View->value, Role::class);

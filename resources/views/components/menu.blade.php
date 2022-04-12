@@ -62,52 +62,52 @@
     @endif
 
 
-    @if (
-        auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
-        || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
-        || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
-    )
+    <x-menu.group name="{{ __('Authorizations') }}">
 
-        <x-menu.group name="{{ __('Authorizations') }}">
-
-            @can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
-
-                <x-menu.link
-                    class="{{ request()->routeIs('authorization.roles.*') ? 'active': '' }}"
-                    icon="award"
-                    href="{{ route('authorization.roles.index') }}"
-                    text="{{ __('Roles') }}"
-                    title="{{ __('Go to roles page') }}"/>
-
-            @endcan
+        <x-menu.link
+            class="{{ request()->routeIs('authorization.delegations.*') ? 'active': '' }}"
+            icon="person-lines-fill"
+            href="{{ route('authorization.delegations.index') }}"
+            text="{{ __('Delegation') }}"
+            title="{{ __('Go to delegations page') }}"/>
 
 
-            @can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
+        @can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
 
-                <x-menu.link
-                    class="{{ request()->routeIs('authorization.permissions.*') ? 'active': '' }}"
-                    icon="vector-pen"
-                    href="{{ route('authorization.permissions.index') }}"
-                    text="{{ __('Permissions') }}"
-                    title="{{ __('Go to permissions page') }}"/>
+            <x-menu.link
+                class="{{ request()->routeIs('authorization.roles.*') ? 'active': '' }}"
+                icon="award"
+                href="{{ route('authorization.roles.index') }}"
+                text="{{ __('Roles') }}"
+                title="{{ __('Go to roles page') }}"/>
 
-            @endcan
+        @endcan
 
 
-            @can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
+        @can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
 
-                <x-menu.link
-                    class="{{ request()->routeIs('authorization.users.*') ? 'active': '' }}"
-                    icon="person-check"
-                    href="{{ route('authorization.users.index') }}"
-                    text="{{ __('Users') }}"
-                    title="{{ __('Go to users page') }}"/>
+            <x-menu.link
+                class="{{ request()->routeIs('authorization.permissions.*') ? 'active': '' }}"
+                icon="vector-pen"
+                href="{{ route('authorization.permissions.index') }}"
+                text="{{ __('Permissions') }}"
+                title="{{ __('Go to permissions page') }}"/>
 
-            @endcan
+        @endcan
 
-        </x-menu.group>
 
-    @endif
+        @can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
+
+            <x-menu.link
+                class="{{ request()->routeIs('authorization.users.*') ? 'active': '' }}"
+                icon="person-check"
+                href="{{ route('authorization.users.index') }}"
+                text="{{ __('Users') }}"
+                title="{{ __('Go to users page') }}"/>
+
+        @endcan
+
+    </x-menu.group>
 
 
     @if (
