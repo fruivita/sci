@@ -19,8 +19,7 @@
             @isset($permission->previous)
 
                 <x-linkbutton
-                    class="md:inline-flex"
-                    color="btn-success"
+                    class="btn-do md:inline-flex"
                     icon="chevron-double-left"
                     href="{{ route('authorization.permissions.show', $permission->previous) }}"
                     prepend="true"
@@ -37,8 +36,7 @@
             @isset($permission->next)
 
                 <x-linkbutton
-                    class="md:inline-flex"
-                    color="btn-success"
+                    class="btn-do md:inline-flex"
                     icon="chevron-double-right"
                     href="{{ route('authorization.permissions.show', $permission->next) }}"
                     text="{{ __('Next') }}"
@@ -127,7 +125,7 @@
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-end">
 
                 <x-linkbutton
-                    color="btn-success"
+                    class="btn-do"
                     icon="vector-pen"
                     href="{{ route('authorization.permissions.index') }}"
                     text="{{ __('Permissions') }}"

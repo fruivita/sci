@@ -2,7 +2,6 @@
     Button padrão.
 
     Props:
-    - color: estilo css que deve ser aplicado ao button
     - icon: ícone svg que será exibido
     - prepend: se o text do button deve vir antes ou depois do icon
     - text: texto de descrição/significado do item
@@ -16,11 +15,11 @@
 --}}
 
 
-@props(['color' => 'btn-default', 'icon', 'prepend' => false, 'text'])
+@props(['icon', 'prepend' => false, 'text'])
 
 
 <button
-    {{ $attributes->merge(['class' => "btn {$color}"]) }}
+    {{ $attributes->merge(['class' => "btn"]) }}
     {{ $attributes->except('class') }}
 >
 

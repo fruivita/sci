@@ -64,11 +64,12 @@
                                 @can(\App\Enums\Policy::DelegationDelete->value, [$delegate])
 
                                     <x-button
-                                        color="btn-danger"
+                                        class="btn-danger"
                                         wire:click="destroy({{ $delegate->id }})"
                                         wire:key="delegation-destroy-{{ $delegate->id }}"
                                         wire:loading.delay.attr="disabled"
                                         wire:loading.delay.class="cursor-not-allowed"
+                                        class="btn-danger"
                                         icon="pencil-square"
                                         text="{{ __('Revoke') }}"
                                         title="{{ __('Revoke user permissions') }}"
@@ -77,11 +78,11 @@
                                 @elsecan(\App\Enums\Policy::DelegationCreate->value, [$delegate])
 
                                     <x-button
-                                        color="btn-success"
                                         wire:click="create({{ $delegate->id }})"
                                         wire:key="delegation-create-{{ $delegate->id }}"
                                         wire:loading.delay.attr="disabled"
                                         wire:loading.delay.class="cursor-not-allowed"
+                                        class="btn-do"
                                         icon="pencil-square"
                                         text="{{ __('Grant') }}"
                                         title="{{ __('Grant my permissions to the user') }}"

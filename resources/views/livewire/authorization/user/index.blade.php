@@ -76,7 +76,7 @@
                                         wire:key="edit-button-{{ $user->id }}"
                                         wire:loading.delay.attr="disabled"
                                         wire:loading.delay.class="cursor-not-allowed"
-                                        color="btn-success"
+                                        class="btn-do"
                                         icon="pencil-square"
                                         text="{{ __('Edit') }}"
                                         title="{{ __('Edit the record') }}"
@@ -161,7 +161,7 @@
 
 
                     <x-button
-                        color="btn-success"
+                        class="btn-do"
                         icon="save"
                         text="{{ __('Save') }}"
                         title="{{ __('Save the record') }}"

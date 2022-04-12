@@ -19,8 +19,7 @@
             @isset($previous)
 
                 <x-linkbutton
-                    class="md:inline-flex"
-                    color="btn-success"
+                    class="btn-do md:inline-flex"
                     icon="chevron-double-left"
                     href="{{ route('authorization.permissions.edit', $previous) }}"
                     prepend="true"
@@ -37,8 +36,7 @@
             @isset($next)
 
                 <x-linkbutton
-                    class="md:inline-flex"
-                    color="btn-success"
+                    class="btn-do md:inline-flex"
                     icon="chevron-double-right"
                     href="{{ route('authorization.permissions.edit', $next) }}"
                     text="{{ __('Next') }}"
@@ -208,7 +206,7 @@
 
 
                     <x-button
-                        color="btn-success"
+                        class="btn-do"
                         icon="save"
                         text="{{ __('Save') }}"
                         title="{{ __('Save the record') }}"
@@ -216,7 +214,7 @@
 
 
                     <x-linkbutton
-                        color="btn-success"
+                        class="btn-do"
                         icon="vector-pen"
                         href="{{ route('authorization.permissions.index') }}"
                         text="{{ __('Permissions') }}"

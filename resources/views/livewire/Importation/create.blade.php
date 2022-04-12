@@ -52,7 +52,7 @@
 
 
                 <x-button
-                    color="btn-success"
+                    class="btn-do"
                     icon="play-circle"
                     text="{{ __('Execute') }}"
                     title="{{ __('Performs forced import of data') }}"

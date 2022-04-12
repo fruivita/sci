@@ -54,7 +54,7 @@
 
             <x-button
                 x-on:click="open = false"
-                color="btn-cancel"
+                class="btn-cancel"
                 icon="x-circle"
                 text="{{ __('Cancel') }}"
                 title="{{ __('Cancel the procedure') }}"

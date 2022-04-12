@@ -57,6 +57,7 @@
 
                     {{-- botão para fazer a autenticação --}}
                     <x-button
+                        class="btn-default"
                         formaction="{{ route('login') }}"
                         formmethod="POST"
                         icon="box-arrow-in-right"
