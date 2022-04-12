@@ -32,7 +32,7 @@ test('não é possível carregar página de importação de dados sem estar aute
     get(route('importation.create'))->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específicanão, não é possível executar a rota de importação de dados', function () {
+test('autenticado, mas sem permissão específica não, não é possível executar a rota de importação de dados', function () {
     get(route('importation.create'))->assertForbidden();
 });
 
