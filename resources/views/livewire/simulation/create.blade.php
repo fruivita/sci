@@ -41,6 +41,7 @@
 
 
                 <x-button
+                    color="btn-success"
                     icon="play-circle"
                     text="{{ __('Simulate') }}"
                     title="{{ __('Simulate the informed user') }}"

@@ -20,6 +20,7 @@
 
                 <x-linkbutton
                     class="md:inline-flex"
+                    color="btn-success"
                     icon="chevron-double-left"
                     href="{{ route('authorization.permissions.edit', $previous) }}"
                     prepend="true"
@@ -37,6 +38,7 @@
 
                 <x-linkbutton
                     class="md:inline-flex"
+                    color="btn-success"
                     icon="chevron-double-right"
                     href="{{ route('authorization.permissions.edit', $next) }}"
                     text="{{ __('Next') }}"
@@ -206,6 +208,7 @@
 
 
                     <x-button
+                        color="btn-success"
                         icon="save"
                         text="{{ __('Save') }}"
                         title="{{ __('Save the record') }}"
@@ -213,6 +216,7 @@
 
 
                     <x-linkbutton
+                        color="btn-success"
                         icon="vector-pen"
                         href="{{ route('authorization.permissions.index') }}"
                         text="{{ __('Permissions') }}"

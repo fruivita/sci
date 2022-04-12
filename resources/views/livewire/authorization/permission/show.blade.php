@@ -20,6 +20,7 @@
 
                 <x-linkbutton
                     class="md:inline-flex"
+                    color="btn-success"
                     icon="chevron-double-left"
                     href="{{ route('authorization.permissions.show', $permission->previous) }}"
                     prepend="true"
@@ -37,6 +38,7 @@
 
                 <x-linkbutton
                     class="md:inline-flex"
+                    color="btn-success"
                     icon="chevron-double-right"
                     href="{{ route('authorization.permissions.show', $permission->next) }}"
                     text="{{ __('Next') }}"
@@ -125,6 +127,7 @@
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-end">
 
                 <x-linkbutton
+                    color="btn-success"
                     icon="vector-pen"
                     href="{{ route('authorization.permissions.index') }}"
                     text="{{ __('Permissions') }}"
