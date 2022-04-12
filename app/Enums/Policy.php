@@ -20,7 +20,6 @@ enum Policy: string
     case SimulationCreate = 'simulation-create';
     case SimulationDelete = 'simulation-delete';
     case ImportationCreate = 'importation-create';
-    case DelegationViewAny = 'delegation-view-any';
     case DelegationCreate = 'delegation-create';
     case DelegationDelete = 'delegation-delete';
 }

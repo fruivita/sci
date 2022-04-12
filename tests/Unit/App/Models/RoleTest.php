@@ -157,7 +157,6 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     PermissionType::UserUpdate,
     PermissionType::SimulationCreate,
     PermissionType::ImportationCreate,
-    PermissionType::DelegationViewAny,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {

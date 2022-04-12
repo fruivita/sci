@@ -24,6 +24,4 @@ enum PermissionType: int
     case SimulationCreate = 130003;
 
     case ImportationCreate = 140003;
-
-    case DelegationViewAny = 150001;
 }

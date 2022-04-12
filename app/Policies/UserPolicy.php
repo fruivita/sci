@@ -35,18 +35,6 @@ class UserPolicy extends Policy
     }
 
     /**
-     * Determine whether the user can view any models to delegate his role.
-     *
-     * @param \App\Models\User $user
-     *
-     * @return bool|\Illuminate\Auth\Access\Response
-     */
-    public function delegationViewAny(User $user)
-    {
-        return $this->hasPermissionWithCache($user, PermissionType::DelegationViewAny);
-    }
-
-    /**
      * Determine whether the user can delegate his role.
      *
      * @param \App\Models\User $user
