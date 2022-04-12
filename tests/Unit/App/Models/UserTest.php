@@ -172,3 +172,58 @@ test('a pesquisa, com o termo parcial ou não, retorna os valores esperados', fu
     ->and(User::search('foo bar ba')->get())->toHaveCount(1)
     ->and(User::search('foo baz')->get())->toHaveCount(1);
 });
+
+test('revokeDelegation revoga a permissão do usuário e de todos que ele delegou definindo o perfil padrão (ordinário) para todos ', function () {
+    $this->seed(RoleSeeder::class);
+
+    $user_foo = User::factory()->create([
+        'role_id' => Role::INSTITUTIONALMANAGER
+    ]);
+
+    $user_bar = User::factory()->create([
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $user_foo->id,
+    ]);
+
+    $user_baz = User::factory()->create([
+        'role_id' => Role::DEPARTMENTMANAGER,
+        'role_granted_by' => $user_bar->id,
+    ]);
+
+    $user_taz = User::factory()->create([
+        'role_id' => Role::DEPARTMENTMANAGER,
+        'role_granted_by' => $user_bar->id,
+    ]);
+
+    $user_loren = User::factory()->create([
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $user_foo->id,
+    ]);
+
+    $user_ipsen = User::factory()->create([
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $user_foo->id,
+    ]);
+
+    $user_bar->revokeDelegation();
+
+    $user_foo->refresh();
+    $user_bar->refresh();
+    $user_baz->refresh();
+    $user_taz->refresh();
+    $user_loren->refresh();
+    $user_ipsen->refresh();
+
+    expect($user_foo->role_id)->toBe(Role::INSTITUTIONALMANAGER)
+    ->and($user_foo->role_granted_by)->toBeNull()
+    ->and($user_bar->role_id)->toBe(Role::ORDINARY)
+    ->and($user_bar->role_granted_by)->toBeNull()
+    ->and($user_baz->role_id)->toBe(Role::ORDINARY)
+    ->and($user_baz->role_granted_by)->toBeNull()
+    ->and($user_taz->role_id)->toBe(Role::ORDINARY)
+    ->and($user_taz->role_granted_by)->toBeNull()
+    ->and($user_loren->role_id)->toBe(Role::INSTITUTIONALMANAGER)
+    ->and($user_loren->role_granted_by)->toBe($user_foo->id)
+    ->and($user_ipsen->role_id)->toBe(Role::INSTITUTIONALMANAGER)
+    ->and($user_ipsen->role_granted_by)->toBe($user_foo->id);
+});

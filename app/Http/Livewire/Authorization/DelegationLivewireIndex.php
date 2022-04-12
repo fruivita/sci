@@ -77,13 +77,6 @@ class DelegationLivewireIndex extends Component
     {
         $this->authorize(Policy::DelegationDelete->value, [$delegated]);
 
-        $delegated
-            ->role()
-            ->associate(Role::ORDINARY);
-        $delegated
-            ->delegator()
-            ->dissociate();
-
-        $delegated->push();
+        $delegated->revokeDelegation();
     }
 }

@@ -233,3 +233,81 @@ test('delegação atribui perfil do usuário autenticado e revogação atribui o
     expect($user_bar->role_id)->toBe(Role::ORDINARY)
     ->and($user_bar->role_granted_by)->toBeNull();
 });
+
+test('ao remover delegação de um usuário, remove também as delegações feitas por ele', function () {
+
+    $user_bar = User::factory()->create([
+        'department_id' => $this->department->id,
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $this->user->id,
+    ]);
+
+    $user_baz = User::factory()->create([
+        'department_id' => $this->department->id,
+        'role_id' => Role::DEPARTMENTMANAGER,
+        'role_granted_by' => $user_bar->id,
+    ]);
+
+    $user_taz = User::factory()->create([
+        'department_id' => $this->department->id,
+        'role_id' => Role::DEPARTMENTMANAGER,
+        'role_granted_by' => $user_bar->id,
+    ]);
+
+    $user_loren = User::factory()->create([
+        'department_id' => $this->department->id,
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $this->user->id,
+    ]);
+
+    $user_ipsen = User::factory()->create([
+        'department_id' => $this->department->id,
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $this->user->id,
+    ]);
+
+    Livewire::test(DelegationLivewireIndex::class)
+    ->call('destroy', $user_bar)
+    ->assertOk();
+
+    $this->user->refresh();
+    $user_bar->refresh();
+    $user_baz->refresh();
+    $user_taz->refresh();
+    $user_loren->refresh();
+    $user_ipsen->refresh();
+
+    expect($this->user->role_id)->toBe(Role::INSTITUTIONALMANAGER)
+    ->and($this->user->role_granted_by)->toBeNull()
+    ->and($user_bar->role_id)->toBe(Role::ORDINARY)
+    ->and($user_bar->role_granted_by)->toBeNull()
+    ->and($user_baz->role_id)->toBe(Role::ORDINARY)
+    ->and($user_baz->role_granted_by)->toBeNull()
+    ->and($user_taz->role_id)->toBe(Role::ORDINARY)
+    ->and($user_taz->role_granted_by)->toBeNull()
+    ->and($user_loren->role_id)->toBe(Role::INSTITUTIONALMANAGER)
+    ->and($user_loren->role_granted_by)->toBe($this->user->id)
+    ->and($user_ipsen->role_id)->toBe(Role::INSTITUTIONALMANAGER)
+    ->and($user_ipsen->role_granted_by)->toBe($this->user->id);
+});
+
+test('é possível remover a própria delegação', function () {
+    $user_bar = User::factory()->create([
+        'department_id' => $this->department->id,
+        'role_id' => Role::ADMINISTRATOR
+    ]);
+
+    $this->user->role_id = Role::ADMINISTRATOR;
+    $this->user->role_granted_by = $user_bar->id;
+    $this->user->save();
+
+    expect($this->user->role_id)->toBe(Role::ADMINISTRATOR)
+    ->and($this->user->role_granted_by)->toBe($user_bar->id);
+
+    Livewire::test(DelegationLivewireIndex::class)
+    ->call('destroy', $this->user)
+    ->assertOk();
+
+    expect($this->user->role_id)->toBe(Role::ORDINARY)
+    ->and($this->user->role_granted_by)->toBeNull();
+});

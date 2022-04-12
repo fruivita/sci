@@ -6,6 +6,8 @@ use App\Enums\PermissionType;
 use FruiVita\Corporate\Models\User as CorporateUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 
@@ -97,6 +99,47 @@ class User extends CorporateUser implements LdapAuthenticatable
     public function delegatedUsers()
     {
         return $this->hasMany(User::class, 'role_granted_by', 'id');
+    }
+
+    /**
+     * Revoga a delegação de perfil do usuário, bem como as que ele delegou,
+     * retornando todos ao perfil ordinário.
+     *
+     * @return bool
+     */
+    public function revokeDelegation()
+    {
+        try {
+            DB::beginTransaction();
+
+            $this->role()->associate(Role::ORDINARY);
+
+            $this->delegator()->dissociate();
+
+            $this->push();
+
+            $this
+            ->delegatedUsers()
+            ->update([
+                'role_granted_by' => null,
+                'role_id' => Role::ORDINARY
+            ]);
+
+            DB::commit();
+
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            Log::error(
+                __('Delegate removal failed'),
+                [
+                    'exception' => $th,
+                ]
+            );
+
+            return false;
+        }
     }
 
     /**
