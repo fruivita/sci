@@ -217,6 +217,12 @@ test('usuário pode remover delegação de usuário da mesma lotação, com perf
         'role_granted_by' => $user_bar->id,
     ]);
 
-    expect((new UserPolicy)->delegationDelete($this->user, $user_bar))->toBeTrue()
-    ->and((new UserPolicy)->delegationDelete($this->user, $user_baz))->toBeTrue();
+    $user_taz = User::factory()->create([
+        'department_id' => $department->id,
+        'role_id' => Role::DEPARTMENTMANAGER,
+        'role_granted_by' => $user_bar->id,
+    ]);
+
+    expect((new UserPolicy)->delegationDelete($this->user, $user_baz))->toBeTrue()
+    ->and((new UserPolicy)->delegationDelete($this->user, $user_taz))->toBeTrue();
 });
