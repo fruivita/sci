@@ -16,8 +16,9 @@
     "Choose role": "Escolha o perfil",
     "Corporate structure": "Estrutura corporativa",
     "Dark": "Escuro",
-    "Delegation": "Delegação",
     "Delegate removal failed": "Falha na remoção da delegação",
+    "Delegation": "Delegação",
+    "Delegator": "Delegante",
     "Department manager": "Gestor de departamento",
     "Description": "Descrição",
     "Edit": "Editar",
@@ -125,6 +126,7 @@
     "User to be simulated": "Usuário a ser simulado",
     "User: Update one": "Usuário: Atualizar um",
     "User: View all": "Usuário: Visualizar todos",
+    "User update failed": "Falha na atualização do usuário",
     "Users": "Usuários",
     "Users and role": "Usuários e perfil",
     "Username": "Usuário"

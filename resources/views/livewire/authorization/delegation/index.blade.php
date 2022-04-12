@@ -31,6 +31,9 @@
                 <x-table.heading>{{ __('Role') }}</x-table.heading>
 
 
+                <x-table.heading>{{ __('Delegator') }}</x-table.heading>
+
+
                 <x-table.heading class="w-10">{{ __('Actions') }}</x-table.heading>
 
             </x-slot>
@@ -49,6 +52,9 @@
 
 
                         <x-table.cell>{{ $delegate->role->name }}</x-table.cell>
+
+
+                        <x-table.cell>{{ optional($delegate->delegator)->username }}</x-table.cell>
 
 
                         <x-table.cell>
@@ -93,7 +99,7 @@
 
                     <x-table.row>
 
-                        <x-table.cell colspan="4">{{ __('No record found') }}</x-table.cell>
+                        <x-table.cell colspan="5">{{ __('No record found') }}</x-table.cell>
 
                     </x-table.row>
 

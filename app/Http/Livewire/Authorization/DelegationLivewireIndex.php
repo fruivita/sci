@@ -25,7 +25,7 @@ class DelegationLivewireIndex extends Component
     public function getUsersProperty()
     {
         return $this->applyPagination(
-            User::query()
+            User::with('delegator')
             ->where('department_id', auth()->user()->department_id)
             ->defaultOrder()
         );
