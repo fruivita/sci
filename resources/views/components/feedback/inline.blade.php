@@ -16,13 +16,13 @@
 <span
     x-data="{ showInlineFeedback : false , type : '', message : '' }"
     x-init="
-        @this.on('feedback', ( m, t ) => {
+        @this.on('feedback', ( t, m ) => {
             setTimeout(() => {
                 showInlineFeedback = false;
             }, 2500);
             showInlineFeedback = true;
-            message = m;
             type = t;
+            message = m;
         })
     "
     x-show="showInlineFeedback"
