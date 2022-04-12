@@ -62,7 +62,7 @@
                         <x-table.cell>{{ $user->username }}</x-table.cell>
 
 
-                        <x-table.cell>{{ optional($user->role)->name }}</x-table.cell>
+                        <x-table.cell>{{ $user->role->name }}</x-table.cell>
 
 
                         <x-table.cell>
