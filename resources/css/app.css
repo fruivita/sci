@@ -36,7 +36,7 @@
         hover:bg-primary-600;
     }
 
-    .btn-success {
+    .btn-do {
         @apply
         bg-blue-500
         ring-blue-300
