@@ -29,7 +29,7 @@ test('usuário sem permissão não pode executar uma importação', function () 
 test('permissão de executar uma importação é persistida em cache', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
-    $key = authenticatedUser()->username . PermissionType::ImportationCreate->value;
+    $key = $this->user->username . PermissionType::ImportationCreate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new ImportationPolicy)->create($this->user))->toBeTrue()

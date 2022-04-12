@@ -40,7 +40,7 @@ test('usuário não pode desfazer uma simulação se ela não existe em sua sess
 test('permissão de criar uma simulação não é persistida em cache', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
-    $key = authenticatedUser()->username . PermissionType::SimulationCreate->value;
+    $key = $this->user->username . PermissionType::SimulationCreate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new SimulationPolicy)->create($this->user))->toBeTrue()

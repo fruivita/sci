@@ -123,7 +123,7 @@ test('usuário não pode remover delegação de usuário de outra lotação', fu
 test('permissão de listagem dos usuários é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
-    $key = authenticatedUser()->username . PermissionType::UserViewAny->value;
+    $key = $this->user->username . PermissionType::UserViewAny->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new UserPolicy)->viewAny($this->user))->toBeTrue()
@@ -149,7 +149,7 @@ test('permissão de listagem dos usuários é persistida em cache por 5 segundos
 test('permissão de atualizar individualmente um usuário é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::UserUpdate->value);
 
-    $key = authenticatedUser()->username . PermissionType::UserUpdate->value;
+    $key = $this->user->username . PermissionType::UserUpdate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new UserPolicy)->update($this->user))->toBeTrue()

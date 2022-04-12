@@ -37,7 +37,7 @@ test('usuário sem permissão não pode atualizar um perfil', function () {
 test('permissão de listagem dos perfis é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::RoleViewAny->value);
 
-    $key = authenticatedUser()->username . PermissionType::RoleViewAny->value;
+    $key = $this->user->username . PermissionType::RoleViewAny->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new RolePolicy)->viewAny($this->user))->toBeTrue()
@@ -63,7 +63,7 @@ test('permissão de listagem dos perfis é persistida em cache por 5 segundos', 
 test('permissão de visualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::RoleView->value);
 
-    $key = authenticatedUser()->username . PermissionType::RoleView->value;
+    $key = $this->user->username . PermissionType::RoleView->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new RolePolicy)->view($this->user))->toBeTrue()
@@ -89,7 +89,7 @@ test('permissão de visualizar individualmente um perfil é persistida em cache 
 test('permissão de atualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::RoleUpdate->value);
 
-    $key = authenticatedUser()->username . PermissionType::RoleUpdate->value;
+    $key = $this->user->username . PermissionType::RoleUpdate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new RolePolicy)->update($this->user))->toBeTrue()

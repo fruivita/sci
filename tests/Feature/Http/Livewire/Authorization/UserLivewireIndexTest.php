@@ -17,7 +17,7 @@ use function Pest\Laravel\get;
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 
-    login('foo');
+    $this->user = login('foo');
 });
 
 afterEach(function () {
@@ -46,7 +46,7 @@ test('não é possível exibir o modal de edição de usuário sem permissão es
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('show_edit_modal', false)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->assertSet('show_edit_modal', false)
     ->assertForbidden();
 });
@@ -57,7 +57,7 @@ test('não é possível atualizar um usuário sem permissão específica', funct
 
     $livewire = Livewire::test(UserLivewireIndex::class)
     ->assertSet('show_edit_modal', false)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->assertSet('show_edit_modal', true);
 
     revokePermission(PermissionType::UserUpdate->value);
@@ -77,7 +77,7 @@ test('os perfis não estão disponíveis se o modal não puder ser carregadado',
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('roles', null)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->assertSet('roles', null);
 
     expect(Role::count())->toBeGreaterThan(1);
@@ -97,7 +97,7 @@ test('id do perfil que será associado ao usuário deve ser um inteiro', functio
     grantPermission(PermissionType::UserUpdate->value);
 
     Livewire::test(UserLivewireIndex::class)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->set('editing.role_id', 'foo')
     ->call('update')
     ->assertHasErrors(['editing.role_id' => 'integer']);
@@ -108,7 +108,7 @@ test('id do perfil que será associado ao usuário deve existir previamente no b
     grantPermission(PermissionType::UserUpdate->value);
 
     Livewire::test(UserLivewireIndex::class)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->set('editing.role_id', -1)
     ->call('update')
     ->assertHasErrors(['editing.role_id' => 'exists']);
@@ -187,7 +187,7 @@ test('é possível exibir o modal de edição de usuário com permissão especí
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('show_edit_modal', false)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->assertOk()
     ->assertSet('show_edit_modal', true);
 });
@@ -200,7 +200,7 @@ test('os perfis estão disponíveis se o modal puder ser carregadado', function 
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('roles', null)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->assertCount('roles', 4);
 
     expect(Role::count())->toBe(4);
@@ -211,7 +211,7 @@ test('emite evento de feedback ao atualizar um usuário', function () {
     grantPermission(PermissionType::UserUpdate->value);
 
     Livewire::test(UserLivewireIndex::class)
-    ->call('edit', authenticatedUser()->id)
+    ->call('edit', $this->user->id)
     ->call('update')
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });

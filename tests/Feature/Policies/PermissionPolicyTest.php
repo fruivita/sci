@@ -37,7 +37,7 @@ test('usuário sem permissão não pode atualizar uma permissão', function () {
 test('permissão de listagem das permissões é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::PermissionViewAny->value);
 
-    $key = authenticatedUser()->username . PermissionType::PermissionViewAny->value;
+    $key = $this->user->username . PermissionType::PermissionViewAny->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->viewAny($this->user))->toBeTrue()
@@ -63,7 +63,7 @@ test('permissão de listagem das permissões é persistida em cache por 5 segund
 test('permissão de visualizar individualmente uma permissão é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::PermissionView->value);
 
-    $key = authenticatedUser()->username . PermissionType::PermissionView->value;
+    $key = $this->user->username . PermissionType::PermissionView->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->view($this->user))->toBeTrue()
@@ -89,7 +89,7 @@ test('permissão de visualizar individualmente uma permissão é persistida em c
 test('permissão de atualizar individualmente uma permissão é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::PermissionUpdate->value);
 
-    $key = authenticatedUser()->username . PermissionType::PermissionUpdate->value;
+    $key = $this->user->username . PermissionType::PermissionUpdate->value;
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->update($this->user))->toBeTrue()
