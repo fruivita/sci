@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Authorization;
 
 use App\Enums\Policy;
-use App\Http\Livewire\Traits\WithLimit;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Role;
 use App\Models\User;
@@ -17,7 +16,6 @@ class DelegationLivewireIndex extends Component
 {
     use WithPerPagePagination;
     use AuthorizesRequests;
-    use WithLimit;
 
     /**
      * Computed property para listar os usuários passíveis de delegação.
