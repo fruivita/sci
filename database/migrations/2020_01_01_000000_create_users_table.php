@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('duty_id')->nullable();
             $table->unsignedBigInteger('occupation_id')->nullable();
             $table->unsignedBigInteger('role_id')->default(Role::ORDINARY);
+            $table->unsignedBigInteger('role_granted_by')->nullable();
             $table->string('name', 255)->nullable();
             $table->string('username', 20)->unique();
             $table->string('password', 255)->nullable();
@@ -56,6 +57,11 @@ return new class extends Migration {
                 ->foreign('role_id')
                 ->references('id')
                 ->on('roles')
+                ->onUpdate('cascade');
+            $table
+                ->foreign('role_granted_by')
+                ->references('id')
+                ->on('users')
                 ->onUpdate('cascade');
         });
     }

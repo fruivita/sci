@@ -40,7 +40,8 @@ test('lança exceção ao tentar definir relacionamento inválido', function ($f
         fn () => User::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['role_id', 10, 'Cannot add or update a child row'], // inexistente
+    ['role_id',         10, 'Cannot add or update a child row'], // inexistente
+    ['role_granted_by', 10, 'Cannot add or update a child row'], // inexistente
 ]);
 
 // Happy path
@@ -90,6 +91,26 @@ test('perfil padrão do usuário é ordinário', function () {
     $user->refresh();
 
     expect($user->role->id)->toBe(Role::ORDINARY);
+});
+
+test('usuário pode delegar seu perfil a vários outros, porém o usuário só pode receber uma única delegação', function () {
+    $delegated_amount = 3;
+
+    $user_delegator = User::factory()->create();
+
+    User::factory(3)->create(['role_granted_by' => $user_delegator->id]);
+
+
+    $user_delegator->load(['delegatedUsers', 'delegator']);
+    $user_delegated = User::with('delegator')
+    ->where('role_granted_by', $user_delegator->id)
+    ->get()
+    ->random();
+
+    expect($user_delegator->delegatedUsers)->toHaveCount($delegated_amount)
+    ->and($user_delegator->delegator)->toBeNull()
+    ->and($user_delegated->delegator->id)->toBe($user_delegator->id)
+    ->and($user_delegated->delegatedUsers)->toHaveCount(0);
 });
 
 test('hasPermission informa se o usuário possui ou não determinada permissão', function () {

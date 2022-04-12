@@ -76,6 +76,30 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
+     * Usuário que delegou o perfil para outrém.
+     *
+     * Relacionamento delegados (N:1) delegante.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function delegator()
+    {
+        return $this->belongsTo(User::class, 'role_granted_by', 'id');
+    }
+
+    /**
+     * Usuários com poderes (perfis) delegados por outrém.
+     *
+     * Relacionamento delegante (1:N) delegados.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function delegatedUsers()
+    {
+        return $this->hasMany(User::class, 'role_granted_by', 'id');
+    }
+
+    /**
      * Ordenação padrão do modelo.
      *
      * Ordem:

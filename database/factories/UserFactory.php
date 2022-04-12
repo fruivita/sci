@@ -34,7 +34,8 @@ class UserFactory extends Factory
                 'password' => null,
                 'guid' => $this->faker->unique()->uuid(),
                 'domain' => $this->faker->domainName(),
-                'role_id' => Role::factory()
+                'role_id' => Role::factory(),
+                'role_granted_by' => null
             ]
         );
     }
