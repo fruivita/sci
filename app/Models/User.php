@@ -118,12 +118,7 @@ class User extends CorporateUser implements LdapAuthenticatable
 
             $this->push();
 
-            $this
-            ->delegatedUsers()
-            ->update([
-                'role_granted_by' => null,
-                'role_id' => Role::ORDINARY
-            ]);
+            $this->revokeDelegatedUsers();
 
             DB::commit();
 
@@ -140,6 +135,21 @@ class User extends CorporateUser implements LdapAuthenticatable
 
             return false;
         }
+    }
+
+    /**
+     * Revoga as delegações feita pelo usuário.
+     *
+     * @return bool
+     */
+    public function revokeDelegatedUsers()
+    {
+        return $this
+        ->delegatedUsers()
+        ->update([
+            'role_granted_by' => null,
+            'role_id' => Role::ORDINARY
+        ]);
     }
 
     /**
