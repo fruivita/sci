@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;
+use Illuminate\Support\Str;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
@@ -132,15 +133,15 @@ test('termo pesquisável deve ser uma string', function () {
 
 test('termo pesquisável deve ter no máximo 50 caracteres', function () {
     Livewire::test(DelegationLivewireIndex::class)
-    ->set('term', str()->random(51))
+    ->set('term', Str::random(51))
     ->assertHasErrors(['term' => 'max']);
 });
 
 test('termo pesquisável está sujeito à validação em tempo real', function () {
     Livewire::test(DelegationLivewireIndex::class)
-    ->set('term', str()->random(50))
+    ->set('term', Str::random(50))
     ->assertHasNoErrors()
-    ->set('term', str()->random(51))
+    ->set('term', Str::random(51))
     ->assertHasErrors(['term' => 'max']);
 });
 
