@@ -7,6 +7,7 @@ use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 /**
@@ -18,6 +19,13 @@ class DelegationLivewireIndex extends Component
     use AuthorizesRequests;
 
     /**
+     * Termo pesquisável informado pelo usuário.
+     *
+     * @var string
+     */
+    public $term;
+
+    /**
      * Computed property para listar os usuários passíveis de delegação.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -26,6 +34,7 @@ class DelegationLivewireIndex extends Component
     {
         return $this->applyPagination(
             User::with('delegator')
+            ->search($this->term)
             ->where('department_id', auth()->user()->department_id)
             ->defaultOrder()
         );
@@ -41,6 +50,39 @@ class DelegationLivewireIndex extends Component
         return view('livewire.authorization.delegation.index', [
             'users' => $this->users
         ])->layout('layouts.app');
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, mixed>
+     */
+    protected function queryString()
+    {
+        return [
+            'term' => [
+                'except' => '',
+                'as' => strtolower(__('Search')),
+            ],
+        ];
+    }
+
+/**
+     * Runs before a property called $Term is updated.
+     *
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function updatingTerm($value)
+    {
+        Validator::make(
+            data: ['term' => $value],
+            rules: ['term' => ['nullable', 'string', 'max:50']],
+            customAttributes: ['term' => __('Searchable term')]
+        )->validate();
+
+        $this->resetPage();
     }
 
     /**

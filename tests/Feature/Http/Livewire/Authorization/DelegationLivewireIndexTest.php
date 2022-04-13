@@ -117,6 +117,33 @@ test('usuário não pode remover delegação de usuário de outra lotação', fu
     ->and($user_taz->role_granted_by)->toBe($user_bar->id);
 });
 
+// Rules
+test('não aceita paginação fora das opções oferecidas', function () {
+    Livewire::test(DelegationLivewireIndex::class)
+    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->assertHasErrors(['per_page' => 'in']);
+});
+
+test('termo pesquisável deve ser uma string', function () {
+    Livewire::test(DelegationLivewireIndex::class)
+    ->set('term', ['foo'])
+    ->assertHasErrors(['term' => 'string']);
+});
+
+test('termo pesquisável deve ter no máximo 50 caracteres', function () {
+    Livewire::test(DelegationLivewireIndex::class)
+    ->set('term', str()->random(51))
+    ->assertHasErrors(['term' => 'max']);
+});
+
+test('termo pesquisável está sujeito à validação em tempo real', function () {
+    Livewire::test(DelegationLivewireIndex::class)
+    ->set('term', str()->random(50))
+    ->assertHasNoErrors()
+    ->set('term', str()->random(51))
+    ->assertHasErrors(['term' => 'max']);
+});
+
 // Happy path
 test('autenticado é possível renderizar o componente de delegação, mesmo com o perfil ordinário', function () {
     $this->user->role_id = Role::ORDINARY;
@@ -235,7 +262,6 @@ test('delegação atribui perfil do usuário autenticado e revogação atribui o
 });
 
 test('ao remover delegação de um usuário, remove também as delegações feitas por ele', function () {
-
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::INSTITUTIONALMANAGER,
@@ -310,4 +336,24 @@ test('é possível remover a própria delegação', function () {
 
     expect($this->user->role_id)->toBe(Role::ORDINARY)
     ->and($this->user->role_granted_by)->toBeNull();
+});
+
+test('pesquisa retorna os resultados esperados', function () {
+    User::factory()->create([
+        'name' => 'fulano bar',
+        'username' => 'bar baz',
+        'department_id' => $this->department->id
+    ]);
+
+    User::factory()->create([
+        'name' => 'fulano foo bazz',
+        'username' => 'taz',
+        'department_id' => $this->department->id
+    ]);
+
+    Livewire::test(DelegationLivewireIndex::class)
+    ->set('term', 'taz')
+    ->assertCount('users', 1)
+    ->set('term', 'fulano')
+    ->assertCount('users', 2);
 });
