@@ -52,32 +52,32 @@
 
             <x-slot name="body">
 
-                @forelse ($users ?? [] as $delegate)
+                @forelse ($users ?? [] as $user)
 
                     <x-table.row>
 
-                        <x-table.cell>{{ $delegate->name }}</x-table.cell>
+                        <x-table.cell>{{ $user->name }}</x-table.cell>
 
 
-                        <x-table.cell>{{ $delegate->username }}</x-table.cell>
+                        <x-table.cell>{{ $user->username }}</x-table.cell>
 
 
-                        <x-table.cell>{{ $delegate->role->name }}</x-table.cell>
+                        <x-table.cell>{{ $user->role->name }}</x-table.cell>
 
 
-                        <x-table.cell>{{ optional($delegate->delegator)->username }}</x-table.cell>
+                        <x-table.cell>{{ optional($user->delegator)->username }}</x-table.cell>
 
 
                         <x-table.cell>
 
                             <div class="flex flex-col justify-center space-y-3">
 
-                                @can(\App\Enums\Policy::DelegationDelete->value, [$delegate])
+                                @can(\App\Enums\Policy::DelegationDelete->value, [$user])
 
                                     <x-button
                                         class="btn-danger"
-                                        wire:click="destroy({{ $delegate->id }})"
-                                        wire:key="delegation-destroy-{{ $delegate->id }}"
+                                        wire:click="destroy({{ $user->id }})"
+                                        wire:key="delegation-destroy-{{ $user->id }}"
                                         wire:loading.delay.attr="disabled"
                                         wire:loading.delay.class="cursor-not-allowed"
                                         class="btn-danger"
@@ -86,11 +86,11 @@
                                         title="{{ __('Revoke user permissions') }}"
                                         type="button"/>
 
-                                @elsecan(\App\Enums\Policy::DelegationCreate->value, [$delegate])
+                                @elsecan(\App\Enums\Policy::DelegationCreate->value, [$user])
 
                                     <x-button
-                                        wire:click="create({{ $delegate->id }})"
-                                        wire:key="delegation-create-{{ $delegate->id }}"
+                                        wire:click="create({{ $user->id }})"
+                                        wire:key="delegation-create-{{ $user->id }}"
                                         wire:loading.delay.attr="disabled"
                                         wire:loading.delay.class="cursor-not-allowed"
                                         class="btn-do"
