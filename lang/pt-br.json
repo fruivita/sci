@@ -85,6 +85,7 @@
     "Permission: View one": "Permissão: Visualizar uma",
     "Permissions": "Permissões",
     "Permissions and roles": "Permissões e perfis",
+    "Possibly duplicate record": "Registro possivelmente duplicado",
     "Previous": "Anterior",
     "Print log": "Log de impressão",
     "Records": "Registros",
@@ -132,5 +133,6 @@
     "Users": "Usuários",
     "Users and role": "Usuários e perfil",
     "Username": "Usuário",
+    "Validation failed": "Validação falhou",
     "Version :attribute": "Versão :attribute"
 }
