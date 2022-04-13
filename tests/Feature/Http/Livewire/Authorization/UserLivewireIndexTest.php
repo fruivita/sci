@@ -7,6 +7,7 @@
 use App\Enums\FeedbackType;
 use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\UserLivewireIndex;
+use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
@@ -234,6 +235,38 @@ test('é possível atualizar um usuário com permissão específica', function (
     $user->refresh();
 
     expect($user->role->id)->toBe(Role::ADMINISTRATOR);
+});
+
+test('atualização do perfil remove eventual delegação', function () {
+    $department = Department::factory()->create();
+    logout();
+
+    $bar = login('bar');
+
+    $bar->role_id = Role::ADMINISTRATOR;
+    $bar->department_id = $department->id;
+    $bar->save();
+
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
+
+    $this->user->role_id = Role::ADMINISTRATOR;
+    $this->user->department_id = $department->id;
+    $this->user->role_granted_by = $bar->id;
+    $this->user->save();
+
+    Livewire::test(UserLivewireIndex::class)
+    ->call('edit', $this->user)
+    ->assertSet('editing.role_id', Role::ADMINISTRATOR)
+    ->assertSet('editing.role_granted_by', $bar->id)
+    ->set('editing.role_id', Role::INSTITUTIONALMANAGER)
+    ->call('update')
+    ->assertOk();
+
+    $this->user->refresh();
+
+    expect($this->user->role_id)->toBe(Role::INSTITUTIONALMANAGER)
+    ->and($this->user->role_granted_by)->toBeNull();
 });
 
 test('pesquisa retorna os resultados esperados', function () {

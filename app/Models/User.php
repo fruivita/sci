@@ -111,8 +111,6 @@ class User extends CorporateUser implements LdapAuthenticatable
     {
         $this->role()->associate(Role::ORDINARY);
 
-        $this->delegator()->dissociate();
-
         $this->updateAndRevokeDelegatedUsers();
     }
 
@@ -142,9 +140,11 @@ class User extends CorporateUser implements LdapAuthenticatable
         try {
             DB::beginTransaction();
 
-            $this->revokeDelegatedUsers();
+            $this->delegator()->dissociate();
 
             $this->save();
+
+            $this->revokeDelegatedUsers();
 
             DB::commit();
 

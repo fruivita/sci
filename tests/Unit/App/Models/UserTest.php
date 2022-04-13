@@ -259,7 +259,7 @@ test('revokeDelegatedUsers remove as delegações feitas pelo usuário', functio
     ->and($user_baz->role_granted_by)->toBeNull();
 });
 
-test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações feitas pelo usuário', function () {
+test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações feitas pelo (e do) usuário', function () {
     $this->seed(RoleSeeder::class);
 
     $user_foo = User::factory()->create([
@@ -273,20 +273,28 @@ test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações fei
 
     $user_baz = User::factory()->create([
         'role_id' => Role::DEPARTMENTMANAGER,
-        'role_granted_by' => $user_foo->id,
+        'role_granted_by' => $user_bar->id,
     ]);
 
-    $user_foo->role_id = Role::ADMINISTRATOR;
-    $user_foo->updateAndRevokeDelegatedUsers();
+    $user_taz = User::factory()->create([
+        'role_id' => Role::INSTITUTIONALMANAGER,
+        'role_granted_by' => $user_bar->id,
+    ]);
+
+    $user_bar->role_id = Role::ADMINISTRATOR;
+    $user_bar->updateAndRevokeDelegatedUsers();
 
     $user_foo->refresh();
     $user_bar->refresh();
     $user_baz->refresh();
+    $user_taz->refresh();
 
-    expect($user_foo->role_id)->toBe(Role::ADMINISTRATOR)
+    expect($user_foo->role_id)->toBe(Role::INSTITUTIONALMANAGER)
     ->and($user_foo->role_granted_by)->toBeNull()
-    ->and($user_bar->role_id)->toBe(Role::ORDINARY)
+    ->and($user_bar->role_id)->toBe(Role::ADMINISTRATOR)
     ->and($user_bar->role_granted_by)->toBeNull()
     ->and($user_baz->role_id)->toBe(Role::ORDINARY)
-    ->and($user_baz->role_granted_by)->toBeNull();
+    ->and($user_baz->role_granted_by)->toBeNull()
+    ->and($user_taz->role_id)->toBe(Role::ORDINARY)
+    ->and($user_taz->role_granted_by)->toBeNull();
 });
