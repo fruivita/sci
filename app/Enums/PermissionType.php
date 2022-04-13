@@ -13,15 +13,11 @@ enum PermissionType: int
     case PermissionViewAny = 100001;
     case PermissionView = 100002;
     case PermissionUpdate = 100004;
-
     case RoleViewAny = 110001;
     case RoleView = 110002;
     case RoleUpdate = 110004;
-
     case UserViewAny = 120001;
     case UserUpdate = 120004;
-
     case SimulationCreate = 130003;
-
     case ImportationCreate = 140003;
 }

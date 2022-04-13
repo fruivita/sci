@@ -35,7 +35,7 @@ class User extends CorporateUser implements LdapAuthenticatable
         'domain',
         'department_id',
         'occupation_id',
-        'duty_id'
+        'duty_id',
     ];
 
     /**
@@ -125,7 +125,7 @@ class User extends CorporateUser implements LdapAuthenticatable
         ->delegatedUsers()
         ->update([
             'role_granted_by' => null,
-            'role_id' => Role::ORDINARY
+            'role_id' => Role::ORDINARY,
         ]);
     }
 

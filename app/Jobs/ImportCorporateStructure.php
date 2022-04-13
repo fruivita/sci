@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Cache;
  */
 class ImportCorporateStructure implements ShouldQueue, ShouldBeUnique
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * The number of times the job may be attempted.
@@ -38,7 +41,6 @@ class ImportCorporateStructure implements ShouldQueue, ShouldBeUnique
      * @var int
      */
     public $uniqueFor = 12 * 60 * 60;
-
 
     /**
      * Create a new job instance.

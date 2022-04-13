@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Administration;
 
-use App\Enums\FeedbackType;
 use App\Enums\ImportationType;
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithFeedbackEvents;
@@ -19,7 +18,7 @@ class ImportationLivewireCreate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Importações que serão executadas
+     * Importações que serão executadas.
      *
      * @var string[]
      */

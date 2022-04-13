@@ -2,8 +2,6 @@
 
 namespace App\Enums;
 
-use App\Enums\QueueType;
-
 /*
  * Tipos de importação que a aplicação pode fazer.
  *

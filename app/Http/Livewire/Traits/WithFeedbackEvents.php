@@ -20,7 +20,7 @@ trait WithFeedbackEvents
      * A mensagem informada será exibida ou, se não informada, será utilizada a
      * mensagem padrão.
      *
-     * @param bool $success se o comando foi executao com sucesso
+     * @param bool        $success se o comando foi executao com sucesso
      * @param string|null $message
      *
      * @return void
@@ -45,7 +45,7 @@ trait WithFeedbackEvents
      * A mensagem informada será exibida ou, se não informada, será utilizada a
      * mensagem padrão.
      *
-     * @param bool $success se o comando foi executao com sucesso
+     * @param bool        $success se o comando foi executao com sucesso
      * @param string|null $message
      *
      * @return void

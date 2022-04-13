@@ -23,7 +23,7 @@ abstract class Policy
      * Utiliza cache de curta duração para armazenar a permissão evitando-se
      * queries repetitivas, em especial, em um mesmo request.
      *
-     * @param \App\Models\User $user
+     * @param \App\Models\User          $user
      * @param \App\Enums\PermissionType $permission
      *
      * @return bool
@@ -45,7 +45,7 @@ abstract class Policy
      * Determina se o usuário possui a permissão informada, sem armazenar em
      * cache o resultado.
      *
-     * @param \App\Models\User $user
+     * @param \App\Models\User          $user
      * @param \App\Enums\PermissionType $permission
      *
      * @return bool

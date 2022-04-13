@@ -4,7 +4,6 @@
  * @see https://pestphp.com/docs/
  */
 
-use App\Enums\PermissionType;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\QueryException;

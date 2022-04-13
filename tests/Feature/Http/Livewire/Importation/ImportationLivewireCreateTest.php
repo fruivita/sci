@@ -12,7 +12,6 @@ use App\Jobs\ImportCorporateStructure;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Bus;
 use Livewire\Livewire;
-
 use function Pest\Laravel\get;
 
 beforeEach(function () {

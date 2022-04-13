@@ -45,7 +45,7 @@ class UserPolicy extends Policy
     public function delegationCreate(User $user, User $delegated)
     {
         return
-            !empty($user->role_id)
+            ! empty($user->role_id)
             // usuário autenticado possui mais permissões que o destinatário
             && $user->role_id < $delegated->role_id
             // possuem a mesma lotação
@@ -58,12 +58,12 @@ class UserPolicy extends Policy
      * @param \App\Models\User $user
      * @param \App\Models\User $delegated
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return bool|\Illuminate\Auth\Access\Response
      */
     public function delegationDelete(User $user, User $delegated)
     {
         return
-            !empty($delegated->role_granted_by)
+            ! empty($delegated->role_granted_by)
             // usuário autenticado possui mais ou o mesmo nível de permissões que o destinatário
             && $user->role_id <= $delegated->role_id
             // possuem a mesma lotação

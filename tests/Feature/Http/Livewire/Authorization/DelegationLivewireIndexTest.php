@@ -9,8 +9,8 @@ use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
-use Livewire\Livewire;
 use Illuminate\Support\Str;
+use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
@@ -39,7 +39,7 @@ test('não é possível acessar a página de delegação sem estar autenticado',
 test('usuário não pode delegar perfil, se o perfil do destinatário for superior na aplicação', function () {
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
-        'role_id' => Role::ADMINISTRATOR
+        'role_id' => Role::ADMINISTRATOR,
     ]);
 
     Livewire::test(DelegationLivewireIndex::class)
@@ -54,7 +54,7 @@ test('usuário não pode delegar perfil para usuário de outra lotação', funct
     $department_a = Department::factory()->create();
     $user_bar = User::factory()->create([
         'department_id' => $department_a->id,
-        'role_id' => Role::DEPARTMENTMANAGER
+        'role_id' => Role::DEPARTMENTMANAGER,
     ]);
 
     Livewire::test(DelegationLivewireIndex::class)
@@ -68,7 +68,7 @@ test('usuário não pode delegar perfil para usuário de outra lotação', funct
 test('usuário não pode remover delegação inexistente', function () {
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
-        'role_id' => Role::DEPARTMENTMANAGER
+        'role_id' => Role::DEPARTMENTMANAGER,
     ]);
 
     Livewire::test(DelegationLivewireIndex::class)
@@ -82,12 +82,12 @@ test('usuário não pode remover delegação inexistente', function () {
 test('usuário não pode remover delegação de perfil superior', function () {
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
-        'role_id' => Role::ADMINISTRATOR
+        'role_id' => Role::ADMINISTRATOR,
     ]);
     $user_taz = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::ADMINISTRATOR,
-        'role_granted_by' => $user_bar->id
+        'role_granted_by' => $user_bar->id,
     ]);
 
     Livewire::test(DelegationLivewireIndex::class)
@@ -102,12 +102,12 @@ test('usuário não pode remover delegação de usuário de outra lotação', fu
     $department_a = Department::factory()->create();
     $user_bar = User::factory()->create([
         'department_id' => $department_a->id,
-        'role_id' => Role::ADMINISTRATOR
+        'role_id' => Role::ADMINISTRATOR,
     ]);
     $user_taz = User::factory()->create([
         'department_id' => $department_a->id,
         'role_id' => Role::ADMINISTRATOR,
-        'role_granted_by' => $user_bar->id
+        'role_granted_by' => $user_bar->id,
     ]);
 
     Livewire::test(DelegationLivewireIndex::class)
@@ -196,10 +196,9 @@ test('exibe apenas os usuários disponíveis para delegação, isto é, apenas o
 });
 
 test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do destinatário for inferior na aplicação', function () {
-
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
-        'role_id' => Role::ORDINARY
+        'role_id' => Role::ORDINARY,
     ]);
 
     Livewire::test(DelegationLivewireIndex::class)
@@ -211,10 +210,9 @@ test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do des
 });
 
 test('usuário pode remover delegação de usuário da mesma lotação, com perfil igual ou inferior, mesmo delegado por outrem', function () {
-
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     $user_baz = User::factory()->create([
@@ -244,7 +242,7 @@ test('usuário pode remover delegação de usuário da mesma lotação, com perf
 test('delegação atribui perfil do usuário autenticado e revogação atribui o perfil ordinário', function () {
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
-        'role_id' => Role::ORDINARY
+        'role_id' => Role::ORDINARY,
     ]);
 
     $livewire = Livewire::test(DelegationLivewireIndex::class)
@@ -321,7 +319,7 @@ test('ao remover delegação de um usuário, remove também as delegações feit
 test('é possível remover a própria delegação', function () {
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
-        'role_id' => Role::ADMINISTRATOR
+        'role_id' => Role::ADMINISTRATOR,
     ]);
 
     $this->user->role_id = Role::ADMINISTRATOR;
@@ -343,13 +341,13 @@ test('pesquisa retorna os resultados esperados', function () {
     User::factory()->create([
         'name' => 'fulano bar',
         'username' => 'bar baz',
-        'department_id' => $this->department->id
+        'department_id' => $this->department->id,
     ]);
 
     User::factory()->create([
         'name' => 'fulano foo bazz',
         'username' => 'taz',
-        'department_id' => $this->department->id
+        'department_id' => $this->department->id,
     ]);
 
     // não será exibido, pois de outro departamento
@@ -357,7 +355,7 @@ test('pesquisa retorna os resultados esperados', function () {
     ->for(Department::factory(), 'department')
     ->create([
         'name' => 'another department fulano foo bazz',
-        'username' => 'another taz'
+        'username' => 'another taz',
     ]);
 
     Livewire::test(DelegationLivewireIndex::class)

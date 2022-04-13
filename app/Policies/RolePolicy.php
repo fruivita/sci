@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Enums\PermissionType;
-use App\Models\Role;
 use App\Models\User;
 
 /**

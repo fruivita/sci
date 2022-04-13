@@ -274,12 +274,12 @@ test('pesquisa retorna os resultados esperados', function () {
 
     User::factory()->create([
         'name' => 'fulano bar',
-        'username' => 'bar baz'
+        'username' => 'bar baz',
     ]);
 
     User::factory()->create([
         'name' => 'fulano foo bazz',
-        'username' => 'taz'
+        'username' => 'taz',
     ]);
 
     Livewire::test(UserLivewireIndex::class)

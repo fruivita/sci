@@ -64,7 +64,7 @@ class Flash extends Component
     /**
      * Configura o componente e o exibe.
      *
-     * @param string $type tipo de mensagem que será exibida (success e erro)
+     * @param string $type    tipo de mensagem que será exibida (success e error)
      * @param string $message mensagem que será exibida
      *
      * @return void

@@ -100,7 +100,6 @@ test('usuário pode delegar seu perfil a vários outros, porém o usuário só p
 
     User::factory(3)->create(['role_granted_by' => $user_delegator->id]);
 
-
     $user_delegator->load(['delegatedUsers', 'delegator']);
     $user_delegated = User::with('delegator')
     ->where('role_granted_by', $user_delegator->id)
@@ -177,7 +176,7 @@ test('revokeDelegation revoga a permissão do usuário e de todos que ele delego
     $this->seed(RoleSeeder::class);
 
     $user_foo = User::factory()->create([
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     $user_bar = User::factory()->create([
@@ -232,7 +231,7 @@ test('revokeDelegatedUsers remove as delegações feitas pelo usuário', functio
     $this->seed(RoleSeeder::class);
 
     $user_foo = User::factory()->create([
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     $user_bar = User::factory()->create([
@@ -263,7 +262,7 @@ test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações fei
     $this->seed(RoleSeeder::class);
 
     $user_foo = User::factory()->create([
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     $user_bar = User::factory()->create([

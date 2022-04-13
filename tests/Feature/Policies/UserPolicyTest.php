@@ -37,7 +37,7 @@ test('usuário não pode delegar perfil, se o perfil do destinatário for superi
 
     $user_bar = User::factory()->create([
         'department_id' => $department_b->id,
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     $this->user->department_id = $department_a->id;
@@ -57,7 +57,7 @@ test('usuário não pode delegar perfil para usuário de outra lotação', funct
 
     $user_bar = User::factory()->create([
         'department_id' => $department_b->id,
-        'role_id' => Role::ORDINARY
+        'role_id' => Role::ORDINARY,
     ]);
 
     expect((new UserPolicy)->delegationCreate($this->user, $user_bar))->toBeFalse();
@@ -72,7 +72,7 @@ test('usuário não pode remover delegação inexistente', function () {
 
     $user_bar = User::factory()->create([
         'department_id' => $department->id,
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     expect((new UserPolicy)->delegationDelete($this->user, $user_bar))->toBeFalse();
@@ -87,12 +87,12 @@ test('usuário não pode remover delegação de perfil superior', function () {
 
     $user_bar = User::factory()->create([
         'department_id' => $department->id,
-        'role_id' => Role::ADMINISTRATOR
+        'role_id' => Role::ADMINISTRATOR,
     ]);
     $user_taz = User::factory()->create([
         'department_id' => $department->id,
         'role_id' => Role::ADMINISTRATOR,
-        'role_granted_by' => $user_bar->id
+        'role_granted_by' => $user_bar->id,
     ]);
 
     expect((new UserPolicy)->delegationDelete($this->user, $user_taz))->toBeFalse();
@@ -108,12 +108,12 @@ test('usuário não pode remover delegação de usuário de outra lotação', fu
 
     $user_bar = User::factory()->create([
         'department_id' => $department_b->id,
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
     $user_taz = User::factory()->create([
         'department_id' => $department_b->id,
         'role_id' => Role::INSTITUTIONALMANAGER,
-        'role_granted_by' => $user_bar->id
+        'role_granted_by' => $user_bar->id,
     ]);
 
     expect((new UserPolicy)->delegationDelete($this->user, $user_taz))->toBeFalse();
@@ -193,7 +193,7 @@ test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do des
 
     $user_bar = User::factory()->create([
         'department_id' => $department->id,
-        'role_id' => Role::ORDINARY
+        'role_id' => Role::ORDINARY,
     ]);
 
     expect((new UserPolicy)->delegationCreate($this->user, $user_bar))->toBeTrue();
@@ -208,7 +208,7 @@ test('usuário pode remover delegação de usuário da mesma lotação, com perf
 
     $user_bar = User::factory()->create([
         'department_id' => $department->id,
-        'role_id' => Role::INSTITUTIONALMANAGER
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     $user_baz = User::factory()->create([
