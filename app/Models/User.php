@@ -41,7 +41,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -51,7 +51,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     /**
      * The relationships that should always be loaded.
      *
-     * @var array
+     * @var string[]
      */
     protected $with = ['role'];
 
@@ -111,13 +111,13 @@ class User extends CorporateUser implements LdapAuthenticatable
     {
         $this->role()->associate(Role::ORDINARY);
 
-        $this->updateAndRevokeDelegatedUsers();
+        return $this->updateAndRevokeDelegatedUsers();
     }
 
     /**
      * Revoga as delegações feita pelo usuário.
      *
-     * @return bool
+     * @return int
      */
     public function revokeDelegatedUsers()
     {

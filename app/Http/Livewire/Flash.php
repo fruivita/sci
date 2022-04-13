@@ -89,7 +89,7 @@ class Flash extends Component
     /**
      * Renderiza o componente.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function render()
     {
