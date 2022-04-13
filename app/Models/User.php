@@ -68,13 +68,15 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Retorna o usuário autenticado para exibição em tela.
+     * Impressões feitas por um determinado usuário.
      *
-     * @return string
+     * Relacionamento usuário (1:N) impressões.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function forHumans()
+    public function prints()
     {
-        return $this->username;
+        return $this->hasMany(Printing::class, 'user_id', 'id');
     }
 
     /**
@@ -99,6 +101,16 @@ class User extends CorporateUser implements LdapAuthenticatable
     public function delegatedUsers()
     {
         return $this->hasMany(User::class, 'role_granted_by', 'id');
+    }
+
+    /**
+     * Retorna o usuário autenticado para exibição em tela.
+     *
+     * @return string
+     */
+    public function forHumans()
+    {
+        return $this->username;
     }
 
     /**

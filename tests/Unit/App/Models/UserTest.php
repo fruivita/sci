@@ -5,6 +5,7 @@
  */
 
 use App\Enums\PermissionType;
+use App\Models\Printing;
 use App\Models\Role;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
@@ -296,4 +297,14 @@ test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações fei
     ->and($user_baz->role_granted_by)->toBeNull()
     ->and($user_taz->role_id)->toBe(Role::ORDINARY)
     ->and($user_taz->role_granted_by)->toBeNull();
+});
+
+test('um usuário possui várias impressões', function () {
+    User::factory()
+        ->has(Printing::factory(3), 'prints')
+        ->create();
+
+    $user = User::with('prints')->first();
+
+    expect($user->prints)->toHaveCount(3);
 });
