@@ -96,7 +96,9 @@ class UserLivewireIndex extends Component
     public function getUsersProperty()
     {
         return $this->applyPagination(
-            User::search($this->term)->defaultOrder()
+            User::with('delegator')
+            ->search($this->term)
+            ->defaultOrder()
         );
     }
 
