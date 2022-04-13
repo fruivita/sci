@@ -17,3 +17,40 @@ if (! function_exists('App\maxSafeInteger')) {
         return pow(2, 53) - 1;
     }
 }
+
+if (! function_exists('App\stringToArrayAssoc')) {
+    /**
+     * Divide uma string com base no delimitador informado e a retorna como um
+     * array associativo usando as chaves para cada valor extraído da string.
+     *
+     * Os valores extraídos devem ser compatíveis numericamente com a
+     * quantidade de chaves informadas, caso contrário retornará nulo.
+     * Também retornará nulo se algum dos parâmetros for um valor false para o
+     * php
+     *
+     * @param string[] $keys      chaves que serão usadas para indexar o
+     *                            array de retorno
+     * @param string   $str       string que será explodida
+     * @param string   $delimiter delimitador para a explodir a string
+     *
+     * @return array<string, string>|null
+     *
+     * @see https://www.php.net/manual/en/language.types.boolean.php
+     */
+    function stringToArrayAssoc(array $keys, string $delimiter, string $str)
+    {
+        if (! $keys || ! $delimiter || ! $str) {
+            return null;
+        }
+
+        try {
+            return
+                array_combine(
+                    $keys,
+                    explode($delimiter, $str)
+                );
+        } catch (\Throwable $exception) {
+            return null;
+        }
+    }
+}
