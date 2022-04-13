@@ -351,6 +351,14 @@ test('pesquisa retorna os resultados esperados', function () {
         'department_id' => $this->department->id
     ]);
 
+    // não será exibido, pois de outro departamento
+    User::factory()
+    ->for(Department::factory(), 'department')
+    ->create([
+        'name' => 'another department fulano foo bazz',
+        'username' => 'another taz'
+    ]);
+
     Livewire::test(DelegationLivewireIndex::class)
     ->set('term', 'taz')
     ->assertCount('users', 1)
