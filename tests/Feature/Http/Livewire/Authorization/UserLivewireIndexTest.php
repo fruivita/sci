@@ -235,3 +235,23 @@ test('é possível atualizar um usuário com permissão específica', function (
 
     expect($user->role->id)->toBe(Role::ADMINISTRATOR);
 });
+
+test('pesquisa retorna os resultados esperados', function () {
+    grantPermission(PermissionType::UserViewAny->value);
+
+    User::factory()->create([
+        'name' => 'fulano bar',
+        'username' => 'bar baz'
+    ]);
+
+    User::factory()->create([
+        'name' => 'fulano foo bazz',
+        'username' => 'taz'
+    ]);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->set('term', 'taz')
+    ->assertCount('users', 1)
+    ->set('term', 'fulano')
+    ->assertCount('users', 2);
+});
