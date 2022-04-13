@@ -21,6 +21,7 @@
     "Delegator": "Delegante",
     "Department manager": "Gestor de departamento",
     "Description": "Descrição",
+    "Documentation": "Documentação",
     "Edit": "Editar",
     "Edit the permission": "Editar a permissão",
     "Edit the role": "Editar o perfil",
@@ -121,6 +122,7 @@
     "Toggle dark/light mode": "Alterna entre os modos escuro/claro",
     "Uncheck all": "Desmarcar todos",
     "Uncheck all on page": "Desmarcar todos na página",
+    "Updated data at :attribute": "Dados atualizados em :attribute",
     "User must be different from authenticated user": "Usuário precisa ser diferente do usuário autenticado",
     "User not found": "Usuário não encontrado",
     "User to be simulated": "Usuário a ser simulado",
@@ -129,5 +131,6 @@
     "User update failed": "Falha na atualização do usuário",
     "Users": "Usuários",
     "Users and role": "Usuários e perfil",
-    "Username": "Usuário"
+    "Username": "Usuário",
+    "Version :attribute": "Versão :attribute"
 }

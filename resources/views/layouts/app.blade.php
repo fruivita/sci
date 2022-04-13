@@ -7,6 +7,7 @@
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
     @see https://icons.getbootstrap.com/
+    @see https://dev.to/timosville/sticky-footer-using-tailwind-css-225p
 --}}
 
 
@@ -45,7 +46,7 @@
 
     <body x-cloak class="bg-primary-50 duration-500 text-primary-900 text-xl transition dark:bg-secondary-900 dark:text-secondary-50">
 
-        <div>
+        <div class="flex flex-col min-h-screen">
 
             <div x-data="{ menuVisible : false }">
 
@@ -90,7 +91,7 @@
 
 
             {{-- conteúdo principal --}}
-            <main class="lg:ml-72 lg:px-6">
+            <main class="flex-grow lg:ml-72 lg:px-6">
 
                 {{-- será adicionada quando houver simulação --}}
                 @if(session()->has('simulator'))
@@ -103,6 +104,10 @@
                 {{ $slot }}
 
             </main>
+
+
+            @auth<x-footer/>@endauth
+
 
         </div>
 
