@@ -18,6 +18,7 @@ parameters:
 
   # https://phpstan.org/config-reference#universal-object-crates
   universalObjectCratesClasses:
+    - App\Http\Livewire\Authorization\DelegationLivewireIndex
     - App\Http\Livewire\Authorization\PermissionLivewireIndex
     - App\Http\Livewire\Authorization\PermissionLivewireShow
     - App\Http\Livewire\Authorization\PermissionLivewireUpdate
