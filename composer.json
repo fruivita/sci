@@ -89,7 +89,7 @@
         "coverage": "composer test -- --coverage",
         "csfix": "vendor/bin/php-cs-fixer fix -v --config=.php-cs-fixer.dist.php --allow-risky=yes",
         "nointegration": "composer test -- --exclude-group=integration",
-        "test": "vendor/bin/pest --colors=always --stop-on-failure"
+        "test": "vendor/bin/pest -d memory_limit=2048M --colors=always --stop-on-failure"
     },
     "extra": {
         "laravel": {
