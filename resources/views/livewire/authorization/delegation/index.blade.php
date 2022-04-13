@@ -18,6 +18,11 @@
 
     <x-container>
 
+        <x-table.perpage
+            wire:model="per_page"
+            :error="$errors->first('per_page')"/>
+
+
         <x-table wire:loading.delay.class="opacity-25">
 
             <x-slot name="head">
