@@ -30,8 +30,8 @@ trait WithCaching
     }
 
     /**
-     * Armazena o resultado no callback no cache com a chave informada e o
-     * retorna.
+     * Armazena o resultado do callback no cache, pelo tempo de vida e chave
+     * informada, e o retorna.
      *
      * Se a chave já existir no cache, o item será retornado, caso contrário
      * o cache será criado e então retornado ao chamador.
