@@ -15,7 +15,7 @@
 
     <div class="space-y-3">
 
-        <p>{{ __('Updated data at :attribute', ['attribute' => now()]) }}</p>
+        <p>{{ __('Updated data at :attribute', ['attribute' => cache('last_print_import', __('Never'))]) }}</p>
 
 
         <div class="flex itens-center justify-center space-x-3">

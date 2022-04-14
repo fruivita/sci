@@ -11,8 +11,11 @@ use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
 use Database\Seeders\RoleSeeder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+
+use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -38,6 +41,7 @@ afterEach(function () {
     $this->fake_disk = Storage::fake('log-impressao');
 });
 
+// Happy path
 test('make retorna o objeto da classe', function () {
     expect(PrintLogImporter::make())->toBeInstanceOf(PrintLogImporter::class);
 });
@@ -68,4 +72,51 @@ test('exclui os arquivos de log após serem importados', function () {
     $this->fake_disk->assertMissing(array_keys($this->print_log_files));
 
     expect(Printing::count())->toBe(5);
+});
+
+test('cache com o timestamp da última importação não é atualizado se não há arquivos para importar', function () {
+    $this->fake_disk = Storage::fake('log-impressao');
+
+    Cache::spy();
+
+    PrintLogImporter::make()->import();
+
+    Cache::shouldNotHaveReceived('put');
+});
+
+test('cache com o timestamp da última importação é atualizado a cada importação bem sucedida do arquivo de log de impressão', function () {
+    Cache::spy();
+
+    PrintLogImporter::make()->import();
+
+    Cache::shouldHaveReceived('put')->times(3);
+});
+
+test('cria cache com o timestamp da data e hora em que ocorreu a importação do log de impressão', function () {
+    testTime()->freeze('2020-12-30 13:00:00');
+
+    PrintLogImporter::make()->import();
+
+    expect(Cache::get('last_print_import'))->toBe('30-12-2020 13:00:00');
+});
+
+test('cache da última importação dura indefinidamente enquanto não houver outra importação', function () {
+    testTime()->freeze('2020-12-30 13:00:00');
+
+    PrintLogImporter::make()->import();
+
+    expect(Cache::get('last_print_import'))->toBe('30-12-2020 13:00:00');
+
+    testTime()->addCentury();
+
+    expect(Cache::get('last_print_import'))->toBe('30-12-2020 13:00:00');
+
+    // Readiciona os arquivos de log para nova importação
+    foreach ($this->print_log_files as $filename => $content) {
+        $this->fake_disk->put($filename, $content);
+    }
+
+    PrintLogImporter::make()->import();
+
+    expect(Cache::get('last_print_import'))->toBe('30-12-2120 13:00:00');
 });

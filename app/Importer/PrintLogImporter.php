@@ -5,6 +5,7 @@ namespace App\Importer;
 use App\Importer\Contracts\IImportablePrintLog;
 use Bcremer\LineReader\LineReader;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -83,6 +84,7 @@ final class PrintLogImporter implements IImportablePrintLog
 
             if ($saved === true) {
                 $this->delete($print_log_file);
+                Cache::put('last_print_import', now()->format('d-m-Y H:i:s'));
             }
 
             $this->log(
