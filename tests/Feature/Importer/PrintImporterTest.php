@@ -23,6 +23,7 @@ test('make retorna o objeto da classe', function () {
     expect(PrintImporter::make())->toBeInstanceOf(PrintImporter::class);
 });
 
+// Happy path
 test('todos os campos da impressão precisam estar presentes, mesmo que vazios', function () {
     // sem a delimitar o último parâmetro (qtd de cópias), portanto, campos incompletos
     $print = 'server.dominio.org.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1';
