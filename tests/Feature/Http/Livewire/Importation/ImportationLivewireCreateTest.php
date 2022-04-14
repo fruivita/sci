@@ -9,6 +9,7 @@ use App\Enums\ImportationType;
 use App\Enums\PermissionType;
 use App\Http\Livewire\Administration\ImportationLivewireCreate;
 use App\Jobs\ImportCorporateStructure;
+use App\Jobs\ImportPrintLog;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Bus;
 use Livewire\Livewire;
@@ -86,7 +87,19 @@ test('dispara job de importação do arquivo corporativo', function () {
     ->call('store');
 
     Bus::assertDispatched(ImportCorporateStructure::class);
-    // Bus::assertNotDispatched(ImportPrintLog::class);
+    Bus::assertNotDispatched(ImportPrintLog::class);
+});
+
+test('dispara job de importação do print log', function () {
+    grantPermission(PermissionType::ImportationCreate->value);
+    Bus::fake();
+
+    Livewire::test(ImportationLivewireCreate::class)
+    ->set('import', [ImportationType::PrintLog->value])
+    ->call('store');
+
+    Bus::assertDispatched(ImportPrintLog::class);
+    Bus::assertNotDispatched(ImportCorporateStructure::class);
 });
 
 test('dispara job de todos os importáveis', function () {
@@ -97,7 +110,7 @@ test('dispara job de todos os importáveis', function () {
     ->set('import', [ImportationType::Corporate->value, ImportationType::PrintLog->value])
     ->call('store');
 
-    // Bus::assertDispatched(ImportPrintLog::class);
+    Bus::assertDispatched(ImportPrintLog::class);
     Bus::assertDispatched(ImportCorporateStructure::class);
 });
 

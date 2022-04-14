@@ -6,6 +6,7 @@ use App\Enums\ImportationType;
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Jobs\ImportCorporateStructure;
+use App\Jobs\ImportPrintLog;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
@@ -86,6 +87,10 @@ class ImportationLivewireCreate extends Component
         ImportCorporateStructure::dispatchIf(
             in_array(ImportationType::Corporate->value, $this->import)
         )->onQueue(ImportationType::Corporate->queue());
+
+        ImportPrintLog::dispatchIf(
+            in_array(ImportationType::PrintLog->value, $this->import)
+        )->onQueue(ImportationType::PrintLog->queue());
 
         $this->flash(
             true,
