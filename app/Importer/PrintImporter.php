@@ -155,10 +155,10 @@ final class PrintImporter implements IImportablePrint
             $server = Server::firstOrCreate(['name' => $validated['server']]);
             $printer = Printer::firstOrCreate(['name' => $validated['printer']]);
             $client = Client::firstOrCreate(['name' => $validated['client']]);
-            $user = User::firstOrCreate([
-                'username' => $validated['username'],
-                'password' => bcrypt(str()->random(16))
-            ]);
+            $user = User::firstOrCreate(
+                ['username' => $validated['username']],
+                ['password' => bcrypt(str()->random(16))]
+            );
 
             $printing = new Printing();
 
