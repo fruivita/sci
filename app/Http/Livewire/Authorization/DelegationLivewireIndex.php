@@ -67,7 +67,9 @@ class DelegationLivewireIndex extends Component
     }
 
     /**
-     * Runs before a property called $Term is updated.
+     * Volta a paginação à paginação inicial.
+     *
+     * Runs before a property called $term is updated.
      *
      * @param mixed $value
      *
