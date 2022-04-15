@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Impressoras.
@@ -33,5 +35,56 @@ class Printer extends Model
     public function prints()
     {
         return $this->hasMany(Printing::class, 'printer_id', 'id');
+    }
+
+    /**
+     * Gera o relatório de volume de impressão por impressora de acordo com o
+     * período e a(s) impressora(s) informadas.
+     *
+     * O relatório traz as seguintes informações de acordo com os parâmetros
+     * informados:
+     * - total_print: volume de impressão
+     * - printer: nome da impressora
+     * - last_print_date: data da última impressão da impressora
+     *
+     * O retorno é ordenado pelo:
+     * - total_print desc
+     * - printer asc
+     *
+     * As urls das páginas são geradas com a querystring
+     *
+     * Regra de negócio: calcula o volume de impressão de todas as impressoras
+     * e/ou apenas das informadas, bem como a data de sua última impressão de
+     * acordo com o range de datas informados.
+     * A data da última impressão também é limitada pelo range.
+     * Somente são exibidas as impressoras que realizaram alguma impressão no
+     * período informado.
+     *
+     * @param \Carbon\Carbon $initial_date
+     * @param \Carbon\Carbon $final_date
+     * @param int            $per_page
+     * @param string         $printer
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     *
+     * @see https://laravel.com/docs/9.x/pagination#appending-query-string-values
+     */
+    public static function report(Carbon $initial_date, Carbon $final_date, int $per_page, string $printer = null)
+    {
+        $from = $initial_date->startOfDay();
+        $until = $final_date->endOfDay();
+
+        return
+            DB::table('prints', 'i')
+                ->selectRaw('SUM(i.copies * i.pages) AS total_print, p.name AS printer, DATE_FORMAT(MAX(i.date), "%d-%m-%Y") AS last_print_date')
+                ->join('printers AS p', 'p.id', '=', 'i.printer_id')
+                ->whereBetween('i.date', [$from, $until])
+                ->when($printer, function ($query) use ($printer) {
+                    return $query->whereRaw('p.name REGEXP ?', [$printer]);
+                })
+                ->groupBy('i.printer_id')
+                ->orderBy('total_print', 'desc')
+                ->orderBy('printer', 'asc')
+                ->paginate($per_page);
     }
 }
