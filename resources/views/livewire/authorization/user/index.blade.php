@@ -113,7 +113,7 @@
     </x-container>
 
 
-    {{ $users->onEachSide(1)->links() }}
+    {{ $users->links() }}
 
 
     @isset($editing)

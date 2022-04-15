@@ -22,6 +22,13 @@ trait WithPerPagePagination
     public $per_page = 10;
 
     /**
+     * Quantidade padrão de links em cada lado na paginação.
+     *
+     * @var int
+     */
+    public $on_each_side = 1;
+
+    /**
      * Define o valor da paginação.
      *
      * Runs on every request, immediately after the component is instantiated,
@@ -42,6 +49,18 @@ trait WithPerPagePagination
     public function paginationView()
     {
         return 'components.pagination';
+    }
+
+    /**
+     * Define a quantidade padrão de links em cada lado na paginação.
+     *
+     * @var int $value
+     *
+     * @return void
+     */
+    protected function setOnEachSide(int $value)
+    {
+        $this->on_each_side = $value;
     }
 
     /**
@@ -78,6 +97,6 @@ trait WithPerPagePagination
     {
         return $query->paginate(
             session()->get('per_page', $this->per_page)
-        );
+        )->onEachSide($this->on_each_side);
     }
 }

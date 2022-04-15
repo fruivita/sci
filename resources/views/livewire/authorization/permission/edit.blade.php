@@ -229,6 +229,6 @@
     </x-container>
 
 
-    {{ $roles->onEachSide(1)->links() }}
+    {{ $roles->links() }}
 
 </x-page>

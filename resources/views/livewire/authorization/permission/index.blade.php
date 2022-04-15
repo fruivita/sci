@@ -126,6 +126,6 @@
     </x-container>
 
 
-    {{ $permissions->onEachSide(1)->links() }}
+    {{ $permissions->links() }}
 
 </x-page>

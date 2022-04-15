@@ -124,6 +124,6 @@
     </x-container>
 
 
-    {{ $users->onEachSide(1)->links() }}
+    {{ $users->links() }}
 
 </x-page>
