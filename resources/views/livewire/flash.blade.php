@@ -35,7 +35,7 @@
 
 
         {{-- Botão para fechar a caixa de diálogo --}}
-        <button wire:click="hide()" class="animate-none lg:animate-ping" id="btn-flash" type="button">
+        <button wire:click="hide()" wire:key="flash-close" class="animate-none lg:animate-ping" id="btn-flash" type="button">
 
             <x-icon name="x-circle"/>
 

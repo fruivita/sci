@@ -70,6 +70,7 @@
             <div class="overflow-x-auto">
 
                 <x-table.perpage
+                    wire:key="per-page"
                     wire:model="per_page"
                     :error="$errors->first('per_page')"/>
 
@@ -81,7 +82,7 @@
                 @enderror
 
 
-                <x-table wire:loading.delay.class="opacity-25">
+                <x-table wire:key="table-permission" wire:loading.delay.class="opacity-25">
 
                     <x-slot name="head">
 

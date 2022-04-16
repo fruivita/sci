@@ -19,7 +19,7 @@
 
     <x-container>
 
-        <form wire:submit.prevent="store" method="POST">
+        <form wire:key="form-import-data" wire:submit.prevent="store" method="POST">
 
             <div class="space-y-6 w-1/4">
 
@@ -28,6 +28,7 @@
 
                 {{-- estrutura corporativa --}}
                 <x-form.checkbox
+                    wire:key="checkbox-corporate"
                     wire:loading.delay.class="cursor-not-allowed"
                     wire:model.defer="import"
                     name="import"
@@ -37,6 +38,7 @@
 
                 {{-- log de impressão --}}
                 <x-form.checkbox
+                    wire:key="checkbox-printlog"
                     wire:loading.delay.class="cursor-not-allowed"
                     wire:model.defer="import"
                     name="import"

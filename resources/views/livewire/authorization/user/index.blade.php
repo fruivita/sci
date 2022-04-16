@@ -13,6 +13,7 @@
 <x-page header="{{ __('Users and role') }}">
 
     <x-search
+        wire:key="search"
         wire:model.debounce.500ms="term"
         :error="$errors->first('term')"
         withcounter/>
@@ -21,6 +22,7 @@
     <x-container>
 
         <x-table.perpage
+            wire:key="per-page"
             wire:model="per_page"
             :error="$errors->first('per_page')"/>
 
@@ -32,7 +34,7 @@
         @enderror
 
 
-        <x-table wire:loading.delay.class="opacity-25">
+        <x-table wire:key="table-users" wire:loading.delay.class="opacity-25">
 
             <x-slot name="head">
 
@@ -131,7 +133,7 @@
 
                 <x-slot name="content">
 
-                    <div wire:loading.delay.class="opacity-25">
+                    <div wire:key="wrapper-edit-user-{{ $editing->id }}" wire:loading.delay.class="opacity-25">
 
                         <x-form.select
                             wire:key="editing-user-{{ $editing->id }}"

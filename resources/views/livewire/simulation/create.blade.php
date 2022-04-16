@@ -18,13 +18,14 @@
 
     <x-container>
 
-        <form wire:submit.prevent="store" method="POST">
+        <form wire:key="form-simulation" wire:submit.prevent="store" method="POST">
 
             <div class="space-y-6">
 
                 <div class="lg:inline-flex">
 
                     <x-form.input
+                        wire:key="username"
                         wire:model.defer="username"
                         autocomplete="off"
                         :error="$errors->first('username')"

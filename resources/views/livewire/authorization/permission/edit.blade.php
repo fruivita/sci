@@ -51,11 +51,12 @@
         </div>
 
 
-        <form wire:submit.prevent="update" method="POST">
+        <form wire:key="form-permission" wire:submit.prevent="update" method="POST">
 
             <div class="space-y-6">
 
                 <x-form.input
+                    wire:key="permission-name"
                     wire:model.defer="permission.name"
                     :error="$errors->first('permission.name')"
                     icon="vector-pen"
@@ -69,6 +70,7 @@
 
 
                 <x-form.textarea
+                    wire:key="permission-description"
                     wire:model.defer="permission.description"
                     :error="$errors->first('permission.description')"
                     icon="blockquote-left"
@@ -82,6 +84,7 @@
                 <div class="overflow-x-auto">
 
                     <x-table.perpage
+                        wire:key="per-page"
                         wire:model="per_page"
                         :error="$errors->first('per_page')"/>
 
@@ -133,7 +136,7 @@
 
                         <x-slot name="body">
 
-                            <x-table.row wire:loading.delay.class="opacity-25">
+                            <x-table.row wire:key="row-select-counter" wire:loading.delay.class="opacity-25">
 
                                 <x-table.cell class="text-left" colspan="3">
 
@@ -154,12 +157,12 @@
 
                             @forelse ( $roles ?? [] as $role )
 
-                                <x-table.row wire:loading.delay.class="opacity-25">
+                                <x-table.row wire:key="row-{{ $role->id }}" wire:loading.delay.class="opacity-25">
 
                                     <x-table.cell>
 
                                         <x-form.checkbox
-                                            wire:key="role-{{ $role->id }}"
+                                            wire:key="checkbox-role-{{ $role->id }}"
                                             wire:loading.delay.attr="disabled"
                                             wire:loading.delay.class="cursor-not-allowed"
                                             wire:model="selected"

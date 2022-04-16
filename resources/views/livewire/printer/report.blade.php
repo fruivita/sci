@@ -14,7 +14,7 @@
 
     <x-container>
 
-        <form wire:submit.prevent="report" method="POST">
+        <form wire:key="form-report-printer" wire:submit.prevent="report" method="POST">
 
             <div class="flex flex-col space-x-0 space-y-6 lg:flex-row lg:space-x-3 lg:space-y-0">
 
@@ -84,11 +84,12 @@
     <x-container>
 
         <x-table.perpage
+            wire:key="per-page"
             wire:model="per_page"
             :error="$errors->first('per_page')"/>
 
 
-        <x-table wire:loading.delay.class="opacity-25">
+        <x-table wire:key="table-report" wire:loading.delay.class="opacity-25">
 
             <x-slot name="head">
 

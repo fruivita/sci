@@ -17,6 +17,7 @@
 <x-page header="{{ __('Delegation') }}">
 
     <x-search
+        wire:key="search"
         wire:model.debounce.500ms="term"
         :error="$errors->first('term')"
         withcounter/>
@@ -25,11 +26,12 @@
     <x-container>
 
         <x-table.perpage
+            wire:key="per-page"
             wire:model="per_page"
             :error="$errors->first('per_page')"/>
 
 
-        <x-table wire:loading.delay.class="opacity-25">
+        <x-table wire:key="table-delegation" wire:loading.delay.class="opacity-25">
 
             <x-slot name="head">
 

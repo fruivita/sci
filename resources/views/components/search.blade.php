@@ -39,6 +39,7 @@
                 x-ref="message"
 
             @endif
+
             autocomplete="off"
             autofocus
             class="bg-primary-100 px-4 py-2 truncate w-full focus:outline-primary-500 dark:bg-secondary-800 dark:focus:outline-secondary-500"
