@@ -18,7 +18,7 @@
 
             @isset($role->previous)
 
-                <x-linkbutton
+                <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-left"
                     href="{{ route('authorization.roles.show', $role->previous) }}"
@@ -35,7 +35,7 @@
 
             @isset($role->next)
 
-                <x-linkbutton
+                <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-right"
                     href="{{ route('authorization.roles.show', $role->next) }}"
@@ -124,7 +124,7 @@
 
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-end">
 
-                <x-linkbutton
+                <x-link-button
                     class="btn-do"
                     icon="award"
                     href="{{ route('authorization.roles.index') }}"

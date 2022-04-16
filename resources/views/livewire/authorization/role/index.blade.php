@@ -82,7 +82,7 @@
 
                                 @can(\App\Enums\Policy::View->value, \App\Models\Role::class)
 
-                                    <x-linkbutton
+                                    <x-link-button
                                         class="btn-do"
                                         icon="eye"
                                         href="{{ route('authorization.roles.show', $role->id) }}"
@@ -94,7 +94,7 @@
 
                                 @can(\App\Enums\Policy::Update->value, \App\Models\Role::class)
 
-                                    <x-linkbutton
+                                    <x-link-button
                                         class="btn-do"
                                         icon="pencil-square"
                                         href="{{ route('authorization.roles.edit', $role) }}"

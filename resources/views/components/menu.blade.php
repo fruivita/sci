@@ -12,12 +12,12 @@
 
 <x-menu.group name="{{ __('Functionalities') }}">
 
-    <x-menu.themetoggler/>
+    <x-menu.theme-toggler/>
 
 
     @auth
 
-        <x-menu.fakelink
+        <x-menu.fake-link
             icon="person"
             text="{{ auth()->user()->forHumans() }}"/>
 
