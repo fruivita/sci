@@ -124,6 +124,24 @@ test('pesquisa retorna os resultados esperados', function () {
     ->assertCount('result', 90);
 });
 
+test('faz o download do relatório em formato pdf', function () {
+    Printer::factory(30)
+    ->has(Printing::factory()->state(['date' => '2020-05-15']), 'prints')
+    ->create();
+    Printer::factory(40)
+    ->has(Printing::factory()->state(['date' => '2020-06-15']), 'prints')
+    ->create();
+    Printer::factory(50)
+    ->has(Printing::factory()->state(['date' => '2020-07-15']), 'prints')
+    ->create();
+
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('initial_date', '01-05-2020')
+    ->set('final_date', '01-07-2020')
+    ->call('downloadPDFReport')
+    ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
+});
+
 test('valores válidos na query string serão utilizados para inicializar as variáveis', function () {
     Livewire::test(PrinterReportLivewire::class, [
         'initial_date' => '13-05-2020',

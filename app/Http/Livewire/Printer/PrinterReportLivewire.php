@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Printer;
 
+use App\Http\Livewire\Traits\WithDownloadableReport;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Printer;
 use Illuminate\Support\Carbon;
@@ -13,6 +14,7 @@ use Livewire\Component;
  */
 class PrinterReportLivewire extends Component
 {
+    use WithDownloadableReport;
     use WithPerPagePagination;
 
     /**
@@ -103,6 +105,26 @@ class PrinterReportLivewire extends Component
     }
 
     /**
+     * Título do relatório que será gerado.
+     *
+     * @return string
+     */
+    private function reportHeader()
+    {
+        return __('Report by printer');
+    }
+
+    /**
+     * Nome da view utilizada para a geração do relatório.
+     *
+     * @return string
+     */
+    private function reportViewName()
+    {
+        return 'pdf.printer.report';
+    }
+
+    /**
      * Runs once, immediately after the component is instantiated, but before
      * render() is called. This is only called once on initial page load and
      * never called again, even on component refreshes.
@@ -145,7 +167,7 @@ class PrinterReportLivewire extends Component
      */
     public function getResultProperty()
     {
-        return $this->createReport();
+        return $this->makeReport();
     }
 
     /**
@@ -157,22 +179,32 @@ class PrinterReportLivewire extends Component
     {
         $this->validate();
 
-        $this->createReport();
+        $this->makeReport();
     }
 
     /**
-     * Cria o relatório paginado, solicitando as informações ao modelo.
+     * Relatório paginado, de acordo com as solicitações do usuário.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    private function createReport()
+    private function makeReport()
     {
         return $this->applyPagination(
-            Printer::report(
-                Carbon::createFromFormat('d-m-Y', $this->initial_date),
-                Carbon::createFromFormat('d-m-Y', $this->final_date),
-                $this->term
-            )
+            $this->reportQuery()
+        );
+    }
+
+    /**
+     * Query de geração do relatório.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    private function reportQuery()
+    {
+        return Printer::report(
+            Carbon::createFromFormat('d-m-Y', $this->initial_date),
+            Carbon::createFromFormat('d-m-Y', $this->final_date),
+            $this->term
         );
     }
 

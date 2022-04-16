@@ -14,7 +14,7 @@
 
     <x-container>
 
-        <form wire:key="form-report-printer" wire:submit.prevent="report" method="POST">
+        <form>
 
             <div class="flex flex-col space-x-0 space-y-6 lg:flex-row lg:space-x-3 lg:space-y-0">
 
@@ -27,6 +27,7 @@
                     text="{{ __('Initial date') }}"
                     title="{{ __('Pick a date or inform it in the dd-mm-yyyy pattern') }}"/>
 
+
                 <x-date-picker
                     wire:key="final_date"
                     wire:model.defer="final_date"
@@ -34,6 +35,7 @@
                     required
                     text="{{ __('Final date') }}"
                     title="{{ __('Pick a date or inform it in the dd-mm-yyyy pattern') }}"/>
+
 
                 <x-form.input
                     wire:key="term"
@@ -46,6 +48,7 @@
                     title="{{ __('Search for items') }}"
                     type="text"
                     withcounter/>
+
             </div>
 
 
@@ -53,26 +56,30 @@
 
                 {{-- botão para exibir o relatório em formato web --}}
                 <x-button
+                    wire:click="report"
                     wire:key="btn-report-web"
                     wire:loading.delay.attr="disabled"
                     wire:loading.delay.class="cursor-not-allowed"
+                    wire:target="pdf,per_page,report"
                     class="btn-do"
                     icon="file-earmark-text"
                     text="{{ __('Report') }}"
                     title="{{ __('Report in WEB format') }}"
-                    type="submit"/>
+                    type="button"/>
 
 
                 {{-- botão para exibir o relatório em formato PDF --}}
                 <x-button
+                    wire:click="downloadPDFReport"
                     wire:key="btn-report-pdf"
                     wire:loading.delay.attr="disabled"
                     wire:loading.delay.class="cursor-not-allowed"
+                    wire:target="pdf,per_page,report"
                     class="btn-do"
                     icon="filetype-pdf"
                     text="{{ __('PDF') }}"
                     title="{{ __('Report in PDF format') }}"
-                    type="submit"/>
+                    type="button"/>
 
             </div>
 
