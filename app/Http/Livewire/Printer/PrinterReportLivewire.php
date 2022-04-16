@@ -48,13 +48,13 @@ class PrinterReportLivewire extends Component
         return [
             'initial_date' => [
                 'bail',
-                'nullable',
+                'required',
                 'date_format:d-m-Y',
             ],
 
             'final_date' => [
                 'bail',
-                'nullable',
+                'required',
                 'date_format:d-m-Y',
             ],
 
@@ -144,7 +144,7 @@ class PrinterReportLivewire extends Component
     public function render()
     {
         return view('livewire.printer.report', [
-            'report' => $this->result,
+            'report' => $this->validator()->fails() ? null : $this->result,
         ])->layout('layouts.app');
     }
 
@@ -158,6 +158,17 @@ class PrinterReportLivewire extends Component
     public function updatedTerm()
     {
         $this->resetPage();
+    }
+
+    /**
+     * Runs after any update to the Livewire component's data (Using
+     * wire:model, not directly inside PHP)
+     *
+     * @return void
+     */
+    public function updated(string $field)
+    {
+        $this->validateOnly($field);
     }
 
     /**
@@ -219,14 +230,7 @@ class PrinterReportLivewire extends Component
      */
     private function setDefaultValuesBasedOnQueryString()
     {
-        $validator = Validator::make(
-            [
-                'initial_date' => $this->initial_date,
-                'final_date' => $this->final_date,
-                'term' => $this->term,
-            ],
-            $this->rules()
-        );
+        $validator = $this->validator();
 
         $this->initial_date = $validator->errors()->has('initial_date') || empty($this->initial_date)
         ? Carbon::now()->startOfYear()->format('d-m-Y')
@@ -239,5 +243,22 @@ class PrinterReportLivewire extends Component
         $this->term = $validator->errors()->has('term')
         ? null
         : $this->term;
+    }
+
+    /**
+     * Valida os inputs e retorna a instância do validator.
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    private function validator()
+    {
+        return Validator::make(
+            [
+                'initial_date' => $this->initial_date,
+                'final_date' => $this->final_date,
+                'term' => $this->term,
+            ],
+            $this->rules()
+        );
     }
 }

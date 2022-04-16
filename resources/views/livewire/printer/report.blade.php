@@ -21,7 +21,7 @@
                 {{-- input para a data inicial --}}
                 <x-date-picker
                     wire:key="initial_date"
-                    wire:model.defer="initial_date"
+                    wire:model.lazy="initial_date"
                     :error="$errors->first('initial_date')"
                     required
                     text="{{ __('Initial date') }}"
@@ -30,7 +30,7 @@
 
                 <x-date-picker
                     wire:key="final_date"
-                    wire:model.defer="final_date"
+                    wire:model.lazy="final_date"
                     :error="$errors->first('final_date')"
                     required
                     text="{{ __('Final date') }}"
@@ -39,7 +39,7 @@
 
                 <x-form.input
                     wire:key="term"
-                    wire:model.defer="term"
+                    wire:model.debounce.500ms="term"
                     :error="$errors->first('term')"
                     icon="printer"
                     maxlength="50"

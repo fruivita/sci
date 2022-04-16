@@ -40,7 +40,7 @@ test('se as valores forem inválidos na query strnig, eles serão definidas pelo
     ])
     ->assertSet('initial_date', now()->startOfYear()->format('d-m-Y'))
     ->assertSet('final_date', now()->format('d-m-Y'))
-    ->assertSet('term', null);
+    ->assertSet('term', '');
 });
 
 // Rules
@@ -50,10 +50,57 @@ test('não aceita paginação fora das opções oferecidas', function () {
     ->assertHasErrors(['per_page' => 'in']);
 });
 
+test('data inicial é obrigatório', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('initial_date', '')
+    ->assertHasErrors(['initial_date' => 'required']);
+});
+
+test('data inicial deve ser no formato dd-mm-yyyy', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('initial_date', '15.02.2020')
+    ->assertHasErrors(['initial_date' => 'date_format']);
+});
+
+test('data inicial está sujeita a validação em tempo real', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('initial_date', '15-02-2020')
+    ->assertHasNoErrors()
+    ->set('initial_date', '')
+    ->assertHasErrors(['initial_date' => 'required']);
+});
+
+test('data final é obrigatório', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('final_date', '')
+    ->assertHasErrors(['final_date' => 'required']);
+});
+
+test('data final está sujeita a validação em tempo real', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('final_date', '15-02-2020')
+    ->assertHasNoErrors()
+    ->set('final_date', '')
+    ->assertHasErrors(['final_date' => 'required']);
+});
+
+test('data final deve ser no formato dd-mm-yyyy', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('final_date', '15.02.2020')
+    ->assertHasErrors(['final_date' => 'date_format']);
+});
+
 test('termo pesquisável deve ter no máximo 50 caracteres', function () {
     Livewire::test(PrinterReportLivewire::class)
     ->set('term', Str::random(51))
-    ->call('report')
+    ->assertHasErrors(['term' => 'max']);
+});
+
+test('termo pesquisável está sujeito a validação em tempo real', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('term', Str::random(50))
+    ->assertHasNoErrors()
+    ->set('term', Str::random(51))
     ->assertHasErrors(['term' => 'max']);
 });
 
