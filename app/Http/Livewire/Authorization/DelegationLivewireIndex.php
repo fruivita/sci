@@ -61,7 +61,7 @@ class DelegationLivewireIndex extends Component
         return [
             'term' => [
                 'except' => '',
-                'as' => strtolower(__('Search')),
+                'as' => 's',
             ],
         ];
     }
