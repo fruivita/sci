@@ -167,11 +167,12 @@ class PrinterReportLivewire extends Component
      */
     private function createReport()
     {
-        return Printer::report(
-            Carbon::createFromFormat('d-m-Y', $this->initial_date),
-            Carbon::createFromFormat('d-m-Y', $this->final_date),
-            $this->per_page,
-            $this->term
+        return $this->applyPagination(
+            Printer::report(
+                Carbon::createFromFormat('d-m-Y', $this->initial_date),
+                Carbon::createFromFormat('d-m-Y', $this->final_date),
+                $this->term
+            )
         );
     }
 
