@@ -40,6 +40,18 @@
 
 @auth
 
+    <x-menu.group name="{{ __('Reports') }}">
+
+        <x-menu.link
+            class="{{ request()->routeIs('report.printer.*') ? 'active': '' }}"
+            icon="printer"
+            href="{{ route('report.printer.create') }}"
+            text="{{ __('Printer') }}"
+            title="{{ __('Report by printer') }}"/>
+
+    </x-menu.group>
+
+
     @if (
             auth()->user()->can(\App\Enums\Policy::ImportationCreate->value)
         )
