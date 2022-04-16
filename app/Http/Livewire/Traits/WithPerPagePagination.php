@@ -26,7 +26,7 @@ trait WithPerPagePagination
      *
      * @var int
      */
-    public $on_each_side = 1;
+    private $on_each_side = 1;
 
     /**
      * Define o valor da paginação.
