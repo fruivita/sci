@@ -26,12 +26,17 @@ parameters:
     - App\Http\Livewire\Authorization\RoleLivewireShow
     - App\Http\Livewire\Authorization\RoleLivewireUpdate
     - App\Http\Livewire\Authorization\UserLivewireIndex
+    - App\Http\Livewire\Printer\PrinterReportLivewire
+    - App\Http\Livewire\Printing\PrintingReportLivewire
     - LdapRecord\Models\ActiveDirectory\User
 
   # https://phpstan.org/user-guide/ignoring-errors
   ignoreErrors:
     -
       message: '#Undefined variable: \$this#'
+      path: tests/*
+    -
+      message: '#Call to an undefined static method Illuminate\\Support\\Facades\\[a-zA-Z]+\:\:should[Not]*HaveReceived\(\)#'
       path: tests/*
 
   tmpDir: build/phpstan
