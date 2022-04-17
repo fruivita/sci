@@ -160,18 +160,6 @@ class PrinterReportLivewire extends Component
     }
 
     /**
-     * Volta a paginação à paginação inicial.
-     *
-     * Runs after a property called $term is updated.
-     *
-     * @return void
-     */
-    public function updatedTerm()
-    {
-        $this->resetPage();
-    }
-
-    /**
      * Runs after any update to the Livewire component's data (Using
      * wire:model, not directly inside PHP)
      *
@@ -180,6 +168,8 @@ class PrinterReportLivewire extends Component
     public function updated(string $field)
     {
         $this->validateOnly($field);
+
+        $this->resetPage();
     }
 
     /**
