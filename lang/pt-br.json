@@ -8,6 +8,7 @@
     "Administrator": "Administrador",
     "Application usage simulation": "Simulação de uso da aplicação",
     "Authorizations": "Autorizações",
+    "Bimonthly": "Bimestre",
     "Cancel": "Cancelar",
     "Cancel the procedure": "Cancelar o procedimento",
     "Change menu visibility": "Altera a visibilidade do menu",
@@ -66,6 +67,7 @@
     "Login": "Login",
     "Login in application": "Entra na aplicação",
     "Logout": "Logout",
+    "Monthly": "Mês",
     "Name": "Nome",
     "Never": "Nunca",
     "New permission name": "Novo nome da permissão",
@@ -107,6 +109,7 @@
     "Printer": "Impressora",
     "Printers": "Impressoras",
     "Production": "Produção",
+    "Quadrimester": "Quadrimestre",
     "Records": "Registros",
     "Report": "Relatório",
     "Report by printer": "Relatório por impressora",
@@ -132,6 +135,7 @@
     "Search": "Pesquisar",
     "search for items": "Pesquise pelos itens",
     "Searchable term": "Termo pesquisável",
+    "Semiannual": "Semestre",
     "Show": "Visualizar",
     "Show all records": "Exibe todos os registros",
     "Show next record": "Exibe o próximo registro",
@@ -148,6 +152,7 @@
     "There may be more": "Podem existir mais",
     "to": "a",
     "Toggle dark/light mode": "Alterna entre os modos escuro/claro",
+    "Trimonthly": "Trimestre",
     "Uncheck all": "Desmarcar todos",
     "Uncheck all on page": "Desmarcar todos na página",
     "Updated data at :attribute": "Dados atualizados em :attribute",
@@ -161,5 +166,6 @@
     "Users and role": "Usuários e perfil",
     "Username": "Usuário",
     "Validation failed": "Validação falhou",
-    "Version :attribute": "Versão :attribute"
+    "Version :attribute": "Versão :attribute",
+    "Yearly": "Ano"
 }
