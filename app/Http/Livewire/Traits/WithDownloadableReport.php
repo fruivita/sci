@@ -36,7 +36,14 @@ trait WithDownloadableReport
     abstract private function makeReport(int $per_page = null);
 
     /**
-     * Download do relatório em formatro PDF.
+     * Filtro extra utilizado no relatório.
+     *
+     * @return string
+     */
+    abstract private function filter();
+
+    /**
+     * Action do usuário para solicitar o Download do relatório em formato PDF.
      *
      * @return void
      */
@@ -76,7 +83,7 @@ trait WithDownloadableReport
             'header' => $this->reportHeader(),
             'initial_date' => $this->initial_date,
             'final_date' => $this->final_date,
-            'filter' => $this->term,
+            'filter' => $this->filter(),
             'result' => $this->makeReport(per_page: PHP_INT_MAX),
         ];
     }

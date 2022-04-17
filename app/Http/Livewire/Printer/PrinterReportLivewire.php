@@ -124,6 +124,17 @@ class PrinterReportLivewire extends Component
         return 'pdf.printer.report';
     }
 
+
+    /**
+     * Filtro extra utilizado no relatório.
+     *
+     * @return string
+     */
+    private function filter()
+    {
+        return $this->term;
+    }
+
     /**
      * Runs once, immediately after the component is instantiated, but before
      * render() is called. This is only called once on initial page load and
