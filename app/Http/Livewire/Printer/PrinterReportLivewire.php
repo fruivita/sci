@@ -155,7 +155,7 @@ class PrinterReportLivewire extends Component
     public function render()
     {
         return view('livewire.printer.report', [
-            'report' => $this->validator()->fails() ? null : $this->result,
+            'report' => $this->validator()->fails() ? null : $this->result->onEachSide($this->on_each_side),
         ])->layout('layouts.app');
     }
 
