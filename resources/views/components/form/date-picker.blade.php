@@ -103,6 +103,7 @@
                     flatpickr(this.$refs.picker, {
                         allowInput: true,
                         dateFormat: 'd-m-Y',
+                        disableMobile: 'true',
                         locale: 'pt',
                         minDate: '01-01-1990',
                         maxDate: 'today'
