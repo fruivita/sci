@@ -19,7 +19,7 @@
             <div class="flex flex-col space-x-0 space-y-6 lg:flex-row lg:space-x-3 lg:space-y-0">
 
                 {{-- input para a data inicial --}}
-                <x-date-picker
+                <x-form.date-picker
                     wire:key="initial_date"
                     wire:model.lazy="initial_date"
                     :error="$errors->first('initial_date')"
@@ -28,7 +28,7 @@
                     title="{{ __('Pick a date or inform it in the dd-mm-yyyy pattern') }}"/>
 
 
-                <x-date-picker
+                <x-form.date-picker
                     wire:key="final_date"
                     wire:model.lazy="final_date"
                     :error="$errors->first('final_date')"
