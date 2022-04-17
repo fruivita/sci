@@ -32,7 +32,7 @@ test('não é possível exibir o relatório por impressora sem estar autenticado
 });
 
 // Failure
-test('se as valores forem inválidos na query strnig, eles serão definidas pelo sistema', function () {
+test('se as valores forem inválidos na query string, eles serão definidas pelo sistema', function () {
     Livewire::test(PrinterReportLivewire::class, [
         'initial_date' => '13/05/2020',
         'final_date' => '15/05/2020',
