@@ -43,6 +43,14 @@
     <x-menu.group name="{{ __('Reports') }}">
 
         <x-menu.link
+            class="{{ request()->routeIs('report.printing.*') ? 'active': '' }}"
+            icon="graph-up"
+            href="{{ route('report.printing.create') }}"
+            text="{{ __('Print') }}"
+            title="{{ __('General print report') }}"/>
+
+
+        <x-menu.link
             class="{{ request()->routeIs('report.printer.*') ? 'active': '' }}"
             icon="printer"
             href="{{ route('report.printer.create') }}"

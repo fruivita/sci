@@ -12,6 +12,7 @@ use App\Http\Livewire\Authorization\RoleLivewireShow;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Http\Livewire\Authorization\UserLivewireIndex;
 use App\Http\Livewire\Printer\PrinterReportLivewire;
+use App\Http\Livewire\Printing\PrintingReportLivewire;
 use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\Permission;
 use App\Models\Role;
@@ -71,6 +72,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('relatorio')->name('report.')->group(function () {
+        Route::prefix('impressao')->name('printing.')->group(function () {
+            Route::get('/', PrintingReportLivewire::class)->name('create');
+        });
+
         Route::prefix('impressora')->name('printer.')->group(function () {
             Route::get('/', PrinterReportLivewire::class)->name('create');
         });
