@@ -47,7 +47,7 @@
     </label>
 
 
-    <div wire:ignore class="bg-primary-100 border-2 border-primary-300 flex items-center rounded">
+    <div class="bg-primary-100 border-2 border-primary-300 flex items-center rounded">
 
         {{-- ícone à frente do input --}}
         <label class="text-primary-900 p-2" :for="$id('date-picker-input')">
@@ -57,26 +57,29 @@
         </label>
 
 
-        {{-- input propriamente dito --}}
-        <input
-            x-ref="picker"
-            x-mask="{
-                date: true,
-                datePattern: ['d', 'm', 'Y'],
-                delimiter: '-'
-            }"
-            :id="$id('date-picker-input')"
-            autocomplete="off"
-            maxlength="10"
-            placeholder="dd-mm-aaaa"
-            {{
-                $attributes
-                ->merge(['class' => 'p-2 text-primary-900 truncate w-full focus:outline-primary-500'])
-                ->when($error, function ($collection) {
-                    return $collection->merge(['class' => 'invalid']);
-                })
-            }}
-            {{ $attributes->except('class') }}/>
+        <div @class([
+            'w-full',
+            'bg-white' => ! $error,
+            'invalid' => $error
+        ])>
+
+            {{-- input propriamente dito --}}
+            <input
+                wire:ignore
+                x-ref="picker"
+                x-mask="{
+                    date: true,
+                    datePattern: ['d', 'm', 'Y'],
+                    delimiter: '-'
+                }"
+                :id="$id('date-picker-input')"
+                autocomplete="off"
+                maxlength="10"
+                placeholder="dd-mm-aaaa"
+                class='bg-transparent p-2 text-primary-900 truncate w-full focus:outline-primary-500'
+                {{ $attributes }}/>
+
+        </div>
 
     </div>
 
