@@ -96,6 +96,12 @@ test('termo pesquisável deve ter no máximo 50 caracteres', function () {
     ->assertHasErrors(['term' => 'max']);
 });
 
+test('termo pesquisável deve ser uma string', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('term', ['foo'])
+    ->assertHasErrors(['term' => 'string']);
+});
+
 test('termo pesquisável está sujeito a validação em tempo real', function () {
     Livewire::test(PrinterReportLivewire::class)
     ->set('term', Str::random(50))
