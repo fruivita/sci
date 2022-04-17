@@ -196,26 +196,17 @@ class PrinterReportLivewire extends Component
     /**
      * Relatório paginado, de acordo com as solicitações do usuário.
      *
+     * @param int|null $per_page
+     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    private function makeReport()
-    {
-        return $this->applyPagination(
-            $this->reportQuery()
-        );
-    }
-
-    /**
-     * Query de geração do relatório.
-     *
-     * @return \Illuminate\Database\Query\Builder
-     */
-    private function reportQuery()
+    private function makeReport(int $per_page = null)
     {
         return Printer::report(
             Carbon::createFromFormat('d-m-Y', $this->initial_date),
             Carbon::createFromFormat('d-m-Y', $this->final_date),
-            $this->term
+            $per_page ?? $this->per_page,
+            $this->term,
         );
     }
 

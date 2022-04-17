@@ -27,6 +27,15 @@ trait WithDownloadableReport
     abstract private function reportViewName();
 
     /**
+     * Relatório paginado, de acordo com as solicitações do usuário.
+     *
+     * @param int|null $per_page
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    abstract private function makeReport(int $per_page = null);
+
+    /**
      * Download do relatório em formatro PDF.
      *
      * @return void
@@ -68,7 +77,7 @@ trait WithDownloadableReport
             'initial_date' => $this->initial_date,
             'final_date' => $this->final_date,
             'filter' => $this->term,
-            'result' => $this->reportQuery()->get(),
+            'result' => $this->makeReport(per_page: PHP_INT_MAX),
         ];
     }
 }

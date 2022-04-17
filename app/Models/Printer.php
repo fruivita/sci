@@ -58,15 +58,14 @@ class Printer extends Model
      * Somente são exibidas as impressoras que realizaram alguma impressão no
      * período informado.
      *
-     * @param \Carbon\Carbon $initial_date
-     * @param \Carbon\Carbon $final_date
-     * @param string         $printer
+     * @param \Carbon\Carbon                 $initial_date
+     * @param \Carbon\Carbon                 $final_date
+     * @param int                            $per_page
+     * @param string $term
      *
-     * @return \Illuminate\Database\Query\Builder
-     *
-     * @see https://laravel.com/docs/9.x/pagination#appending-query-string-values
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function report(Carbon $initial_date, Carbon $final_date, string $printer = null)
+    public static function report(Carbon $initial_date, Carbon $final_date, int $per_page, string $printer = null)
     {
         return
             DB::table('prints', 'i')
@@ -78,6 +77,7 @@ class Printer extends Model
                 })
                 ->groupBy('i.printer_id')
                 ->orderBy('total_print', 'desc')
-                ->orderBy('printer', 'asc');
+                ->orderBy('printer', 'asc')
+                ->paginate($per_page);
     }
 }

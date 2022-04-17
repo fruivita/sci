@@ -47,7 +47,8 @@ test('relatório contabiliza e informa a data da última impressão', function (
     $result = Printer::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-    )->get();
+        9999
+    );
 
     $mlt111 = $result->firstWhere('printer', 'MLT-111');
     $imp222 = $result->firstWhere('printer', 'IMP-222');
@@ -77,7 +78,8 @@ test('relatório por impressora com restrição de período', function () {
     $result = Printer::report(
         Carbon::createFromFormat('d-m-Y', '01-12-2019'),
         Carbon::createFromFormat('d-m-Y', '15-12-2020'),
-    )->get();
+        9999
+    );
 
     $mlt111 = $result->firstWhere('printer', 'MLT-111');
     $imp444 = $result->firstWhere('printer', 'IMP-444');
@@ -101,12 +103,14 @@ test('relatório por impressora com restrição de impressoras', function () {
     $mlt111 = Printer::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
+        9999,
         'mlt-111'
     )->first();
 
     $imp555 = Printer::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
+        9999,
         'imp-555'
     )->first();
 
@@ -122,8 +126,9 @@ test('relatório por impressora com restrição parcial do nome da impressora', 
     $result = Printer::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
+        9999,
         'mlt'
-    )->get();
+    );
 
     $mlt111 = $result->firstWhere('printer', 'MLT-111');
     $mlt333 = $result->firstWhere('printer', 'MLT-333');
@@ -141,8 +146,9 @@ test('relatório por impressora com pesquisando impressora existente, mas que n�
     $result = Printer::report(
         Carbon::createFromFormat('d-m-Y', '01-12-2020'),
         Carbon::createFromFormat('d-m-Y', '10-12-2020'),
+        9999,
         'imp-222'
-    )->get();
+    );
     expect($result)->toBeEmpty();
 });
 
@@ -152,7 +158,8 @@ test('relatório por impressora é ordenado pelo volume impressão desc e impres
     $result = Printer::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-    )->get();
+        9999
+    );
 
     $first = $result->get(0);
     $second = $result->get(1);
@@ -182,7 +189,8 @@ test('relatório por impressora sem impressão no período', function () {
     $result = Printer::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2010'),
         Carbon::createFromFormat('d-m-Y', '25-12-2010'),
-    )->get();
+        9999
+    );
 
     expect($result)->toBeEmpty();
 });
