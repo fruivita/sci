@@ -6,9 +6,9 @@ use App\Importer\Contracts\IImportablePrintLog;
 use Bcremer\LineReader\LineReader;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * Importador destinado à importação da impressão.
@@ -137,7 +137,6 @@ final class PrintLogImporter implements IImportablePrintLog
     {
         $this->file_system->delete($print_log_file);
     }
-
 
     /**
      * Persistência para todas as impressões presentes no arquivo de log.

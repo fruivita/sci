@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Client;
-use App\Models\User;
 use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

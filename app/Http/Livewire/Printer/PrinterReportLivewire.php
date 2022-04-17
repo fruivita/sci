@@ -77,15 +77,15 @@ class PrinterReportLivewire extends Component
         return [
             'initial_date' => [
                 'except' => '',
-                'as' => 'i'
+                'as' => 'i',
             ],
             'final_date' => [
                 'except' => '',
-                'as' => 'f'
+                'as' => 'f',
             ],
             'term' => [
                 'except' => '',
-                'as' => 's'
+                'as' => 's',
             ],
         ];
     }
@@ -100,7 +100,7 @@ class PrinterReportLivewire extends Component
         return [
             'initial_date' => __('Initial date'),
             'final_date' => __('Final date'),
-            'term' => __('Searchable term')
+            'term' => __('Searchable term'),
         ];
     }
 
@@ -123,7 +123,6 @@ class PrinterReportLivewire extends Component
     {
         return 'pdf.printer.report';
     }
-
 
     /**
      * Filtro extra utilizado no relatório.
@@ -161,7 +160,7 @@ class PrinterReportLivewire extends Component
 
     /**
      * Runs after any update to the Livewire component's data (Using
-     * wire:model, not directly inside PHP)
+     * wire:model, not directly inside PHP).
      *
      * @return void
      */

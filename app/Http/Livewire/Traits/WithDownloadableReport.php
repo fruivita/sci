@@ -55,10 +55,10 @@ trait WithDownloadableReport
         ->append(now()->format('d-m-Y'))
         ->finish('.pdf');
 
-        $headers = array(
+        $headers = [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => "attachment; filename={$file_name}",
-        );
+        ];
 
         $pdf_content = Pdf::loadView(
             $this->reportViewName(),

@@ -7,15 +7,15 @@
 use App\Importer\PrintImporter;
 use App\Jobs\ImportCorporateStructure;
 use App\Models\Client;
-use App\Models\User;
 use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
+use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-beforeEach(function(){
+beforeEach(function () {
     $this->seed(RoleSeeder::class);
 });
 
@@ -44,7 +44,7 @@ test('cria o log se o servidor de impressão for inválido na string de impress�
     PrintImporter::make()->import($print);
 
     expect(Printing::count())->toBe(0);
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     Str::random(256), // máximo 255 caracteres
     null,             // obrigatório
@@ -56,7 +56,7 @@ test('cria o log se o cliente for inválido na string de impressão', function (
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     Str::random(256), // máximo 255 caracteres
     null,             // obrigatório
@@ -69,7 +69,7 @@ test('cria o log se o usuário for inválido na string de impressão', function 
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     Str::random(21), // máximo 21 caracteres
     null,             // campo obrigatório
@@ -82,7 +82,7 @@ test('cria o log se a impressora for inválida na string de impressão', functio
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     Str::random(256), // máximo 255 caracteres
     null,             // campo obrigatório
@@ -95,7 +95,7 @@ test('cria o log se a lotação for inválida na string de impressão', function
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     'foo', // não conversível em inteiro
     10,    // inexistente
@@ -108,7 +108,7 @@ test('cria o log se a data da impressão for inválida na string de impressão',
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     '31/02/2020', // data inexistente
     '28-02-2020', // deve ser no formato dd/mm/yyyy
@@ -122,7 +122,7 @@ test('cria o log se a hora da impressão for inválida na string de impressão',
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     '23:61:59', // hora inexistente
     '2:59:59',  // deve ser no formato hh:mm:ss
@@ -136,7 +136,7 @@ test('cria o log se o nome do arquivo impresso for inválido na string de impres
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     Str::random(261), // máximo 260 caracteres
 ]);
@@ -158,7 +158,7 @@ test('cria o log se o número de páginas for inválido na string de impressão'
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     'foo', // não conversível em inteiro
     null,  // obrigatório
@@ -171,7 +171,7 @@ test('cria o log se o número de cópias for inválido na string de impressão',
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     'foo', // não conversível em inteiro
     null,  // obrigatório
@@ -184,7 +184,7 @@ test('cria o log se o tamanho do arquivo for inválido na string de impressão',
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'warning');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'warning');
 })->with([
     'foo', // não conversível em inteiro
 ]);
@@ -227,7 +227,7 @@ test('cria o log se houver exception durante a persistência da impressão', fun
     PrintImporter::make()->import($print_2);
 
     expect(Printing::count())->toBe(1);
-    Log::shouldHaveReceived('log')->once()->withArgs(fn($level) => $level === 'critical');
+    Log::shouldHaveReceived('log')->once()->withArgs(fn ($level) => $level === 'critical');
 });
 
 test('se a lotação existir, não acusará erro de validação', function () {

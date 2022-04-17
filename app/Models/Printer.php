@@ -58,10 +58,10 @@ class Printer extends Model
      * Somente são exibidas as impressoras que realizaram alguma impressão no
      * período informado.
      *
-     * @param \Carbon\Carbon                 $initial_date
-     * @param \Carbon\Carbon                 $final_date
-     * @param int                            $per_page
-     * @param string $printer
+     * @param \Carbon\Carbon $initial_date
+     * @param \Carbon\Carbon $final_date
+     * @param int            $per_page
+     * @param string         $printer
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */

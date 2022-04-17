@@ -117,9 +117,9 @@ class Printing extends Model
      * Todos os agrupamentos são exibidos mesmo que a impressão daquele período
      * seja zero.
      *
-     * @param int                           $initial_year  ano inicial no padrão aaaa
-     * @param int                           $final_year    ano final no padrão aaaa
-     * @param int                           $per_page
+     * @param int                            $initial_year  ano inicial no padrão aaaa
+     * @param int                            $final_year    ano final no padrão aaaa
+     * @param int                            $per_page
      * @param \App\Enums\MonthlyGroupingType $grouping_type
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator
@@ -194,7 +194,7 @@ class Printing extends Model
     /**
      * Prepara a string de agrupamento para ser exibida em tela.
      *
-     * @param mixed                         $row           linha do result set
+     * @param mixed                          $row           linha do result set
      * @param \App\Enums\MonthlyGroupingType $grouping_type
      *
      * @return mixed
@@ -228,8 +228,8 @@ class Printing extends Model
      * O cálculo leva em consideração o ano e o mês atual para o descarte de datas futuras.
      * O total de registros é calculado para viabilizar a paginação dos resultados.
      *
-     * @param int                           $initial_year
-     * @param int                           $final_year
+     * @param int                            $initial_year
+     * @param int                            $final_year
      * @param \App\Enums\MonthlyGroupingType $grouping_type
      *
      * @return int total de registros

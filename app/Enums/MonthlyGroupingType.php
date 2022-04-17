@@ -2,8 +2,6 @@
 
 namespace App\Enums;
 
-use Illuminate\Support\Collection;
-
 /*
  * Tipos de agrupamentos mensais (quantidade de meses) para o relatório geral
  * de impressão.

@@ -6,13 +6,12 @@
 
 use App\Models\Client;
 use App\Models\Department;
-use App\Models\User;
 use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
-use function Pest\Faker\faker;
 
 // Exceptions
 test('lança exceção ao tentar cadastrar impressões em duplicidade, isto é, com com data, hora, cliente, impressora, usuário e servidor iguais', function () {
@@ -57,11 +56,11 @@ test('lança exceção ao tentar definir relacionamento inválido', function ($f
         fn () => Printing::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['client_id',     10, 'Cannot add or update a child row'], //inexistente
-    ['department_id', 10, 'Cannot add or update a child row'], //inexistente
-    ['printer_id',    10, 'Cannot add or update a child row'], //inexistente
-    ['server_id',     10, 'Cannot add or update a child row'], //inexistente
-    ['user_id',       10, 'Cannot add or update a child row'], //inexistente
+    ['client_id',     10, 'Cannot add or update a child row'], // inexistente
+    ['department_id', 10, 'Cannot add or update a child row'], // inexistente
+    ['printer_id',    10, 'Cannot add or update a child row'], // inexistente
+    ['server_id',     10, 'Cannot add or update a child row'], // inexistente
+    ['user_id',       10, 'Cannot add or update a child row'], // inexistente
 ]);
 
 // Happy path

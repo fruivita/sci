@@ -6,15 +6,14 @@
 
 use App\Importer\PrintLogImporter;
 use App\Models\Client;
-use App\Models\User;
 use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
+use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
@@ -61,7 +60,7 @@ test('cria o log para registrar o início, a conclusão e a importação de cada
     PrintLogImporter::make()->import();
 
     expect(Printing::count())->toBe(5);
-    Log::shouldHaveReceived('log')->times(1 + 3 + 1)->withArgs(fn($level) => in_array($level, ['notice', 'info']));
+    Log::shouldHaveReceived('log')->times(1 + 3 + 1)->withArgs(fn ($level) => in_array($level, ['notice', 'info']));
 });
 
 test('exclui os arquivos de log após serem importados', function () {

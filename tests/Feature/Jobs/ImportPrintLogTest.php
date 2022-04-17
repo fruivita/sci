@@ -6,7 +6,6 @@
 
 use App\Jobs\ImportPrintLog;
 use App\Models\Client;
-use App\Models\Person;
 use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;

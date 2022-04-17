@@ -9,13 +9,12 @@ use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
 use App\Models\User;
+use function App\stringToArrayAssoc;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-
-use function App\stringToArrayAssoc;
 
 /**
  * Importador destinado à importação da impressão.
@@ -87,7 +86,6 @@ final class PrintImporter implements IImportablePrint
     {
         return new static();
     }
-
 
     /**
      * {@inheritdoc}
@@ -236,5 +234,4 @@ final class PrintImporter implements IImportablePrint
             ] + $context
         );
     }
-
 }

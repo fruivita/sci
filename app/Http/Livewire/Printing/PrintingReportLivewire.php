@@ -78,15 +78,15 @@ class PrintingReportLivewire extends Component
         return [
             'initial_date' => [
                 'except' => '',
-                'as' => 'i'
+                'as' => 'i',
             ],
             'final_date' => [
                 'except' => '',
-                'as' => 'f'
+                'as' => 'f',
             ],
             'grouping' => [
                 'except' => '',
-                'as' => 'g'
+                'as' => 'g',
             ],
         ];
     }
@@ -101,7 +101,7 @@ class PrintingReportLivewire extends Component
         return [
             'initial_date' => __('Initial year'),
             'final_date' => __('Final year'),
-            'grouping' => __('Group by')
+            'grouping' => __('Group by'),
         ];
     }
 
@@ -161,7 +161,7 @@ class PrintingReportLivewire extends Component
 
     /**
      * Runs after any update to the Livewire component's data (Using
-     * wire:model, not directly inside PHP)
+     * wire:model, not directly inside PHP).
      *
      * @return void
      */

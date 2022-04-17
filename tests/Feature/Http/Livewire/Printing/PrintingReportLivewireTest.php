@@ -6,12 +6,8 @@
 
 use App\Enums\MonthlyGroupingType;
 use App\Http\Livewire\Printing\PrintingReportLivewire;
-use App\Models\Printer;
-use App\Models\Printing;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
-
 use function Pest\Laravel\get;
 
 beforeEach(function () {
@@ -116,7 +112,7 @@ test('paginação retorna a quantidade de resultados esperada', function () {
     Livewire::test(PrintingReportLivewire::class, [
         'initial_date' => 2010,
         'final_date' => 2019,
-        'grouping' => MonthlyGroupingType::Monthly->value
+        'grouping' => MonthlyGroupingType::Monthly->value,
     ])
     ->assertCount('result', 10)
     ->set('per_page', 10)
