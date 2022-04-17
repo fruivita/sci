@@ -54,7 +54,7 @@ trait WithPerPagePagination
     /**
      * Define a quantidade padrão de links em cada lado na paginação.
      *
-     * @var int $value
+     * @param int $value
      *
      * @return void
      */

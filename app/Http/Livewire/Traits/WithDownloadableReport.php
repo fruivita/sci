@@ -45,7 +45,7 @@ trait WithDownloadableReport
     /**
      * Action do usuário para solicitar o Download do relatório em formato PDF.
      *
-     * @return void
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function downloadPDFReport()
     {

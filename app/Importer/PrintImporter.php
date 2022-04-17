@@ -166,8 +166,8 @@ final class PrintImporter implements IImportablePrint
             $printing->time = Carbon::createFromFormat('H:i:s', $validated['time']);
             $printing->filename = Arr::get($validated, 'filename') ?: null;
             $printing->file_size = Arr::get($validated, 'file_size') ?: null;
-            $printing->pages = $validated['pages'];
-            $printing->copies = $validated['copies'];
+            $printing->pages = (int) $validated['pages'];
+            $printing->copies = (int) $validated['copies'];
 
             $printing->client()->associate($client);
             $printing->printer()->associate($printer);

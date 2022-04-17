@@ -61,7 +61,7 @@ class Printer extends Model
      * @param \Carbon\Carbon                 $initial_date
      * @param \Carbon\Carbon                 $final_date
      * @param int                            $per_page
-     * @param string $term
+     * @param string $printer
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
