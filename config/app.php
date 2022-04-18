@@ -221,12 +221,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | Data mínima para geração dos relatórios.
-    | Se alterar o valor, não esquecer de atualizar o valor de atualizar o
-    | arquivo jquery em resources/js/app.js
     |
     */
 
-    'min_date' => '01-01-1990',
+    'min_date' => now()->subCentury(),
 
     /*
     |--------------------------------------------------------------------------
@@ -234,10 +232,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Data máxima para geração dos relatórios.
-    | Se alterar o valor, não esquecer de atualizar o valor de atualizar o
-    | arquivo jquery em resources/js/app.js
     |
     */
 
-    'max_date' => now()->format('d-m-Y'),
+    'max_date' => now(),
 ];
