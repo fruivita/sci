@@ -23,6 +23,9 @@
                     wire:model.lazy="initial_date"
                     :error="$errors->first('initial_date')"
                     icon="calendar-range"
+                    min="{{ \App\reportMinYear() }}"
+                    max="{{ \App\reportMaxYear() }}"
+                    placeholder="aaaa"
                     required
                     text="{{ __('Initial year') }}"
                     title="{{ __('Inform the year in the yyyy pattern') }}"
@@ -34,6 +37,9 @@
                     wire:model.lazy="final_date"
                     :error="$errors->first('final_date')"
                     icon="calendar-range"
+                    min="{{ \App\reportMinYear() }}"
+                    max="{{ \App\reportMaxYear() }}"
+                    placeholder="aaaa"
                     required
                     text="{{ __('Final year') }}"
                     title="{{ __('Inform the year in the yyyy pattern') }}"
