@@ -54,3 +54,51 @@ if (! function_exists('App\stringToArrayAssoc')) {
         }
     }
 }
+
+if (! function_exists('App\reportMinYear')) {
+    /**
+     * Ano mínimo para geração dos relatórios.
+     *
+     * @return int
+     */
+    function reportMinYear()
+    {
+        return (int) reportMinDate()->format('Y');
+    }
+}
+
+if (! function_exists('App\reportMaxYear')) {
+    /**
+     * Ano máximo para geração dos relatórios.
+     *
+     * @return int
+     */
+    function reportMaxYear()
+    {
+        return (int) reportMaxDate()->format('Y');
+    }
+}
+
+if (! function_exists('App\reportMinDate')) {
+    /**
+     * Data mínima para geração dos relatórios.
+     *
+     * @return \Illuminate\Support\Carbon
+     */
+    function reportMinDate()
+    {
+        return now()->subCentury();
+    }
+}
+
+if (! function_exists('App\reportMaxDate')) {
+    /**
+     * Data mínima para geração dos relatórios.
+     *
+     * @return \Illuminate\Support\Carbon
+     */
+    function reportMaxDate()
+    {
+        return today();
+    }
+}

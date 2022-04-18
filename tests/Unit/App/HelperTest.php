@@ -5,6 +5,10 @@
  */
 
 use function App\maxSafeInteger;
+use function App\reportMaxDate;
+use function App\reportMaxYear;
+use function App\reportMinDate;
+use function App\reportMinYear;
 use function App\stringToArrayAssoc;
 
 // Invalid
@@ -49,4 +53,20 @@ test('stringToArrayAssoc explode a string com base no delimitador e retorna um a
     ];
 
     expect(stringToArrayAssoc($keys, $delimiter, $string))->toMatchArray($expected);
+});
+
+test('reportMinYear retorna o ano mínimo dos relatórios', function () {
+    expect(reportMinYear())->toBe((int) now()->subCentury()->format('Y'));
+});
+
+test('reportMaxYear retorna o ano máximo dos relatórios', function () {
+    expect(reportMaxYear())->toBe((int) today()->format('Y'));
+});
+
+test('reportMinDate retorna a data mínima dos relatórios', function () {
+    expect(reportMinDate()->format('d-m-Y'))->toBe(now()->subCentury()->format('d-m-Y'));
+});
+
+test('reportMaxDate retorna a data máxima dos relatórios', function () {
+    expect(reportMaxDate()->format('d-m-Y'))->toBe(today()->format('d-m-Y'));
 });
