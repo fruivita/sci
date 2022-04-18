@@ -50,14 +50,14 @@ class DatePicker extends Component
     /**
      * Create a new component instance.
      *
-     * @return void
+     * @return array<string, mixed>
      */
     public function getFlatpickrConfiguration()
     {
         return [
             'allowInput' => true,
             'dateFormat' => 'd-m-Y',
-            'disableMobile' => 'true',
+            'disableMobile' => true,
             'locale' => 'pt',
             'minDate' => $this->min_date,
             'maxDate' => $this->max_date,
