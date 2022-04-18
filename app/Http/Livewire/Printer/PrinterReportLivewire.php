@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Printer;
 use App\Http\Livewire\Traits\WithDownloadableReport;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Printer;
+use App\Rules\DateMax;
+use App\Rules\DateMin;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -50,12 +52,16 @@ class PrinterReportLivewire extends Component
                 'bail',
                 'required',
                 'date_format:d-m-Y',
+                new DateMin(),
+                new DateMax(),
             ],
 
             'final_date' => [
                 'bail',
                 'required',
                 'date_format:d-m-Y',
+                new DateMin(),
+                new DateMax(),
             ],
 
             'term' => [

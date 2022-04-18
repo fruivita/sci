@@ -7,6 +7,8 @@
 use App\Http\Livewire\Printer\PrinterReportLivewire;
 use App\Models\Printer;
 use App\Models\Printing;
+use App\Rules\DateMax;
+use App\Rules\DateMin;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
@@ -61,6 +63,18 @@ test('data inicial deve ser no formato dd-mm-yyyy', function () {
     ->assertHasErrors(['initial_date' => 'date_format']);
 });
 
+test('data inicial mínima é de 100 anos atrás', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('initial_date', now()->subCentury()->subDay()->format('d-m-Y'))
+    ->assertHasErrors(['initial_date' => DateMin::class]);
+});
+
+test('data inicial máxima é hoje', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('initial_date', today()->addDay()->format('d-m-Y'))
+    ->assertHasErrors(['initial_date' => DateMax::class]);
+});
+
 test('data inicial está sujeita a validação em tempo real', function () {
     Livewire::test(PrinterReportLivewire::class)
     ->set('initial_date', '15-02-2020')
@@ -75,18 +89,30 @@ test('data final é obrigatório', function () {
     ->assertHasErrors(['final_date' => 'required']);
 });
 
+test('data final deve ser no formato dd-mm-yyyy', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('final_date', '15.02.2020')
+    ->assertHasErrors(['final_date' => 'date_format']);
+});
+
+test('data final mínima é de 100 anos atrás', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('final_date', now()->subCentury()->subDay()->format('d-m-Y'))
+    ->assertHasErrors(['final_date' => DateMin::class]);
+});
+
+test('data final máxima é hoje', function () {
+    Livewire::test(PrinterReportLivewire::class)
+    ->set('final_date', today()->addDay()->format('d-m-Y'))
+    ->assertHasErrors(['final_date' => DateMax::class]);
+});
+
 test('data final está sujeita a validação em tempo real', function () {
     Livewire::test(PrinterReportLivewire::class)
     ->set('final_date', '15-02-2020')
     ->assertHasNoErrors()
     ->set('final_date', '')
     ->assertHasErrors(['final_date' => 'required']);
-});
-
-test('data final deve ser no formato dd-mm-yyyy', function () {
-    Livewire::test(PrinterReportLivewire::class)
-    ->set('final_date', '15.02.2020')
-    ->assertHasErrors(['final_date' => 'date_format']);
 });
 
 test('termo pesquisável deve ter no máximo 50 caracteres', function () {
