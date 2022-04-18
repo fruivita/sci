@@ -59,6 +59,18 @@ test('data inicial deve ser um inteiro', function () {
     ->assertHasErrors(['initial_date' => 'integer']);
 });
 
+test('data inicial mínima é o ano de 100 anos atrás', function () {
+    Livewire::test(PrintingReportLivewire::class)
+    ->set('initial_date', now()->subCentury()->subYear()->format('Y'))
+    ->assertHasErrors(['initial_date' => 'gte']);
+});
+
+test('data inicial máxima é o ano atual', function () {
+    Livewire::test(PrintingReportLivewire::class)
+    ->set('initial_date', today()->addYear()->format('Y'))
+    ->assertHasErrors(['initial_date' => 'lte']);
+});
+
 test('data inicial está sujeita a validação em tempo real', function () {
     Livewire::test(PrintingReportLivewire::class)
     ->set('initial_date', 2020)
@@ -73,18 +85,30 @@ test('data final é obrigatório', function () {
     ->assertHasErrors(['final_date' => 'required']);
 });
 
+test('data final deve ser um inteiro', function () {
+    Livewire::test(PrintingReportLivewire::class)
+    ->set('final_date', 'foo')
+    ->assertHasErrors(['final_date' => 'integer']);
+});
+
+test('data final mínima é o ano de 100 anos atrás', function () {
+    Livewire::test(PrintingReportLivewire::class)
+    ->set('final_date', now()->subCentury()->subYear()->format('Y'))
+    ->assertHasErrors(['final_date' => 'gte']);
+});
+
+test('data final máxima é o ano atual', function () {
+    Livewire::test(PrintingReportLivewire::class)
+    ->set('final_date', today()->addYear()->format('Y'))
+    ->assertHasErrors(['final_date' => 'lte']);
+});
+
 test('data final está sujeita a validação em tempo real', function () {
     Livewire::test(PrintingReportLivewire::class)
     ->set('final_date', 2020)
     ->assertHasNoErrors()
     ->set('final_date', '')
     ->assertHasErrors(['final_date' => 'required']);
-});
-
-test('data final deve ser um inteiro', function () {
-    Livewire::test(PrintingReportLivewire::class)
-    ->set('final_date', 'foo')
-    ->assertHasErrors(['final_date' => 'integer']);
 });
 
 test('agrupamento deve ser uma das opções do enum MonthlyGroupingType', function () {
