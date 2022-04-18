@@ -38,7 +38,7 @@ test('se não informar os parâmetros, utilizada-se os valores default', functio
     expect($config)->toBe([
         'allowInput' => true,
         'dateFormat' => 'd-m-Y',
-        'disableMobile' => 'true',
+        'disableMobile' => true,
         'locale' => 'pt',
         'minDate' => now()->subCentury()->format('d-m-Y'),
         'maxDate' => now()->format('d-m-Y'),
