@@ -26,7 +26,10 @@
 
 {{-- container do input --}}
 <div
-    x-data="datepicker(@entangle($attributes->wire('model')))"
+    x-data="datepicker(
+        @entangle($attributes->wire('model')),
+        @js($getFlatpickrConfiguration())
+    )"
     x-id="['date-picker-input']"
     class="text-left w-full"
     title="{{ $title }}"
@@ -98,16 +101,10 @@
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('datepicker', () => ({
+            Alpine.data('datepicker', (model, config) => ({
+                value: model,
                 init() {
-                    flatpickr(this.$refs.picker, {
-                        allowInput: true,
-                        dateFormat: 'd-m-Y',
-                        disableMobile: 'true',
-                        locale: 'pt',
-                        minDate: '01-01-1990',
-                        maxDate: 'today'
-                    });
+                    flatpickr(this.$refs.picker, config);
                 }
             }));
         })
