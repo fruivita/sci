@@ -5,6 +5,9 @@ namespace App\View\Components\Form;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\Component;
 
+use function App\reportMaxDate;
+use function App\reportMinDate;
+
 /**
  * @see https://laravel.com/docs/9.x/blade#components
  * @see https://flatpickr.js.org/
@@ -39,11 +42,11 @@ class DatePicker extends Component
         $validator = $this->validator($min_date, $max_date);
 
         $this->min_date = $validator->errors()->has('min_date')
-        ? config('app.min_date')->format('d-m-Y')
+        ? reportMinDate()->format('d-m-Y')
         : $min_date;
 
         $this->max_date = $validator->errors()->has('max_date')
-        ? config('app.max_date')->format('d-m-Y')
+        ? reportMaxDate()->format('d-m-Y')
         : $max_date;
     }
 

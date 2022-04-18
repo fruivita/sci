@@ -5,6 +5,8 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Carbon;
 
+use function App\reportMinDate;
+
 /**
  * Verifica se a data em validação é maior que a data mínima para geração dos
  * relatórios.
@@ -23,7 +25,7 @@ class DateMin implements Rule
      */
     public function passes($attribute, $value)
     {
-        $min_date = config('app.min_date')->startOfDay();
+        $min_date = reportMinDate()->startOfDay();
         $date = Carbon::createFromFormat('d-m-Y', $value);
 
         return $date->gte($min_date);
@@ -36,6 +38,6 @@ class DateMin implements Rule
      */
     public function message()
     {
-        return __('validation.min.date', ['min' => config('app.min_date')->format('d-m-Y')]);
+        return __('validation.min.date', ['min' => reportMinDate()->format('d-m-Y')]);
     }
 }

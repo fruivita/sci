@@ -10,6 +10,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
+use function App\reportMaxYear;
+use function App\reportMinYear;
+
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
@@ -51,12 +54,16 @@ class PrintingReportLivewire extends Component
                 'bail',
                 'required',
                 'integer',
+                'gte:' . reportMinYear(),
+                'lte:' . reportMaxYear(),
             ],
 
             'final_date' => [
                 'bail',
                 'required',
                 'integer',
+                'gte:' . reportMinYear(),
+                'lte:' . reportMaxYear(),
             ],
 
             'grouping' => [

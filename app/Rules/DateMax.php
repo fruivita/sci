@@ -5,6 +5,8 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Carbon;
 
+use function App\reportMaxDate;
+
 /**
  * Verifica se a data em validação é menor que a data máxima para geração dos
  * relatórios.
@@ -23,7 +25,7 @@ class DateMax implements Rule
      */
     public function passes($attribute, $value)
     {
-        $max_date = config('app.max_date')->endOfDay();
+        $max_date = reportMaxDate()->endOfDay();
         $date = Carbon::createFromFormat('d-m-Y', $value);
 
         return $date->lte($max_date);
@@ -36,6 +38,6 @@ class DateMax implements Rule
      */
     public function message()
     {
-        return __('validation.max.date', ['max' => config('app.max_date')->format('d-m-Y')]);
+        return __('validation.max.date', ['max' => reportMaxDate()->format('d-m-Y')]);
     }
 }
