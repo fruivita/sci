@@ -31,9 +31,9 @@ beforeEach(function () {
         '18-12-2020.txt' => 'server1.domain.gov.br╡18/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-222╡1000╡3╡1' . PHP_EOL,
         '20-12-2020.txt' => 'server1.domain.gov.br╡20/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡3╡1' . PHP_EOL,
         '20-01-2021.txt' => 'server1.domain.gov.br╡20/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
-        '21-01-2021.txt' => 'server1.domain.gov.br╡21/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡9╡1' . PHP_EOL,
         '20-02-2021.txt' => 'server1.domain.gov.br╡20/02/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡2╡1' . PHP_EOL .
                             'server1.domain.gov.br╡20/02/2021╡03:00:00╡report.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-333╡1000╡2╡2' . PHP_EOL,
+        '21-01-2021.txt' => 'server1.domain.gov.br╡21/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡9╡1' . PHP_EOL,
     ];
 
     $this->fake_disk = Storage::fake('log-impressao');
