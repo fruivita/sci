@@ -159,6 +159,10 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     PermissionType::ImportationCreate,
     PermissionType::DelegationViewAny,
     PermissionType::DelegationCreate,
+    PermissionType::PrinterReport,
+    PermissionType::PrinterPDFReport,
+    PermissionType::PrintingReport,
+    PermissionType::PrintingPDFReport,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
