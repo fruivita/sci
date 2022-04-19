@@ -159,7 +159,7 @@ class PrintingReportLivewire extends Component
     /**
      * Filtro extra utilizado no relatório.
      *
-     * @return string
+     * @return string|null
      */
     private function filter()
     {

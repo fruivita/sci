@@ -38,7 +38,7 @@ trait WithDownloadableReport
     /**
      * Filtro extra utilizado no relatório.
      *
-     * @return string
+     * @return string|null
      */
     abstract private function filter();
 
