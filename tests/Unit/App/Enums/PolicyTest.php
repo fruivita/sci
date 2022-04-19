@@ -18,6 +18,7 @@ test('Policy enum corretamente definidos', function () {
     ->and(Policy::SimulationCreate->value)->toBe('simulation-create')
     ->and(Policy::SimulationDelete->value)->toBe('simulation-delete')
     ->and(Policy::ImportationCreate->value)->toBe('importation-create')
+    ->and(Policy::DelegationViewAny->value)->toBe('delegation-view-any')
     ->and(Policy::DelegationCreate->value)->toBe('delegation-create')
     ->and(Policy::DelegationDelete->value)->toBe('delegation-delete');
 });

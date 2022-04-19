@@ -35,6 +35,18 @@ class UserPolicy extends Policy
     }
 
     /**
+     * Determine whether the user can view any delegations.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
+     */
+    public function delegationViewAny(User $user)
+    {
+        return $this->hasPermissionWithCache($user, PermissionType::DelegationViewAny);
+    }
+
+    /**
      * Determine whether the user can delegate his role.
      *
      * @param \App\Models\User $user
@@ -49,7 +61,8 @@ class UserPolicy extends Policy
             // usuário autenticado possui mais permissões que o destinatário
             && $user->role_id < $delegated->role_id
             // possuem a mesma lotação
-            && $user->department_id == $delegated->department_id;
+            && $user->department_id == $delegated->department_id
+            && $this->hasPermissionWithCache($user, PermissionType::DelegationCreate);
     }
 
     /**

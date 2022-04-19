@@ -31,6 +31,10 @@ test('usuário sem permissão não pode atualizar um usuário', function () {
     expect((new UserPolicy)->update($this->user))->toBeFalse();
 });
 
+test('usuário sem permissã não pode listar delegações de sua lotação', function () {
+    expect((new UserPolicy)->delegationViewAny($this->user))->toBeFalse();
+});
+
 test('usuário não pode delegar perfil, se o perfil do destinatário for superior na aplicação', function () {
     $department_a = Department::factory()->create();
     $department_b = Department::factory()->create();
@@ -44,6 +48,8 @@ test('usuário não pode delegar perfil, se o perfil do destinatário for superi
     $this->user->role_id = Role::ORDINARY;
     $this->user->save();
 
+    grantPermission(PermissionType::DelegationCreate->value);
+
     expect((new UserPolicy)->delegationCreate($this->user, $user_bar))->toBeFalse();
 });
 
@@ -55,9 +61,26 @@ test('usuário não pode delegar perfil para usuário de outra lotação', funct
     $this->user->role_id = Role::INSTITUTIONALMANAGER;
     $this->user->save();
 
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $department_b->id,
         'role_id' => Role::ORDINARY,
+    ]);
+
+    expect((new UserPolicy)->delegationCreate($this->user, $user_bar))->toBeFalse();
+});
+
+test('usuário não pode delegar perfil sem permissão específica', function () {
+    $department = Department::factory()->create();
+
+    $this->user->department_id = $department->id;
+    $this->user->role_id = Role::ADMINISTRATOR;
+    $this->user->save();
+
+    $user_bar = User::factory()->create([
+        'department_id' => $department->id,
+        'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
     expect((new UserPolicy)->delegationCreate($this->user, $user_bar))->toBeFalse();
@@ -184,12 +207,46 @@ test('usuário com permissão pode atualizar individualmente um usuário', funct
     expect((new UserPolicy)->update($this->user))->toBeTrue();
 });
 
-test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do destinatário for inferior na aplicação', function () {
+test('permissão de listar as delegações é persistida em cache por 5 segundos', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
+    $key = $this->user->username . PermissionType::DelegationViewAny->value;
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new UserPolicy)->delegationViewAny($this->user))->toBeTrue()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue();
+
+    revokePermission(PermissionType::DelegationViewAny->value);
+
+    // permissão ainda está em cache
+    expect(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue()
+    ->and((new UserPolicy)->delegationViewAny($this->user))->toBeTrue();
+
+    // expira o cache
+    $this->travel(6)->seconds();
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new UserPolicy)->delegationViewAny($this->user))->toBeFalse()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeFalse();
+});
+
+test('usuário pode listar delegações de sua lotação se possuir permissão', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
+    expect((new UserPolicy)->delegationViewAny($this->user))->toBeTrue();
+});
+
+test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do destinatário for inferior na aplicação e tiver permissão', function () {
     $department = Department::factory()->create();
 
     $this->user->department_id = $department->id;
     $this->user->role_id = Role::INSTITUTIONALMANAGER;
     $this->user->save();
+
+    grantPermission(PermissionType::DelegationCreate->value);
 
     $user_bar = User::factory()->create([
         'department_id' => $department->id,

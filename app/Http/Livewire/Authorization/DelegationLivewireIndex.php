@@ -25,6 +25,17 @@ class DelegationLivewireIndex extends Component
     public $term;
 
     /**
+     * Runs on every request, immediately after the component is instantiated,
+     * but before any other lifecycle methods are called.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->authorize(Policy::DelegationViewAny->value, User::class);
+    }
+
+    /**
      * Computed property para listar os usuários passíveis de delegação.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator

@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('autorizacao')->name('authorization.')->group(function () {
         Route::prefix('delegacao')->name('delegations.')->group(function () {
-            Route::get('/', DelegationLivewireIndex::class)->name('index');
+            Route::get('/', DelegationLivewireIndex::class)->name('index')->can(Policy::DelegationViewAny->value, User::class);
         });
 
         Route::prefix('perfil')->name('roles.')->group(function () {

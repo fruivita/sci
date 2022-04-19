@@ -89,6 +89,20 @@ class PermissionSeeder extends Seeder
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'id' => PermissionType::DelegationViewAny->value,
+                'name' => __('Delegation: View all'),
+                'description' => __('Permission to list all department delegations.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::DelegationCreate->value,
+                'name' => __('Delegation: Create'),
+                'description' => __('Permission to delegate the role (and its permissions) to another user in the same department.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }

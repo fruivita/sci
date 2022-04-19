@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\DelegationLivewireIndex;
 use App\Models\Department;
 use App\Models\Role;
@@ -36,7 +37,19 @@ test('não é possível acessar a página de delegação sem estar autenticado',
     ->assertRedirect(route('login'));
 });
 
+test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem das delegações da lotação', function () {
+    get(route('authorization.permissions.index'))
+    ->assertForbidden();
+});
+
+test('não é possível renderizar o componente de listagem das delegações da lotação sem permissão específica', function () {
+    Livewire::test(DelegationLivewireIndex::class)->assertForbidden();
+});
+
 test('usuário não pode delegar perfil, se o perfil do destinatário for superior na aplicação', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::ADMINISTRATOR,
@@ -51,6 +64,9 @@ test('usuário não pode delegar perfil, se o perfil do destinatário for superi
 });
 
 test('usuário não pode delegar perfil para usuário de outra lotação', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $department_a = Department::factory()->create();
     $user_bar = User::factory()->create([
         'department_id' => $department_a->id,
@@ -66,6 +82,9 @@ test('usuário não pode delegar perfil para usuário de outra lotação', funct
 });
 
 test('usuário não pode remover delegação inexistente', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::DEPARTMENTMANAGER,
@@ -80,6 +99,9 @@ test('usuário não pode remover delegação inexistente', function () {
 });
 
 test('usuário não pode remover delegação de perfil superior', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::ADMINISTRATOR,
@@ -99,6 +121,9 @@ test('usuário não pode remover delegação de perfil superior', function () {
 });
 
 test('usuário não pode remover delegação de usuário de outra lotação', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $department_a = Department::factory()->create();
     $user_bar = User::factory()->create([
         'department_id' => $department_a->id,
@@ -120,24 +145,32 @@ test('usuário não pode remover delegação de usuário de outra lotação', fu
 
 // Rules
 test('não aceita paginação fora das opções oferecidas', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
     Livewire::test(DelegationLivewireIndex::class)
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 test('termo pesquisável deve ser uma string', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
     Livewire::test(DelegationLivewireIndex::class)
     ->set('term', ['foo'])
     ->assertHasErrors(['term' => 'string']);
 });
 
 test('termo pesquisável deve ter no máximo 50 caracteres', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
     Livewire::test(DelegationLivewireIndex::class)
     ->set('term', Str::random(51))
     ->assertHasErrors(['term' => 'max']);
 });
 
 test('termo pesquisável está sujeito à validação em tempo real', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
     Livewire::test(DelegationLivewireIndex::class)
     ->set('term', Str::random(50))
     ->assertHasNoErrors()
@@ -146,9 +179,8 @@ test('termo pesquisável está sujeito à validação em tempo real', function (
 });
 
 // Happy path
-test('autenticado é possível renderizar o componente de delegação, mesmo com o perfil ordinário', function () {
-    $this->user->role_id = Role::ORDINARY;
-    $this->user->save();
+test('com permissão especíca, é possível renderizar o componente de listagem das delegações da lotação', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
 
     get(route('authorization.delegations.index'))
     ->assertOk()
@@ -156,6 +188,8 @@ test('autenticado é possível renderizar o componente de delegação, mesmo com
 });
 
 test('paginação retorna a quantidade de usuários esperada', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
     User::factory(120)
     ->for($this->department, 'department')
     ->create();
@@ -173,6 +207,8 @@ test('paginação retorna a quantidade de usuários esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
     Livewire::test(DelegationLivewireIndex::class)
     ->assertSessionMissing('per_page')
     ->set('per_page', 10)
@@ -186,6 +222,8 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('exibe apenas os usuários disponíveis para delegação, isto é, apenas os de mesma lotação', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+
     User::factory(30)->create();
     User::factory(5)
     ->for($this->department, 'department')
@@ -196,6 +234,9 @@ test('exibe apenas os usuários disponíveis para delegação, isto é, apenas o
 });
 
 test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do destinatário for inferior na aplicação', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::ORDINARY,
@@ -210,6 +251,9 @@ test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do des
 });
 
 test('usuário pode remover delegação de usuário da mesma lotação, com perfil igual ou inferior, mesmo delegado por outrem', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::INSTITUTIONALMANAGER,
@@ -240,6 +284,9 @@ test('usuário pode remover delegação de usuário da mesma lotação, com perf
 });
 
 test('delegação atribui perfil do usuário autenticado e revogação atribui o perfil ordinário', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::ORDINARY,
@@ -261,6 +308,9 @@ test('delegação atribui perfil do usuário autenticado e revogação atribui o
 });
 
 test('ao remover delegação de um usuário, remove também as delegações feitas por ele', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     $user_bar = User::factory()->create([
         'department_id' => $this->department->id,
         'role_id' => Role::INSTITUTIONALMANAGER,
@@ -326,6 +376,9 @@ test('é possível remover a própria delegação', function () {
     $this->user->role_granted_by = $user_bar->id;
     $this->user->save();
 
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     expect($this->user->role_id)->toBe(Role::ADMINISTRATOR)
     ->and($this->user->role_granted_by)->toBe($user_bar->id);
 
@@ -338,6 +391,9 @@ test('é possível remover a própria delegação', function () {
 });
 
 test('pesquisa retorna os resultados esperados', function () {
+    grantPermission(PermissionType::DelegationViewAny->value);
+    grantPermission(PermissionType::DelegationCreate->value);
+
     User::factory()->create([
         'name' => 'fulano bar',
         'username' => 'bar baz',
