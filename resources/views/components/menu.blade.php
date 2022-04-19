@@ -83,7 +83,7 @@
 
 
     @if (
-        auth()->user()->can(\App\Enums\Policy::DelegationViewAny->value, \App\Models\User::class)
+        auth()->user()->can(\App\Enums\Policy::DelegationViewAny->value)
         || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
         || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
         || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
@@ -91,7 +91,7 @@
 
         <x-menu.group name="{{ __('Authorizations') }}">
 
-            @can(\App\Enums\Policy::DelegationViewAny->value, \App\Models\User::class)
+            @can(\App\Enums\Policy::DelegationViewAny->value)
 
                 <x-menu.link
                     class="{{ request()->routeIs('authorization.delegations.*') ? 'active': '' }}"

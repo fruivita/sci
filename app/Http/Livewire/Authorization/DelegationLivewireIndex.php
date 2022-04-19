@@ -32,7 +32,7 @@ class DelegationLivewireIndex extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::DelegationViewAny->value, User::class);
+        $this->authorize(Policy::DelegationViewAny->value);
     }
 
     /**

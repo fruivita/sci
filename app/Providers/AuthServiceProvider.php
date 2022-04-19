@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Enums\Policy;
+use App\Policies\DelegationPolicy;
 use App\Policies\ImportationPolicy;
 use App\Policies\SimulationPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -32,6 +33,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define(Policy::DelegationViewAny->value, [DelegationPolicy::class, 'viewAny']);
+        Gate::define(Policy::DelegationCreate->value, [DelegationPolicy::class, 'create']);
+        Gate::define(Policy::DelegationDelete->value, [DelegationPolicy::class, 'delete']);
         Gate::define(Policy::ImportationCreate->value, [ImportationPolicy::class, 'create']);
         Gate::define(Policy::SimulationCreate->value, [SimulationPolicy::class, 'create']);
         Gate::define(Policy::SimulationDelete->value, [SimulationPolicy::class, 'delete']);
