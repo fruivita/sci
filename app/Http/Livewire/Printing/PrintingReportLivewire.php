@@ -3,9 +3,11 @@
 namespace App\Http\Livewire\Printing;
 
 use App\Enums\MonthlyGroupingType;
+use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithDownloadableReport;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Printing;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -18,6 +20,7 @@ use function App\reportMinYear;
  */
 class PrintingReportLivewire extends Component
 {
+    use AuthorizesRequests;
     use WithDownloadableReport;
     use WithPerPagePagination;
 
@@ -110,6 +113,27 @@ class PrintingReportLivewire extends Component
             'final_date' => __('Final year'),
             'grouping' => __('Group by'),
         ];
+    }
+
+    /**
+     * Runs on every request, immediately after the component is instantiated,
+     * but before any other lifecycle methods are called.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->authorize(Policy::Report->value, Printing::class);
+    }
+
+    /**
+     * Autorização para gerar o relatório em formato PDF.
+     *
+     * @return \Illuminate\Auth\Access\Response
+     */
+    private function authorizePDF()
+    {
+        $this->authorize(Policy::PDFReport->value, Printing::class);
     }
 
     /**

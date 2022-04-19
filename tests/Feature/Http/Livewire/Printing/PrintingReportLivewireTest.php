@@ -5,6 +5,7 @@
  */
 
 use App\Enums\MonthlyGroupingType;
+use App\Enums\PermissionType;
 use App\Http\Livewire\Printing\PrintingReportLivewire;
 use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;
@@ -20,7 +21,7 @@ afterEach(function () {
     logout();
 });
 
-// Authorization
+// Forbidden
 test('não é possível exibir o relatório geral de impressão sem estar autenticado', function () {
     logout();
 
@@ -28,8 +29,29 @@ test('não é possível exibir o relatório geral de impressão sem estar autent
     ->assertRedirect(route('login'));
 });
 
+test('não é possível exibir o relatório geral de impressão sem permissão específica', function () {
+    get(route('report.printing.create'))
+    ->assertForbidden();
+});
+
+test('autenticado, mas sem permissão específica, não é possível renderizar o componente de relatório geral de impressão', function () {
+    Livewire::test(PrintingReportLivewire::class)
+    ->assertForbidden();
+});
+
+test('sem permissão, não é possível gerar o relatório em pdf', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
+    Livewire::test(PrintingReportLivewire::class)
+    ->assertOk()
+    ->call('downloadPDFReport')
+    ->assertForbidden();
+});
+
 // Failure
 test('se as valores forem inválidos na query string, eles serão definidas pelo sistema', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class, [
         'initial_date' => 'foo',
         'final_date' => 'bar',
@@ -42,36 +64,48 @@ test('se as valores forem inválidos na query string, eles serão definidas pelo
 
 // Rules
 test('não aceita paginação fora das opções oferecidas', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 test('data inicial é obrigatório', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('initial_date', '')
     ->assertHasErrors(['initial_date' => 'required']);
 });
 
 test('data inicial deve ser um inteiro', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('initial_date', 'foo')
     ->assertHasErrors(['initial_date' => 'integer']);
 });
 
 test('data inicial mínima é o ano de 100 anos atrás', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('initial_date', now()->subCentury()->subYear()->format('Y'))
     ->assertHasErrors(['initial_date' => 'gte']);
 });
 
 test('data inicial máxima é o ano atual', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('initial_date', today()->addYear()->format('Y'))
     ->assertHasErrors(['initial_date' => 'lte']);
 });
 
 test('data inicial está sujeita a validação em tempo real', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('initial_date', 2020)
     ->assertHasNoErrors()
@@ -80,30 +114,40 @@ test('data inicial está sujeita a validação em tempo real', function () {
 });
 
 test('data final é obrigatório', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('final_date', '')
     ->assertHasErrors(['final_date' => 'required']);
 });
 
 test('data final deve ser um inteiro', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('final_date', 'foo')
     ->assertHasErrors(['final_date' => 'integer']);
 });
 
 test('data final mínima é o ano de 100 anos atrás', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('final_date', now()->subCentury()->subYear()->format('Y'))
     ->assertHasErrors(['final_date' => 'gte']);
 });
 
 test('data final máxima é o ano atual', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('final_date', today()->addYear()->format('Y'))
     ->assertHasErrors(['final_date' => 'lte']);
 });
 
 test('data final está sujeita a validação em tempo real', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('final_date', 2020)
     ->assertHasNoErrors()
@@ -112,12 +156,16 @@ test('data final está sujeita a validação em tempo real', function () {
 });
 
 test('agrupamento deve ser uma das opções do enum MonthlyGroupingType', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('grouping', 10)
     ->assertHasErrors(['grouping' => 'in']);
 });
 
 test('agrupamento está sujeito a validação em tempo real', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('grouping', MonthlyGroupingType::Monthly->value)
     ->assertHasNoErrors()
@@ -127,12 +175,16 @@ test('agrupamento está sujeito a validação em tempo real', function () {
 
 // Happy path
 test('se autenticado, é possível renderizar o componente do relatório geral de impressão', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     get(route('report.printing.create'))
     ->assertOk()
     ->assertSeeLivewire(PrintingReportLivewire::class);
 });
 
 test('paginação retorna a quantidade de resultados esperada', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class, [
         'initial_date' => 2010,
         'final_date' => 2019,
@@ -150,6 +202,8 @@ test('paginação retorna a quantidade de resultados esperada', function () {
 });
 
 test('paginação cria as variáveis de sessão', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class, [
         'initial_date' => 2010,
         'final_date' => 2019,
@@ -166,6 +220,8 @@ test('paginação cria as variáveis de sessão', function () {
 });
 
 test('relatório retorna os resultados esperados', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('per_page', 100)
     ->set('initial_date', 2020)
@@ -177,6 +233,9 @@ test('relatório retorna os resultados esperados', function () {
 });
 
 test('faz o download do relatório em formato pdf', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+    grantPermission(PermissionType::PrintingPDFReport->value);
+
     Livewire::test(PrintingReportLivewire::class)
     ->set('initial_date', 2020)
     ->set('final_date', 2021)
@@ -185,6 +244,8 @@ test('faz o download do relatório em formato pdf', function () {
 });
 
 test('valores válidos na query string serão utilizados para inicializar as variáveis', function () {
+    grantPermission(PermissionType::PrintingReport->value);
+
     Livewire::test(PrintingReportLivewire::class, [
         'initial_date' => 2020,
         'final_date' => 2021,

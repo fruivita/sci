@@ -68,18 +68,22 @@
                     type="button"/>
 
 
-                {{-- botão para exibir o relatório em formato PDF --}}
-                <x-button
-                    wire:click="downloadPDFReport"
-                    wire:key="btn-report-pdf"
-                    wire:loading.delay.attr="disabled"
-                    wire:loading.delay.class="cursor-not-allowed"
-                    wire:target="downloadPDFReport,final_date,initial_date,per_page,report,term"
-                    class="btn-do"
-                    icon="filetype-pdf"
-                    text="{{ __('PDF') }}"
-                    title="{{ __('Report in PDF format') }}"
-                    type="button"/>
+                @can(\App\Enums\Policy::PDFReport->value, \App\Models\Printer::class)
+
+                    {{-- botão para exibir o relatório em formato PDF --}}
+                    <x-button
+                        wire:click="downloadPDFReport"
+                        wire:key="btn-report-pdf"
+                        wire:loading.delay.attr="disabled"
+                        wire:loading.delay.class="cursor-not-allowed"
+                        wire:target="downloadPDFReport,final_date,initial_date,per_page,report,term"
+                        class="btn-do"
+                        icon="filetype-pdf"
+                        text="{{ __('PDF') }}"
+                        title="{{ __('Report in PDF format') }}"
+                        type="button"/>
+
+                @endcan
 
             </div>
 

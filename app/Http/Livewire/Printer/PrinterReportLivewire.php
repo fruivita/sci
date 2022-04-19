@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Printer;
 
+use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithDownloadableReport;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Printer;
 use App\Rules\DateMax;
 use App\Rules\DateMin;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -16,6 +18,7 @@ use Livewire\Component;
  */
 class PrinterReportLivewire extends Component
 {
+    use AuthorizesRequests;
     use WithDownloadableReport;
     use WithPerPagePagination;
 
@@ -108,6 +111,27 @@ class PrinterReportLivewire extends Component
             'final_date' => __('Final date'),
             'term' => __('Searchable term'),
         ];
+    }
+
+    /**
+     * Runs on every request, immediately after the component is instantiated,
+     * but before any other lifecycle methods are called.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->authorize(Policy::Report->value, Printer::class);
+    }
+
+    /**
+     * Autorização para gerar o relatório em formato PDF.
+     *
+     * @return \Illuminate\Auth\Access\Response
+     */
+    private function authorizePDF()
+    {
+        $this->authorize(Policy::PDFReport->value, Printer::class);
     }
 
     /**

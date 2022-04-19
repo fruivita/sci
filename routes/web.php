@@ -15,6 +15,8 @@ use App\Http\Livewire\Printer\PrinterReportLivewire;
 use App\Http\Livewire\Printing\PrintingReportLivewire;
 use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\Permission;
+use App\Models\Printer;
+use App\Models\Printing;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -73,11 +75,11 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('relatorio')->name('report.')->group(function () {
         Route::prefix('impressao')->name('printing.')->group(function () {
-            Route::get('/', PrintingReportLivewire::class)->name('create');
+            Route::get('/', PrintingReportLivewire::class)->name('create')->can(Policy::Report->value, Printing::class);
         });
 
         Route::prefix('impressora')->name('printer.')->group(function () {
-            Route::get('/', PrinterReportLivewire::class)->name('create');
+            Route::get('/', PrinterReportLivewire::class)->name('create')->can(Policy::Report->value, Printer::class);
         });
     });
 

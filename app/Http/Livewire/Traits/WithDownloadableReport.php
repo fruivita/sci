@@ -43,12 +43,20 @@ trait WithDownloadableReport
     abstract private function filter();
 
     /**
+     * Autorização para gerar o relatório em formato PDF.
+     *
+     * @return \Illuminate\Auth\Access\Response
+     */
+    abstract private function authorizePDF();
+
+    /**
      * Action do usuário para solicitar o Download do relatório em formato PDF.
      *
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function downloadPDFReport()
     {
+        $this->authorizePDF();
         $this->validate();
 
         $file_name = str('report-')

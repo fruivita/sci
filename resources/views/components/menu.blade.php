@@ -40,24 +40,38 @@
 
 @auth
 
-    <x-menu.group name="{{ __('Reports') }}">
+    @if (
+        auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Printer::class)
+        || auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Printing::class)
+    )
+        <x-menu.group name="{{ __('Reports') }}">
 
-        <x-menu.link
-            class="{{ request()->routeIs('report.printing.*') ? 'active': '' }}"
-            icon="graph-up"
-            href="{{ route('report.printing.create') }}"
-            text="{{ __('Print') }}"
-            title="{{ __('General print report') }}"/>
+            @can(\App\Enums\Policy::Report->value, \App\Models\Printing::class)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('report.printing.*') ? 'active': '' }}"
+                    icon="graph-up"
+                    href="{{ route('report.printing.create') }}"
+                    text="{{ __('Print') }}"
+                    title="{{ __('General print report') }}"/>
+
+            @endcan
 
 
-        <x-menu.link
-            class="{{ request()->routeIs('report.printer.*') ? 'active': '' }}"
-            icon="printer"
-            href="{{ route('report.printer.create') }}"
-            text="{{ __('Printer') }}"
-            title="{{ __('Report by printer') }}"/>
+            @can(\App\Enums\Policy::Report->value, \App\Models\Printer::class)
 
-    </x-menu.group>
+                <x-menu.link
+                    class="{{ request()->routeIs('report.printer.*') ? 'active': '' }}"
+                    icon="printer"
+                    href="{{ route('report.printer.create') }}"
+                    text="{{ __('Printer') }}"
+                    title="{{ __('Report by printer') }}"/>
+
+            @endcan
+
+        </x-menu.group>
+
+    @endif
 
 
     @if (
