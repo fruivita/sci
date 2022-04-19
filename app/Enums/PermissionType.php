@@ -22,4 +22,8 @@ enum PermissionType: int
     case ImportationCreate = 140003;
     case DelegationViewAny = 150001;
     case DelegationCreate = 150003;
+    case PrinterReport = 160101;
+    case PrinterPDFReport = 160102;
+    case PrintingReport = 170101;
+    case PrintingPDFReport = 170102;
 }

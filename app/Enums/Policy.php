@@ -16,6 +16,8 @@ enum Policy: string
     case Update = 'update';
     case Restore = 'restore';
     case Delete = 'delete';
+    case Report = 'report';
+    case PDFReport = 'pdf-report';
     case ForceDelete = 'force-delete';
     case SimulationCreate = 'simulation-create';
     case SimulationDelete = 'simulation-delete';

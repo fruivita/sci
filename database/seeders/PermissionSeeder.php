@@ -103,6 +103,34 @@ class PermissionSeeder extends Seeder
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'id' => PermissionType::PrinterReport->value,
+                'name' => __('Report by printer: Generate'),
+                'description' => __('Permission to generate the print-by-printer report.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::PrinterPDFReport->value,
+                'name' => __('PDF Report by printer: Generate'),
+                'description' => __('Permission to generate the print-by-printer PDF report.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::PrintingReport->value,
+                'name' => __('General print report: Generate'),
+                'description' => __('Permission to generate the general print report.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::PrintingPDFReport->value,
+                'name' => __('PDF General print report: Generate'),
+                'description' => __('Permission to generate the general print PDF report.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }

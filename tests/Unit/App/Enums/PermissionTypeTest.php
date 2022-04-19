@@ -36,3 +36,13 @@ test('ids das permissões para delegação estão definidas', function () {
     expect(PermissionType::DelegationViewAny->value)->toBe(150001)
     ->and(PermissionType::DelegationCreate->value)->toBe(150003);
 });
+
+test('ids das permissões ligadas de administração das impressoras estão definidas', function () {
+    expect(PermissionType::PrinterReport->value)->toBe(160101)
+    ->and(PermissionType::PrinterPDFReport->value)->toBe(160102);
+});
+
+test('ids das permissões ligadas de administração das impressões estão definidas', function () {
+    expect(PermissionType::PrintingReport->value)->toBe(170101)
+    ->and(PermissionType::PrintingPDFReport->value)->toBe(170102);
+});
