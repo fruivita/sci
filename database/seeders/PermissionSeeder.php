@@ -131,6 +131,20 @@ class PermissionSeeder extends Seeder
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'id' => PermissionType::ServerReport->value,
+                'name' => __('Report by server: Generate'),
+                'description' => __('Permission to generate the print-by-server report.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::ServerPDFReport->value,
+                'name' => __('PDF Report by server: Generate'),
+                'description' => __('Permission to generate the print-by-server PDF report.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }

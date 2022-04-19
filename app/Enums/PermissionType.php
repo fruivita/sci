@@ -26,4 +26,6 @@ enum PermissionType: int
     case PrinterPDFReport = 160102;
     case PrintingReport = 170101;
     case PrintingPDFReport = 170102;
+    case ServerReport = 180101;
+    case ServerPDFReport = 180102;
 }

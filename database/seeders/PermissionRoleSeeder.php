@@ -116,6 +116,18 @@ class PermissionRoleSeeder extends Seeder
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => PermissionType::ServerReport->value,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => PermissionType::ServerPDFReport->value,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }
