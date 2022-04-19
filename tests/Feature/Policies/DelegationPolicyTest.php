@@ -146,6 +146,7 @@ test('permissão de listar as delegações é persistida em cache por 5 segundos
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::DelegationViewAny->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -153,7 +154,7 @@ test('permissão de listar as delegações é persistida em cache por 5 segundos
     ->and((new DelegationPolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new DelegationPolicy)->viewAny($this->user))->toBeFalse()

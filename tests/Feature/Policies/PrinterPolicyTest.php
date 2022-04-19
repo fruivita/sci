@@ -40,6 +40,7 @@ test('permissão de gerar o relatório por impressora é persistida em cache por
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::PrinterReport->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -47,7 +48,7 @@ test('permissão de gerar o relatório por impressora é persistida em cache por
     ->and((new PrinterPolicy)->report($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PrinterPolicy)->report($this->user))->toBeFalse()
@@ -66,6 +67,7 @@ test('permissão de gerar o relatório por impressora em pdf é persistida em ca
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::PrinterPDFReport->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -73,7 +75,7 @@ test('permissão de gerar o relatório por impressora em pdf é persistida em ca
     ->and((new PrinterPolicy)->pdfReport($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PrinterPolicy)->pdfReport($this->user))->toBeFalse()

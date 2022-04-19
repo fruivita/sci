@@ -44,6 +44,7 @@ test('permissão de listagem das permissões é persistida em cache por 5 segund
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::PermissionViewAny->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -51,7 +52,7 @@ test('permissão de listagem das permissões é persistida em cache por 5 segund
     ->and((new PermissionPolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->viewAny($this->user))->toBeFalse()
@@ -70,6 +71,7 @@ test('permissão de visualizar individualmente uma permissão é persistida em c
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::PermissionView->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -77,7 +79,7 @@ test('permissão de visualizar individualmente uma permissão é persistida em c
     ->and((new PermissionPolicy)->view($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->view($this->user))->toBeFalse()
@@ -96,6 +98,7 @@ test('permissão de atualizar individualmente uma permissão é persistida em ca
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::PermissionUpdate->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -103,7 +106,7 @@ test('permissão de atualizar individualmente uma permissão é persistida em ca
     ->and((new PermissionPolicy)->update($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->update($this->user))->toBeFalse()

@@ -36,6 +36,7 @@ test('permissão de executar uma importação é persistida em cache', function 
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::ImportationCreate->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -43,7 +44,7 @@ test('permissão de executar uma importação é persistida em cache', function 
     ->and((new ImportationPolicy)->create($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new ImportationPolicy)->create($this->user))->toBeFalse()

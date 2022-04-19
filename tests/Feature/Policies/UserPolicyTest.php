@@ -40,6 +40,7 @@ test('permissão de listagem dos usuários é persistida em cache por 5 segundos
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::UserViewAny->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -47,7 +48,7 @@ test('permissão de listagem dos usuários é persistida em cache por 5 segundos
     ->and((new UserPolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new UserPolicy)->viewAny($this->user))->toBeFalse()
@@ -66,6 +67,7 @@ test('permissão de atualizar individualmente um usuário é persistida em cache
     ->and(Cache::get($key))->toBeTrue();
 
     revokePermission(PermissionType::UserUpdate->value);
+    $this->travel(5)->seconds();
 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
@@ -73,7 +75,7 @@ test('permissão de atualizar individualmente um usuário é persistida em cache
     ->and((new UserPolicy)->update($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(6)->seconds();
+    $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
     ->and((new UserPolicy)->update($this->user))->toBeFalse()

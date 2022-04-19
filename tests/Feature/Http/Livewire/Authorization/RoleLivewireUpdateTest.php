@@ -237,6 +237,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     expect(Cache::missing('all-checkable' . $livewire->id))->toBeTrue();
 
     $livewire->set('checkbox_action', CheckboxAction::CheckAll->value);
+    $this->travel(60)->seconds();
 
     // não serão contabilizados pois o cache já foi registrado por 1 minuto
     Permission::factory(3)->create();
@@ -245,7 +246,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     ->and(Cache::get('all-checkable' . $livewire->id))->toHaveCount($count);
 
     // expirará o cache
-    $this->travel(61)->seconds();
+    $this->travel(1)->seconds();
     expect(Cache::missing('all-checkable' . $livewire->id))->toBeTrue();
 });
 
@@ -255,6 +256,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
 
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('checkbox_action', CheckboxAction::CheckAll->value);
+    $this->travel(60)->seconds();
 
     // não serão contabilizados pois o cache já foi registrado por 1 minuto
     Permission::factory(3)->create();
@@ -264,7 +266,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     ->assertCount('CheckAll', $count);
 
     // expirará o cache
-    $this->travel(61)->seconds();
+    $this->travel(1)->seconds();
 
     // contabiliza as novas inserções após expirado
     $livewire
@@ -334,6 +336,7 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
     $role_3 = Role::factory()->create(['id' => 3]);
 
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $role_2]);
+    $this->travel(60)->seconds();
 
     expect(Cache::has('previous' . $livewire->id))->toBeTrue()
     ->and(Cache::get('previous' . $livewire->id))->toBe($role_1->id)
@@ -341,7 +344,7 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
     ->and(Cache::get('next' . $livewire->id))->toBe($role_3->id);
 
     // expirará o cache
-    $this->travel(61)->seconds();
+    $this->travel(1)->seconds();
     expect(Cache::missing('previous' . $livewire->id))->toBeTrue()
     ->and(Cache::missing('next' . $livewire->id))->toBeTrue();
 });
