@@ -23,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Printer::class => \App\Policies\PrinterPolicy::class,
         \App\Models\Printing::class => \App\Policies\PrintingPolicy::class,
         \App\Models\Role::class => \App\Policies\RolePolicy::class,
+        \App\Models\Server::class => \App\Policies\ServerPolicy::class,
         \App\Models\User::class => \App\Policies\UserPolicy::class,
     ];
 
