@@ -11,13 +11,41 @@ use App\Models\User;
 class DepartmentPolicy extends Policy
 {
     /**
+     * Determine whether the user can generate any department report.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
+     */
+    public function reportAny(User $user)
+    {
+        return $this->departmentReport($user)
+        || $this->managerialReport($user)
+        || $this->institutionalReport($user);
+    }
+
+    /**
+     * Determine whether the user can generate any department report.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
+     */
+    public function pdfReportAny(User $user)
+    {
+        return $this->departmentPdfReport($user)
+        || $this->managerialPdfReport($user)
+        || $this->institutionalPdfReport($user);
+    }
+
+    /**
      * Determine whether the user can generate department report.
      *
      * @param \App\Models\User $user
      *
      * @return bool|\Illuminate\Auth\Access\Response
      */
-    public function report(User $user)
+    public function departmentReport(User $user)
     {
         return $this->hasPermissionWithCache($user, PermissionType::DepartmentReport);
     }
@@ -29,7 +57,7 @@ class DepartmentPolicy extends Policy
      *
      * @return bool|\Illuminate\Auth\Access\Response
      */
-    public function pdfReport(User $user)
+    public function departmentPdfReport(User $user)
     {
         return $this->hasPermissionWithCache($user, PermissionType::DepartmentPDFReport);
     }

@@ -21,11 +21,11 @@ afterEach(function () {
 
 // Forbidden
 test('usuário sem permissão não pode gerar relatório por lotação', function () {
-    expect((new DepartmentPolicy)->report($this->user))->toBeFalse();
+    expect((new DepartmentPolicy)->departmentReport($this->user))->toBeFalse();
 });
 
 test('usuário sem permissão não pode gerar relatório por lotação em pdf', function () {
-    expect((new DepartmentPolicy)->pdfReport($this->user))->toBeFalse();
+    expect((new DepartmentPolicy)->departmentPdfReport($this->user))->toBeFalse();
 });
 
 test('usuário sem permissão não pode gerar relatório por lotação (Gerencial)', function () {
@@ -44,6 +44,14 @@ test('usuário sem permissão não pode gerar relatório por departamento (Insti
     expect((new DepartmentPolicy)->institutionalPdfReport($this->user))->toBeFalse();
 });
 
+test('usuário sem permissão alguma não pode gerar nenhum relatório por departamento', function () {
+    expect((new DepartmentPolicy)->reportAny($this->user))->toBeFalse();
+});
+
+test('usuário sem permissão alguma não pode gerar relatório por departamento em pdf', function () {
+    expect((new DepartmentPolicy)->pdfReportAny($this->user))->toBeFalse();
+});
+
 // Happy path
 test('permissão de gerar o relatório por lotação é persistida em cache por 5 segundos', function () {
     grantPermission(PermissionType::DepartmentReport->value);
@@ -51,7 +59,7 @@ test('permissão de gerar o relatório por lotação é persistida em cache por 
     $key = $this->user->username . PermissionType::DepartmentReport->value;
 
     expect(Cache::missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->report($this->user))->toBeTrue()
+    ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
@@ -61,13 +69,13 @@ test('permissão de gerar o relatório por lotação é persistida em cache por 
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->report($this->user))->toBeTrue();
+    ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->report($this->user))->toBeFalse()
+    ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeFalse()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeFalse();
 });
@@ -78,7 +86,7 @@ test('permissão de gerar o relatório por lotação em PDF é persistida em cac
     $key = $this->user->username . PermissionType::DepartmentPDFReport->value;
 
     expect(Cache::missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->pdfReport($this->user))->toBeTrue()
+    ->and((new DepartmentPolicy)->departmentPdfReport($this->user))->toBeTrue()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue();
 
@@ -88,13 +96,13 @@ test('permissão de gerar o relatório por lotação em PDF é persistida em cac
     // permissão ainda está em cache
     expect(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->pdfReport($this->user))->toBeTrue();
+    ->and((new DepartmentPolicy)->departmentPdfReport($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
     expect(Cache::missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->pdfReport($this->user))->toBeFalse()
+    ->and((new DepartmentPolicy)->departmentPdfReport($this->user))->toBeFalse()
     ->and(Cache::has($key))->toBeTrue()
     ->and(Cache::get($key))->toBeFalse();
 });
@@ -210,13 +218,13 @@ test('permissão de gerar o relatório por lotação (Institucional) em PDF é p
 test('usuário com permissão pode gerar o relatório por lotação', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
-    expect((new DepartmentPolicy)->report($this->user))->toBeTrue();
+    expect((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue();
 });
 
 test('usuário com permissão pode gerar o relatório por lotação em pdf', function () {
     grantPermission(PermissionType::DepartmentPDFReport->value);
 
-    expect((new DepartmentPolicy)->pdfReport($this->user))->toBeTrue();
+    expect((new DepartmentPolicy)->departmentPdfReport($this->user))->toBeTrue();
 });
 
 test('usuário com permissão pode gerar o relatório por lotação (Gerencial)', function () {
@@ -242,3 +250,33 @@ test('usuário com permissão pode gerar o relatório por lotação (Institucion
 
     expect((new DepartmentPolicy)->institutionalPdfReport($this->user))->toBeTrue();
 });
+
+test('usuário possui alguma das permissões para gerar o relatório por lotação', function ($permssion) {
+    grantPermission($permssion);
+
+    expect((new DepartmentPolicy)->reportAny($this->user))->toBeTrue();
+
+    revokePermission($permssion);
+    $this->travel(6)->seconds();
+
+    expect((new DepartmentPolicy)->reportAny($this->user))->toBeFalse();
+})->with([
+    PermissionType::DepartmentReport->value,
+    PermissionType::ManagerialReport->value,
+    PermissionType::InstitutionalReport->value,
+]);
+
+test('usuário possui alguma das permissões para gerar o relatório por lotação em pdf', function ($permssion) {
+    grantPermission($permssion);
+
+    expect((new DepartmentPolicy)->pdfReportAny($this->user))->toBeTrue();
+
+    revokePermission($permssion);
+    $this->travel(6)->seconds();
+
+    expect((new DepartmentPolicy)->pdfReportAny($this->user))->toBeFalse();
+})->with([
+    PermissionType::DepartmentPDFReport->value,
+    PermissionType::ManagerialPDFReport->value,
+    PermissionType::InstitutionalPDFReport->value,
+]);
