@@ -13,11 +13,13 @@ use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Http\Livewire\Authorization\UserLivewireIndex;
 use App\Http\Livewire\Printer\PrinterReportLivewire;
 use App\Http\Livewire\Printing\PrintingReportLivewire;
+use App\Http\Livewire\Server\ServerReportLivewire;
 use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\Permission;
 use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Role;
+use App\Models\Server;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -80,6 +82,10 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('impressora')->name('printer.')->group(function () {
             Route::get('/', PrinterReportLivewire::class)->name('create')->can(Policy::Report->value, Printer::class);
+        });
+
+        Route::prefix('servidor')->name('server.')->group(function () {
+            Route::get('/', ServerReportLivewire::class)->name('create')->can(Policy::Report->value, Server::class);
         });
     });
 

@@ -43,6 +43,7 @@
     @if (
         auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Printer::class)
         || auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Printing::class)
+        || auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Server::class)
     )
         <x-menu.group name="{{ __('Reports') }}">
 
@@ -66,6 +67,18 @@
                     href="{{ route('report.printer.create') }}"
                     text="{{ __('Printer') }}"
                     title="{{ __('Report by printer') }}"/>
+
+            @endcan
+
+
+            @can(\App\Enums\Policy::Report->value, \App\Models\Server::class)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('report.server.*') ? 'active': '' }}"
+                    icon="server"
+                    href="{{ route('report.server.create') }}"
+                    text="{{ __('Server') }}"
+                    title="{{ __('Report by server') }}"/>
 
             @endcan
 
