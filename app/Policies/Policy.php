@@ -42,6 +42,32 @@ abstract class Policy
     }
 
     /**
+     * Determina se o usuário possui uma das permissões informadas.
+     *
+     * Utiliza cache de curta duração para armazenar a permissão evitando-se
+     * queries repetitivas, em especial, em um mesmo request.
+     *
+     * @param \App\Models\User          $user
+     * @param \App\Enums\PermissionType[] $permissions
+     * @param string $partial_key parte da chave que será concatenada ao nome
+     * do usuário para gerar a chave do cache
+     *
+     * @return bool
+     */
+    protected function hasAnyPermissionWithCache(User $user, array $permissions, string $partial_key)
+    {
+        $this->useCache();
+
+        return (bool) $this->cache(
+            key: $user->username . $partial_key,
+            seconds: 5,
+            callback: function () use ($user, $permissions) {
+                return $user->hasAnyPermission($permissions);
+            }
+        );
+    }
+
+    /**
      * Determina se o usuário possui a permissão informada, sem armazenar em
      * cache o resultado.
      *

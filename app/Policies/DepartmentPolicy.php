@@ -19,9 +19,14 @@ class DepartmentPolicy extends Policy
      */
     public function reportAny(User $user)
     {
-        return $this->departmentReport($user)
-        || $this->managerialReport($user)
-        || $this->institutionalReport($user);
+        return $this->hasAnyPermissionWithCache(
+            $user, [
+                PermissionType::DepartmentReport,
+                PermissionType::ManagerialReport,
+                PermissionType::InstitutionalReport,
+            ],
+            'department-report-any'
+        );
     }
 
     /**
@@ -33,9 +38,14 @@ class DepartmentPolicy extends Policy
      */
     public function pdfReportAny(User $user)
     {
-        return $this->departmentPdfReport($user)
-        || $this->managerialPdfReport($user)
-        || $this->institutionalPdfReport($user);
+        return $this->hasAnyPermissionWithCache(
+            $user, [
+                PermissionType::DepartmentPDFReport,
+                PermissionType::ManagerialPDFReport,
+                PermissionType::InstitutionalPDFReport,
+            ],
+            'department-pdf-report-any'
+        );
     }
 
     /**

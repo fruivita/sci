@@ -5,6 +5,7 @@
  */
 
 use App\Enums\PermissionType;
+use App\Models\Department;
 use App\Policies\DepartmentPolicy;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
@@ -249,6 +250,60 @@ test('usuário com permissão pode gerar o relatório por lotação (Institucion
     grantPermission(PermissionType::InstitutionalPDFReport->value);
 
     expect((new DepartmentPolicy)->institutionalPdfReport($this->user))->toBeTrue();
+});
+
+test('permissão para gerar algum relatório por lotação é persistida em cache por 5 segundos', function () {
+    grantPermission(PermissionType::InstitutionalReport->value);
+
+    $key = $this->user->username . 'department-report-any';
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new DepartmentPolicy)->reportAny($this->user))->toBeTrue()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue();
+
+    revokePermission(PermissionType::InstitutionalReport->value);
+    $this->travel(5)->seconds();
+
+    // permissão ainda está em cache
+    expect(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue()
+    ->and((new DepartmentPolicy)->reportAny($this->user))->toBeTrue();
+
+    // expira o cache
+    $this->travel(1)->seconds();
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new DepartmentPolicy)->reportAny($this->user))->toBeFalse()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeFalse();
+});
+
+test('permissão para gerar algum relatório por lotação em PDF é persistida em cache por 5 segundos', function () {
+    grantPermission(PermissionType::InstitutionalPDFReport->value);
+
+    $key = $this->user->username . 'department-pdf-report-any';
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new DepartmentPolicy)->pdfReportAny($this->user))->toBeTrue()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue();
+
+    revokePermission(PermissionType::InstitutionalPDFReport->value);
+    $this->travel(5)->seconds();
+
+    // permissão ainda está em cache
+    expect(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeTrue()
+    ->and((new DepartmentPolicy)->pdfReportAny($this->user))->toBeTrue();
+
+    // expira o cache
+    $this->travel(1)->seconds();
+
+    expect(Cache::missing($key))->toBeTrue()
+    ->and((new DepartmentPolicy)->pdfReportAny($this->user))->toBeFalse()
+    ->and(Cache::has($key))->toBeTrue()
+    ->and(Cache::get($key))->toBeFalse();
 });
 
 test('usuário possui alguma das permissões para gerar o relatório por lotação', function ($permssion) {
