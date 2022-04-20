@@ -145,6 +145,48 @@ class PermissionSeeder extends Seeder
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'id' => PermissionType::DepartmentReport->value,
+                'name' => __('Report by department: Generate'),
+                'description' => __('Permission to generate the print-by-department report. Restricted to the authenticated user department.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::DepartmentPDFReport->value,
+                'name' => __('PDF Report by department: Generate'),
+                'description' => __('Permission to generate the print-by-department PDF report. Restricted to the authenticated user department.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::ManagerialReport->value,
+                'name' => __('Report by department (Managerial): Generate'),
+                'description' => __('Permission to generate the print-by-department report (child departments included). Restricted to the authenticated user department.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::ManagerialPDFReport->value,
+                'name' => __('PDF Report by department (Managerial): Generate'),
+                'description' => __('Permission to generate the print-by-department PDF report (child departments included). Restricted to the authenticated user department.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::InstitutionalReport->value,
+                'name' => __('Report by department (Institutional): Generate'),
+                'description' => __('Permission to generate the print report from all departments.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::InstitutionalPDFReport->value,
+                'name' => __('PDF Report by department (Institutional): Generate'),
+                'description' => __('Permission to generate the print PDF report from all departments.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }

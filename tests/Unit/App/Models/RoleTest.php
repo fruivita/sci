@@ -165,6 +165,12 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     PermissionType::PrintingPDFReport,
     PermissionType::ServerReport,
     PermissionType::ServerPDFReport,
+    PermissionType::DepartmentReport,
+    PermissionType::DepartmentPDFReport,
+    PermissionType::ManagerialReport,
+    PermissionType::ManagerialPDFReport,
+    PermissionType::InstitutionalReport,
+    PermissionType::InstitutionalPDFReport,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
