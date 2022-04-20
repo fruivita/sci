@@ -219,6 +219,27 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
+     * Verifica se o usuário possui uma das permissões informadas.
+     *
+     * @param \App\Enums\PermissionType[] $permission
+     *
+     * @return bool
+     */
+    public function hasAnyPermission(array $permissions)
+    {
+        $this->load(['role.permissions' => function ($query) use ($permissions) {
+            $query->select('id')->whereIn('id', $permissions);
+        }]);
+
+        return
+            $this->role instanceof Role
+            && $this->role->permissions->isNotEmpty()
+            && in_array(PermissionType::from($this->role->permissions->first()->id), $permissions)
+            ? true
+            : false;
+    }
+
+    /**
      * Registros filtrados pelo termo informado.
      *
      * O filtro se aplica à sigla e ao nome do usuário por meio de cláusula OR.

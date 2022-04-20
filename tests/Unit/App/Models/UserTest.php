@@ -131,6 +131,43 @@ test('hasPermission informa se o usuário possui ou não determinada permissão'
     logout();
 });
 
+test('hasAnyPermission informa se o usuário possui uma das permissões informadas', function () {
+    $this->seed(RoleSeeder::class);
+
+    login('foo');
+
+    expect(authenticatedUser()->hasAnyPermission([
+        PermissionType::DelegationCreate,
+        PermissionType::ServerReport,
+        PermissionType::SimulationCreate,
+    ]))->toBeFalse();
+
+    grantPermission(PermissionType::ServerReport->value);
+
+    expect(authenticatedUser()->hasAnyPermission([PermissionType::ServerReport]))->toBeTrue()
+    ->and(authenticatedUser()->hasAnyPermission([PermissionType::DelegationCreate, PermissionType::SimulationCreate]))->toBeFalse();
+
+    grantPermission(PermissionType::SimulationCreate->value);
+
+    expect(authenticatedUser()->hasAnyPermission([PermissionType::ServerReport]))->toBeTrue()
+    ->and(authenticatedUser()->hasAnyPermission([PermissionType::SimulationCreate]))->toBeTrue()
+    ->and(authenticatedUser()->hasAnyPermission([PermissionType::ServerReport, PermissionType::SimulationCreate]))->toBeTrue()
+    ->and(authenticatedUser()->hasAnyPermission([PermissionType::DelegationCreate]))->toBeFalse();
+
+    revokePermission(PermissionType::ServerReport->value);
+    revokePermission(PermissionType::SimulationCreate->value);
+
+    expect(authenticatedUser()->hasAnyPermission([
+        PermissionType::DelegationCreate,
+        PermissionType::ServerReport,
+        PermissionType::SimulationCreate
+    ]))->toBeFalse();
+
+    expect(authenticatedUser()->hasAnyPermission([]))->toBeFalse();
+
+    logout();
+});
+
 test('forHumans retorna username formatado para exibição', function () {
     $this->seed(RoleSeeder::class);
 
