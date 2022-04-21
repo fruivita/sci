@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
+use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
@@ -237,8 +238,9 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
 
     expect(cache()->missing('all-checkable' . $livewire->id))->toBeTrue();
 
+    testTime()->freeze();
     $livewire->set('checkbox_action', CheckboxAction::CheckAll->value);
-    $this->travel(60)->seconds();
+    testTime()->addSeconds(60);
 
     // não serão contabilizados pois o cache já foi registrado por 1 minuto
     Role::factory(3)->create();
@@ -247,7 +249,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     ->and(cache()->get('all-checkable' . $livewire->id))->toHaveCount($count);
 
     // expirará o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
     expect(cache()->missing('all-checkable' . $livewire->id))->toBeTrue();
 });
 
@@ -255,9 +257,10 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     grantPermission(PermissionType::PermissionUpdate->value);
     $count = Role::count();
 
+    testTime()->freeze();
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('checkbox_action', CheckboxAction::CheckAll->value);
-    $this->travel(60)->seconds();
+    testTime()->addSeconds(60);
 
     // não serão contabilizados pois o cache já foi registrado por 1 minuto
     Role::factory(3)->create();
@@ -267,7 +270,7 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     ->assertCount('CheckAll', $count);
 
     // expirará o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     // contabiliza as novas inserções após expirado
     $livewire
@@ -329,15 +332,16 @@ test('é possível atualizar uma permissão com permissão específica', functio
     ->and($this->permission->roles->first()->id)->toBe($role->id);
 });
 
-test('next e previous são registrados em cache com expirarção de um minuto', function () {
+test('next e previous são registrados em cache com expiração de um minuto', function () {
     grantPermission(PermissionType::PermissionUpdate->value);
 
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
     $permission_3 = Permission::factory()->create(['id' => 3]);
 
+    testTime()->freeze();
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission_2]);
-    $this->travel(60)->seconds();
+    testTime()->addSeconds(60);
 
     expect(cache()->has('previous' . $livewire->id))->toBeTrue()
     ->and(cache()->get('previous' . $livewire->id))->toBe($permission_1->id)
@@ -345,7 +349,7 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
     ->and(cache()->get('next' . $livewire->id))->toBe($permission_3->id);
 
     // expirará o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
     expect(cache()->missing('previous' . $livewire->id))->toBeTrue()
     ->and(cache()->missing('next' . $livewire->id))->toBeTrue();
 });

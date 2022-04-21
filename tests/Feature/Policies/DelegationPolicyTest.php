@@ -12,6 +12,8 @@ use App\Policies\DelegationPolicy;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 
+use function Spatie\PestPluginTestTime\testTime;
+
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 
@@ -145,8 +147,9 @@ test('permissão de listar as delegações é persistida em cache por 5 segundos
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::DelegationViewAny->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -154,7 +157,7 @@ test('permissão de listar as delegações é persistida em cache por 5 segundos
     ->and((new DelegationPolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new DelegationPolicy)->viewAny($this->user))->toBeFalse()

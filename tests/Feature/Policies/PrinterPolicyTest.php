@@ -9,6 +9,8 @@ use App\Policies\PrinterPolicy;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 
+use function Spatie\PestPluginTestTime\testTime;
+
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 
@@ -35,8 +37,9 @@ test('permissão de gerar o relatório por impressora é persistida em cache por
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::PrinterReport->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -44,7 +47,7 @@ test('permissão de gerar o relatório por impressora é persistida em cache por
     ->and((new PrinterPolicy)->report($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new PrinterPolicy)->report($this->user))->toBeFalse()

@@ -9,6 +9,8 @@ use App\Policies\UserPolicy;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 
+use function Spatie\PestPluginTestTime\testTime;
+
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 
@@ -39,8 +41,9 @@ test('permissão de listagem dos usuários é persistida em cache por 5 segundos
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::UserViewAny->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -48,7 +51,7 @@ test('permissão de listagem dos usuários é persistida em cache por 5 segundos
     ->and((new UserPolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new UserPolicy)->viewAny($this->user))->toBeFalse()
@@ -66,8 +69,9 @@ test('permissão de atualizar individualmente um usuário é persistida em cache
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::UserUpdate->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -75,7 +79,7 @@ test('permissão de atualizar individualmente um usuário é persistida em cache
     ->and((new UserPolicy)->update($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new UserPolicy)->update($this->user))->toBeFalse()

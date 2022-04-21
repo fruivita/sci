@@ -9,6 +9,8 @@ use App\Policies\PermissionPolicy;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 
+use function Spatie\PestPluginTestTime\testTime;
+
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 
@@ -43,8 +45,9 @@ test('permissão de listagem das permissões é persistida em cache por 5 segund
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::PermissionViewAny->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -52,7 +55,7 @@ test('permissão de listagem das permissões é persistida em cache por 5 segund
     ->and((new PermissionPolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->viewAny($this->user))->toBeFalse()
@@ -70,8 +73,9 @@ test('permissão de visualizar individualmente uma permissão é persistida em c
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::PermissionView->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -79,7 +83,7 @@ test('permissão de visualizar individualmente uma permissão é persistida em c
     ->and((new PermissionPolicy)->view($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->view($this->user))->toBeFalse()
@@ -97,8 +101,9 @@ test('permissão de atualizar individualmente uma permissão é persistida em ca
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::PermissionUpdate->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -106,7 +111,7 @@ test('permissão de atualizar individualmente uma permissão é persistida em ca
     ->and((new PermissionPolicy)->update($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new PermissionPolicy)->update($this->user))->toBeFalse()

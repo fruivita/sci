@@ -9,6 +9,8 @@ use App\Policies\DepartmentPolicy;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 
+use function Spatie\PestPluginTestTime\testTime;
+
 beforeEach(function () {
     $this->seed(RoleSeeder::class);
 
@@ -47,8 +49,9 @@ test('permissão de gerar o relatório por lotação é persistida em cache por 
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::DepartmentReport->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -56,7 +59,7 @@ test('permissão de gerar o relatório por lotação é persistida em cache por 
     ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeFalse()
@@ -74,8 +77,9 @@ test('permissão de gerar o relatório por lotação (Gerencial) é persistida e
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::ManagerialReport->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -83,7 +87,7 @@ test('permissão de gerar o relatório por lotação (Gerencial) é persistida e
     ->and((new DepartmentPolicy)->managerialReport($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new DepartmentPolicy)->managerialReport($this->user))->toBeFalse()
@@ -101,8 +105,9 @@ test('permissão de gerar o relatório por lotação (Institucional) é persisti
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::InstitutionalReport->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -110,7 +115,7 @@ test('permissão de gerar o relatório por lotação (Institucional) é persisti
     ->and((new DepartmentPolicy)->institutionalReport($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new DepartmentPolicy)->institutionalReport($this->user))->toBeFalse()
@@ -146,8 +151,9 @@ test('permissão para gerar algum relatório por lotação é persistida em cach
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
+    testTime()->freeze();
     revokePermission(PermissionType::InstitutionalReport->value);
-    $this->travel(5)->seconds();
+    testTime()->addSeconds(5);
 
     // permissão ainda está em cache
     expect(cache()->has($key))->toBeTrue()
@@ -155,7 +161,7 @@ test('permissão para gerar algum relatório por lotação é persistida em cach
     ->and((new DepartmentPolicy)->reportAny($this->user))->toBeTrue();
 
     // expira o cache
-    $this->travel(1)->seconds();
+    testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue()
     ->and((new DepartmentPolicy)->reportAny($this->user))->toBeFalse()
