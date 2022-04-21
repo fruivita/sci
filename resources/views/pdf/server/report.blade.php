@@ -1,5 +1,5 @@
 {{--
-  Subview para exibir o relatório de impressora em pdf.
+  Subview para exibir o relatório de impressão por servidor em pdf.
 
   @link https://laravel.com/docs/9.x/blade
   @link https://github.com/barryvdh/laravel-dompdf

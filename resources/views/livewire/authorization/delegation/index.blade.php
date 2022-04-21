@@ -1,5 +1,5 @@
 {{--
-    View livewire para e delegação das permissões de um perfil.
+    View livewire para a delegação das permissões de um perfil.
 
     A delegação é do perfil e não da permissão propriamente dita, isto é, o
     delegado terá o mesmo perfil do usuário delegante e, portanto, as mesmas

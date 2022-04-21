@@ -1,9 +1,6 @@
 {{--
-    View livewire para criar uma simulação de uso.
-
-    A simulação é o ato de um usuário, em regra do perfil administrador, usar a
-    aplicação como se fosse outra usuário. Útil para testar a aplicação vendo
-    como ela se comporta pelo prisma de determinado usuário.
+    View livewire para exibição da caixa de mensagem do tipo flash para retorno
+    ao usuário.
 
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
