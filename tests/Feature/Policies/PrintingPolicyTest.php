@@ -34,26 +34,26 @@ test('permissão de gerar o relatório geral de impressão é persistida em cach
 
     $key = $this->user->username . PermissionType::PrintingReport->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new PrintingPolicy)->report($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::PrintingReport->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new PrintingPolicy)->report($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new PrintingPolicy)->report($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('permissão de gerar o relatório geral de impressão em pdf é persistida em cache por 5 segundos', function () {
@@ -61,26 +61,26 @@ test('permissão de gerar o relatório geral de impressão em pdf é persistida 
 
     $key = $this->user->username . PermissionType::PrintingPDFReport->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new PrintingPolicy)->pdfReport($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::PrintingPDFReport->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new PrintingPolicy)->pdfReport($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new PrintingPolicy)->pdfReport($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('usuário com permissão pode gerar o relatório geral de impressão', function () {

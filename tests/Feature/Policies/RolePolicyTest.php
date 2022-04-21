@@ -38,26 +38,26 @@ test('permissão de listagem dos perfis é persistida em cache por 5 segundos', 
 
     $key = $this->user->username . PermissionType::RoleViewAny->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new RolePolicy)->viewAny($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::RoleViewAny->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new RolePolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new RolePolicy)->viewAny($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('permissão de visualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
@@ -65,26 +65,26 @@ test('permissão de visualizar individualmente um perfil é persistida em cache 
 
     $key = $this->user->username . PermissionType::RoleView->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new RolePolicy)->view($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::RoleView->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new RolePolicy)->view($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new RolePolicy)->view($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('permissão de atualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
@@ -92,26 +92,26 @@ test('permissão de atualizar individualmente um perfil é persistida em cache p
 
     $key = $this->user->username . PermissionType::RoleUpdate->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new RolePolicy)->update($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::RoleUpdate->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new RolePolicy)->update($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new RolePolicy)->update($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('usuário com permissão pode listar os perfis', function () {

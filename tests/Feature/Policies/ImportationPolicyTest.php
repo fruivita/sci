@@ -30,26 +30,26 @@ test('permissão de executar uma importação é persistida em cache', function 
 
     $key = $this->user->username . PermissionType::ImportationCreate->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new ImportationPolicy)->create($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::ImportationCreate->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new ImportationPolicy)->create($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new ImportationPolicy)->create($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('usuário com permissão pode executar uma importação', function () {

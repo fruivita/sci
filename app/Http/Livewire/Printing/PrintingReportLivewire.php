@@ -256,11 +256,11 @@ class PrintingReportLivewire extends Component
         $validator = $this->validator();
 
         $this->initial_date = $validator->errors()->has('initial_date') || empty($this->initial_date)
-        ? Carbon::now()->format('Y')
+        ? now()->format('Y')
         : $this->initial_date;
 
         $this->final_date = $validator->errors()->has('final_date') || empty($this->final_date)
-        ? Carbon::now()->format('Y')
+        ? now()->format('Y')
         : $this->final_date;
 
         $this->grouping = $validator->errors()->has('grouping')

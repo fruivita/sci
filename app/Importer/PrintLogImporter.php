@@ -84,7 +84,7 @@ final class PrintLogImporter implements IImportablePrintLog
 
             if ($saved === true) {
                 $this->delete($print_log_file);
-                Cache::put('last_print_import', now()->format('d-m-Y H:i:s'));
+                cache()->put('last_print_import', now()->format('d-m-Y H:i:s'));
             }
 
             $this->log(

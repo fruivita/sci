@@ -44,13 +44,13 @@ trait WithCaching
      */
     private function cache(string $key, int $seconds, Closure $callback)
     {
-        if ($this->use_cache && Cache::has($key)) {
-            return Cache::get($key);
+        if ($this->use_cache && cache()->has($key)) {
+            return cache()->get($key);
         }
 
         $result = $callback();
 
-        Cache::put($key, $result, now()->addSeconds($seconds));
+        cache()->put($key, $result, now()->addSeconds($seconds));
 
         return $result;
     }

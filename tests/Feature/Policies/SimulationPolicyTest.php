@@ -41,15 +41,15 @@ test('permissão de criar uma simulação não é persistida em cache', function
 
     $key = $this->user->username . PermissionType::SimulationCreate->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new SimulationPolicy)->create($this->user))->toBeTrue()
-    ->and(Cache::missing($key))->toBeTrue();
+    ->and(cache()->missing($key))->toBeTrue();
 
     revokePermission(PermissionType::SimulationCreate->value);
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new SimulationPolicy)->create($this->user))->toBeFalse()
-    ->and(Cache::missing($key))->toBeTrue();
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('usuário com permissão pode criar uma simulação', function () {

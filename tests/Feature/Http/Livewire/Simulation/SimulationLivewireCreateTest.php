@@ -154,10 +154,10 @@ test('simulação cria as variáveis de sessão e redireciona à pagina home', f
     ->call('store')
     ->assertRedirect(route('home'));
 
-    expect(session('simulated'))->toBeInstanceOf(User::class)
-    ->and(session('simulated')->username)->toBe('foo')
-    ->and(session('simulator'))->toBeInstanceOf(User::class)
-    ->and(session('simulator')->username)->toBe('bar');
+    expect(session()->get('simulated'))->toBeInstanceOf(User::class)
+    ->and(session()->get('simulated')->username)->toBe('foo')
+    ->and(session()->get('simulator'))->toBeInstanceOf(User::class)
+    ->and(session()->get('simulator')->username)->toBe('bar');
 });
 
 test('feedback é exibido ao usuário quando a simulação está ativa e quando ela é finalizada', function () {

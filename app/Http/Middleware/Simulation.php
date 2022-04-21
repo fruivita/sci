@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 /**
  * @see https://laravel.com/docs/9.x/middleware
  */
@@ -22,7 +23,7 @@ class Simulation
     public function handle(Request $request, Closure $next)
     {
         if (session()->has('simulated')) {
-            Auth::onceUsingID(session('simulated')->getAuthIdentifier());
+            Auth::onceUsingID(session()->get('simulated')->getAuthIdentifier());
         }
 
         return $next($request);

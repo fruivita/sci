@@ -70,6 +70,6 @@ class ImportCorporateStructure implements ShouldQueue, ShouldBeUnique
      */
     public function uniqueVia()
     {
-        return Cache::driver('database');
+        return cache()->driver('database');
     }
 }

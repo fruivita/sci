@@ -235,7 +235,7 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
 
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission]);
 
-    expect(Cache::missing('all-checkable' . $livewire->id))->toBeTrue();
+    expect(cache()->missing('all-checkable' . $livewire->id))->toBeTrue();
 
     $livewire->set('checkbox_action', CheckboxAction::CheckAll->value);
     $this->travel(60)->seconds();
@@ -243,12 +243,12 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     // não serão contabilizados pois o cache já foi registrado por 1 minuto
     Role::factory(3)->create();
 
-    expect(Cache::has('all-checkable' . $livewire->id))->toBeTrue()
-    ->and(Cache::get('all-checkable' . $livewire->id))->toHaveCount($count);
+    expect(cache()->has('all-checkable' . $livewire->id))->toBeTrue()
+    ->and(cache()->get('all-checkable' . $livewire->id))->toHaveCount($count);
 
     // expirará o cache
     $this->travel(1)->seconds();
-    expect(Cache::missing('all-checkable' . $livewire->id))->toBeTrue();
+    expect(cache()->missing('all-checkable' . $livewire->id))->toBeTrue();
 });
 
 test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
@@ -339,15 +339,15 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission_2]);
     $this->travel(60)->seconds();
 
-    expect(Cache::has('previous' . $livewire->id))->toBeTrue()
-    ->and(Cache::get('previous' . $livewire->id))->toBe($permission_1->id)
-    ->and(Cache::has('next' . $livewire->id))->toBeTrue()
-    ->and(Cache::get('next' . $livewire->id))->toBe($permission_3->id);
+    expect(cache()->has('previous' . $livewire->id))->toBeTrue()
+    ->and(cache()->get('previous' . $livewire->id))->toBe($permission_1->id)
+    ->and(cache()->has('next' . $livewire->id))->toBeTrue()
+    ->and(cache()->get('next' . $livewire->id))->toBe($permission_3->id);
 
     // expirará o cache
     $this->travel(1)->seconds();
-    expect(Cache::missing('previous' . $livewire->id))->toBeTrue()
-    ->and(Cache::missing('next' . $livewire->id))->toBeTrue();
+    expect(cache()->missing('previous' . $livewire->id))->toBeTrue()
+    ->and(cache()->missing('next' . $livewire->id))->toBeTrue();
 });
 
 test('next e previous estão definidos durante a edição individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {

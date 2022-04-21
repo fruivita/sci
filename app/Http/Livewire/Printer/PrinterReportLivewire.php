@@ -254,11 +254,11 @@ class PrinterReportLivewire extends Component
         $validator = $this->validator();
 
         $this->initial_date = $validator->errors()->has('initial_date') || empty($this->initial_date)
-        ? Carbon::now()->startOfYear()->format('d-m-Y')
+        ? now()->startOfYear()->format('d-m-Y')
         : $this->initial_date;
 
         $this->final_date = $validator->errors()->has('final_date') || empty($this->final_date)
-        ? Carbon::now()->format('d-m-Y')
+        ? now()->format('d-m-Y')
         : $this->final_date;
 
         $this->term = $validator->errors()->has('term')

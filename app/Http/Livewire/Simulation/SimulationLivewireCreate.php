@@ -87,7 +87,7 @@ class SimulationLivewireCreate extends Component
     {
         $this->validate();
 
-        session([
+        session()->put([
             'simulated' => $this->importLdapUser(),
             'simulator' => Auth::user(),
         ]);

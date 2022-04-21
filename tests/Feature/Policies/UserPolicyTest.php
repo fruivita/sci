@@ -34,26 +34,26 @@ test('permissão de listagem dos usuários é persistida em cache por 5 segundos
 
     $key = $this->user->username . PermissionType::UserViewAny->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new UserPolicy)->viewAny($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::UserViewAny->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new UserPolicy)->viewAny($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new UserPolicy)->viewAny($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('permissão de atualizar individualmente um usuário é persistida em cache por 5 segundos', function () {
@@ -61,26 +61,26 @@ test('permissão de atualizar individualmente um usuário é persistida em cache
 
     $key = $this->user->username . PermissionType::UserUpdate->value;
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new UserPolicy)->update($this->user))->toBeTrue()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue();
 
     revokePermission(PermissionType::UserUpdate->value);
     $this->travel(5)->seconds();
 
     // permissão ainda está em cache
-    expect(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeTrue()
     ->and((new UserPolicy)->update($this->user))->toBeTrue();
 
     // expira o cache
     $this->travel(1)->seconds();
 
-    expect(Cache::missing($key))->toBeTrue()
+    expect(cache()->missing($key))->toBeTrue()
     ->and((new UserPolicy)->update($this->user))->toBeFalse()
-    ->and(Cache::has($key))->toBeTrue()
-    ->and(Cache::get($key))->toBeFalse();
+    ->and(cache()->has($key))->toBeTrue()
+    ->and(cache()->get($key))->toBeFalse();
 });
 
 test('usuário com permissão pode listar os usuários', function () {

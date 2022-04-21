@@ -96,7 +96,7 @@ test('cria cache com o timestamp da data e hora em que ocorreu a importação do
 
     PrintLogImporter::make()->import();
 
-    expect(Cache::get('last_print_import'))->toBe('30-12-2020 13:00:00');
+    expect(cache()->get('last_print_import'))->toBe('30-12-2020 13:00:00');
 });
 
 test('cache da última importação dura indefinidamente enquanto não houver outra importação', function () {
@@ -104,11 +104,11 @@ test('cache da última importação dura indefinidamente enquanto não houver ou
 
     PrintLogImporter::make()->import();
 
-    expect(Cache::get('last_print_import'))->toBe('30-12-2020 13:00:00');
+    expect(cache()->get('last_print_import'))->toBe('30-12-2020 13:00:00');
 
     testTime()->addCentury();
 
-    expect(Cache::get('last_print_import'))->toBe('30-12-2020 13:00:00');
+    expect(cache()->get('last_print_import'))->toBe('30-12-2020 13:00:00');
 
     // Readiciona os arquivos de log para nova importação
     foreach ($this->print_log_files as $filename => $content) {
@@ -117,5 +117,5 @@ test('cache da última importação dura indefinidamente enquanto não houver ou
 
     PrintLogImporter::make()->import();
 
-    expect(Cache::get('last_print_import'))->toBe('30-12-2120 13:00:00');
+    expect(cache()->get('last_print_import'))->toBe('30-12-2120 13:00:00');
 });
