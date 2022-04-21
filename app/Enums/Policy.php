@@ -18,15 +18,10 @@ enum Policy: string
     case Delete = 'delete';
     case ForceDelete = 'force-delete';
     case Report = 'report';
-    case PDFReport = 'pdf-report';
     case ReportAny = 'report-any';
-    case PDFReportAny = 'pdf-report-any';
     case DepartmentReport = 'department-report';
-    case DepartmentPDFReport = 'department-pdf-report';
     case ManagerialReport = 'managerial-report';
-    case ManagerialPDFReport = 'managerial-pdf-report';
     case InstitutionalReport = 'institutional-report';
-    case InstitutionalPDFReport = 'institutional-pdf-report';
     case SimulationCreate = 'simulation-create';
     case SimulationDelete = 'simulation-delete';
     case ImportationCreate = 'importation-create';

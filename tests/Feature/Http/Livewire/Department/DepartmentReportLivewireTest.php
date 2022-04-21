@@ -51,17 +51,7 @@ test('sem permissão, não é possível gerar o relatório por lotação', funct
     ->assertOk()
     ->set('report_type', DepartmentReportType::Department->value)
     ->call('report')
-    ->assertForbidden();
-});
-
-test('sem permissão, não é possível gerar o relatório por lotação em PDF', function () {
-    // Garante alguma permissão para renderizar o componente
-    grantPermission(PermissionType::InstitutionalReport->value);
-
-    // Não possui a permissão específica
-    Livewire::test(DepartmentReportLivewire::class)
-    ->assertOk()
-    ->set('report_type', DepartmentReportType::Institutional->value)
+    ->assertForbidden()
     ->call('downloadPDFReport')
     ->assertForbidden();
 });
@@ -75,17 +65,7 @@ test('sem permissão, não é possível gerar o relatório por lotação (Gerenc
     ->assertOk()
     ->set('report_type', DepartmentReportType::Managerial->value)
     ->call('report')
-    ->assertForbidden();
-});
-
-test('sem permissão, não é possível gerar o relatório por lotação (Gerencial) em PDF', function () {
-    // Garante alguma permissão para renderizar o componente
-    grantPermission(PermissionType::ManagerialReport->value);
-
-    // Não possui a permissão específica
-    Livewire::test(DepartmentReportLivewire::class)
-    ->assertOk()
-    ->set('report_type', DepartmentReportType::Managerial->value)
+    ->assertForbidden()
     ->call('downloadPDFReport')
     ->assertForbidden();
 });
@@ -99,17 +79,7 @@ test('sem permissão, não é possível gerar o relatório por lotação (Instit
     ->assertOk()
     ->set('report_type', DepartmentReportType::Institutional->value)
     ->call('report')
-    ->assertForbidden();
-});
-
-test('sem permissão, não é possível gerar o relatório por lotação (Institucional) em PDF', function () {
-    // Garante alguma permissão para renderizar o componente
-    grantPermission(PermissionType::DepartmentReport->value);
-
-    // Não possui a permissão específica
-    Livewire::test(DepartmentReportLivewire::class)
-    ->assertOk()
-    ->set('report_type', DepartmentReportType::Department->value)
+    ->assertForbidden()
     ->call('downloadPDFReport')
     ->assertForbidden();
 });
@@ -314,7 +284,6 @@ test('paginação cria as variáveis de sessão', function () {
 
 test('faz o download do relatório por lotação em formato pdf', function () {
     grantPermission(PermissionType::DepartmentReport->value);
-    grantPermission(PermissionType::DepartmentPDFReport->value);
 
     Department::factory(10)->create();
 
@@ -327,7 +296,6 @@ test('faz o download do relatório por lotação em formato pdf', function () {
 
 test('faz o download do relatório por lotação (Gerencial) em formato pdf', function () {
     grantPermission(PermissionType::ManagerialReport->value);
-    grantPermission(PermissionType::ManagerialPDFReport->value);
 
     Department::factory(10)->create();
 
@@ -340,7 +308,6 @@ test('faz o download do relatório por lotação (Gerencial) em formato pdf', fu
 
 test('faz o download do relatório por lotação (Institucional) em formato pdf', function () {
     grantPermission(PermissionType::InstitutionalReport->value);
-    grantPermission(PermissionType::InstitutionalPDFReport->value);
 
     Department::factory(10)->create();
 

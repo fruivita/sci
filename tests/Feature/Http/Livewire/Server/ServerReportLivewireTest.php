@@ -42,15 +42,6 @@ test('autenticado, mas sem permissão específica, não é possível renderizar 
     ->assertForbidden();
 });
 
-test('sem permissão, não é possível gerar o relatório em pdf', function () {
-    grantPermission(PermissionType::ServerReport->value);
-
-    Livewire::test(ServerReportLivewire::class)
-    ->assertOk()
-    ->call('downloadPDFReport')
-    ->assertForbidden();
-});
-
 // Failure
 test('se as valores forem inválidos na query string, eles serão definidas pelo sistema', function () {
     grantPermission(PermissionType::ServerReport->value);
@@ -201,7 +192,6 @@ test('paginação cria as variáveis de sessão', function () {
 
 test('faz o download do relatório em formato pdf', function () {
     grantPermission(PermissionType::ServerReport->value);
-    grantPermission(PermissionType::ServerPDFReport->value);
 
     Server::factory(30)
     ->has(Printing::factory()->state(['date' => '2020-05-15']), 'prints')

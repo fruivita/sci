@@ -104,21 +104,17 @@
                     type="button"/>
 
 
-                @can(\App\Enums\Policy::PDFReportAny->value, \App\Models\Department::class)
-
-                    <x-button
-                        wire:click="downloadPDFReport"
-                        wire:key="btn-report-pdf"
-                        wire:loading.delay.attr="disabled"
-                        wire:loading.delay.class="cursor-not-allowed"
-                        wire:target="downloadPDFReport,final_date,initial_date,per_page,report,report_type"
-                        class="btn-do"
-                        icon="filetype-pdf"
-                        text="{{ __('PDF') }}"
-                        title="{{ __('Report in PDF format') }}"
-                        type="button"/>
-
-                @endcan
+                <x-button
+                    wire:click="downloadPDFReport"
+                    wire:key="btn-report-pdf"
+                    wire:loading.delay.attr="disabled"
+                    wire:loading.delay.class="cursor-not-allowed"
+                    wire:target="downloadPDFReport,final_date,initial_date,per_page,report,report_type"
+                    class="btn-do"
+                    icon="filetype-pdf"
+                    text="{{ __('PDF') }}"
+                    title="{{ __('Report in PDF format') }}"
+                    type="button"/>
 
             </div>
 

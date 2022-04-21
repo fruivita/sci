@@ -106,16 +106,6 @@ class ServerReportLivewire extends Component
     }
 
     /**
-     * Autorização para gerar o relatório em formato PDF.
-     *
-     * @return void
-     */
-    private function authorizePDF()
-    {
-        $this->authorize(Policy::PDFReport->value, Server::class);
-    }
-
-    /**
      * Título do relatório que será gerado.
      *
      * @return string

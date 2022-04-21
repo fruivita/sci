@@ -21,16 +21,4 @@ class PrinterPolicy extends Policy
     {
         return $this->hasPermissionWithCache($user, PermissionType::PrinterReport);
     }
-
-    /**
-     * Determine whether the user can generated PDF printer report.
-     *
-     * @param \App\Models\User $user
-     *
-     * @return bool|\Illuminate\Auth\Access\Response
-     */
-    public function pdfReport(User $user)
-    {
-        return $this->hasPermissionWithCache($user, PermissionType::PrinterPDFReport);
-    }
 }

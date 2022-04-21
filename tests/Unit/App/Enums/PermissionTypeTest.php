@@ -38,25 +38,19 @@ test('ids das permissões para delegação estão definidas', function () {
 });
 
 test('ids das permissões ligadas a administração das impressoras estão definidas', function () {
-    expect(PermissionType::PrinterReport->value)->toBe(160101)
-    ->and(PermissionType::PrinterPDFReport->value)->toBe(160102);
+    expect(PermissionType::PrinterReport->value)->toBe(160101);
 });
 
 test('ids das permissões ligadas a administração das impressões estão definidas', function () {
-    expect(PermissionType::PrintingReport->value)->toBe(170101)
-    ->and(PermissionType::PrintingPDFReport->value)->toBe(170102);
+    expect(PermissionType::PrintingReport->value)->toBe(170101);
 });
 
 test('ids das permissões ligadas a administração dos servidores estão definidas', function () {
-    expect(PermissionType::ServerReport->value)->toBe(180101)
-    ->and(PermissionType::ServerPDFReport->value)->toBe(180102);
+    expect(PermissionType::ServerReport->value)->toBe(180101);
 });
 
 test('ids das permissões ligadas a administração das lotações estão definidas', function () {
     expect(PermissionType::DepartmentReport->value)->toBe(190101)
-    ->and(PermissionType::DepartmentPDFReport->value)->toBe(190102)
-    ->and(PermissionType::ManagerialReport->value)->toBe(190103)
-    ->and(PermissionType::ManagerialPDFReport->value)->toBe(190104)
-    ->and(PermissionType::InstitutionalReport->value)->toBe(190105)
-    ->and(PermissionType::InstitutionalPDFReport->value)->toBe(190106);
+    ->and(PermissionType::ManagerialReport->value)->toBe(190102)
+    ->and(PermissionType::InstitutionalReport->value)->toBe(190103);
 });

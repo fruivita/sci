@@ -347,7 +347,7 @@ test('next e previous são registrados em cache com expirarção de um minuto', 
     $this->travel(1)->seconds();
     expect(cache()->missing('previous' . $livewire->id))->toBeTrue()
     ->and(cache()->missing('next' . $livewire->id))->toBeTrue();
-})->only();
+});
 
 test('next e previous estão definidos durante a edição individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
     $this->role->delete();

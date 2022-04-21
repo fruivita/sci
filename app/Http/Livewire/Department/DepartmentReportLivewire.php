@@ -120,31 +120,6 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Autorização para gerar o relatório em formato PDF.
-     *
-     * @return void
-     */
-    private function authorizePDF()
-    {
-        switch ($this->report_type) {
-            case DepartmentReportType::Department->value:
-                $this->authorize(Policy::DepartmentPDFReport->value, Department::class);
-
-                break;
-            case DepartmentReportType::Managerial->value:
-                $this->authorize(Policy::ManagerialPDFReport->value, Department::class);
-
-                break;
-            case DepartmentReportType::Institutional->value:
-                $this->authorize(Policy::InstitutionalPDFReport->value, Department::class);
-
-                break;
-            default:
-                abort(403, __('THIS ACTION IS UNAUTHORIZED'));
-        }
-    }
-
-    /**
      * Título do relatório que será gerado.
      *
      * @return string

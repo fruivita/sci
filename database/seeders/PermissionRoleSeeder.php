@@ -100,19 +100,7 @@ class PermissionRoleSeeder extends Seeder
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => PermissionType::PrinterPDFReport->value,
-                'created_at' => now()->format('Y-m-d H:i:s'),
-                'updated_at' => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => PermissionType::PrintingReport->value,
-                'created_at' => now()->format('Y-m-d H:i:s'),
-                'updated_at' => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => PermissionType::PrintingPDFReport->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
@@ -124,19 +112,7 @@ class PermissionRoleSeeder extends Seeder
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => PermissionType::ServerPDFReport->value,
-                'created_at' => now()->format('Y-m-d H:i:s'),
-                'updated_at' => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => PermissionType::DepartmentReport->value,
-                'created_at' => now()->format('Y-m-d H:i:s'),
-                'updated_at' => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => PermissionType::DepartmentPDFReport->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
@@ -148,19 +124,7 @@ class PermissionRoleSeeder extends Seeder
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => PermissionType::ManagerialPDFReport->value,
-                'created_at' => now()->format('Y-m-d H:i:s'),
-                'updated_at' => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => PermissionType::InstitutionalReport->value,
-                'created_at' => now()->format('Y-m-d H:i:s'),
-                'updated_at' => now()->format('Y-m-d H:i:s'),
-            ],
-            [
-                'role_id' => Role::ADMINISTRATOR,
-                'permission_id' => PermissionType::InstitutionalPDFReport->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
