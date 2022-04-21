@@ -179,7 +179,7 @@ test('termo pesquisável está sujeito à validação em tempo real', function (
 });
 
 // Happy path
-test('com permissão especíca, é possível renderizar o componente de listagem das delegações da lotação', function () {
+test('com permissão específica, é possível renderizar o componente de listagem das delegações da lotação', function () {
     grantPermission(PermissionType::DelegationViewAny->value);
 
     get(route('authorization.delegations.index'))
