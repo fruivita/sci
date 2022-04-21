@@ -108,7 +108,7 @@ class ServerReportLivewire extends Component
     /**
      * Autorização para gerar o relatório em formato PDF.
      *
-     * @return \Illuminate\Auth\Access\Response
+     * @return void
      */
     private function authorizePDF()
     {
@@ -138,7 +138,7 @@ class ServerReportLivewire extends Component
     /**
      * Filtro extra utilizado no relatório.
      *
-     * @return string|null
+     * @return null
      */
     private function filter()
     {

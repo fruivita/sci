@@ -221,7 +221,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     /**
      * Verifica se o usuário possui uma das permissões informadas.
      *
-     * @param \App\Enums\PermissionType[] $permission
+     * @param \App\Enums\PermissionType[] $permissions
      *
      * @return bool
      */

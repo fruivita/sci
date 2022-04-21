@@ -53,7 +53,7 @@ class Department extends CorporateDepartment
      *
      * @param \Carbon\Carbon                 $initial_date
      * @param \Carbon\Carbon                 $final_date
-     * @param \App\Enum\DepartmentReportType $type
+     * @param \App\Enums\DepartmentReportType $type
      * @param int                            $per_page
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -92,7 +92,7 @@ class Department extends CorporateDepartment
      * @param \Carbon\Carbon $final_date
      * @param int            $per_page
      *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     private static function institutional(Carbon $initial_date, Carbon $final_date, int $per_page)
     {
@@ -145,7 +145,7 @@ class Department extends CorporateDepartment
      * @param \Carbon\Carbon $final_date
      * @param int            $per_page
      *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      *
      * @see \App\Providers\AppServiceProvider
      * @see https://gist.github.com/simonhamp/549e8821946e2c40a617c85d2cf5af5e
@@ -231,7 +231,7 @@ class Department extends CorporateDepartment
      * @param \Carbon\Carbon $final_date
      * @param int            $per_page
      *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     private static function department(Carbon $initial_date, Carbon $final_date, int $per_page)
     {

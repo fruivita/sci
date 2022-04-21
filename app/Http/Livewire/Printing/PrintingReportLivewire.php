@@ -129,7 +129,7 @@ class PrintingReportLivewire extends Component
     /**
      * Autorização para gerar o relatório em formato PDF.
      *
-     * @return \Illuminate\Auth\Access\Response
+     * @return void
      */
     private function authorizePDF()
     {
@@ -159,7 +159,7 @@ class PrintingReportLivewire extends Component
     /**
      * Filtro extra utilizado no relatório.
      *
-     * @return string|null
+     * @return string
      */
     private function filter()
     {

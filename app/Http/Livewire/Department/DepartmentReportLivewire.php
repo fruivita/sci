@@ -122,7 +122,7 @@ class DepartmentReportLivewire extends Component
     /**
      * Autorização para gerar o relatório em formato PDF.
      *
-     * @return \Illuminate\Auth\Access\Response
+     * @return void
      */
     private function authorizePDF()
     {
@@ -138,7 +138,6 @@ class DepartmentReportLivewire extends Component
                 break;
             default:
                 abort(403, __('THIS ACTION IS UNAUTHORIZED'));
-                break;
         }
     }
 
@@ -165,7 +164,7 @@ class DepartmentReportLivewire extends Component
     /**
      * Filtro extra utilizado no relatório.
      *
-     * @return string|null
+     * @return string
      */
     private function filter()
     {
@@ -204,7 +203,6 @@ class DepartmentReportLivewire extends Component
                 break;
             default:
                 abort(403, __('THIS ACTION IS UNAUTHORIZED'));
-                break;
         }
     }
 
@@ -364,7 +362,7 @@ class DepartmentReportLivewire extends Component
     /**
      * Permissões de geração de relatórios por lotação.
      *
-     * @return int[]
+     * @return \App\Enums\PermissionType[]
      */
     private function departmentReportPermissions()
     {
