@@ -145,11 +145,11 @@ class PrinterReportLivewire extends Component
     }
 
     /**
-     * Nome da view utilizada para a geração do relatório.
+     * Nome da view utilizada para a geração do relatório em PDF.
      *
      * @return string
      */
-    private function reportViewName()
+    private function pdfReportViewName()
     {
         return 'pdf.printer.report';
     }

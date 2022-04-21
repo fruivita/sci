@@ -20,11 +20,11 @@ trait WithDownloadableReport
     abstract private function reportHeader();
 
     /**
-     * Nome da view utilizada para a geração do relatório.
+     * Nome da view utilizada para a geração do relatório em PDF.
      *
      * @return string
      */
-    abstract private function reportViewName();
+    abstract private function pdfReportViewName();
 
     /**
      * Relatório paginado, de acordo com as solicitações do usuário.
@@ -69,7 +69,7 @@ trait WithDownloadableReport
         ];
 
         $pdf_content = Pdf::loadView(
-            $this->reportViewName(),
+            $this->pdfReportViewName(),
             $this->data()
         )->output();
 
