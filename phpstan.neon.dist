@@ -26,6 +26,8 @@ parameters:
     - App\Http\Livewire\Authorization\RoleLivewireShow
     - App\Http\Livewire\Authorization\RoleLivewireUpdate
     - App\Http\Livewire\Authorization\UserLivewireIndex
+    - App\Http\Livewire\Department\DepartmentReportLivewire
+    - App\Http\Livewire\Server\ServerReportLivewire
     - App\Http\Livewire\Printer\PrinterReportLivewire
     - App\Http\Livewire\Printing\PrintingReportLivewire
     - LdapRecord\Models\ActiveDirectory\User
