@@ -8,12 +8,9 @@ use App\Enums\DepartmentReportType;
 use App\Enums\PermissionType;
 use App\Http\Livewire\Department\DepartmentReportLivewire;
 use App\Models\Department;
-use App\Models\Printer;
-use App\Models\Printing;
 use App\Rules\DateMax;
 use App\Rules\DateMin;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 

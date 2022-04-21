@@ -47,10 +47,10 @@ abstract class Policy
      * Utiliza cache de curta duração para armazenar a permissão evitando-se
      * queries repetitivas, em especial, em um mesmo request.
      *
-     * @param \App\Models\User          $user
+     * @param \App\Models\User            $user
      * @param \App\Enums\PermissionType[] $permissions
-     * @param string $partial_key parte da chave que será concatenada ao nome
-     * do usuário para gerar a chave do cache
+     * @param string                      $partial_key parte da chave que será concatenada ao nome
+     *                                                 do usuário para gerar a chave do cache
      *
      * @return bool
      */

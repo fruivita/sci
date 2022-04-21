@@ -160,7 +160,7 @@ test('hasAnyPermission informa se o usuário possui uma das permissões informad
     expect(authenticatedUser()->hasAnyPermission([
         PermissionType::DelegationCreate,
         PermissionType::ServerReport,
-        PermissionType::SimulationCreate
+        PermissionType::SimulationCreate,
     ]))->toBeFalse();
 
     expect(authenticatedUser()->hasAnyPermission([]))->toBeFalse();

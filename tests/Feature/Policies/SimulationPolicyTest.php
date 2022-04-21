@@ -7,7 +7,6 @@
 use App\Enums\PermissionType;
 use App\Policies\SimulationPolicy;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Facades\Cache;
 
 beforeEach(function () {
     $this->seed(RoleSeeder::class);

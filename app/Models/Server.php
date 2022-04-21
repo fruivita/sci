@@ -84,20 +84,20 @@ class Server extends Model
         $from = $initial_date->startOfDay();
         $until = $final_date->endOfDay();
 
-        //Prepara-se a query do total de impressão no período.
+        // Prepara-se a query do total de impressão no período.
         $sum =
             DB::table('prints')
                 ->selectRaw('SUM(copies * pages) AS total')
                 ->whereBetween('date', [$from, $until]);
 
-        //Prepara-se a query das impressões agrupadas por servidor.
+        // Prepara-se a query das impressões agrupadas por servidor.
         $printing =
             DB::table('prints')
                 ->selectRaw('server_id AS s_id, SUM(copies * pages) AS sum, COUNT(DISTINCT printer_id) AS printer')
                 ->whereBetween('date', [$from, $until])
                 ->groupBy('s_id');
 
-        //Executa a query juntando as query preparadas
+        // Executa a query juntando as query preparadas
         return
             DB::table('sites', 'l')
                 ->selectRaw('

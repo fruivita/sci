@@ -2,10 +2,9 @@
 
 namespace App\Rules;
 
+use function App\reportMaxDate;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Carbon;
-
-use function App\reportMaxDate;
 
 /**
  * Verifica se a data em validação é menor que a data máxima para geração dos

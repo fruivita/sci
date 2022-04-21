@@ -2,11 +2,10 @@
 
 namespace App\View\Components\Form;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\View\Component;
-
 use function App\reportMaxDate;
 use function App\reportMinDate;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\Component;
 
 /**
  * @see https://laravel.com/docs/9.x/blade#components

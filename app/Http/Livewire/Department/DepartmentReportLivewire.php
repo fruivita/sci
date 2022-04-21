@@ -43,7 +43,7 @@ class DepartmentReportLivewire extends Component
      * Tipo de relatório por departamento.
      * - Departamento
      * - Gerencial
-     * - Institucional
+     * - Institucional.
      *
      * @var string
      */
@@ -129,12 +129,15 @@ class DepartmentReportLivewire extends Component
         switch ($this->report_type) {
             case DepartmentReportType::Department->value:
                 $this->authorize(Policy::DepartmentPDFReport->value, Department::class);
+
                 break;
             case DepartmentReportType::Managerial->value:
                 $this->authorize(Policy::ManagerialPDFReport->value, Department::class);
+
                 break;
             case DepartmentReportType::Institutional->value:
                 $this->authorize(Policy::InstitutionalPDFReport->value, Department::class);
+
                 break;
             default:
                 abort(403, __('THIS ACTION IS UNAUTHORIZED'));
@@ -194,12 +197,15 @@ class DepartmentReportLivewire extends Component
         switch ($this->report_type) {
             case DepartmentReportType::Department->value:
                 $this->authorize(Policy::DepartmentReport->value, Department::class);
+
                 break;
             case DepartmentReportType::Managerial->value:
                 $this->authorize(Policy::ManagerialReport->value, Department::class);
+
                 break;
             case DepartmentReportType::Institutional->value:
                 $this->authorize(Policy::InstitutionalReport->value, Department::class);
+
                 break;
             default:
                 abort(403, __('THIS ACTION IS UNAUTHORIZED'));
@@ -326,14 +332,17 @@ class DepartmentReportLivewire extends Component
         switch ($this->getUserPermission()) {
             case PermissionType::DepartmentReport->value:
                 $default_report_type = DepartmentReportType::Department->value;
+
                 break;
 
             case PermissionType::ManagerialReport->value:
                 $default_report_type = DepartmentReportType::Managerial->value;
+
                 break;
 
             case PermissionType::InstitutionalReport->value:
                 $default_report_type = DepartmentReportType::Institutional->value;
+
                 break;
         }
 

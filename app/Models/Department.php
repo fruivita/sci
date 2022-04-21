@@ -51,10 +51,10 @@ class Department extends CorporateDepartment
      *
      * O relatório inclui as lotações com impressões zeradas.
      *
-     * @param \Carbon\Carbon                 $initial_date
-     * @param \Carbon\Carbon                 $final_date
+     * @param \Carbon\Carbon                  $initial_date
+     * @param \Carbon\Carbon                  $final_date
      * @param \App\Enums\DepartmentReportType $type
-     * @param int                            $per_page
+     * @param int                             $per_page
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -96,20 +96,20 @@ class Department extends CorporateDepartment
      */
     private static function institutional(Carbon $initial_date, Carbon $final_date, int $per_page)
     {
-        //prepara-se todas as impressoes e quantidades de impressoras
-        //utilizadas no período informado.
+        // prepara-se todas as impressões e quantidades de impressoras
+        // utilizadas no período informado.
         $prints = DB::table('prints')
             ->selectRaw('department_id, SUM(copies * pages) AS total_print, COUNT(DISTINCT printer_id) AS printer_count')
             ->whereBetween('date', [$initial_date, $final_date])
             ->groupBy('department_id');
 
-        //prepara-se todas as locações com a sigla da lotação pai right
+        // prepara-se todas as locações com a sigla da lotação pai right
         $department = DB::table('departments', 'd1')
             ->select('d1.acronym', 'd1.name AS department', 'tmp.total_print', 'tmp.printer_count', 'd2.acronym AS parent_acronym', 'd2.name AS parent_department')
             ->leftJoin('departments AS d2', 'd2.id', '=', 'd1.parent_department')
             ->rightJoinSub($prints, 'tmp', 'tmp.department_id', '=', 'd1.id');
 
-        //junta as query e a prepara para a execução.
+        // junta as query e a prepara para a execução.
         return
         DB::table('departments', 'd3')
             ->select('d3.acronym', 'd3.name AS department', 'tmp.total_print', 'tmp.printer_count', 'd4.acronym AS parent_acronym', 'd4.name AS parent_department')

@@ -5,7 +5,6 @@
  */
 
 use App\Enums\PermissionType;
-use App\Models\Department;
 use App\Policies\DepartmentPolicy;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;

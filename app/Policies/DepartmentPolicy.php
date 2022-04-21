@@ -20,7 +20,8 @@ class DepartmentPolicy extends Policy
     public function reportAny(User $user)
     {
         return $this->hasAnyPermissionWithCache(
-            $user, [
+            $user,
+            [
                 PermissionType::DepartmentReport,
                 PermissionType::ManagerialReport,
                 PermissionType::InstitutionalReport,
@@ -39,7 +40,8 @@ class DepartmentPolicy extends Policy
     public function pdfReportAny(User $user)
     {
         return $this->hasAnyPermissionWithCache(
-            $user, [
+            $user,
+            [
                 PermissionType::DepartmentPDFReport,
                 PermissionType::ManagerialPDFReport,
                 PermissionType::InstitutionalPDFReport,
