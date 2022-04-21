@@ -33,8 +33,8 @@
 
 
                 <x-form.input
-                    wire:key="final_date"
-                    wire:model.lazy="final-date"
+                    wire:key="final-date"
+                    wire:model.lazy="final_date"
                     :error="$errors->first('final_date')"
                     icon="calendar-range"
                     min="{{ \App\reportMinYear() }}"
