@@ -99,6 +99,7 @@
     },
     "config": {
         "optimize-autoloader": true,
+        "process-timeout": 600,
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
