@@ -271,8 +271,8 @@ class DepartmentReportLivewire extends Component
         return Department::report(
             Carbon::createFromFormat('d-m-Y', $this->initial_date),
             Carbon::createFromFormat('d-m-Y', $this->final_date),
-            DepartmentReportType::from($this->report_type),
             $per_page ?? $this->per_page,
+            DepartmentReportType::from($this->report_type),
         );
     }
 

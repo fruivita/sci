@@ -53,12 +53,12 @@ class Department extends CorporateDepartment
      *
      * @param \Carbon\Carbon                  $initial_date
      * @param \Carbon\Carbon                  $final_date
-     * @param \App\Enums\DepartmentReportType $type
      * @param int                             $per_page
+     * @param \App\Enums\DepartmentReportType $type
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function report(Carbon $initial_date, Carbon $final_date, DepartmentReportType $type, int $per_page)
+    public static function report(Carbon $initial_date, Carbon $final_date, int $per_page, DepartmentReportType $type)
     {
         return
         self::{$type->value}(

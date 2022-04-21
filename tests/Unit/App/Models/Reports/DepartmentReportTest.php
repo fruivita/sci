@@ -53,8 +53,8 @@ test('relatório institucional traz informações sobre todas as lotações', fu
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-        DepartmentReportType::Institutional,
-        9999
+        9999,
+        DepartmentReportType::Institutional
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -99,8 +99,8 @@ test('relatório gerencial traz informações sobre pai e as filhas', function (
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-        DepartmentReportType::Managerial,
-        9999
+        9999,
+        DepartmentReportType::Managerial
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -135,8 +135,8 @@ test('relatório gerencial não traz informação sobre lotação pai a partir d
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-        DepartmentReportType::Managerial,
-        9999
+        9999,
+        DepartmentReportType::Managerial
     );
 
     $department3 = $result->firstWhere('department', 'Lotação 3');
@@ -159,8 +159,8 @@ test('relatório por lotação traz informações apenas da lotação da pessoa 
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-        DepartmentReportType::Department,
-        9999
+        9999,
+        DepartmentReportType::Department
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -180,8 +180,8 @@ test('relatório institucional com restrição de período', function () {
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '01-12-2020'),
         Carbon::createFromFormat('d-m-Y', '15-12-2020'),
-        DepartmentReportType::Institutional,
-        9999
+        9999,
+        DepartmentReportType::Institutional
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -211,8 +211,8 @@ test('relatório gerencial com restrição de período', function () {
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '01-12-2020'),
         Carbon::createFromFormat('d-m-Y', '15-12-2020'),
-        DepartmentReportType::Managerial,
-        9999
+        9999,
+        DepartmentReportType::Managerial
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -237,8 +237,8 @@ test('relatório por lotação com restrição de período', function () {
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '01-12-2020'),
         Carbon::createFromFormat('d-m-Y', '15-12-2020'),
-        DepartmentReportType::Department,
-        9999
+        9999,
+        DepartmentReportType::Department
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -256,8 +256,8 @@ test('relatório institucional, mesmo sem impressão no período, traz o relató
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '01-08-2021'),
         Carbon::createFromFormat('d-m-Y', '02-08-2021'),
-        DepartmentReportType::Institutional,
-        9999
+        9999,
+        DepartmentReportType::Institutional
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -287,8 +287,8 @@ test('relatório gerencial, mesmo sem impressão no período, traz o relatório 
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '01-08-2021'),
         Carbon::createFromFormat('d-m-Y', '02-08-2021'),
-        DepartmentReportType::Managerial,
-        9999
+        9999,
+        DepartmentReportType::Managerial
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -314,8 +314,8 @@ test('relatório por lotação, mesmo sem impressão no período, traz o relató
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '01-08-2021'),
         Carbon::createFromFormat('d-m-Y', '02-08-2021'),
-        DepartmentReportType::Department,
-        9999
+        9999,
+        DepartmentReportType::Department
     );
 
     $department1 = $result->firstWhere('department', 'Lotação 1');
@@ -333,8 +333,8 @@ test('relatório institucional é ordenado pelo volume impressão desc e lotaç�
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-        DepartmentReportType::Institutional,
-        9999
+        9999,
+        DepartmentReportType::Institutional
     );
 
     $first = $result->get(0);
@@ -364,8 +364,8 @@ test('relatório gerencial é ordenado pelo volume impressão desc e lotação a
     $result = Department::report(
         Carbon::createFromFormat('d-m-Y', '30-06-2019'),
         Carbon::createFromFormat('d-m-Y', '25-12-2020'),
-        DepartmentReportType::Managerial,
-        9999
+        9999,
+        DepartmentReportType::Managerial
     );
 
     $first = $result->get(0);
