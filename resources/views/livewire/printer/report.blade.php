@@ -19,7 +19,7 @@
             <div class="flex flex-col space-x-0 space-y-6 lg:flex-row lg:space-x-3 lg:space-y-0">
 
                 <x-form.date-picker
-                    wire:key="initial_date"
+                    wire:key="initial-date"
                     wire:model.lazy="initial_date"
                     :error="$errors->first('initial_date')"
                     required
@@ -28,7 +28,7 @@
 
 
                 <x-form.date-picker
-                    wire:key="final_date"
+                    wire:key="final-date"
                     wire:model.lazy="final_date"
                     :error="$errors->first('final_date')"
                     required

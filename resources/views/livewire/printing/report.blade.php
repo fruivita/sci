@@ -19,7 +19,7 @@
             <div class="flex flex-col space-x-0 space-y-6 lg:flex-row lg:space-x-3 lg:space-y-0">
 
                 <x-form.input
-                    wire:key="initial_date"
+                    wire:key="initial-date"
                     wire:model.lazy="initial_date"
                     :error="$errors->first('initial_date')"
                     icon="calendar-range"
@@ -34,7 +34,7 @@
 
                 <x-form.input
                     wire:key="final_date"
-                    wire:model.lazy="final_date"
+                    wire:model.lazy="final-date"
                     :error="$errors->first('final_date')"
                     icon="calendar-range"
                     min="{{ \App\reportMinYear() }}"
