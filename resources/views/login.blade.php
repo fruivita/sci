@@ -27,7 +27,6 @@
 
                 <div class="flex flex-col p-3 space-y-6">
 
-                    {{-- input para o usuário --}}
                     <x-form.input
                         autocomplete="username"
                         :error="$errors->first('username')"
@@ -41,7 +40,6 @@
                         :value="old('username')"/>
 
 
-                    {{-- input para o senha --}}
                     <x-form.input
                         autocomplete="current-password"
                         :error="$errors->first('password')"
@@ -55,7 +53,6 @@
                         value=""/>
 
 
-                    {{-- botão para fazer a autenticação --}}
                     <x-button
                         class="btn-default"
                         formaction="{{ route('login') }}"

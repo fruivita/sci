@@ -18,7 +18,6 @@
 
             <div class="flex flex-col space-x-0 space-y-6 lg:flex-row lg:space-x-3 lg:space-y-0">
 
-                {{-- input para a data inicial --}}
                 <x-form.date-picker
                     wire:key="initial_date"
                     wire:model.lazy="initial_date"
@@ -41,7 +40,6 @@
 
             <div class="flex flex-col mt-3 space-x-0 space-y-3 md:flex-row md:space-x-3 md:space-y-0">
 
-                {{-- botão para exibir o relatório em formato web --}}
                 <x-button
                     wire:click="report"
                     wire:key="btn-report-web"
@@ -57,7 +55,6 @@
 
                 @can(\App\Enums\Policy::PDFReport->value, \App\Models\Server::class)
 
-                    {{-- botão para exibir o relatório em formato PDF --}}
                     <x-button
                         wire:click="downloadPDFReport"
                         wire:key="btn-report-pdf"

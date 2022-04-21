@@ -32,7 +32,6 @@
         @method('DELETE')
 
 
-        {{-- botão para desfazer a simulação --}}
         <x-button
           color='btn-warning'
           formaction="{{ route('simulation.destroy') }}"

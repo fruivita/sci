@@ -26,7 +26,6 @@
                 <h6 class="font-bold">{{ __('Import') }}</h6>
 
 
-                {{-- estrutura corporativa --}}
                 <x-form.checkbox
                     wire:key="checkbox-corporate"
                     wire:loading.delay.class="cursor-not-allowed"
@@ -36,7 +35,6 @@
                     value="{{ \App\Enums\ImportationType::Corporate->value }}"/>
 
 
-                {{-- log de impressão --}}
                 <x-form.checkbox
                     wire:key="checkbox-printlog"
                     wire:loading.delay.class="cursor-not-allowed"

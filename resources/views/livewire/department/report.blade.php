@@ -91,7 +91,6 @@
 
             <div class="flex flex-col mt-3 space-x-0 space-y-3 md:flex-row md:space-x-3 md:space-y-0">
 
-                {{-- botão para exibir o relatório em formato web --}}
                 <x-button
                     wire:click="report"
                     wire:key="btn-report-web"
@@ -107,7 +106,6 @@
 
                 @can(\App\Enums\Policy::PDFReportAny->value, \App\Models\Department::class)
 
-                    {{-- botão para exibir o relatório em formato PDF --}}
                     <x-button
                         wire:click="downloadPDFReport"
                         wire:key="btn-report-pdf"
