@@ -71,6 +71,18 @@
             @endcan
 
 
+            @can(\App\Enums\Policy::ReportAny->value, \App\Models\Department::class)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('report.department.*') ? 'active': '' }}"
+                    icon="diagram-3"
+                    href="{{ route('report.department.create') }}"
+                    text="{{ __('Department') }}"
+                    title="{{ __('Report by department') }}"/>
+
+            @endcan
+
+
             @can(\App\Enums\Policy::Report->value, \App\Models\Server::class)
 
                 <x-menu.link

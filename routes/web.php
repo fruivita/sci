@@ -11,10 +11,12 @@ use App\Http\Livewire\Authorization\RoleLivewireIndex;
 use App\Http\Livewire\Authorization\RoleLivewireShow;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Http\Livewire\Authorization\UserLivewireIndex;
+use App\Http\Livewire\Department\DepartmentReportLivewire;
 use App\Http\Livewire\Printer\PrinterReportLivewire;
 use App\Http\Livewire\Printing\PrintingReportLivewire;
 use App\Http\Livewire\Server\ServerReportLivewire;
 use App\Http\Livewire\Simulation\SimulationLivewireCreate;
+use App\Models\Department;
 use App\Models\Permission;
 use App\Models\Printer;
 use App\Models\Printing;
@@ -82,6 +84,10 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('impressora')->name('printer.')->group(function () {
             Route::get('/', PrinterReportLivewire::class)->name('create')->can(Policy::Report->value, Printer::class);
+        });
+
+        Route::prefix('lotacao')->name('department.')->group(function () {
+            Route::get('/', DepartmentReportLivewire::class)->name('create')->can(Policy::ReportAny->value, Department::class);
         });
 
         Route::prefix('servidor')->name('server.')->group(function () {
