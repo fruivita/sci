@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Server;
+namespace App\Http\Livewire\Administration;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithPerPagePagination;
@@ -96,7 +96,7 @@ class ServerLivewireShow extends Component
      */
     public function render()
     {
-        return view('livewire.server.show', [
+        return view('livewire.administration.server.show', [
             'sites' => $this->sites,
         ])->layout('layouts.app');
     }

@@ -72,7 +72,7 @@ class ImportationLivewireCreate extends Component
      */
     public function render()
     {
-        return view('livewire.importation.create')->layout('layouts.app');
+        return view('livewire.administration.importation.create')->layout('layouts.app');
     }
 
     /**
