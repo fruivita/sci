@@ -107,20 +107,38 @@ class Department extends CorporateDepartment
         // prepara-se todas as impressões e quantidades de impressoras
         // utilizadas no período informado.
         $prints = DB::table('prints')
-            ->selectRaw('department_id, SUM(copies * pages) AS total_print, COUNT(DISTINCT printer_id) AS printer_count')
+            ->selectRaw(
+                'department_id,
+                SUM(copies * pages) AS total_print,
+                COUNT(DISTINCT printer_id) AS printer_count'
+            )
             ->whereBetween('date', [$initial_date, $final_date])
             ->groupBy('department_id');
 
         // prepara-se todas as locações com a sigla da lotação pai right
         $department = DB::table('departments', 'd1')
-            ->select('d1.acronym', 'd1.name AS department', 'tmp.total_print', 'tmp.printer_count', 'd2.acronym AS parent_acronym', 'd2.name AS parent_department')
+            ->select(
+                'd1.acronym',
+                'd1.name AS department',
+                'tmp.total_print',
+                'tmp.printer_count',
+                'd2.acronym AS parent_acronym',
+                'd2.name AS parent_department'
+            )
             ->leftJoin('departments AS d2', 'd2.id', '=', 'd1.parent_department')
             ->rightJoinSub($prints, 'tmp', 'tmp.department_id', '=', 'd1.id');
 
         // junta as query e a prepara para a execução.
         return
         DB::table('departments', 'd3')
-            ->select('d3.acronym', 'd3.name AS department', 'tmp.total_print', 'tmp.printer_count', 'd4.acronym AS parent_acronym', 'd4.name AS parent_department')
+            ->select(
+                'd3.acronym',
+                'd3.name AS department',
+                'tmp.total_print',
+                'tmp.printer_count',
+                'd4.acronym AS parent_acronym',
+                'd4.name AS parent_department'
+            )
             ->leftJoin('departments AS d4', 'd4.id', '=', 'd3.parent_department')
             ->leftJoinSub($prints, 'tmp', 'tmp.department_id', '=', 'd3.id')
             ->union($department)
@@ -245,8 +263,8 @@ class Department extends CorporateDepartment
     {
         return
         DB::table('departments', 'd')
-            ->selectRaw('
-                SUM(i.copies * i.pages) AS total_print,
+            ->selectRaw(
+                'SUM(i.copies * i.pages) AS total_print,
                 d.acronym,
                 d.name AS department,
                 parent.acronym AS parent_acronym,
