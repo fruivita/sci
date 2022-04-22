@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
 use FruiVita\Corporate\Database\Factories\UserFactory as CorporateUserFactory;
@@ -35,6 +36,7 @@ class UserFactory extends Factory
                 'guid' => $this->faker->unique()->uuid(),
                 'domain' => $this->faker->domainName(),
                 'role_id' => Role::factory(),
+                'department_id' => Department::factory(),
                 'role_granted_by' => null,
             ]
         );

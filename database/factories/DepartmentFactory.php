@@ -21,6 +21,9 @@ class DepartmentFactory extends Factory
      */
     public function definition()
     {
-        return (new CorporateDepartmentFactory)->definition();
+        return
+        // sobrescreve a regra de geração do id
+        ['id' => $this->faker->unique()->numberBetween(1)]
+        + (new CorporateDepartmentFactory)->definition();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Department;
 use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -25,7 +26,7 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('department_id')->default(Department::DEPARTMENTLESS);
             $table->unsignedBigInteger('duty_id')->nullable();
             $table->unsignedBigInteger('occupation_id')->nullable();
             $table->unsignedBigInteger('role_id')->default(Role::ORDINARY);

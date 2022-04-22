@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\DB;
 class Department extends CorporateDepartment
 {
     /**
+     * Id da lotação dos usuários sem lotação. Em regra, usuários que existem
+     * apenas no servidor LDAP
+     *
+     * @var int
+     */
+    public const DEPARTMENTLESS = 0;
+
+    /**
      * Impressões vindas de uma determinada lotação.
      *
      * Relacionamento lotação (1:N) impressões.
