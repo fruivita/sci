@@ -31,12 +31,12 @@ afterEach(function () {
 test('não é possível editar o perfil sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.roles.edit', $this->role))
+    get(route('authorization.role.edit', $this->role))
     ->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de edição do perfil', function () {
-    get(route('authorization.roles.edit', $this->role))
+    get(route('authorization.role.edit', $this->role))
     ->assertForbidden();
 });
 
@@ -151,7 +151,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 test('é possível renderizar o componente de edição do perfil com permissão específica', function () {
     grantPermission(PermissionType::RoleUpdate->value);
 
-    get(route('authorization.roles.edit', $this->role))
+    get(route('authorization.role.edit', $this->role))
     ->assertOk()
     ->assertSeeLivewire(RoleLivewireUpdate::class);
 });

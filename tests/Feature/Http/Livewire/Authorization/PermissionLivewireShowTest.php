@@ -28,12 +28,12 @@ afterEach(function () {
 test('não é possível visualizar individualmente uma permissão sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.permissions.show', $this->permission))
+    get(route('authorization.permission.show', $this->permission))
     ->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual da permissão', function () {
-    get(route('authorization.permissions.show', $this->permission))
+    get(route('authorization.permission.show', $this->permission))
     ->assertForbidden();
 });
 
@@ -55,7 +55,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 test('é possível renderizar o componente de visualização individual da permissão com permissão específica', function () {
     grantPermission(PermissionType::PermissionView->value);
 
-    get(route('authorization.permissions.show', $this->permission))
+    get(route('authorization.permission.show', $this->permission))
     ->assertOk()
     ->assertSeeLivewire(PermissionLivewireShow::class);
 });
@@ -98,7 +98,7 @@ test('paginação cria as variáveis de sessão', function () {
 test('é possível visualizar individualmente uma permissão com permissão específica', function () {
     grantPermission(PermissionType::PermissionView->value);
 
-    get(route('authorization.permissions.show', $this->permission->id))
+    get(route('authorization.permission.show', $this->permission->id))
     ->assertOk()
     ->assertSeeLivewire(PermissionLivewireShow::class);
 });

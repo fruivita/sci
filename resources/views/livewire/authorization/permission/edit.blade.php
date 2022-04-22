@@ -21,7 +21,7 @@
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-left"
-                    href="{{ route('authorization.permissions.edit', $previous) }}"
+                    href="{{ route('authorization.permission.edit', $previous) }}"
                     prepend="true"
                     text="{{ __('Previous') }}"
                     title="{{ __('Show previous record') }}"/>
@@ -38,7 +38,7 @@
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-right"
-                    href="{{ route('authorization.permissions.edit', $next) }}"
+                    href="{{ route('authorization.permission.edit', $next) }}"
                     text="{{ __('Next') }}"
                     title="{{ __('Show next record') }}"/>
 
@@ -222,7 +222,7 @@
                     <x-link-button
                         class="btn-do"
                         icon="vector-pen"
-                        href="{{ route('authorization.permissions.index') }}"
+                        href="{{ route('authorization.permission.index') }}"
                         text="{{ __('Permissions') }}"
                         title="{{ __('Show all records') }}"/>
 

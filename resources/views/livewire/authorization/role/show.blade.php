@@ -21,7 +21,7 @@
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-left"
-                    href="{{ route('authorization.roles.show', $role->previous) }}"
+                    href="{{ route('authorization.role.show', $role->previous) }}"
                     prepend="true"
                     text="{{ __('Previous') }}"
                     title="{{ __('Show previous record') }}"/>
@@ -38,7 +38,7 @@
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-right"
-                    href="{{ route('authorization.roles.show', $role->next) }}"
+                    href="{{ route('authorization.role.show', $role->next) }}"
                     text="{{ __('Next') }}"
                     title="{{ __('Show next record') }}"/>
 
@@ -121,7 +121,7 @@
                 <x-link-button
                     class="btn-do"
                     icon="award"
-                    href="{{ route('authorization.roles.index') }}"
+                    href="{{ route('authorization.role.index') }}"
                     text="{{ __('Roles') }}"
                     title="{{ __('Show all records') }}"/>
 

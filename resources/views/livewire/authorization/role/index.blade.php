@@ -79,7 +79,7 @@
                                     <x-link-button
                                         class="btn-do"
                                         icon="eye"
-                                        href="{{ route('authorization.roles.show', $role->id) }}"
+                                        href="{{ route('authorization.role.show', $role->id) }}"
                                         text="{{ __('Show') }}"
                                         title="{{ __('Show the record') }}"/>
 
@@ -91,7 +91,7 @@
                                     <x-link-button
                                         class="btn-do"
                                         icon="pencil-square"
-                                        href="{{ route('authorization.roles.edit', $role) }}"
+                                        href="{{ route('authorization.role.edit', $role) }}"
                                         text="{{ __('Edit') }}"
                                         title="{{ __('Edit the record') }}"/>
 

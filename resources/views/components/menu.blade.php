@@ -158,9 +158,9 @@
             @can(\App\Enums\Policy::ViewAny->value, \App\Models\Role::class)
 
                 <x-menu.link
-                    class="{{ request()->routeIs('authorization.roles.*') ? 'active': '' }}"
+                    class="{{ request()->routeIs('authorization.role.*') ? 'active': '' }}"
                     icon="award"
-                    href="{{ route('authorization.roles.index') }}"
+                    href="{{ route('authorization.role.index') }}"
                     text="{{ __('Roles') }}"
                     title="{{ __('Go to roles page') }}"/>
 
@@ -170,9 +170,9 @@
             @can(\App\Enums\Policy::ViewAny->value, \App\Models\Permission::class)
 
                 <x-menu.link
-                    class="{{ request()->routeIs('authorization.permissions.*') ? 'active': '' }}"
+                    class="{{ request()->routeIs('authorization.permission.*') ? 'active': '' }}"
                     icon="vector-pen"
-                    href="{{ route('authorization.permissions.index') }}"
+                    href="{{ route('authorization.permission.index') }}"
                     text="{{ __('Permissions') }}"
                     title="{{ __('Go to permissions page') }}"/>
 
@@ -182,9 +182,9 @@
             @can(\App\Enums\Policy::ViewAny->value, \App\Models\User::class)
 
                 <x-menu.link
-                    class="{{ request()->routeIs('authorization.users.*') ? 'active': '' }}"
+                    class="{{ request()->routeIs('authorization.user.*') ? 'active': '' }}"
                     icon="person-check"
-                    href="{{ route('authorization.users.index') }}"
+                    href="{{ route('authorization.user.index') }}"
                     text="{{ __('Users') }}"
                     title="{{ __('Go to users page') }}"/>
 

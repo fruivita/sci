@@ -26,12 +26,12 @@ afterEach(function () {
 test('não é possível listar as permissões sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.permissions.index'))
+    get(route('authorization.permission.index'))
     ->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem das permissões', function () {
-    get(route('authorization.permissions.index'))
+    get(route('authorization.permission.index'))
     ->assertForbidden();
 });
 
@@ -84,7 +84,7 @@ test('paginação cria as variáveis de sessão', function () {
 test('é possível listar as permissões com permissão específica', function () {
     grantPermission(PermissionType::PermissionViewAny->value);
 
-    get(route('authorization.permissions.index'))
+    get(route('authorization.permission.index'))
     ->assertOk()
     ->assertSeeLivewire(PermissionLivewireIndex::class);
 });

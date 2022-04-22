@@ -59,19 +59,19 @@ Route::middleware('auth')->group(function () {
             Route::get('/', DelegationLivewireIndex::class)->name('index')->can(Policy::DelegationViewAny->value);
         });
 
-        Route::prefix('perfil')->name('roles.')->group(function () {
+        Route::prefix('perfil')->name('role.')->group(function () {
             Route::get('/', RoleLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Role::class);
             Route::get('show/{role_id}', RoleLivewireShow::class)->name('show')->can(Policy::View->value, Role::class);
             Route::get('edit/{role}', RoleLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Role::class);
         });
 
-        Route::prefix('permissao')->name('permissions.')->group(function () {
+        Route::prefix('permissao')->name('permission.')->group(function () {
             Route::get('/', PermissionLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Permission::class);
             Route::get('show/{permission_id}', PermissionLivewireShow::class)->name('show')->can(Policy::View->value, Permission::class);
             Route::get('edit/{permission}', PermissionLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Permission::class);
         });
 
-        Route::prefix('usuario')->name('users.')->group(function () {
+        Route::prefix('usuario')->name('user.')->group(function () {
             Route::get('/', UserLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, User::class);
         });
     });

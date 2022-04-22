@@ -39,7 +39,7 @@ test('não é possível acessar a página de delegação sem estar autenticado',
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem das delegações da lotação', function () {
-    get(route('authorization.permissions.index'))
+    get(route('authorization.permission.index'))
     ->assertForbidden();
 });
 

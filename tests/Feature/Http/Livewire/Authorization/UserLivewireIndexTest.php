@@ -30,12 +30,12 @@ afterEach(function () {
 test('não é possível listar os usuários sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.users.index'))
+    get(route('authorization.user.index'))
     ->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos usuários sem permissão específica', function () {
-    get(route('authorization.users.index'))
+    get(route('authorization.user.index'))
     ->assertForbidden();
 });
 
@@ -146,7 +146,7 @@ test('termo pesquisável está sujeito à validação em tempo real', function (
 test('é possível renderizar o componente de listagem dos usuários com permissão específica', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
-    get(route('authorization.users.index'))
+    get(route('authorization.user.index'))
     ->assertOk()
     ->assertSeeLivewire(UserLivewireIndex::class);
 });

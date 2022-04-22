@@ -28,12 +28,12 @@ afterEach(function () {
 test('não é possível visualizar individualmente um perfil sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.roles.show', $this->role))
+    get(route('authorization.role.show', $this->role))
     ->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual do perfil', function () {
-    get(route('authorization.roles.show', $this->role))
+    get(route('authorization.role.show', $this->role))
     ->assertForbidden();
 });
 
@@ -55,7 +55,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 test('é possível renderizar o componente de visualização individual do perfil com permissão específica', function () {
     grantPermission(PermissionType::RoleView->value);
 
-    get(route('authorization.roles.show', $this->role))
+    get(route('authorization.role.show', $this->role))
     ->assertOk()
     ->assertSeeLivewire(RoleLivewireShow::class);
 });
@@ -98,7 +98,7 @@ test('paginação cria as variáveis de sessão', function () {
 test('é possível visualizar individualmente um perfil com permissão específica', function () {
     grantPermission(PermissionType::RoleView->value);
 
-    get(route('authorization.roles.show', $this->role))
+    get(route('authorization.role.show', $this->role))
     ->assertOk()
     ->assertSeeLivewire(RoleLivewireShow::class);
 });

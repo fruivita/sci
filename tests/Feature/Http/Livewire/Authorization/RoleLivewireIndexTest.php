@@ -26,12 +26,12 @@ afterEach(function () {
 test('não é possível listar os perfis sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.roles.index'))
+    get(route('authorization.role.index'))
     ->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos perfis', function () {
-    get(route('authorization.roles.index'))
+    get(route('authorization.role.index'))
     ->assertForbidden();
 });
 
@@ -84,7 +84,7 @@ test('paginação cria as variáveis de sessão', function () {
 test('é possível listar os perfis com permissão específica', function () {
     grantPermission(PermissionType::RoleViewAny->value);
 
-    get(route('authorization.roles.index'))
+    get(route('authorization.role.index'))
     ->assertOk()
     ->assertSeeLivewire(RoleLivewireIndex::class);
 });

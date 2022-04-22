@@ -32,12 +32,12 @@ afterEach(function () {
 test('não é possível editar a permissão sem estar autenticado', function () {
     logout();
 
-    get(route('authorization.permissions.edit', $this->permission))
+    get(route('authorization.permission.edit', $this->permission))
     ->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de edição da permissão', function () {
-    get(route('authorization.permissions.edit', $this->permission))
+    get(route('authorization.permission.edit', $this->permission))
     ->assertForbidden();
 });
 
@@ -152,7 +152,7 @@ test('não aceita paginação fora das opções oferecidas', function () {
 test('é possível renderizar o componente de edição da permissão com permissão específica', function () {
     grantPermission(PermissionType::PermissionUpdate->value);
 
-    get(route('authorization.permissions.edit', $this->permission))
+    get(route('authorization.permission.edit', $this->permission))
     ->assertOk()
     ->assertSeeLivewire(PermissionLivewireUpdate::class);
 });
