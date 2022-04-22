@@ -275,8 +275,7 @@ class Department extends CorporateDepartment
             ->leftJoin('departments AS parent', 'parent.id', '=', 'd.parent_department')
             ->leftJoin('prints AS i', function ($join) use ($initial_date, $final_date) {
                 $join->on('d.id', '=', 'i.department_id')
-                     ->where('i.date', '>=', $initial_date)
-                     ->where('i.date', '<=', $final_date);
+                ->whereBetween('date', [$initial_date, $final_date]);
             })
             ->where('u.username', '=', auth()->user()->username)
             ->groupBy('u.department_id')
