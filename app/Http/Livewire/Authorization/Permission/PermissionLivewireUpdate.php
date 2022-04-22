@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Authorization;
+namespace App\Http\Livewire\Authorization\Permission;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithCheckboxActions;
@@ -15,7 +15,7 @@ use Livewire\Component;
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class RoleLivewireUpdate extends Component
+class PermissionLivewireUpdate extends Component
 {
     use AuthorizesRequests;
     use WithCheckboxActions;
@@ -24,11 +24,11 @@ class RoleLivewireUpdate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Perfil que está em edição.
+     * Permissão que está em edição.
      *
-     * @var \App\Models\Role
+     * @var \App\Models\Permission
      */
-    public Role $role;
+    public Permission $permission;
 
     /**
      * Id do registro anterior.
@@ -52,15 +52,15 @@ class RoleLivewireUpdate extends Component
     protected function rules()
     {
         return [
-            'role.name' => [
+            'permission.name' => [
                 'bail',
                 'required',
                 'string',
                 'max:50',
-                "unique:roles,name,{$this->role->id}",
+                "unique:permissions,name,{$this->permission->id}",
             ],
 
-            'role.description' => [
+            'permission.description' => [
                 'bail',
                 'nullable',
                 'string',
@@ -71,7 +71,7 @@ class RoleLivewireUpdate extends Component
                 'bail',
                 'nullable',
                 'array',
-                'exists:permissions,id',
+                'exists:roles,id',
             ],
         ];
     }
@@ -84,9 +84,9 @@ class RoleLivewireUpdate extends Component
     protected function validationAttributes()
     {
         return [
-            'role.name' => __('Name'),
-            'role.description' => __('Description'),
-            'selected' => __('Permission'),
+            'permission.name' => __('Name'),
+            'permission.description' => __('Description'),
+            'selected' => __('Role'),
         ];
     }
 
@@ -98,7 +98,7 @@ class RoleLivewireUpdate extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::Update->value, Role::class);
+        $this->authorize(Policy::Update->value, Permission::class);
     }
 
     /**
@@ -110,8 +110,8 @@ class RoleLivewireUpdate extends Component
      */
     public function mount()
     {
-        $this->role->load(['permissions' => function ($query) {
-            $query->select('id');
+        $this->permission->load(['roles' => function ($query) {
+            $query->select('id')->defaultOrder();
         }]);
 
         $this->setPrevious();
@@ -119,13 +119,13 @@ class RoleLivewireUpdate extends Component
     }
 
     /**
-     * Computed property para a listar as permissões paginadas.
+     * Computed property para a listar os perfis paginados.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getPermissionsProperty()
+    public function getRolesProperty()
     {
-        return $this->applyPagination(Permission::query()->defaultOrder());
+        return $this->applyPagination(Role::query()->defaultOrder());
     }
 
     /**
@@ -135,13 +135,13 @@ class RoleLivewireUpdate extends Component
      */
     public function render()
     {
-        return view('livewire.authorization.role.edit', [
-            'permissions' => $this->permissions,
+        return view('livewire.authorization.permission.edit', [
+            'roles' => $this->roles,
         ])->layout('layouts.app');
     }
 
     /**
-     * Atualiza o perfil em edição.
+     * Atualiza a permissão em edição.
      *
      * @return void
      */
@@ -149,7 +149,7 @@ class RoleLivewireUpdate extends Component
     {
         $this->validate();
 
-        $saved = $this->role->updateAndSync($this->selected);
+        $saved = $this->permission->updateAndSync($this->selected);
 
         $this->flashSelf($saved);
     }
@@ -176,7 +176,7 @@ class RoleLivewireUpdate extends Component
      */
     private function rowsToCheck()
     {
-        return $this->role->permissions;
+        return $this->permission->roles;
     }
 
     /**
@@ -192,7 +192,7 @@ class RoleLivewireUpdate extends Component
             key: 'all-checkable' . $this->id,
             seconds: 60,
             callback: function () {
-                return Permission::select('id')->get();
+                return Role::select('id')->get();
             }
         );
     }
@@ -205,7 +205,7 @@ class RoleLivewireUpdate extends Component
      */
     private function currentlyCheckableRows()
     {
-        return $this->permissions;
+        return $this->roles;
     }
 
     /**
@@ -221,7 +221,7 @@ class RoleLivewireUpdate extends Component
             key: 'previous' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Role::previous($this->role->id)->first())->id;
+                return optional(Permission::previous($this->permission->id)->first())->id;
             }
         );
     }
@@ -239,7 +239,7 @@ class RoleLivewireUpdate extends Component
             key: 'next' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Role::next($this->role->id)->first())->id;
+                return optional(Permission::next($this->permission->id)->first())->id;
             }
         );
     }

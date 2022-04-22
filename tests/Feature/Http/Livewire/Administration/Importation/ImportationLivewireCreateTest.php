@@ -7,7 +7,7 @@
 use App\Enums\FeedbackType;
 use App\Enums\ImportationType;
 use App\Enums\PermissionType;
-use App\Http\Livewire\Administration\ImportationLivewireCreate;
+use App\Http\Livewire\Administration\Importation\ImportationLivewireCreate;
 use App\Jobs\ImportCorporateStructure;
 use App\Jobs\ImportPrintLog;
 use Database\Seeders\DepartmentSeeder;

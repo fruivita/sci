@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Administration;
+namespace App\Http\Livewire\Administration\Importation;
 
 use App\Enums\ImportationType;
 use App\Enums\Policy;

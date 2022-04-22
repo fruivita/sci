@@ -6,7 +6,7 @@
 
 use App\Enums\FeedbackType;
 use App\Enums\PermissionType;
-use App\Http\Livewire\Authorization\UserLivewireIndex;
+use App\Http\Livewire\Authorization\User\UserLivewireIndex;
 use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;

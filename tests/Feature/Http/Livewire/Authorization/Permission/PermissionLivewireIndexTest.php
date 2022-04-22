@@ -5,7 +5,7 @@
  */
 
 use App\Enums\PermissionType;
-use App\Http\Livewire\Authorization\PermissionLivewireIndex;
+use App\Http\Livewire\Authorization\Permission\PermissionLivewireIndex;
 use App\Models\Permission;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;

@@ -2,21 +2,21 @@
 
 use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\Administration\ImportationLivewireCreate;
-use App\Http\Livewire\Authorization\DelegationLivewireIndex;
-use App\Http\Livewire\Authorization\PermissionLivewireIndex;
-use App\Http\Livewire\Authorization\PermissionLivewireShow;
-use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
-use App\Http\Livewire\Authorization\RoleLivewireIndex;
-use App\Http\Livewire\Authorization\RoleLivewireShow;
-use App\Http\Livewire\Authorization\RoleLivewireUpdate;
-use App\Http\Livewire\Authorization\UserLivewireIndex;
+use App\Http\Livewire\Administration\Importation\ImportationLivewireCreate;
+use App\Http\Livewire\Authorization\Delegation\DelegationLivewireIndex;
+use App\Http\Livewire\Authorization\Permission\PermissionLivewireIndex;
+use App\Http\Livewire\Authorization\Permission\PermissionLivewireShow;
+use App\Http\Livewire\Authorization\Permission\PermissionLivewireUpdate;
+use App\Http\Livewire\Authorization\Role\RoleLivewireIndex;
+use App\Http\Livewire\Authorization\Role\RoleLivewireShow;
+use App\Http\Livewire\Authorization\Role\RoleLivewireUpdate;
+use App\Http\Livewire\Authorization\User\UserLivewireIndex;
 use App\Http\Livewire\Report\Department\DepartmentReportLivewire;
 use App\Http\Livewire\Report\Printer\PrinterReportLivewire;
 use App\Http\Livewire\Report\Printing\PrintingReportLivewire;
-use App\Http\Livewire\Administration\ServerLivewireIndex;
-use App\Http\Livewire\Administration\ServerLivewireShow;
-use App\Http\Livewire\Administration\ServerLivewireUpdate;
+use App\Http\Livewire\Administration\Server\ServerLivewireIndex;
+use App\Http\Livewire\Administration\Server\ServerLivewireShow;
+use App\Http\Livewire\Administration\Server\ServerLivewireUpdate;
 use App\Http\Livewire\Report\Server\ServerReportLivewire;
 use App\Http\Livewire\Test\Simulation\SimulationLivewireCreate;
 use App\Models\Department;
@@ -106,8 +106,10 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::prefix('simulacao')->name('simulation.')->group(function () {
-        Route::get('create', SimulationLivewireCreate::class)->name('create')->can(Policy::SimulationCreate->value);
-        Route::delete('/', [SimulationLivewireCreate::class, 'destroy'])->name('destroy')->can(Policy::SimulationDelete->value);
+    Route::prefix('teste')->name('test.')->group(function () {
+        Route::prefix('simulacao')->name('simulation.')->group(function () {
+            Route::get('create', SimulationLivewireCreate::class)->name('create')->can(Policy::SimulationCreate->value);
+            Route::delete('/', [SimulationLivewireCreate::class, 'destroy'])->name('destroy')->can(Policy::SimulationDelete->value);
+        });
     });
 });

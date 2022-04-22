@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Authorization;
+namespace App\Http\Livewire\Authorization\Delegation;
 
 use App\Enums\Policy;
-use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Http\Livewire\Traits\WithPerPagePagination;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Validator;
@@ -14,32 +12,10 @@ use Livewire\Component;
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class UserLivewireIndex extends Component
+class DelegationLivewireIndex extends Component
 {
-    use AuthorizesRequests;
     use WithPerPagePagination;
-    use WithFeedbackEvents;
-
-    /**
-     * Usuário em edição no modal.
-     *
-     * @var \App\Models\User
-     */
-    public User $editing;
-
-    /**
-     * Perfis disponíveis.
-     *
-     * @var \Illuminate\Database\Eloquent\Collection
-     */
-    public $roles;
-
-    /**
-     * Deve-se exibir o modal de edição?
-     *
-     * @var bool
-     */
-    public $show_edit_modal = false;
+    use AuthorizesRequests;
 
     /**
      * Termo pesquisável informado pelo usuário.
@@ -49,35 +25,6 @@ class UserLivewireIndex extends Component
     public $term;
 
     /**
-     * Regras para a validação dos inputs.
-     *
-     * @return array<string, mixed>
-     */
-    protected function rules()
-    {
-        return [
-            'editing.role_id' => [
-                'bail',
-                'nullable',
-                'integer',
-                'exists:roles,id',
-            ],
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array<string, mixed>
-     */
-    protected function validationAttributes()
-    {
-        return [
-            'editing.role_id' => __('Role'),
-        ];
-    }
-
-    /**
      * Runs on every request, immediately after the component is instantiated,
      * but before any other lifecycle methods are called.
      *
@@ -85,11 +32,11 @@ class UserLivewireIndex extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::ViewAny->value, User::class);
+        $this->authorize(Policy::DelegationViewAny->value);
     }
 
     /**
-     * Computed property para listar os usuários paginados e seu perfil.
+     * Computed property para listar os usuários passíveis de delegação.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -98,6 +45,7 @@ class UserLivewireIndex extends Component
         return $this->applyPagination(
             User::with('delegator')
             ->search($this->term)
+            ->where('department_id', auth()->user()->department_id)
             ->defaultOrder()
         );
     }
@@ -109,7 +57,7 @@ class UserLivewireIndex extends Component
      */
     public function render()
     {
-        return view('livewire.authorization.user.index', [
+        return view('livewire.authorization.delegation.index', [
             'users' => $this->users,
         ])->layout('layouts.app');
     }
@@ -150,36 +98,39 @@ class UserLivewireIndex extends Component
     }
 
     /**
-     * Exibe o modal de edição.
+     * Cria uma delegação, atribuindo ao usuário informado o mesmo perfil do
+     * usuário autenticado.
      *
-     * @param \App\Models\User $user
+     * @param \App\Models\User $delegated
      *
      * @return void
      */
-    public function edit(User $user)
+    public function create(User $delegated)
     {
-        $this->authorize(Policy::Update->value, User::class);
+        $this->authorize(Policy::DelegationCreate->value, [$delegated]);
 
-        $this->editing = $user;
+        $delegated
+            ->delegator()
+            ->associate(auth()->user());
+        $delegated
+            ->role()
+            ->associate(auth()->user()->role);
 
-        $this->roles = Role::select('id', 'name')->defaultOrder()->get();
-
-        $this->show_edit_modal = true;
+        $delegated->save();
     }
 
     /**
-     * Atualiza o usuário em edição.
+     * Desfaz uma delegação, atribuindo ao usuário informado o perfil padrão
+     * do usuário comum da aplicação.
+     *
+     * @param \App\Models\User $delegated
      *
      * @return void
      */
-    public function update()
+    public function destroy(User $delegated)
     {
-        $this->authorize(Policy::Update->value, User::class);
+        $this->authorize(Policy::DelegationDelete->value, [$delegated]);
 
-        $this->validate();
-
-        $saved = $this->editing->updateAndRevokeDelegatedUsers();
-
-        $this->flashSelf($saved);
+        $delegated->revokeDelegation();
     }
 }

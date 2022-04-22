@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Authorization;
+namespace App\Http\Livewire\Authorization\Role;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithLimit;

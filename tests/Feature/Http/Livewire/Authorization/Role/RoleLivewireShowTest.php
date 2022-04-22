@@ -5,7 +5,7 @@
  */
 
 use App\Enums\PermissionType;
-use App\Http\Livewire\Authorization\RoleLivewireShow;
+use App\Http\Livewire\Authorization\Role\RoleLivewireShow;
 use App\Models\Permission;
 use App\Models\Role;
 use Database\Seeders\DepartmentSeeder;

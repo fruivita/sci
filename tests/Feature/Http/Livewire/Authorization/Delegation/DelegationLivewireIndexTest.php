@@ -5,7 +5,7 @@
  */
 
 use App\Enums\PermissionType;
-use App\Http\Livewire\Authorization\DelegationLivewireIndex;
+use App\Http\Livewire\Authorization\Delegation\DelegationLivewireIndex;
 use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;

@@ -34,7 +34,7 @@
 
         <x-button
           color='btn-warning'
-          formaction="{{ route('simulation.destroy') }}"
+          formaction="{{ route('test.simulation.destroy') }}"
           formmethod="POST"
           icon="stop-btn"
           text="{{ __('Finalize') }}"

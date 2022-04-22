@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Administration;
+namespace App\Http\Livewire\Administration\Server;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithLimit;

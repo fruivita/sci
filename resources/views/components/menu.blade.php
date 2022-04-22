@@ -206,7 +206,7 @@
                 <x-menu.link
                     class="{{ request()->routeIs('simulation.*') ? 'active': '' }}"
                     icon="people"
-                    href="{{ route('simulation.create') }}"
+                    href="{{ route('test.simulation.create') }}"
                     text="{{ __('Simulation') }}"
                     title="{{ __('Go to simulation page') }}"/>
 

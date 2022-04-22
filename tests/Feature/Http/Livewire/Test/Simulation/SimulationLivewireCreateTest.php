@@ -30,23 +30,23 @@ afterEach(function () {
 test('não é possível simular usuário sem estar autenticado', function () {
     logout();
 
-    get(route('simulation.create'))->assertRedirect(route('login'));
+    get(route('test.simulation.create'))->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível desfazer simulação', function () {
     logout();
 
-    delete(route('simulation.destroy'))->assertRedirect(route('login'));
+    delete(route('test.simulation.destroy'))->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica, não é possível executar a rota de simulação', function () {
-    get(route('simulation.create'))->assertForbidden();
+    get(route('test.simulation.create'))->assertForbidden();
 });
 
 test('não é possível executar a rota para desfazer a simulação se ela não existir', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
-    delete(route('simulation.destroy'))->assertForbidden();
+    delete(route('test.simulation.destroy'))->assertForbidden();
 });
 
 test('não é possível renderizar o componente de simulação sem permissão específica', function () {
@@ -64,7 +64,7 @@ test('não é possível renderizar o componente com outra simulação em andamen
     ->call('store')
     ->assertOk();
 
-    get(route('simulation.create'))->assertForbidden();
+    get(route('test.simulation.create'))->assertForbidden();
 });
 
 test('não é possível simular usuário com outra simulação em andamento', function () {
@@ -140,7 +140,7 @@ test('username do simulado deve existir no servidor LDAP', function () {
 test('é possível renderizar o componente de simulação com permissão específica', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
-    get(route('simulation.create'))
+    get(route('test.simulation.create'))
     ->assertOk()
     ->assertSeeLivewire(SimulationLivewireCreate::class);
 });
@@ -174,7 +174,7 @@ test('feedback é exibido ao usuário quando a simulação está ativa e quando 
     get(route('home'))
     ->assertSee(__('Simulation activated by :attribute', ['attribute' => 'bar']));
 
-    delete(route('simulation.destroy'));
+    delete(route('test.simulation.destroy'));
 
     get(route('home'))
     ->assertDontSee(__('Simulation activated by :attribute', ['attribute' => 'bar']));
@@ -214,7 +214,7 @@ test('simulação troca o usuário autenticado e ao finalizá-la, volta ao usuá
 
     expect(auth()->user()->username)->toBe('foo');
 
-    delete(route('simulation.destroy'));
+    delete(route('test.simulation.destroy'));
 
     expect(auth()->user()->username)->toBe('bar');
 });

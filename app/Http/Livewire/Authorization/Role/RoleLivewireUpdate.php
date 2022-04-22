@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Administration;
+namespace App\Http\Livewire\Authorization\Role;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithCheckboxActions;
 use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Http\Livewire\Traits\WithPerPagePagination;
-use App\Models\Server;
-use App\Models\Site;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Traits\WithCaching;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -15,7 +15,7 @@ use Livewire\Component;
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class ServerLivewireUpdate extends Component
+class RoleLivewireUpdate extends Component
 {
     use AuthorizesRequests;
     use WithCheckboxActions;
@@ -24,11 +24,11 @@ class ServerLivewireUpdate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Servidor que está em edição.
+     * Perfil que está em edição.
      *
-     * @var \App\Models\Server
+     * @var \App\Models\Role
      */
-    public Server $server;
+    public Role $role;
 
     /**
      * Id do registro anterior.
@@ -52,11 +52,26 @@ class ServerLivewireUpdate extends Component
     protected function rules()
     {
         return [
+            'role.name' => [
+                'bail',
+                'required',
+                'string',
+                'max:50',
+                "unique:roles,name,{$this->role->id}",
+            ],
+
+            'role.description' => [
+                'bail',
+                'nullable',
+                'string',
+                'max:255',
+            ],
+
             'selected' => [
                 'bail',
                 'nullable',
                 'array',
-                'exists:sites,id',
+                'exists:permissions,id',
             ],
         ];
     }
@@ -69,7 +84,9 @@ class ServerLivewireUpdate extends Component
     protected function validationAttributes()
     {
         return [
-            'selected' => __('Sites'),
+            'role.name' => __('Name'),
+            'role.description' => __('Description'),
+            'selected' => __('Permission'),
         ];
     }
 
@@ -81,7 +98,7 @@ class ServerLivewireUpdate extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::Update->value, Server::class);
+        $this->authorize(Policy::Update->value, Role::class);
     }
 
     /**
@@ -93,7 +110,7 @@ class ServerLivewireUpdate extends Component
      */
     public function mount()
     {
-        $this->server->load(['sites' => function ($query) {
+        $this->role->load(['permissions' => function ($query) {
             $query->select('id');
         }]);
 
@@ -102,13 +119,13 @@ class ServerLivewireUpdate extends Component
     }
 
     /**
-     * Computed property para a listar os sites paginados.
+     * Computed property para a listar as permissões paginadas.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getSitesProperty()
+    public function getPermissionsProperty()
     {
-        return $this->applyPagination(Site::query()->defaultOrder());
+        return $this->applyPagination(Permission::query()->defaultOrder());
     }
 
     /**
@@ -118,13 +135,13 @@ class ServerLivewireUpdate extends Component
      */
     public function render()
     {
-        return view('livewire.administration.server.edit', [
-            'sites' => $this->sites,
+        return view('livewire.authorization.role.edit', [
+            'permissions' => $this->permissions,
         ])->layout('layouts.app');
     }
 
     /**
-     * Atualiza o servidor em edição.
+     * Atualiza o perfil em edição.
      *
      * @return void
      */
@@ -132,9 +149,9 @@ class ServerLivewireUpdate extends Component
     {
         $this->validate();
 
-        $saved = $this->server->sites()->sync($this->selected);
+        $saved = $this->role->updateAndSync($this->selected);
 
-        $this->flashSelf(is_array($saved));
+        $this->flashSelf($saved);
     }
 
     /**
@@ -159,7 +176,7 @@ class ServerLivewireUpdate extends Component
      */
     private function rowsToCheck()
     {
-        return $this->server->sites;
+        return $this->role->permissions;
     }
 
     /**
@@ -175,7 +192,7 @@ class ServerLivewireUpdate extends Component
             key: 'all-checkable' . $this->id,
             seconds: 60,
             callback: function () {
-                return Site::select('id')->get();
+                return Permission::select('id')->get();
             }
         );
     }
@@ -188,7 +205,7 @@ class ServerLivewireUpdate extends Component
      */
     private function currentlyCheckableRows()
     {
-        return $this->sites;
+        return $this->permissions;
     }
 
     /**
@@ -204,7 +221,7 @@ class ServerLivewireUpdate extends Component
             key: 'previous' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Server::previous($this->server->id)->first())->id;
+                return optional(Role::previous($this->role->id)->first())->id;
             }
         );
     }
@@ -222,7 +239,7 @@ class ServerLivewireUpdate extends Component
             key: 'next' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Server::next($this->server->id)->first())->id;
+                return optional(Role::next($this->role->id)->first())->id;
             }
         );
     }

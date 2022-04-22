@@ -5,7 +5,7 @@
  */
 
 use App\Enums\PermissionType;
-use App\Http\Livewire\Administration\ServerLivewireShow;
+use App\Http\Livewire\Administration\Server\ServerLivewireShow;
 use App\Models\Server;
 use App\Models\Site;
 use Database\Seeders\DepartmentSeeder;

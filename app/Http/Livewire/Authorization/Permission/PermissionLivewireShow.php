@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Administration;
+namespace App\Http\Livewire\Authorization\Permission;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithPerPagePagination;
-use App\Models\Server;
+use App\Models\Permission;
 use App\Traits\WithCaching;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -12,25 +12,25 @@ use Livewire\Component;
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class ServerLivewireShow extends Component
+class PermissionLivewireShow extends Component
 {
     use AuthorizesRequests;
     use WithPerPagePagination;
     use WithCaching;
 
     /**
-     * Id do servidor que está em exibição.
+     * Id da permissão que está em exibição.
      *
      * @var int
      */
-    public $server_id;
+    public $permission_id;
 
     /**
-     * Servidor que está em exibição.
+     * Permissão que está em exibição.
      *
-     * @var \App\Models\Server
+     * @var \App\Models\Permission
      */
-    public Server $server;
+    public Permission $permission;
 
     /**
      * Runs on every request, immediately after the component is instantiated,
@@ -40,7 +40,7 @@ class ServerLivewireShow extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::View->value, Server::class);
+        $this->authorize(Policy::View->value, Permission::class);
     }
 
     /**
@@ -48,13 +48,13 @@ class ServerLivewireShow extends Component
      * render() is called. This is only called once on initial page load and
      * never called again, even on component refreshes.
      *
-     * @param int $server_id
+     * @param int $permission_id
      *
      * @return void
      */
-    public function mount(int $server_id)
+    public function mount(int $permission_id)
     {
-        $this->server_id = $server_id;
+        $this->permission_id = $permission_id;
     }
 
     /**
@@ -65,27 +65,27 @@ class ServerLivewireShow extends Component
     {
         $this->useCache();
 
-        $this->server = $this->cache(
+        $this->permission = $this->cache(
             key: $this->id,
             seconds: 60,
             callback: function () {
-                return Server::query()
-                ->addSelect(['previous' => Server::previous($this->server_id)])
-                ->addSelect(['next' => Server::next($this->server_id)])
-                ->findOrFail($this->server_id);
+                return Permission::query()
+                ->addSelect(['previous' => Permission::previous($this->permission_id)])
+                ->addSelect(['next' => Permission::next($this->permission_id)])
+                ->findOrFail($this->permission_id);
             }
         );
     }
 
     /**
-     * Computed property para a listar os sites paginados.
+     * Computed property para a listar os perfis paginados.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getSitesProperty()
+    public function getRolesProperty()
     {
         return $this->applyPagination(
-            $this->server->sites()->defaultOrder()
+            $this->permission->roles()->defaultOrder()
         );
     }
 
@@ -96,8 +96,8 @@ class ServerLivewireShow extends Component
      */
     public function render()
     {
-        return view('livewire.administration.server.show', [
-            'sites' => $this->sites,
+        return view('livewire.authorization.permission.show', [
+            'roles' => $this->roles,
         ])->layout('layouts.app');
     }
 }

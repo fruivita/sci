@@ -7,7 +7,7 @@
 use App\Enums\CheckboxAction;
 use App\Enums\FeedbackType;
 use App\Enums\PermissionType;
-use App\Http\Livewire\Authorization\PermissionLivewireUpdate;
+use App\Http\Livewire\Authorization\Permission\PermissionLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
 use Database\Seeders\DepartmentSeeder;
