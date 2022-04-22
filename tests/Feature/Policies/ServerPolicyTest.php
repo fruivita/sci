@@ -151,20 +151,20 @@ test('permissão de gerar o relatório por servidor é persistida em cache por 5
     ->and(cache()->get($key))->toBeFalse();
 });
 
-test('usuário com permissão pode listar os perfis', function () {
-    grantPermission(PermissionType::RoleViewAny->value);
+test('usuário com permissão pode listar os servidores', function () {
+    grantPermission(PermissionType::ServerViewAny->value);
 
     expect((new ServerPolicy)->viewAny($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode visualizar individualmente um perfil', function () {
-    grantPermission(PermissionType::RoleView->value);
+test('usuário com permissão pode visualizar individualmente um servidor', function () {
+    grantPermission(PermissionType::ServerView->value);
 
     expect((new ServerPolicy)->view($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode atualizar individualmente um perfil', function () {
-    grantPermission(PermissionType::RoleUpdate->value);
+test('usuário com permissão pode atualizar individualmente um servidor', function () {
+    grantPermission(PermissionType::ServerUpdate->value);
 
     expect((new ServerPolicy)->update($this->user))->toBeTrue();
 });
