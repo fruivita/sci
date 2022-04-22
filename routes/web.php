@@ -18,7 +18,7 @@ use App\Http\Livewire\Administration\ServerLivewireIndex;
 use App\Http\Livewire\Administration\ServerLivewireShow;
 use App\Http\Livewire\Administration\ServerLivewireUpdate;
 use App\Http\Livewire\Report\Server\ServerReportLivewire;
-use App\Http\Livewire\Simulation\SimulationLivewireCreate;
+use App\Http\Livewire\Test\Simulation\SimulationLivewireCreate;
 use App\Models\Department;
 use App\Models\Permission;
 use App\Models\Printer;

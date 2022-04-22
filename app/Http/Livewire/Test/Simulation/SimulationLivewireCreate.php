@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Simulation;
+namespace App\Http\Livewire\Test\Simulation;
 
 use App\Enums\Policy;
 use App\Models\User;
@@ -74,7 +74,7 @@ class SimulationLivewireCreate extends Component
      */
     public function render()
     {
-        return view('livewire.simulation.create')->layout('layouts.app');
+        return view('livewire.test.simulation.create')->layout('layouts.app');
     }
 
     /**

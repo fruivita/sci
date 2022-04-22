@@ -5,7 +5,7 @@
  */
 
 use App\Enums\PermissionType;
-use App\Http\Livewire\Simulation\SimulationLivewireCreate;
+use App\Http\Livewire\Test\Simulation\SimulationLivewireCreate;
 use App\Models\User;
 use App\Rules\LdapUser;
 use App\Rules\NotCurrentUser;
