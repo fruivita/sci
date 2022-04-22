@@ -334,10 +334,10 @@ test('relatório por lotação, mesmo sem impressão no período, traz o relató
     $department1 = $result->firstWhere('department', 'Lotação 1');
 
     expect($result)->toHaveCount(1)
-    ->and($department1->total_print)->toBe('0')
+    ->and($department1->total_print)->toBeNull()
     ->and($department1->printer_count)->toBe(0);
     logout();
-})->skip(true);
+});
 
 test('relatório institucional é ordenado pelo volume impressão desc e lotação asc', function () {
     ImportCorporateStructure::dispatchSync();

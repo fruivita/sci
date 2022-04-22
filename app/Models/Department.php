@@ -244,16 +244,23 @@ class Department extends CorporateDepartment
     private static function department(Carbon $initial_date, Carbon $final_date, int $per_page)
     {
         return
-        DB::table('prints', 'i')
-            ->selectRaw('SUM(i.copies * i.pages) AS total_print, d.acronym, d.name AS department, parent.acronym AS parent_acronym, parent.name AS parent_department, COUNT(DISTINCT printer_id) AS printer_count')
-            ->rightJoin('departments AS d', 'd.id', '=', 'i.department_id')
+        DB::table('departments', 'd')
+            ->selectRaw('
+                SUM(i.copies * i.pages) AS total_print,
+                d.acronym,
+                d.name AS department,
+                parent.acronym AS parent_acronym,
+                parent.name AS parent_department,
+                COUNT(DISTINCT printer_id) AS printer_count'
+            )
             ->join('users AS u', 'u.department_id', '=', 'd.id')
             ->leftJoin('departments AS parent', 'parent.id', '=', 'd.parent_department')
-            ->where('u.username', '=', auth()->user()->username)
-            ->where(function ($query) use ($initial_date, $final_date) {
-                $query->whereBetween('i.date', [$initial_date, $final_date])
-                    ->orWhereNull('i.date');
+            ->leftJoin('prints AS i', function ($join) use ($initial_date, $final_date) {
+                $join->on('d.id', '=', 'i.department_id')
+                     ->where('i.date', '>=', $initial_date)
+                     ->where('i.date', '<=', $final_date);
             })
+            ->where('u.username', '=', auth()->user()->username)
             ->groupBy('u.department_id')
             ->paginate($per_page);
     }
