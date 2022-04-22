@@ -88,7 +88,7 @@
 
                         <x-slot name="head">
 
-                            <x-table.heading class="text-left">
+                            <x-table.heading class="text-left w-10">
 
                                 <select
                                     wire:key="checkbox-action"
@@ -117,7 +117,7 @@
                             </x-table.heading>
 
 
-                            <x-table.heading>{{ __('Sites') }}</x-table.heading>
+                            <x-table.heading class="text-left">{{ __('Sites') }}</x-table.heading>
 
                         </x-slot>
 
@@ -160,7 +160,7 @@
                                     </x-table.cell>
 
 
-                                    <x-table.cell>{{ $site->name }}</x-table.cell>
+                                    <x-table.cell class="text-left">{{ $site->name }}</x-table.cell>
 
                                 </x-table.row>
 
