@@ -5,6 +5,7 @@
  */
 
 use App\Rules\NotCurrentUser;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 
 // Rules
@@ -16,7 +17,7 @@ test('sem usuário autenticado, a validação retorna false', function () {
 
 // Happy path
 test('valida se o usuário informado não é o usuário autenticado', function ($value, $expect) {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
     login('foo');
     $rule = new NotCurrentUser();
 

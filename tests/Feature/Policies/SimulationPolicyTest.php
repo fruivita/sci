@@ -6,10 +6,11 @@
 
 use App\Enums\PermissionType;
 use App\Policies\SimulationPolicy;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->user = login('foo');
 });

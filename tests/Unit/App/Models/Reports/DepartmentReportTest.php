@@ -11,12 +11,13 @@ use App\Enums\DepartmentReportType;
 use App\Importer\PrintLogImporter;
 use App\Jobs\ImportCorporateStructure;
 use App\Models\Department;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->print_log_files = [
         '30-06-2019.txt' => 'server1.domain.gov.br╡30/06/2019╡01:00:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡MLT-111╡1000╡3╡1' . PHP_EOL .
@@ -62,8 +63,9 @@ test('relatório institucional traz informações sobre todas as lotações', fu
     $department3 = $result->firstWhere('department', 'Lotação 3');
     $department4 = $result->firstWhere('department', 'Lotação 4');
     $department5 = $result->firstWhere('department', 'Lotação 5');
+    $department6 = $result->firstWhere('department', 'Sem lotação');
 
-    expect($result)->toHaveCount(5)
+    expect($result)->toHaveCount(6)
     ->and($department1->acronym)->toBe('Sigla 1')
     ->and($department1->total_print)->toBe('84')
     ->and($department1->printer_count)->toBe(3)
@@ -88,7 +90,12 @@ test('relatório institucional traz informações sobre todas as lotações', fu
     ->and($department5->total_print)->toBeNull()
     ->and($department5->printer_count)->toBeNull()
     ->and($department5->parent_acronym)->toBe('Sigla 1')
-    ->and($department5->parent_department)->toBe('Lotação 1');
+    ->and($department5->parent_department)->toBe('Lotação 1')
+    ->and($department6->acronym)->toBe('Sem lotação')
+    ->and($department6->total_print)->toBeNull()
+    ->and($department6->printer_count)->toBeNull()
+    ->and($department6->parent_acronym)->toBeNull()
+    ->and($department6->parent_department)->toBeNull();
 });
 
 test('relatório gerencial traz informações sobre pai e as filhas', function () {
@@ -189,8 +196,9 @@ test('relatório institucional com restrição de período', function () {
     $department3 = $result->firstWhere('department', 'Lotação 3');
     $department4 = $result->firstWhere('department', 'Lotação 4');
     $department5 = $result->firstWhere('department', 'Lotação 5');
+    $department6 = $result->firstWhere('department', 'Sem lotação');
 
-    expect($result)->toHaveCount(5)
+    expect($result)->toHaveCount(6)
     ->and($department1->total_print)->toBe('62')
     ->and($department1->printer_count)->toBe(2)
     ->and($department2->total_print)->toBe('35')
@@ -200,7 +208,9 @@ test('relatório institucional com restrição de período', function () {
     ->and($department4->total_print)->toBeNull()
     ->and($department4->printer_count)->toBeNull()
     ->and($department5->total_print)->toBeNull()
-    ->and($department5->printer_count)->toBeNull();
+    ->and($department5->printer_count)->toBeNull()
+    ->and($department6->total_print)->toBeNull()
+    ->and($department6->printer_count)->toBeNull();
 });
 
 test('relatório gerencial com restrição de período', function () {
@@ -265,8 +275,9 @@ test('relatório institucional, mesmo sem impressão no período, traz o relató
     $department3 = $result->firstWhere('department', 'Lotação 3');
     $department4 = $result->firstWhere('department', 'Lotação 4');
     $department5 = $result->firstWhere('department', 'Lotação 5');
+    $department6 = $result->firstWhere('department', 'Lotação 5');
 
-    expect($result)->toHaveCount(5)
+    expect($result)->toHaveCount(6)
     ->and($department1->total_print)->toBeNull()
     ->and($department1->printer_count)->toBeNull()
     ->and($department2->total_print)->toBeNull()
@@ -276,7 +287,9 @@ test('relatório institucional, mesmo sem impressão no período, traz o relató
     ->and($department4->total_print)->toBeNull()
     ->and($department4->printer_count)->toBeNull()
     ->and($department5->total_print)->toBeNull()
-    ->and($department5->printer_count)->toBeNull();
+    ->and($department5->printer_count)->toBeNull()
+    ->and($department6->total_print)->toBeNull()
+    ->and($department6->printer_count)->toBeNull();
 });
 
 test('relatório gerencial, mesmo sem impressão no período, traz o relatório completo', function () {
@@ -342,8 +355,9 @@ test('relatório institucional é ordenado pelo volume impressão desc e lotaç�
     $third = $result->get(2);
     $fourth = $result->get(3);
     $fifth = $result->get(4);
+    $sixth = $result->get(5);
 
-    expect($result)->toHaveCount(5)
+    expect($result)->toHaveCount(6)
     ->and($first->department)->toBe('Lotação 1')
     ->and($first->total_print)->toBe('84')
     ->and($second->department)->toBe('Lotação 2')
@@ -353,7 +367,9 @@ test('relatório institucional é ordenado pelo volume impressão desc e lotaç�
     ->and($fourth->department)->toBe('Lotação 4')
     ->and($fourth->total_print)->toBeNull()
     ->and($fifth->department)->toBe('Lotação 5')
-    ->and($fifth->total_print)->toBeNull();
+    ->and($fifth->total_print)->toBeNull()
+    ->and($sixth->department)->toBe('Sem lotação')
+    ->and($sixth->total_print)->toBeNull();
 });
 
 test('relatório gerencial é ordenado pelo volume impressão desc e lotação asc', function () {

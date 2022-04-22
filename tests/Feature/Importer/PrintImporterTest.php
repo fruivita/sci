@@ -11,12 +11,13 @@ use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
 use App\Models\User;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 });
 
 test('make retorna o objeto da classe', function () {
@@ -25,7 +26,7 @@ test('make retorna o objeto da classe', function () {
 
 // Happy path
 test('todos os campos da impressão precisam estar presentes, mesmo que vazios', function () {
-    // sem a delimitar o último parâmetro (qtd de cópias), portanto, campos incompletos
+    // sem delimitar o último parâmetro (qtd de cópias), portanto, campos incompletos
     $print = 'server.dominio.org.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1';
 
     PrintImporter::make()->import($print);

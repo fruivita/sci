@@ -7,12 +7,13 @@
 use App\Enums\MonthlyGroupingType;
 use App\Enums\PermissionType;
 use App\Http\Livewire\Printing\PrintingReportLivewire;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->user = login('foo');
 });

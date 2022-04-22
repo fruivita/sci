@@ -10,6 +10,7 @@ use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
 use App\Models\User;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
     $this->print_log_files = [
         '01-12-2020.txt' => 'server1.domain.gov.br╡01/12/2020╡08:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡4╡2' . PHP_EOL .
             'server2.domain.gov.br╡01/12/2020╡10:30:00╡private.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-222╡5000╡8╡2' . PHP_EOL,

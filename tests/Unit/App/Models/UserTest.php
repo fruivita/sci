@@ -5,9 +5,11 @@
  */
 
 use App\Enums\PermissionType;
+use App\Models\Department;
 use App\Models\Printing;
 use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
@@ -83,7 +85,7 @@ test('um usuário possui um perfil', function () {
 });
 
 test('perfil padrão do usuário é ordinário', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $user = User::create([
         'username' => 'foo',
@@ -92,6 +94,18 @@ test('perfil padrão do usuário é ordinário', function () {
     $user->refresh();
 
     expect($user->role->id)->toBe(Role::ORDINARY);
+});
+
+test('se não informar lotação, a lotação padrão é a "sem lotação"', function () {
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
+
+    $user = User::create([
+        'username' => 'foo',
+    ]);
+
+    $user->refresh();
+
+    expect($user->department->id)->toBe(Department::DEPARTMENTLESS);
 });
 
 test('usuário pode delegar seu perfil a vários outros, porém o usuário só pode receber uma única delegação', function () {
@@ -114,7 +128,7 @@ test('usuário pode delegar seu perfil a vários outros, porém o usuário só p
 });
 
 test('hasPermission informa se o usuário possui ou não determinada permissão', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
 
@@ -132,7 +146,7 @@ test('hasPermission informa se o usuário possui ou não determinada permissão'
 });
 
 test('hasAnyPermission informa se o usuário possui uma das permissões informadas', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
 
@@ -169,7 +183,7 @@ test('hasAnyPermission informa se o usuário possui uma das permissões informad
 });
 
 test('forHumans retorna username formatado para exibição', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $samaccountname = 'foo';
     $user = login($samaccountname);
@@ -211,7 +225,7 @@ test('a pesquisa, com o termo parcial ou não, retorna os valores esperados', fu
 });
 
 test('revokeDelegation revoga a permissão do usuário e de todos que ele delegou definindo o perfil padrão (ordinário) para todos', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $user_foo = User::factory()->create([
         'role_id' => Role::INSTITUTIONALMANAGER,
@@ -266,7 +280,7 @@ test('revokeDelegation revoga a permissão do usuário e de todos que ele delego
 });
 
 test('revokeDelegatedUsers remove as delegações feitas pelo usuário', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $user_foo = User::factory()->create([
         'role_id' => Role::INSTITUTIONALMANAGER,
@@ -297,7 +311,7 @@ test('revokeDelegatedUsers remove as delegações feitas pelo usuário', functio
 });
 
 test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações feitas pelo (e do) usuário', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $user_foo = User::factory()->create([
         'role_id' => Role::INSTITUTIONALMANAGER,

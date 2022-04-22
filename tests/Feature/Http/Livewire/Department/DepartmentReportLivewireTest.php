@@ -10,12 +10,13 @@ use App\Http\Livewire\Department\DepartmentReportLivewire;
 use App\Models\Department;
 use App\Rules\DateMax;
 use App\Rules\DateMin;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->user = login('foo');
 });

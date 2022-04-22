@@ -10,6 +10,7 @@ use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
 use App\Models\User;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,7 +38,7 @@ afterEach(function () {
 });
 
 test('o job importa o log de impressão', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
     ImportPrintLog::dispatchSync();
 
     expect(Printing::count())->toBe(5)

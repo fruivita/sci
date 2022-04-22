@@ -6,13 +6,13 @@
 
 use App\Enums\PermissionType;
 use App\Policies\ServerPolicy;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Facades\Cache;
 
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->user = login('foo');
 });

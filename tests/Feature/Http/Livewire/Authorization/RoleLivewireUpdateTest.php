@@ -10,15 +10,15 @@ use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\RoleLivewireUpdate;
 use App\Models\Permission;
 use App\Models\Role;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
     $this->role = Role::factory()->create(['name' => 'foo', 'description' => 'bar']);
     login('foo');
 });

@@ -6,12 +6,13 @@
 
 use App\Importer\PrintLogImporter;
 use App\Models\Printer;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->print_log_files = [
         '30-06-2019.txt' => 'server1.domain.gov.br╡30/06/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡MLT-111╡1000╡3╡1' . PHP_EOL .

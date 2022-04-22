@@ -7,12 +7,13 @@
 use App\Enums\PermissionType;
 use App\Http\Livewire\Authorization\RoleLivewireIndex;
 use App\Models\Role;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
 });

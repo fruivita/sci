@@ -6,8 +6,10 @@
  * @see https://ldaprecord.com/docs/laravel/v2/auth/testing/
  */
 
+use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -46,7 +48,7 @@ test('senha é campo obrigatório na autenticação', function () {
 
 // Happy path
 test('autenticação cria o objeto da classe user', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $samaccountname = 'foo';
     $user = login($samaccountname);
@@ -58,7 +60,7 @@ test('autenticação cria o objeto da classe user', function () {
 });
 
 test('username e name são sincronizados no banco de dados', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     expect(User::count())->toBe(0);
 
@@ -75,7 +77,7 @@ test('username e name são sincronizados no banco de dados', function () {
 });
 
 test('perfil ordinário (perfil padrão para novos usuários) é atribuído ao usuário ao ser sincronizado', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
 
@@ -86,8 +88,20 @@ test('perfil ordinário (perfil padrão para novos usuários) é atribuído ao u
     logout();
 });
 
+test('se não for informada lotação, usuário receberá a lotação default (sem lotação)', function () {
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
+
+    login('foo');
+
+    $user = User::first();
+
+    expect($user->department->id)->toBe(Department::DEPARTMENTLESS);
+
+    logout();
+});
+
 test('usuário ao fazer logout é redirecionado para a rota login', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
 
@@ -108,7 +122,7 @@ test('usuário ao fazer logout é redirecionado para a rota login', function () 
  * as dados.
  */
 test('teste real de funcionamento da autenticação (login e logout)', function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $username = config('testing.username');
 

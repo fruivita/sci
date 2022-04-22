@@ -9,6 +9,7 @@ use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\User;
 use App\Rules\LdapUser;
 use App\Rules\NotCurrentUser;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
@@ -16,7 +17,7 @@ use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
 });

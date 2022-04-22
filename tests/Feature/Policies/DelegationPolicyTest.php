@@ -9,13 +9,13 @@ use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
 use App\Policies\DelegationPolicy;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Support\Facades\Cache;
 
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->user = login('foo');
 });

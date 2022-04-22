@@ -7,12 +7,13 @@
 use App\Enums\MonthlyGroupingType;
 use App\Importer\PrintLogImporter;
 use App\Models\Printing;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Storage;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
-    $this->seed(RoleSeeder::class);
+    $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->print_log_files = [
         '12-12-2019.txt' => 'server1.domain.gov.br╡12/12/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
