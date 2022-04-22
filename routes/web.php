@@ -14,6 +14,9 @@ use App\Http\Livewire\Authorization\UserLivewireIndex;
 use App\Http\Livewire\Department\DepartmentReportLivewire;
 use App\Http\Livewire\Printer\PrinterReportLivewire;
 use App\Http\Livewire\Printing\PrintingReportLivewire;
+use App\Http\Livewire\Server\ServerLivewireIndex;
+use App\Http\Livewire\Server\ServerLivewireShow;
+use App\Http\Livewire\Server\ServerLivewireUpdate;
 use App\Http\Livewire\Server\ServerReportLivewire;
 use App\Http\Livewire\Simulation\SimulationLivewireCreate;
 use App\Models\Department;
@@ -75,6 +78,14 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('importacao')->name('importation.')->group(function () {
         Route::get('create', ImportationLivewireCreate::class)->name('create')->can(Policy::ImportationCreate->value);
+    });
+
+    Route::prefix('administracao')->name('administration.')->group(function () {
+        Route::prefix('servidor')->name('server.')->group(function () {
+            Route::get('/', ServerLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Server::class);
+            Route::get('show/{server_id}', ServerLivewireShow::class)->name('show')->can(Policy::View->value, Server::class);
+            Route::get('edit/{server}', ServerLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Server::class);
+        });
     });
 
     Route::prefix('relatorio')->name('report.')->group(function () {
