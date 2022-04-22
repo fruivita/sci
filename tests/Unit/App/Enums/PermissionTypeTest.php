@@ -46,7 +46,10 @@ test('ids das permissões ligadas a administração das impressões estão defin
 });
 
 test('ids das permissões ligadas a administração dos servidores estão definidas', function () {
-    expect(PermissionType::ServerReport->value)->toBe(180101);
+    expect(PermissionType::ServerViewAny->value)->toBe(180001)
+    ->and(PermissionType::ServerView->value)->toBe(180002)
+    ->and(PermissionType::ServerUpdate->value)->toBe(180004)
+    ->and(PermissionType::ServerReport->value)->toBe(180101);
 });
 
 test('ids das permissões ligadas a administração das lotações estão definidas', function () {

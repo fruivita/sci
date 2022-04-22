@@ -24,6 +24,9 @@ enum PermissionType: int
     case DelegationCreate = 150003;
     case PrinterReport = 160101;
     case PrintingReport = 170101;
+    case ServerViewAny = 180001;
+    case ServerView = 180002;
+    case ServerUpdate = 180004;
     case ServerReport = 180101;
     case DepartmentReport = 190101;
     case ManagerialReport = 190102;
