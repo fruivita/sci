@@ -20,13 +20,6 @@
             :error="$errors->first('per_page')"/>
 
 
-        @error('checkbox_action')
-
-            <x-error>{{ $message }}</x-error>
-
-        @enderror
-
-
         <x-table wire:key="table-permission-role" wire:loading.delay.class="opacity-25">
 
             <x-slot name="head">
