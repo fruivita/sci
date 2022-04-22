@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 /**
  * @see https://laravel.com/docs/9.x/eloquent
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 class Server extends Model
 {
     use HasFactory;
+    use HasEagerLimit;
 
     protected $table = 'servers';
 
@@ -43,6 +45,50 @@ class Server extends Model
     public function sites()
     {
         return $this->belongsToMany(Site::class, 'server_site', 'server_id', 'site_id')->withTimestamps();
+    }
+
+    /**
+     * Ordenação padrão do modelo.
+     *
+     * Ordem: name asc
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDefaultOrder($query)
+    {
+        return $query->orderBy('name', 'asc');
+    }
+
+    /**
+     * Registro anterior ao nome informado.
+     *
+     * @param int $id id do modelo
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function previous(int $id)
+    {
+        return self::select('id')
+        ->whereRaw('name < (select name from servers where id = ?)', [$id])
+        ->orderBy('name', 'desc')
+        ->take(1);
+    }
+
+    /**
+     * Registro posterior ao nome informado.
+     *
+     * @param int $id id do modelo
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function next(int $id)
+    {
+        return self::select('id')
+        ->whereRaw('name > (select name from servers where id = ?)', [$id])
+        ->orderBy('name', 'asc')
+        ->take(1);
     }
 
     /**

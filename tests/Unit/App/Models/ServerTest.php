@@ -58,3 +58,35 @@ test('um servidor controla várias localidades', function () {
 
     expect($server->sites)->toHaveCount(3);
 });
+
+test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
+    $server_1 = Server::factory()->create(['name' => 'bar']);
+    $server_2 = Server::factory()->create(['name' => 'foo']);
+
+    expect(Server::previous($server_2->id)->first()->id)->toBe($server_1->id)
+    ->and(Server::previous($server_1->id)->first())->toBeNull();
+});
+
+test('next retorna o registro posterior correto, mesmo sendo o último', function () {
+    $server_1 = Server::factory()->create(['name' => 'bar']);
+    $server_2 = Server::factory()->create(['name' => 'foo']);
+
+    expect(Server::next($server_1->id)->first()->id)->toBe($server_2->id)
+    ->and(Server::next($server_2->id)->first())->toBeNull();
+});
+
+test('retorna os servidores usando o escopo de ordenação default definido', function () {
+    $first = 'bar';
+    $second = 'baz';
+    $third = 'foo';
+
+    Server::factory()->create(['name' => $third]);
+    Server::factory()->create(['name' => $first]);
+    Server::factory()->create(['name' => $second]);
+
+    $servers = Server::defaultOrder()->get();
+
+    expect($servers->get(0)->name)->toBe($first)
+    ->and($servers->get(1)->name)->toBe($second)
+    ->and($servers->get(2)->name)->toBe($third);
+});
