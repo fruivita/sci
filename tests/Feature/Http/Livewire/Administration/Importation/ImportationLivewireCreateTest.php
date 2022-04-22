@@ -30,11 +30,11 @@ afterEach(function () {
 test('não é possível carregar página de importação de dados sem estar autenticado', function () {
     logout();
 
-    get(route('importation.create'))->assertRedirect(route('login'));
+    get(route('administration.importation.create'))->assertRedirect(route('login'));
 });
 
 test('autenticado, mas sem permissão específica não, não é possível executar a rota de importação de dados', function () {
-    get(route('importation.create'))->assertForbidden();
+    get(route('administration.importation.create'))->assertForbidden();
 });
 
 test('autenticado, mas sem permissão específica, não é possível renderizar o componente de importação de dados', function () {
@@ -74,7 +74,7 @@ test('não aceita importar itens fora das opções oferecidas', function () {
 test('é possível renderizar o componente de importação de dados com permissão específica', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
-    get(route('importation.create'))
+    get(route('administration.importation.create'))
     ->assertOk()
     ->assertSeeLivewire(ImportationLivewireCreate::class);
 });

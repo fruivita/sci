@@ -111,7 +111,7 @@
                 <x-menu.link
                     class="{{ request()->routeIs('importation.*') ? 'active': '' }}"
                     icon="usb-drive"
-                    href="{{ route('importation.create') }}"
+                    href="{{ route('administration.importation.create') }}"
                     text="{{ __('Importation') }}"
                     title="{{ __('Go to data importation page') }}"/>
 

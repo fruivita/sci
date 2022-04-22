@@ -76,11 +76,11 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::prefix('importacao')->name('importation.')->group(function () {
-        Route::get('create', ImportationLivewireCreate::class)->name('create')->can(Policy::ImportationCreate->value);
-    });
-
     Route::prefix('administracao')->name('administration.')->group(function () {
+        Route::prefix('importacao')->name('importation.')->group(function () {
+            Route::get('create', ImportationLivewireCreate::class)->name('create')->can(Policy::ImportationCreate->value);
+        });
+
         Route::prefix('servidor')->name('server.')->group(function () {
             Route::get('/', ServerLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Server::class);
             Route::get('show/{server_id}', ServerLivewireShow::class)->name('show')->can(Policy::View->value, Server::class);
