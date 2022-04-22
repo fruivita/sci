@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Server;
+namespace App\Http\Livewire\Report\Printer;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithDownloadableReport;
 use App\Http\Livewire\Traits\WithPerPagePagination;
-use App\Models\Server;
+use App\Models\Printer;
 use App\Rules\DateMax;
 use App\Rules\DateMin;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -16,7 +16,7 @@ use Livewire\Component;
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class ServerReportLivewire extends Component
+class PrinterReportLivewire extends Component
 {
     use AuthorizesRequests;
     use WithDownloadableReport;
@@ -35,6 +35,13 @@ class ServerReportLivewire extends Component
      * @var string
      */
     public $final_date;
+
+    /**
+     * Termo pesquisável informado pelo usuário.
+     *
+     * @var string
+     */
+    public $term;
 
     /**
      * Regras para a validação dos inputs.
@@ -59,6 +66,13 @@ class ServerReportLivewire extends Component
                 new DateMin(),
                 new DateMax(),
             ],
+
+            'term' => [
+                'bail',
+                'nullable',
+                'string',
+                'max:50',
+            ],
         ];
     }
 
@@ -78,6 +92,10 @@ class ServerReportLivewire extends Component
                 'except' => '',
                 'as' => 'f',
             ],
+            'term' => [
+                'except' => '',
+                'as' => 's',
+            ],
         ];
     }
 
@@ -91,6 +109,7 @@ class ServerReportLivewire extends Component
         return [
             'initial_date' => __('Initial date'),
             'final_date' => __('Final date'),
+            'term' => __('Searchable term'),
         ];
     }
 
@@ -102,7 +121,7 @@ class ServerReportLivewire extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::Report->value, Server::class);
+        $this->authorize(Policy::Report->value, Printer::class);
     }
 
     /**
@@ -112,7 +131,7 @@ class ServerReportLivewire extends Component
      */
     private function reportHeader()
     {
-        return __('Report by server');
+        return __('Report by printer');
     }
 
     /**
@@ -122,17 +141,17 @@ class ServerReportLivewire extends Component
      */
     private function pdfReportViewName()
     {
-        return 'pdf.server.report';
+        return 'pdf.printer.report';
     }
 
     /**
      * Filtro extra utilizado no relatório.
      *
-     * @return null
+     * @return string
      */
     private function filter()
     {
-        return null;
+        return $this->term;
     }
 
     /**
@@ -154,7 +173,7 @@ class ServerReportLivewire extends Component
      */
     public function render()
     {
-        return view('livewire.server.report', [
+        return view('livewire.report.printer.report', [
             'report' => $this->validator()->fails() ? null : $this->result->onEachSide($this->on_each_side),
         ])->layout('layouts.app');
     }
@@ -203,10 +222,11 @@ class ServerReportLivewire extends Component
      */
     private function makeReport(int $per_page = null)
     {
-        return Server::report(
+        return Printer::report(
             Carbon::createFromFormat('d-m-Y', $this->initial_date),
             Carbon::createFromFormat('d-m-Y', $this->final_date),
             $per_page ?? $this->per_page,
+            $this->term,
         );
     }
 
@@ -230,6 +250,10 @@ class ServerReportLivewire extends Component
         $this->final_date = $validator->errors()->has('final_date') || empty($this->final_date)
         ? now()->format('d-m-Y')
         : $this->final_date;
+
+        $this->term = $validator->errors()->has('term')
+        ? null
+        : $this->term;
     }
 
     /**
@@ -243,6 +267,7 @@ class ServerReportLivewire extends Component
             [
                 'initial_date' => $this->initial_date,
                 'final_date' => $this->final_date,
+                'term' => $this->term,
             ],
             $this->rules()
         );

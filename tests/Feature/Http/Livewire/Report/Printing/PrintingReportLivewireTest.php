@@ -6,7 +6,7 @@
 
 use App\Enums\MonthlyGroupingType;
 use App\Enums\PermissionType;
-use App\Http\Livewire\Printing\PrintingReportLivewire;
+use App\Http\Livewire\Report\Printing\PrintingReportLivewire;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Livewire\Livewire;

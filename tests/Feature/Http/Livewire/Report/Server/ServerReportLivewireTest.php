@@ -5,7 +5,7 @@
  */
 
 use App\Enums\PermissionType;
-use App\Http\Livewire\Server\ServerReportLivewire;
+use App\Http\Livewire\Report\Server\ServerReportLivewire;
 use App\Models\Printing;
 use App\Models\Server;
 use App\Rules\DateMax;

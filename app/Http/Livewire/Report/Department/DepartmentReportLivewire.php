@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Department;
+namespace App\Http\Livewire\Report\Department;
 
 use App\Enums\DepartmentReportType;
 use App\Enums\PermissionType;
@@ -194,7 +194,7 @@ class DepartmentReportLivewire extends Component
      */
     public function render()
     {
-        return view('livewire.department.report', [
+        return view('livewire.report.department.report', [
             'report' => $this->validator()->fails() ? null : $this->result->onEachSide($this->on_each_side),
         ])->layout('layouts.app');
     }

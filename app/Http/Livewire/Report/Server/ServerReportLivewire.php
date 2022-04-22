@@ -1,47 +1,40 @@
 <?php
 
-namespace App\Http\Livewire\Printing;
+namespace App\Http\Livewire\Report\Server;
 
-use App\Enums\MonthlyGroupingType;
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithDownloadableReport;
 use App\Http\Livewire\Traits\WithPerPagePagination;
-use App\Models\Printing;
-use function App\reportMaxYear;
-use function App\reportMinYear;
+use App\Models\Server;
+use App\Rules\DateMax;
+use App\Rules\DateMin;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class PrintingReportLivewire extends Component
+class ServerReportLivewire extends Component
 {
     use AuthorizesRequests;
     use WithDownloadableReport;
     use WithPerPagePagination;
 
     /**
-     * Ano inicial do relatório.
+     * Data inicial do relatório.
      *
-     * @var int
+     * @var string
      */
     public $initial_date;
 
     /**
-     * Ano final do relatório.
+     * Data final do relatório.
      *
-     * @var int
+     * @var string
      */
     public $final_date;
-
-    /**
-     * Tipo de agrupamento do relatório.
-     *
-     * @var int
-     */
-    public $grouping;
 
     /**
      * Regras para a validação dos inputs.
@@ -54,24 +47,17 @@ class PrintingReportLivewire extends Component
             'initial_date' => [
                 'bail',
                 'required',
-                'integer',
-                'gte:' . reportMinYear(),
-                'lte:' . reportMaxYear(),
+                'date_format:d-m-Y',
+                new DateMin(),
+                new DateMax(),
             ],
 
             'final_date' => [
                 'bail',
                 'required',
-                'integer',
-                'gte:' . reportMinYear(),
-                'lte:' . reportMaxYear(),
-            ],
-
-            'grouping' => [
-                'bail',
-                'required',
-                'integer',
-                'in:' . MonthlyGroupingType::values()->implode(','),
+                'date_format:d-m-Y',
+                new DateMin(),
+                new DateMax(),
             ],
         ];
     }
@@ -92,10 +78,6 @@ class PrintingReportLivewire extends Component
                 'except' => '',
                 'as' => 'f',
             ],
-            'grouping' => [
-                'except' => '',
-                'as' => 'g',
-            ],
         ];
     }
 
@@ -107,9 +89,8 @@ class PrintingReportLivewire extends Component
     protected function validationAttributes()
     {
         return [
-            'initial_date' => __('Initial year'),
-            'final_date' => __('Final year'),
-            'grouping' => __('Group by'),
+            'initial_date' => __('Initial date'),
+            'final_date' => __('Final date'),
         ];
     }
 
@@ -121,7 +102,7 @@ class PrintingReportLivewire extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::Report->value, Printing::class);
+        $this->authorize(Policy::Report->value, Server::class);
     }
 
     /**
@@ -131,7 +112,7 @@ class PrintingReportLivewire extends Component
      */
     private function reportHeader()
     {
-        return __('General print report');
+        return __('Report by server');
     }
 
     /**
@@ -141,17 +122,17 @@ class PrintingReportLivewire extends Component
      */
     private function pdfReportViewName()
     {
-        return 'pdf.printing.report';
+        return 'pdf.server.report';
     }
 
     /**
      * Filtro extra utilizado no relatório.
      *
-     * @return string
+     * @return null
      */
     private function filter()
     {
-        return MonthlyGroupingType::from($this->grouping)->label();
+        return null;
     }
 
     /**
@@ -173,7 +154,7 @@ class PrintingReportLivewire extends Component
      */
     public function render()
     {
-        return view('livewire.printing.report', [
+        return view('livewire.report.server.report', [
             'report' => $this->validator()->fails() ? null : $this->result->onEachSide($this->on_each_side),
         ])->layout('layouts.app');
     }
@@ -222,11 +203,10 @@ class PrintingReportLivewire extends Component
      */
     private function makeReport(int $per_page = null)
     {
-        return Printing::report(
-            $this->initial_date,
-            $this->final_date,
+        return Server::report(
+            Carbon::createFromFormat('d-m-Y', $this->initial_date),
+            Carbon::createFromFormat('d-m-Y', $this->final_date),
             $per_page ?? $this->per_page,
-            MonthlyGroupingType::from($this->grouping),
         );
     }
 
@@ -244,16 +224,12 @@ class PrintingReportLivewire extends Component
         $validator = $this->validator();
 
         $this->initial_date = $validator->errors()->has('initial_date') || empty($this->initial_date)
-        ? now()->format('Y')
+        ? now()->startOfYear()->format('d-m-Y')
         : $this->initial_date;
 
         $this->final_date = $validator->errors()->has('final_date') || empty($this->final_date)
-        ? now()->format('Y')
+        ? now()->format('d-m-Y')
         : $this->final_date;
-
-        $this->grouping = $validator->errors()->has('grouping')
-        ? MonthlyGroupingType::Yearly->value
-        : $this->grouping;
     }
 
     /**
@@ -267,7 +243,6 @@ class PrintingReportLivewire extends Component
             [
                 'initial_date' => $this->initial_date,
                 'final_date' => $this->final_date,
-                'grouping' => $this->grouping,
             ],
             $this->rules()
         );

@@ -6,7 +6,7 @@
 
 use App\Enums\DepartmentReportType;
 use App\Enums\PermissionType;
-use App\Http\Livewire\Department\DepartmentReportLivewire;
+use App\Http\Livewire\Report\Department\DepartmentReportLivewire;
 use App\Models\Department;
 use App\Rules\DateMax;
 use App\Rules\DateMin;

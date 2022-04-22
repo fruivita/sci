@@ -1,47 +1,47 @@
 <?php
 
-namespace App\Http\Livewire\Printer;
+namespace App\Http\Livewire\Report\Printing;
 
+use App\Enums\MonthlyGroupingType;
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithDownloadableReport;
 use App\Http\Livewire\Traits\WithPerPagePagination;
-use App\Models\Printer;
-use App\Rules\DateMax;
-use App\Rules\DateMin;
+use App\Models\Printing;
+use function App\reportMaxYear;
+use function App\reportMinYear;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 /**
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
-class PrinterReportLivewire extends Component
+class PrintingReportLivewire extends Component
 {
     use AuthorizesRequests;
     use WithDownloadableReport;
     use WithPerPagePagination;
 
     /**
-     * Data inicial do relatório.
+     * Ano inicial do relatório.
      *
-     * @var string
+     * @var int
      */
     public $initial_date;
 
     /**
-     * Data final do relatório.
+     * Ano final do relatório.
      *
-     * @var string
+     * @var int
      */
     public $final_date;
 
     /**
-     * Termo pesquisável informado pelo usuário.
+     * Tipo de agrupamento do relatório.
      *
-     * @var string
+     * @var int
      */
-    public $term;
+    public $grouping;
 
     /**
      * Regras para a validação dos inputs.
@@ -54,24 +54,24 @@ class PrinterReportLivewire extends Component
             'initial_date' => [
                 'bail',
                 'required',
-                'date_format:d-m-Y',
-                new DateMin(),
-                new DateMax(),
+                'integer',
+                'gte:' . reportMinYear(),
+                'lte:' . reportMaxYear(),
             ],
 
             'final_date' => [
                 'bail',
                 'required',
-                'date_format:d-m-Y',
-                new DateMin(),
-                new DateMax(),
+                'integer',
+                'gte:' . reportMinYear(),
+                'lte:' . reportMaxYear(),
             ],
 
-            'term' => [
+            'grouping' => [
                 'bail',
-                'nullable',
-                'string',
-                'max:50',
+                'required',
+                'integer',
+                'in:' . MonthlyGroupingType::values()->implode(','),
             ],
         ];
     }
@@ -92,9 +92,9 @@ class PrinterReportLivewire extends Component
                 'except' => '',
                 'as' => 'f',
             ],
-            'term' => [
+            'grouping' => [
                 'except' => '',
-                'as' => 's',
+                'as' => 'g',
             ],
         ];
     }
@@ -107,9 +107,9 @@ class PrinterReportLivewire extends Component
     protected function validationAttributes()
     {
         return [
-            'initial_date' => __('Initial date'),
-            'final_date' => __('Final date'),
-            'term' => __('Searchable term'),
+            'initial_date' => __('Initial year'),
+            'final_date' => __('Final year'),
+            'grouping' => __('Group by'),
         ];
     }
 
@@ -121,7 +121,7 @@ class PrinterReportLivewire extends Component
      */
     public function boot()
     {
-        $this->authorize(Policy::Report->value, Printer::class);
+        $this->authorize(Policy::Report->value, Printing::class);
     }
 
     /**
@@ -131,7 +131,7 @@ class PrinterReportLivewire extends Component
      */
     private function reportHeader()
     {
-        return __('Report by printer');
+        return __('General print report');
     }
 
     /**
@@ -141,7 +141,7 @@ class PrinterReportLivewire extends Component
      */
     private function pdfReportViewName()
     {
-        return 'pdf.printer.report';
+        return 'pdf.printing.report';
     }
 
     /**
@@ -151,7 +151,7 @@ class PrinterReportLivewire extends Component
      */
     private function filter()
     {
-        return $this->term;
+        return MonthlyGroupingType::from($this->grouping)->label();
     }
 
     /**
@@ -173,7 +173,7 @@ class PrinterReportLivewire extends Component
      */
     public function render()
     {
-        return view('livewire.printer.report', [
+        return view('livewire.report.printing.report', [
             'report' => $this->validator()->fails() ? null : $this->result->onEachSide($this->on_each_side),
         ])->layout('layouts.app');
     }
@@ -222,11 +222,11 @@ class PrinterReportLivewire extends Component
      */
     private function makeReport(int $per_page = null)
     {
-        return Printer::report(
-            Carbon::createFromFormat('d-m-Y', $this->initial_date),
-            Carbon::createFromFormat('d-m-Y', $this->final_date),
+        return Printing::report(
+            $this->initial_date,
+            $this->final_date,
             $per_page ?? $this->per_page,
-            $this->term,
+            MonthlyGroupingType::from($this->grouping),
         );
     }
 
@@ -244,16 +244,16 @@ class PrinterReportLivewire extends Component
         $validator = $this->validator();
 
         $this->initial_date = $validator->errors()->has('initial_date') || empty($this->initial_date)
-        ? now()->startOfYear()->format('d-m-Y')
+        ? now()->format('Y')
         : $this->initial_date;
 
         $this->final_date = $validator->errors()->has('final_date') || empty($this->final_date)
-        ? now()->format('d-m-Y')
+        ? now()->format('Y')
         : $this->final_date;
 
-        $this->term = $validator->errors()->has('term')
-        ? null
-        : $this->term;
+        $this->grouping = $validator->errors()->has('grouping')
+        ? MonthlyGroupingType::Yearly->value
+        : $this->grouping;
     }
 
     /**
@@ -267,7 +267,7 @@ class PrinterReportLivewire extends Component
             [
                 'initial_date' => $this->initial_date,
                 'final_date' => $this->final_date,
-                'term' => $this->term,
+                'grouping' => $this->grouping,
             ],
             $this->rules()
         );
