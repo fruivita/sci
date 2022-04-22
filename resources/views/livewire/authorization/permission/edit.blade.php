@@ -96,7 +96,7 @@
                     @enderror
 
 
-                    <x-table>
+                    <x-table wire:key="table-role" wire:loading.delay.class="opacity-25">
 
                         <x-slot name="head">
 
@@ -104,6 +104,9 @@
 
                                 <select
                                     wire:key="checkbox-action"
+                                    wire:loading.delay.attr="disabled"
+                                    wire:loading.delay.class="cursor-not-allowed"
+                                    wire:target="per_page,update"
                                     wire:model="checkbox_action"
                                     class="bg-primary-300 rounded w-14 dark:bg-secondary-500"
                                 >
@@ -136,7 +139,7 @@
 
                         <x-slot name="body">
 
-                            <x-table.row wire:key="row-select-counter" wire:loading.delay.class="opacity-25">
+                            <x-table.row wire:key="row-select-counter">
 
                                 <x-table.cell class="text-left" colspan="3">
 
@@ -157,7 +160,7 @@
 
                             @forelse ( $roles ?? [] as $role )
 
-                                <x-table.row wire:key="row-{{ $role->id }}" wire:loading.delay.class="opacity-25">
+                                <x-table.row wire:key="row-{{ $role->id }}">
 
                                     <x-table.cell>
 
