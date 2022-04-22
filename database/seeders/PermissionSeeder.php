@@ -118,6 +118,27 @@ class PermissionSeeder extends Seeder
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
+                'id' => PermissionType::ServerViewAny->value,
+                'name' => __('Server: View all'),
+                'description' => __('Permission to list all servers.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::ServerView->value,
+                'name' => __('Server: View one'),
+                'description' => __('Permission to view servers individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::ServerUpdate->value,
+                'name' => __('Server: Update one'),
+                'description' => __('Permission to update servers individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'id' => PermissionType::ServerReport->value,
                 'name' => __('Report by server: Generate'),
                 'description' => __('Permission to generate the print-by-server report.'),
