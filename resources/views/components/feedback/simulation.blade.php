@@ -33,7 +33,7 @@
 
 
         <x-button
-          color='btn-warning'
+          class='btn-warning'
           formaction="{{ route('test.simulation.destroy') }}"
           formmethod="POST"
           icon="stop-btn"
