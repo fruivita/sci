@@ -50,7 +50,7 @@ class ServerLivewireShow extends Component
     }
 
     /**
-     * Computed property para a listar os sites paginados.
+     * Computed property para a listar as localidades paginadas.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
