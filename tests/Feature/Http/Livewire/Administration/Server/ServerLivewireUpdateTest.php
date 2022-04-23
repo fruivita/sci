@@ -225,6 +225,25 @@ test('emite evento de feedback ao atualizar um servidor', function () {
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
+test('localidades associadas são opcionais na atualização do servidor', function () {
+    grantPermission(PermissionType::ServerUpdate->value);
+
+    $server = Server::factory()
+    ->has(Site::factory(1), 'sites')
+    ->create();
+
+    expect($server->sites)->toHaveCount(1);
+
+    Livewire::test(ServerLivewireUpdate::class, ['server' => $server])
+    ->set('selected', null)
+    ->call('update')
+    ->assertOk();
+
+    $server->refresh()->load('sites');
+
+    expect($server->sites)->toBeEmpty();
+});
+
 test('é possível atualizar um servidor com permissão específica', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
@@ -264,7 +283,7 @@ test('next e previous são registrados em cache com expiração de um minuto', f
     ->and(cache()->missing('next' . $livewire->id))->toBeTrue();
 });
 
-test('next e previous estão definidos durante a edição individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
+test('next e previous estão definidos durante a edição individual dos servidores, inclusive em se tratando do primeiro ou último registros', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     $server_1 = Server::factory()->create(['name' => 'bar']);

@@ -60,7 +60,7 @@ test('é possível renderizar o componente de visualização individual do servi
     ->assertSeeLivewire(ServerLivewireShow::class);
 });
 
-test('paginação retorna a quantidade de sites esperada', function () {
+test('paginação retorna a quantidade de localidades esperada', function () {
     grantPermission(PermissionType::ServerView->value);
 
     Site::factory(120)->create();

@@ -102,6 +102,7 @@
     @if (
             auth()->user()->can(\App\Enums\Policy::ImportationCreate->value)
             || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Server::class)
+            || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Site::class)
         )
 
         <x-menu.group name="{{ __('Administration') }}">
@@ -114,6 +115,18 @@
                     href="{{ route('administration.importation.create') }}"
                     text="{{ __('Importation') }}"
                     title="{{ __('Go to data importation page') }}"/>
+
+            @endcan
+
+
+            @can(\App\Enums\Policy::ViewAny->value, \App\Models\Site::class)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('administration.site.*') ? 'active': '' }}"
+                    icon="building"
+                    href="{{ route('administration.site.index') }}"
+                    text="{{ __('Sites') }}"
+                    title="{{ __('Go to sites page') }}"/>
 
             @endcan
 

@@ -6,6 +6,9 @@ use App\Http\Livewire\Administration\Importation\ImportationLivewireCreate;
 use App\Http\Livewire\Administration\Server\ServerLivewireIndex;
 use App\Http\Livewire\Administration\Server\ServerLivewireShow;
 use App\Http\Livewire\Administration\Server\ServerLivewireUpdate;
+use App\Http\Livewire\Administration\Site\SiteLivewireIndex;
+use App\Http\Livewire\Administration\Site\SiteLivewireShow;
+use App\Http\Livewire\Administration\Site\SiteLivewireUpdate;
 use App\Http\Livewire\Authorization\Delegation\DelegationLivewireIndex;
 use App\Http\Livewire\Authorization\Permission\PermissionLivewireIndex;
 use App\Http\Livewire\Authorization\Permission\PermissionLivewireShow;
@@ -25,6 +28,7 @@ use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Role;
 use App\Models\Server;
+use App\Models\Site;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -79,6 +83,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('administracao')->name('administration.')->group(function () {
         Route::prefix('importacao')->name('importation.')->group(function () {
             Route::get('create', ImportationLivewireCreate::class)->name('create')->can(Policy::ImportationCreate->value);
+        });
+
+        Route::prefix('localidade')->name('site.')->group(function () {
+            Route::get('/', SiteLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Site::class);
+            Route::get('show/{site}', SiteLivewireShow::class)->name('show')->can(Policy::View->value, Site::class);
+            Route::get('edit/{site}', SiteLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Site::class);
         });
 
         Route::prefix('servidor')->name('server.')->group(function () {
