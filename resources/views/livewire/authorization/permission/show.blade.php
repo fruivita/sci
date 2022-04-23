@@ -16,12 +16,12 @@
 
         <div class="flex justify-between">
 
-            @isset($permission->previous)
+            @isset($previous)
 
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-left"
-                    href="{{ route('authorization.permission.show', $permission->previous) }}"
+                    href="{{ route('authorization.permission.show', $previous) }}"
                     prepend="true"
                     text="{{ __('Previous') }}"
                     title="{{ __('Show previous record') }}"/>
@@ -33,12 +33,12 @@
             @endisset
 
 
-            @isset($permission->next)
+            @isset($next)
 
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-right"
-                    href="{{ route('authorization.permission.show', $permission->next) }}"
+                    href="{{ route('authorization.permission.show', $next) }}"
                     text="{{ __('Next') }}"
                     title="{{ __('Show next record') }}"/>
 

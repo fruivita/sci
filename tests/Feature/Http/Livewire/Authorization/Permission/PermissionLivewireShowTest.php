@@ -38,7 +38,7 @@ test('autenticado, mas sem permissão específica, não é possível executar a 
 });
 
 test('não é possível renderizar o componente de visualização individual da permissão sem permissão específica', function () {
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => $this->permission->id])
+    Livewire::test(PermissionLivewireShow::class, ['permission' => $this->permission])
     ->assertForbidden();
 });
 
@@ -46,7 +46,7 @@ test('não é possível renderizar o componente de visualização individual da 
 test('não aceita paginação fora das opções oferecidas', function () {
     grantPermission(PermissionType::PermissionView->value);
 
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => $this->permission->id])
+    Livewire::test(PermissionLivewireShow::class, ['permission' => $this->permission])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
@@ -68,7 +68,7 @@ test('paginação retorna a quantidade de perfis esperada', function () {
 
     $this->permission->roles()->sync($roles);
 
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => $this->permission->id])
+    Livewire::test(PermissionLivewireShow::class, ['permission' => $this->permission])
     ->assertCount('roles', 10)
     ->set('per_page', 10)
     ->assertCount('roles', 10)
@@ -83,7 +83,7 @@ test('paginação retorna a quantidade de perfis esperada', function () {
 test('paginação cria as variáveis de sessão', function () {
     grantPermission(PermissionType::PermissionView->value);
 
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => $this->permission->id])
+    Livewire::test(PermissionLivewireShow::class, ['permission' => $this->permission])
     ->assertSessionMissing('per_page')
     ->set('per_page', 10)
     ->assertSessionHas('per_page', 10)
@@ -105,24 +105,24 @@ test('é possível visualizar individualmente uma permissão com permissão espe
 
 test('next e previous estão presentes na permissão durante a visualização individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {
     Permission::whereNotNull('id')->delete();
-
-    Permission::factory()->create(['id' => PermissionType::PermissionViewAny->value]);
-    Permission::factory()->create(['id' => PermissionType::PermissionUpdate->value]);
-
     grantPermission(PermissionType::PermissionView->value);
 
+    $permission_1 = Permission::factory()->create(['id' => PermissionType::PermissionViewAny->value]);
+    $permission_2 = Permission::find(PermissionType::PermissionView->value);
+    $permission_3 = Permission::factory()->create(['id' => PermissionType::PermissionUpdate->value]);
+
     // possui anterior e próximo
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => PermissionType::PermissionView->value])
-    ->assertSet('permission.previous', PermissionType::PermissionViewAny->value)
-    ->assertSet('permission.next', PermissionType::PermissionUpdate->value);
+    Livewire::test(PermissionLivewireShow::class, ['permission' => $permission_2])
+    ->assertSet('previous', $permission_1->id)
+    ->assertSet('next', $permission_3->id);
 
     // possui apenas próximo
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => PermissionType::PermissionViewAny->value])
-    ->assertSet('permission.previous', null)
-    ->assertSet('permission.next', PermissionType::PermissionView->value);
+    Livewire::test(PermissionLivewireShow::class, ['permission' => $permission_1])
+    ->assertSet('previous', null)
+    ->assertSet('next', $permission_2->id);
 
     // possui apenas anterior
-    Livewire::test(PermissionLivewireShow::class, ['permission_id' => PermissionType::PermissionUpdate->value])
-    ->assertSet('permission.previous', PermissionType::PermissionView->value)
-    ->assertSet('permission.next', null);
+    Livewire::test(PermissionLivewireShow::class, ['permission' => $permission_3])
+    ->assertSet('previous', $permission_2->id)
+    ->assertSet('next', null);
 });

@@ -38,7 +38,7 @@ test('autenticado, mas sem permissão específica, não é possível executar a 
 });
 
 test('não é possível renderizar o componente de visualização individual do perfil sem permissão específica', function () {
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
+    Livewire::test(RoleLivewireShow::class, ['role' => $this->role])
     ->assertForbidden();
 });
 
@@ -46,7 +46,7 @@ test('não é possível renderizar o componente de visualização individual do 
 test('não aceita paginação fora das opções oferecidas', function () {
     grantPermission(PermissionType::RoleView->value);
 
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
+    Livewire::test(RoleLivewireShow::class, ['role' => $this->role])
     ->set('per_page', 33) // valores possíveis: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
@@ -68,7 +68,7 @@ test('paginação retorna a quantidade de permissões esperada', function () {
 
     $this->role->permissions()->sync($permissions);
 
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
+    Livewire::test(RoleLivewireShow::class, ['role' => $this->role])
     ->assertCount('permissions', 10)
     ->set('per_page', 10)
     ->assertCount('permissions', 10)
@@ -83,7 +83,7 @@ test('paginação retorna a quantidade de permissões esperada', function () {
 test('paginação cria as variáveis de sessão', function () {
     grantPermission(PermissionType::RoleView->value);
 
-    Livewire::test(RoleLivewireShow::class, ['role_id' => $this->role->id])
+    Livewire::test(RoleLivewireShow::class, ['role' => $this->role])
     ->assertSessionMissing('per_page')
     ->set('per_page', 10)
     ->assertSessionHas('per_page', 10)
@@ -107,18 +107,22 @@ test('next e previous estão presentes no perfil durante a visualização indivi
     $this->role->delete();
     grantPermission(PermissionType::RoleView->value);
 
+    $first = Role::find(Role::ADMINISTRATOR);
+    $second = Role::find(Role::INSTITUTIONALMANAGER);
+    $last = Role::find(Role::ORDINARY);
+
     // possui anterior e próximo
-    Livewire::test(RoleLivewireShow::class, ['role_id' => Role::INSTITUTIONALMANAGER])
-    ->assertSet('role.previous', Role::ADMINISTRATOR)
-    ->assertSet('role.next', Role::DEPARTMENTMANAGER);
+    Livewire::test(RoleLivewireShow::class, ['role' => $second])
+    ->assertSet('previous', Role::ADMINISTRATOR)
+    ->assertSet('next', Role::DEPARTMENTMANAGER);
 
     // possui apenas próximo
-    Livewire::test(RoleLivewireShow::class, ['role_id' => Role::ADMINISTRATOR])
-    ->assertSet('role.previous', null)
-    ->assertSet('role.next', Role::INSTITUTIONALMANAGER);
+    Livewire::test(RoleLivewireShow::class, ['role' => $first])
+    ->assertSet('previous', null)
+    ->assertSet('next', Role::INSTITUTIONALMANAGER);
 
     // possui apenas anterior
-    Livewire::test(RoleLivewireShow::class, ['role_id' => Role::ORDINARY])
-    ->assertSet('role.previous', Role::DEPARTMENTMANAGER)
-    ->assertSet('role.next', null);
+    Livewire::test(RoleLivewireShow::class, ['role' => $last])
+    ->assertSet('previous', Role::DEPARTMENTMANAGER)
+    ->assertSet('next', null);
 });

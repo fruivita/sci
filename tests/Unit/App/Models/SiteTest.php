@@ -52,16 +52,16 @@ test('previous retorna o registro anterior correto, mesmo sendo o primeiro', fun
     $site_1 = Site::factory()->create(['name' => 'bar']);
     $site_2 = Site::factory()->create(['name' => 'foo']);
 
-    expect(Site::previous($site_2->id)->first()->id)->toBe($site_1->id)
-    ->and(Site::previous($site_1->id)->first())->toBeNull();
+    expect($site_2->previous()->first()->id)->toBe($site_1->id)
+    ->and($site_1->previous()->first())->toBeNull();
 });
 
 test('next retorna o registro posterior correto, mesmo sendo o último', function () {
     $site_1 = Site::factory()->create(['name' => 'bar']);
     $site_2 = Site::factory()->create(['name' => 'foo']);
 
-    expect(Site::next($site_1->id)->first()->id)->toBe($site_2->id)
-    ->and(Site::next($site_2->id)->first())->toBeNull();
+    expect($site_1->next()->first()->id)->toBe($site_2->id)
+    ->and($site_2->next()->first())->toBeNull();
 });
 
 test('retorna as localidades usando o escopo de ordenação default definido', function () {

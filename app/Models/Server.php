@@ -62,31 +62,27 @@ class Server extends Model
     }
 
     /**
-     * Registro anterior ao nome informado.
-     *
-     * @param int $id id do modelo
+     * Registro anterior.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function previous(int $id)
+    public function previous()
     {
-        return self::select('id')
-        ->whereRaw('name < (select name from servers where id = ?)', [$id])
+        return Server::select('id')
+        ->whereRaw('name < (select name from servers where id = ?)', [$this->id])
         ->orderBy('name', 'desc')
         ->take(1);
     }
 
     /**
-     * Registro posterior ao nome informado.
-     *
-     * @param int $id id do modelo
+     * Registro posterior.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function next(int $id)
+    public function next()
     {
-        return self::select('id')
-        ->whereRaw('name > (select name from servers where id = ?)', [$id])
+        return Server::select('id')
+        ->whereRaw('name > (select name from servers where id = ?)', [$this->id])
         ->orderBy('name', 'asc')
         ->take(1);
     }

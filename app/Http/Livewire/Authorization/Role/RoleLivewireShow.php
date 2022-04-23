@@ -19,18 +19,25 @@ class RoleLivewireShow extends Component
     use WithCaching;
 
     /**
-     * Id do perfil que está em exibição.
-     *
-     * @var int
-     */
-    public $role_id;
-
-    /**
      * Perfil que está em exibição.
      *
      * @var \App\Models\Role
      */
     public Role $role;
+
+    /**
+     * Id do registro anterior.
+     *
+     * @var int|null
+     */
+    public $previous;
+
+    /**
+     * Id do próximo registro.
+     *
+     * @var int|null
+     */
+    public $next;
 
     /**
      * Runs on every request, immediately after the component is instantiated,
@@ -48,33 +55,12 @@ class RoleLivewireShow extends Component
      * render() is called. This is only called once on initial page load and
      * never called again, even on component refreshes.
      *
-     * @param int $role_id
-     *
      * @return void
      */
-    public function mount(int $role_id)
+    public function mount()
     {
-        $this->role_id = $role_id;
-    }
-
-    /**
-     * Runs on every request, after the component is mounted or hydrated, but
-     * before any update methods are called.
-     */
-    public function booted()
-    {
-        $this->useCache();
-
-        $this->role = $this->cache(
-            key: $this->id,
-            seconds: 60,
-            callback: function () {
-                return Role::query()
-                ->addSelect(['previous' => Role::previous($this->role_id)])
-                ->addSelect(['next' => Role::next($this->role_id)])
-                ->findOrFail($this->role_id);
-            }
-        );
+        $this->setPrevious();
+        $this->setNext();
     }
 
     /**
@@ -99,5 +85,41 @@ class RoleLivewireShow extends Component
         return view('livewire.authorization.role.show', [
             'permissions' => $this->permissions,
         ])->layout('layouts.app');
+    }
+
+    /**
+     * Define o id do registro anterior.
+     *
+     * @return void
+     */
+    private function setPrevious()
+    {
+        $this->useCache();
+
+        $this->previous = $this->cache(
+            key: 'previous' . $this->id,
+            seconds: 60,
+            callback: function () {
+                return optional($this->role->previous()->first())->id;
+            }
+        );
+    }
+
+    /**
+     * Define o id do próximo registro.
+     *
+     * @return void
+     */
+    private function setNext()
+    {
+        $this->useCache();
+
+        $this->next = $this->cache(
+            key: 'next' . $this->id,
+            seconds: 60,
+            callback: function () {
+                return optional($this->role->next()->first())->id;
+            }
+        );
     }
 }

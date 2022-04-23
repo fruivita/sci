@@ -19,18 +19,25 @@ class ServerLivewireShow extends Component
     use WithCaching;
 
     /**
-     * Id do servidor que está em exibição.
-     *
-     * @var int
-     */
-    public $server_id;
-
-    /**
      * Servidor que está em exibição.
      *
      * @var \App\Models\Server
      */
     public Server $server;
+
+    /**
+     * Id do registro anterior.
+     *
+     * @var int|null
+     */
+    public $previous;
+
+    /**
+     * Id do próximo registro.
+     *
+     * @var int|null
+     */
+    public $next;
 
     /**
      * Runs on every request, immediately after the component is instantiated,
@@ -48,33 +55,12 @@ class ServerLivewireShow extends Component
      * render() is called. This is only called once on initial page load and
      * never called again, even on component refreshes.
      *
-     * @param int $server_id
-     *
      * @return void
      */
-    public function mount(int $server_id)
+    public function mount()
     {
-        $this->server_id = $server_id;
-    }
-
-    /**
-     * Runs on every request, after the component is mounted or hydrated, but
-     * before any update methods are called.
-     */
-    public function booted()
-    {
-        $this->useCache();
-
-        $this->server = $this->cache(
-            key: $this->id,
-            seconds: 60,
-            callback: function () {
-                return Server::query()
-                ->addSelect(['previous' => Server::previous($this->server_id)])
-                ->addSelect(['next' => Server::next($this->server_id)])
-                ->findOrFail($this->server_id);
-            }
-        );
+        $this->setPrevious();
+        $this->setNext();
     }
 
     /**
@@ -99,5 +85,41 @@ class ServerLivewireShow extends Component
         return view('livewire.administration.server.show', [
             'sites' => $this->sites,
         ])->layout('layouts.app');
+    }
+
+    /**
+     * Define o id do registro anterior.
+     *
+     * @return void
+     */
+    private function setPrevious()
+    {
+        $this->useCache();
+
+        $this->previous = $this->cache(
+            key: 'previous' . $this->id,
+            seconds: 60,
+            callback: function () {
+                return optional($this->server->previous()->first())->id;
+            }
+        );
+    }
+
+    /**
+     * Define o id do próximo registro.
+     *
+     * @return void
+     */
+    private function setNext()
+    {
+        $this->useCache();
+
+        $this->next = $this->cache(
+            key: 'next' . $this->id,
+            seconds: 60,
+            callback: function () {
+                return optional($this->server->next()->first())->id;
+            }
+        );
     }
 }

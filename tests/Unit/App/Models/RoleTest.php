@@ -8,9 +8,17 @@ use App\Enums\PermissionType;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\DepartmentSeeder;
+use Database\Seeders\PermissionRoleSeeder;
+use Database\Seeders\PermissionSeeder;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+
+beforeEach(function() {
+    $this->seed(DepartmentSeeder::class);
+});
 
 // Exceptions
 test('lança exceção ao tentar cadastrar perfis em duplicidade, isto é, com ids iguais', function () {
@@ -141,7 +149,11 @@ test('método updateAndSync salva os novos atributos e cria relacionamento com a
 });
 
 test('perfil administrador possui todas as permissões', function ($permission) {
-    $this->seed();
+    $this->seed([
+        RoleSeeder::class,
+        PermissionSeeder::class,
+        PermissionRoleSeeder::class,
+    ]);
 
     $user = User::factory()->create(['role_id' => Role::ADMINISTRATOR]);
 
@@ -174,16 +186,16 @@ test('previous retorna o registro anterior correto, mesmo sendo o primeiro', fun
     $role_1 = Role::factory()->create(['id' => 1]);
     $role_2 = Role::factory()->create(['id' => 2]);
 
-    expect(Role::previous($role_2->id)->first()->id)->toBe($role_1->id)
-    ->and(Role::previous($role_1->id)->first())->toBeNull();
+    expect($role_2->previous()->first()->id)->toBe($role_1->id)
+    ->and($role_1->previous()->first())->toBeNull();
 });
 
 test('next retorna o registro posterior correto, mesmo sendo o último', function () {
     $role_1 = Role::factory()->create(['id' => 1]);
     $role_2 = Role::factory()->create(['id' => 2]);
 
-    expect(Role::next($role_1->id)->first()->id)->toBe($role_2->id)
-    ->and(Role::next($role_2->id)->first())->toBeNull();
+    expect($role_1->next()->first()->id)->toBe($role_2->id)
+    ->and($role_2->next()->first())->toBeNull();
 });
 
 test('retorna os perfis usando o escopo de ordenação default definido', function () {

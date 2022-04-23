@@ -16,12 +16,12 @@
 
         <div class="flex justify-between">
 
-            @isset($server->previous)
+            @isset($previous)
 
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-left"
-                    href="{{ route('administration.server.show', $server->previous) }}"
+                    href="{{ route('administration.server.show', $previous) }}"
                     prepend="true"
                     text="{{ __('Previous') }}"
                     title="{{ __('Show previous record') }}"/>
@@ -33,12 +33,12 @@
             @endisset
 
 
-            @isset($server->next)
+            @isset($next)
 
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-right"
-                    href="{{ route('administration.server.show', $server->next) }}"
+                    href="{{ route('administration.server.show', $next) }}"
                     text="{{ __('Next') }}"
                     title="{{ __('Show next record') }}"/>
 
@@ -86,7 +86,7 @@
 
                     <x-slot name="body">
 
-                        @forelse ( $sites ?? [] as $site )
+                        @forelse ( $server->sites ?? [] as $site )
 
                             <x-table.row>
 

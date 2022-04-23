@@ -221,7 +221,7 @@ class PermissionLivewireUpdate extends Component
             key: 'previous' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Permission::previous($this->permission->id)->first())->id;
+                return optional($this->permission->previous()->first())->id;
             }
         );
     }
@@ -239,7 +239,7 @@ class PermissionLivewireUpdate extends Component
             key: 'next' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Permission::next($this->permission->id)->first())->id;
+                return optional($this->permission->next()->first())->id;
             }
         );
     }

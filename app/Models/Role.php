@@ -67,31 +67,27 @@ class Role extends Model
     }
 
     /**
-     * Registro anterior ao id informado.
-     *
-     * @param int $id id do modelo
+     * Registro anterior.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function previous(int $id)
+    public function previous()
     {
-        return self::select('id')
-        ->where('id', '<', $id)
+        return Role::select('id')
+        ->where('id', '<', $this->id)
         ->orderBy('id', 'desc')
         ->take(1);
     }
 
     /**
-     * Registro posterior ao id informado.
-     *
-     * @param int $id id do modelo
+     * Registro posterior.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function next(int $id)
+    public function next()
     {
-        return self::select('id')
-        ->where('id', '>', $id)
+        return Role::select('id')
+        ->where('id', '>', $this->id)
         ->orderBy('id', 'asc')
         ->take(1);
     }

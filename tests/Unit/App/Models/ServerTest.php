@@ -7,8 +7,13 @@
 use App\Models\Printing;
 use App\Models\Server;
 use App\Models\Site;
+use Database\Seeders\DepartmentSeeder;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
+
+beforeEach(function() {
+    $this->seed(DepartmentSeeder::class);
+});
 
 // Exceptions
 test('lança exceção ao tentar cadastrar servidores em duplicidade, isto é, com nomes iguais', function () {
@@ -63,16 +68,16 @@ test('previous retorna o registro anterior correto, mesmo sendo o primeiro', fun
     $server_1 = Server::factory()->create(['name' => 'bar']);
     $server_2 = Server::factory()->create(['name' => 'foo']);
 
-    expect(Server::previous($server_2->id)->first()->id)->toBe($server_1->id)
-    ->and(Server::previous($server_1->id)->first())->toBeNull();
+    expect($server_2->previous()->first()->id)->toBe($server_1->id)
+    ->and($server_1->previous()->first())->toBeNull();
 });
 
 test('next retorna o registro posterior correto, mesmo sendo o último', function () {
     $server_1 = Server::factory()->create(['name' => 'bar']);
     $server_2 = Server::factory()->create(['name' => 'foo']);
 
-    expect(Server::next($server_1->id)->first()->id)->toBe($server_2->id)
-    ->and(Server::next($server_2->id)->first())->toBeNull();
+    expect($server_1->next()->first()->id)->toBe($server_2->id)
+    ->and($server_2->next()->first())->toBeNull();
 });
 
 test('retorna os servidores usando o escopo de ordenação default definido', function () {

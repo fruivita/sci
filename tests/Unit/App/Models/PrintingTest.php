@@ -10,8 +10,13 @@ use App\Models\Printer;
 use App\Models\Printing;
 use App\Models\Server;
 use App\Models\User;
+use Database\Seeders\DepartmentSeeder;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
+
+beforeEach(function() {
+    $this->seed(DepartmentSeeder::class);
+});
 
 // Exceptions
 test('lança exceção ao tentar cadastrar impressões em duplicidade, isto é, com com data, hora, cliente, impressora, usuário e servidor iguais', function () {

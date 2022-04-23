@@ -16,12 +16,12 @@
 
         <div class="flex justify-between">
 
-            @isset($role->previous)
+            @isset($previous)
 
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-left"
-                    href="{{ route('authorization.role.show', $role->previous) }}"
+                    href="{{ route('authorization.role.show', $previous) }}"
                     prepend="true"
                     text="{{ __('Previous') }}"
                     title="{{ __('Show previous record') }}"/>
@@ -33,12 +33,12 @@
             @endisset
 
 
-            @isset($role->next)
+            @isset($next)
 
                 <x-link-button
                     class="btn-do md:inline-flex"
                     icon="chevron-double-right"
-                    href="{{ route('authorization.role.show', $role->next) }}"
+                    href="{{ route('authorization.role.show', $next) }}"
                     text="{{ __('Next') }}"
                     title="{{ __('Show next record') }}"/>
 

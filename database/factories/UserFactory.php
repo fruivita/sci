@@ -36,7 +36,7 @@ class UserFactory extends Factory
                 'guid' => $this->faker->unique()->uuid(),
                 'domain' => $this->faker->domainName(),
                 'role_id' => Role::factory(),
-                'department_id' => Department::factory(),
+                'department_id' => Department::DEPARTMENTLESS,
                 'role_granted_by' => null,
             ]
         );

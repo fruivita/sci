@@ -204,7 +204,7 @@ class ServerLivewireUpdate extends Component
             key: 'previous' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Server::previous($this->server->id)->first())->id;
+                return optional($this->server->previous()->first())->id;
             }
         );
     }
@@ -222,7 +222,7 @@ class ServerLivewireUpdate extends Component
             key: 'next' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Server::next($this->server->id)->first())->id;
+                return optional($this->server->next()->first())->id;
             }
         );
     }

@@ -6,14 +6,20 @@
 
 use App\Models\Department;
 use App\Models\Printing;
+use Database\Seeders\DepartmentSeeder;
+
+beforeEach(function() {
+    $this->seed(DepartmentSeeder::class);
+});
 
 // Happy path
 test('uma lotação possui várias impressões', function () {
-    Department::factory()
-        ->has(Printing::factory(3), 'prints')
+    $department = Department::first();
+    Printing::factory(3)
+        ->for($department, 'department')
         ->create();
 
-    $department = Department::with('prints')->first();
+    $department->load('prints');
 
     expect($department->prints)->toHaveCount(3);
 });

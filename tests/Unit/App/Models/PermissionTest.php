@@ -125,16 +125,16 @@ test('previous retorna o registro anterior correto, mesmo sendo o primeiro', fun
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
 
-    expect(Permission::previous($permission_2->id)->first()->id)->toBe($permission_1->id)
-    ->and(Permission::previous($permission_1->id)->first())->toBeNull();
+    expect($permission_2->previous()->first()->id)->toBe($permission_1->id)
+    ->and($permission_1->previous()->first())->toBeNull();
 });
 
 test('next retorna o registro posterior correto, mesmo sendo o último', function () {
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
 
-    expect(Permission::next($permission_1->id)->first()->id)->toBe($permission_2->id)
-    ->and(Permission::next($permission_2->id)->first())->toBeNull();
+    expect($permission_1->next()->first()->id)->toBe($permission_2->id)
+    ->and($permission_2->next()->first())->toBeNull();
 });
 
 test('retorna as permissões usando o escopo de ordenação default definido', function () {

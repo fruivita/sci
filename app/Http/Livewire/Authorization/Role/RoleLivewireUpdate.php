@@ -221,7 +221,7 @@ class RoleLivewireUpdate extends Component
             key: 'previous' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Role::previous($this->role->id)->first())->id;
+                return optional($this->role->previous()->first())->id;
             }
         );
     }
@@ -239,7 +239,7 @@ class RoleLivewireUpdate extends Component
             key: 'next' . $this->id,
             seconds: 60,
             callback: function () {
-                return optional(Role::next($this->role->id)->first())->id;
+                return optional($this->role->next()->first())->id;
             }
         );
     }

@@ -48,31 +48,27 @@ class Site extends Model
     }
 
     /**
-     * Registro anterior ao nome informado.
-     *
-     * @param int $id id do modelo
+     * Registro anterior.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function previous(int $id)
+    public function previous()
     {
-        return self::select('id')
-        ->whereRaw('name < (select name from sites where id = ?)', [$id])
+        return Site::select('id')
+        ->whereRaw('name < (select name from sites where id = ?)', [$this->id])
         ->orderBy('name', 'desc')
         ->take(1);
     }
 
     /**
-     * Registro posterior ao nome informado.
-     *
-     * @param int $id id do modelo
+     * Registro posterior.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function next(int $id)
+    public function next()
     {
-        return self::select('id')
-        ->whereRaw('name > (select name from sites where id = ?)', [$id])
+        return Site::select('id')
+        ->whereRaw('name > (select name from sites where id = ?)', [$this->id])
         ->orderBy('name', 'asc')
         ->take(1);
     }

@@ -6,8 +6,13 @@
 
 use App\Models\Client;
 use App\Models\Printing;
+use Database\Seeders\DepartmentSeeder;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
+
+beforeEach(function() {
+    $this->seed(DepartmentSeeder::class);
+});
 
 // Exceptions
 test('lança exceção ao tentar cadastrar clientes em duplicidade, isto é, com nomes iguais', function () {
