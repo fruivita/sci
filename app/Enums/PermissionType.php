@@ -31,4 +31,7 @@ enum PermissionType: int
     case DepartmentReport = 190101;
     case ManagerialReport = 190102;
     case InstitutionalReport = 190103;
+    case SiteViewAny = 200001;
+    case SiteView = 200002;
+    case SiteUpdate = 200004;
 }

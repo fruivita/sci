@@ -52,6 +52,12 @@ test('ids das permissões ligadas a administração dos servidores estão defini
     ->and(PermissionType::ServerReport->value)->toBe(180101);
 });
 
+test('ids das permissões ligadas a administração das localidades estão definidas', function () {
+    expect(PermissionType::SiteViewAny->value)->toBe(200001)
+    ->and(PermissionType::SiteView->value)->toBe(200002)
+    ->and(PermissionType::SiteUpdate->value)->toBe(200004);
+});
+
 test('ids das permissões ligadas a administração das lotações estão definidas', function () {
     expect(PermissionType::DepartmentReport->value)->toBe(190101)
     ->and(PermissionType::ManagerialReport->value)->toBe(190102)

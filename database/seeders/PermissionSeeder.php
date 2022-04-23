@@ -146,6 +146,27 @@ class PermissionSeeder extends Seeder
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
+                'id' => PermissionType::SiteViewAny->value,
+                'name' => __('Site: View all'),
+                'description' => __('Permission to list all sites.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::SiteView->value,
+                'name' => __('Site: View one'),
+                'description' => __('Permission to view sites individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::SiteUpdate->value,
+                'name' => __('Site: Update one'),
+                'description' => __('Permission to update sites individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'id' => PermissionType::DepartmentReport->value,
                 'name' => __('Report by department: Generate'),
                 'description' => __('Permission to generate the print-by-department report. Restricted to the authenticated user department.'),

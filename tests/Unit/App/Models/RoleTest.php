@@ -180,6 +180,9 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     PermissionType::DepartmentReport,
     PermissionType::ManagerialReport,
     PermissionType::InstitutionalReport,
+    PermissionType::SiteViewAny,
+    PermissionType::SiteView,
+    PermissionType::SiteUpdate,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {

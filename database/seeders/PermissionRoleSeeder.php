@@ -130,6 +130,24 @@ class PermissionRoleSeeder extends Seeder
             ],
             [
                 'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => PermissionType::SiteViewAny->value,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => PermissionType::SiteView->value,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => PermissionType::SiteUpdate->value,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => PermissionType::DepartmentReport->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
