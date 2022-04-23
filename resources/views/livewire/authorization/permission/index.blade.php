@@ -79,7 +79,7 @@
                                     <x-link-button
                                         class="btn-do"
                                         icon="eye"
-                                        href="{{ route('authorization.permission.show', $permission->id) }}"
+                                        href="{{ route('authorization.permission.show', $permission) }}"
                                         text="{{ __('Show') }}"
                                         title="{{ __('Show the record') }}"/>
 

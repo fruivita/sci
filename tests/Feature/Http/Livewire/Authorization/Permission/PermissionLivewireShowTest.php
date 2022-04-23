@@ -98,7 +98,7 @@ test('paginação cria as variáveis de sessão', function () {
 test('é possível visualizar individualmente uma permissão com permissão específica', function () {
     grantPermission(PermissionType::PermissionView->value);
 
-    get(route('authorization.permission.show', $this->permission->id))
+    get(route('authorization.permission.show', $this->permission))
     ->assertOk()
     ->assertSeeLivewire(PermissionLivewireShow::class);
 });

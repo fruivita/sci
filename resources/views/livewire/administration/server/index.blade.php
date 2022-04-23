@@ -79,7 +79,7 @@
                                     <x-link-button
                                         class="btn-do"
                                         icon="eye"
-                                        href="{{ route('administration.server.show', $server->id) }}"
+                                        href="{{ route('administration.server.show', $server) }}"
                                         text="{{ __('Show') }}"
                                         title="{{ __('Show the record') }}"/>
 
