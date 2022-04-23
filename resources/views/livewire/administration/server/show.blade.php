@@ -86,7 +86,7 @@
 
                     <x-slot name="body">
 
-                        @forelse ( $server->sites ?? [] as $site )
+                        @forelse ( $sites ?? [] as $site )
 
                             <x-table.row>
 
