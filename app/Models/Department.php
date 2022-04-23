@@ -17,7 +17,7 @@ class Department extends CorporateDepartment
 {
     /**
      * Id da lotação dos usuários sem lotação. Em regra, usuários que existem
-     * apenas no servidor LDAP
+     * apenas no servidor LDAP.
      *
      * @var int
      */

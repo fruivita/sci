@@ -8,7 +8,6 @@ use App\Enums\PermissionType;
 use App\Policies\UserPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
-
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {

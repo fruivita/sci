@@ -28,7 +28,7 @@ class DepartmentSeeder extends Seeder
                 'acronym' => __('No department'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
-            ]
+            ],
         ]);
     }
 }
