@@ -103,7 +103,7 @@ test('é possível visualizar individualmente uma permissão com permissão espe
     ->assertSeeLivewire(PermissionLivewireShow::class);
 });
 
-test('next e previous estão presentes na permissão durante a visualização individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {
+test('next e previous estão disponíveis durante a visualização individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {
     Permission::whereNotNull('id')->delete();
     grantPermission(PermissionType::PermissionView->value);
 

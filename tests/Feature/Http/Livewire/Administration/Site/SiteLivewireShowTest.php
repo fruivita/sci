@@ -103,7 +103,7 @@ test('é possível visualizar individualmente uma localidade com permissão espe
     ->assertSeeLivewire(SiteLivewireShow::class);
 });
 
-test('next e previous estão presentes na localidade durante a visualização individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
+test('next e previous estão disponíveis durante a visualização individual das localidades, inclusive em se tratando do primeiro ou último registros', function () {
     grantPermission(PermissionType::SiteView->value);
 
     $site_1 = Site::factory()->create(['name' => 'bar']);

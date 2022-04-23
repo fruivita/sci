@@ -103,7 +103,7 @@ test('é possível visualizar individualmente um servidor com permissão especí
     ->assertSeeLivewire(ServerLivewireShow::class);
 });
 
-test('next e previous estão presentes no servidor durante a visualização individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
+test('next e previous estão disponíveis durante a visualização individual dos servidores, inclusive em se tratando do primeiro ou último registros', function () {
     grantPermission(PermissionType::ServerView->value);
 
     $server_1 = Server::factory()->create(['name' => 'bar']);

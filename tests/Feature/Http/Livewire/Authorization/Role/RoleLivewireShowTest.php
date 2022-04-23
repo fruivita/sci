@@ -103,7 +103,7 @@ test('é possível visualizar individualmente um perfil com permissão específi
     ->assertSeeLivewire(RoleLivewireShow::class);
 });
 
-test('next e previous estão presentes no perfil durante a visualização individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
+test('next e previous estão disponíveis durante a visualização individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
     $this->role->delete();
     grantPermission(PermissionType::RoleView->value);
 
