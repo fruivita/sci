@@ -6,6 +6,7 @@ use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithCheckboxActions;
 use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Http\Livewire\Traits\WithPerPagePagination;
+use App\Http\Livewire\Traits\WithPreviousNext;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Traits\WithCaching;
@@ -22,6 +23,7 @@ class PermissionLivewireUpdate extends Component
     use WithPerPagePagination;
     use WithCaching;
     use WithFeedbackEvents;
+    use WithPreviousNext;
 
     /**
      * Permissão que está em edição.
@@ -29,20 +31,6 @@ class PermissionLivewireUpdate extends Component
      * @var \App\Models\Permission
      */
     public Permission $permission;
-
-    /**
-     * Id do registro anterior.
-     *
-     * @var int|null
-     */
-    public $previous;
-
-    /**
-     * Id do próximo registro.
-     *
-     * @var int|null
-     */
-    public $next;
 
     /**
      * Regras para a validação dos inputs.
@@ -91,6 +79,17 @@ class PermissionLivewireUpdate extends Component
     }
 
     /**
+     * Objeto base que será utilizado definir os ids do registro anterior do
+     * próximo.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    private function workingModel()
+    {
+        return $this->permission;
+    }
+
+    /**
      * Runs on every request, immediately after the component is instantiated,
      * but before any other lifecycle methods are called.
      *
@@ -113,9 +112,6 @@ class PermissionLivewireUpdate extends Component
         $this->permission->load(['roles' => function ($query) {
             $query->select('id')->defaultOrder();
         }]);
-
-        $this->setPrevious();
-        $this->setNext();
     }
 
     /**
@@ -206,41 +202,5 @@ class PermissionLivewireUpdate extends Component
     private function currentlyCheckableRows()
     {
         return $this->roles;
-    }
-
-    /**
-     * Define o id do registro anterior.
-     *
-     * @return void
-     */
-    private function setPrevious()
-    {
-        $this->useCache();
-
-        $this->previous = $this->cache(
-            key: 'previous' . $this->id,
-            seconds: 60,
-            callback: function () {
-                return optional($this->permission->previous()->first())->id;
-            }
-        );
-    }
-
-    /**
-     * Define o id do próximo registro.
-     *
-     * @return void
-     */
-    private function setNext()
-    {
-        $this->useCache();
-
-        $this->next = $this->cache(
-            key: 'next' . $this->id,
-            seconds: 60,
-            callback: function () {
-                return optional($this->permission->next()->first())->id;
-            }
-        );
     }
 }
