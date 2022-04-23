@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 /**
@@ -71,5 +73,39 @@ class Site extends Model
         ->whereRaw('name > (select name from sites where id = ?)', [$this->id])
         ->orderBy('name', 'asc')
         ->take(1);
+    }
+
+    /**
+     * Atualiza uma localidade no banco de dados e syncroniza seus servidores.
+     *
+     * @param array|int|null $servers ids dos servidores
+     *
+     * @return bool
+     */
+    public function updateAndSync(mixed $servers)
+    {
+        try {
+            DB::beginTransaction();
+
+            $this->save();
+
+            $this->servers()->sync($servers);
+
+            DB::commit();
+
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            Log::error(
+                __('Site update failed'),
+                [
+                    'servers' => $servers,
+                    'exception' => $th,
+                ]
+            );
+
+            return false;
+        }
     }
 }
