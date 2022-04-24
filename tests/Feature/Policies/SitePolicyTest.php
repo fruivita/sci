@@ -26,7 +26,7 @@ test('usuário sem permissão não pode listar as localidades', function () {
 });
 
 test('usuário sem permissão não pode visualizar individualmente uma localidade', function () {
-    expect((new SitePolicy)->update($this->user))->toBeFalse();
+    expect((new SitePolicy)->view($this->user))->toBeFalse();
 });
 
 test('usuário sem permissão não pode atualizar uma localidade', function () {

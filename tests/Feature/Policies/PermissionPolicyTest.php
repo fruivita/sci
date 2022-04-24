@@ -26,7 +26,7 @@ test('usuário sem permissão não pode listar as permissões', function () {
 });
 
 test('usuário sem permissão não pode visualizar individualmente uma permissão', function () {
-    expect((new PermissionPolicy)->update($this->user))->toBeFalse();
+    expect((new PermissionPolicy)->view($this->user))->toBeFalse();
 });
 
 test('usuário sem permissão não pode atualizar uma permissão', function () {

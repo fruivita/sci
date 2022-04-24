@@ -26,7 +26,7 @@ test('usuário sem permissão não pode listar os perfis', function () {
 });
 
 test('usuário sem permissão não pode visualizar individualmente um perfil', function () {
-    expect((new RolePolicy)->update($this->user))->toBeFalse();
+    expect((new RolePolicy)->view($this->user))->toBeFalse();
 });
 
 test('usuário sem permissão não pode atualizar um perfil', function () {

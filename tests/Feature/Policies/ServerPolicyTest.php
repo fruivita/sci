@@ -26,7 +26,7 @@ test('usuário sem permissão não pode listar os servidores', function () {
 });
 
 test('usuário sem permissão não pode visualizar individualmente um servidor', function () {
-    expect((new ServerPolicy)->update($this->user))->toBeFalse();
+    expect((new ServerPolicy)->view($this->user))->toBeFalse();
 });
 
 test('usuário sem permissão não pode atualizar um servidor', function () {
