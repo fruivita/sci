@@ -44,8 +44,6 @@ test('não é possível renderizar o componente de edição da configuração se
 });
 
 test('não é possível atualizar a configuração sem permissão específica', function () {
-    logout();
-    login('bar');
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     // concede permissão para abrir o página de edição
@@ -117,6 +115,8 @@ test('a configuração carregada para atualização é a esperada, pois é únic
 });
 
 test('emite evento de feedback ao atualizar uma configuração', function () {
+    logout();
+    login('dumb user');
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     Livewire::test(ConfigurationLivewireUpdate::class)
@@ -129,7 +129,7 @@ test('é possível atualizar uma configuração com permissão específica', fun
     login('bar');
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
-    expect(Configuration::find(Configuration::MAIN)->superadmin)->toBe('foo');
+    expect(Configuration::find(Configuration::MAIN)->superadmin)->toBe('dumb user');
 
     Livewire::test(ConfigurationLivewireUpdate::class)
     ->set('configuration.superadmin', 'bar')

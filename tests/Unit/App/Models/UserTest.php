@@ -359,7 +359,7 @@ test('isSuperAdmin identifica corretamente um superadmin', function () {
 
     logout();
 
-    $user_foo = login('foo');
+    $user_foo = login('dumb user');
     $user_foo->refresh();
 
     expect($user_foo->isSuperAdmin())->toBeTrue();
@@ -373,7 +373,7 @@ test('sem a configuração definida, isSuperAdmin retorna false para qualquer us
 
     logout();
 
-    $user_foo = login('foo');
+    $user_foo = login('dumb user');
     $user_foo->refresh();
 
     expect($user_foo->isSuperAdmin())->toBeFalse();

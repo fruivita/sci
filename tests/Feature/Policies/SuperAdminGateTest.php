@@ -14,7 +14,7 @@ use function Spatie\PestPluginTestTime\testTime;
 beforeEach(function () {
     $this->seed([ConfigurationSeeder::class, DepartmentSeeder::class, RoleSeeder::class]);
 
-    $this->user = login('foo');
+    $this->user = login('dumb user');
     $this->user->refresh();
 });
 

@@ -24,7 +24,7 @@ class ConfigurationSeeder extends Seeder
         DB::table('configurations')->insert([
             [
                 'id' => Configuration::MAIN,
-                'superadmin' => 'foo', // dumb user
+                'superadmin' => 'dumb user',
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
