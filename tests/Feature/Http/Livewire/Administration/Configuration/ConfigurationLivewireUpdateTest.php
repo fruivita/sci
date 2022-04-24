@@ -11,6 +11,7 @@ use App\Models\Configuration;
 use App\Rules\LdapUser;
 use Database\Seeders\ConfigurationSeeder;
 use Database\Seeders\DepartmentSeeder;
+use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 

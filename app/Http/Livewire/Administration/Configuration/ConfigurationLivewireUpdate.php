@@ -93,7 +93,7 @@ class ConfigurationLivewireUpdate extends Component
      * Executa a substituição do usuário autenticado pelo informado para
      * simulação de uso da aplicação.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return void
      */
     public function update()
     {
