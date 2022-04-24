@@ -198,6 +198,22 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
+     * Verifica se o usuário autenticado é um super adminitrador.
+     *
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        $configuration = Configuration::find(Configuration::MAIN);
+
+        return
+            ! empty($configuration)
+            && $configuration->superadmin === $this->username
+            ? true
+            : false;
+    }
+
+    /**
      * Verifica se o usuário possui a permissão informada.
      *
      * @param \App\Enums\PermissionType $permission

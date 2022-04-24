@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Printing;
 use App\Models\Role;
 use App\Models\User;
+use Database\Seeders\ConfigurationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Database\QueryException;
@@ -346,4 +347,34 @@ test('um usuário possui várias impressões', function () {
     $user = User::with('prints')->first();
 
     expect($user->prints)->toHaveCount(3);
+});
+
+test('isSuperAdmin identifica corretamente um superadmin', function () {
+    $this->seed(ConfigurationSeeder::class);
+
+    $user_bar = login('bar');
+    $user_bar->refresh();
+
+    expect($user_bar->isSuperAdmin())->toBeFalse();
+
+    logout();
+
+    $user_foo = login('foo');
+    $user_foo->refresh();
+
+    expect($user_foo->isSuperAdmin())->toBeTrue();
+});
+
+test('sem a configuração definida, isSuperAdmin retorna false para qualquer usuário', function () {
+    $user_bar = login('bar');
+    $user_bar->refresh();
+
+    expect($user_bar->isSuperAdmin())->toBeFalse();
+
+    logout();
+
+    $user_foo = login('foo');
+    $user_foo->refresh();
+
+    expect($user_foo->isSuperAdmin())->toBeFalse();
 });

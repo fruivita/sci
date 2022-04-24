@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Enums\Policy;
+use App\Models\User;
 use App\Policies\DelegationPolicy;
 use App\Policies\ImportationPolicy;
 use App\Policies\SimulationPolicy;
+use App\Traits\WithCaching;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -13,6 +15,8 @@ use Laravel\Fortify\Fortify;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    use WithCaching;
+
     /**
      * The policy mappings for the application.
      *
@@ -38,6 +42,23 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        //verificação para super admin
+        Gate::before(function(User $user) {
+            $this->useCache();
+
+            $super_admin = $this->cache(
+                key: "is-super-admin-{$user->username}",
+                seconds: 5,
+                callback: function () use ($user) {
+                    return $user->isSuperAdmin();
+                }
+            );
+
+            if ($super_admin === true) {
+                return true;
+            }
+        });
 
         Gate::define(Policy::DelegationViewAny->value, [DelegationPolicy::class, 'viewAny']);
         Gate::define(Policy::DelegationCreate->value, [DelegationPolicy::class, 'create']);
