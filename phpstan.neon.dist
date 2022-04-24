@@ -29,10 +29,14 @@ parameters:
     - App\Http\Livewire\Administration\Server\ServerLivewireIndex
     - App\Http\Livewire\Administration\Server\ServerLivewireShow
     - App\Http\Livewire\Administration\Server\ServerLivewireUpdate
+    - App\Http\Livewire\Administration\Site\SiteLivewireIndex
+    - App\Http\Livewire\Administration\Site\SiteLivewireShow
+    - App\Http\Livewire\Administration\Site\SiteLivewireUpdate
     - App\Http\Livewire\Report\Department\DepartmentReportLivewire
     - App\Http\Livewire\Report\Server\ServerReportLivewire
     - App\Http\Livewire\Report\Printer\PrinterReportLivewire
     - App\Http\Livewire\Report\Printing\PrintingReportLivewire
+    - Illuminate\Database\Eloquent\Model
     - LdapRecord\Models\ActiveDirectory\User
 
   # https://phpstan.org/user-guide/ignoring-errors
@@ -43,6 +47,9 @@ parameters:
     -
       message: '#Call to an undefined static method Illuminate\\Support\\Facades\\[a-zA-Z]+\:\:should[Not]*HaveReceived\(\)#'
       path: tests/*
+    -
+      message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:[previous\|next]+\(\)#'
+      path: app/http/livewire/*
 
   tmpDir: build/phpstan
 
