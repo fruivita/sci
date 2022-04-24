@@ -5,10 +5,9 @@ namespace App\Http\Livewire\Administration\Configuration;
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Models\Configuration;
-use App\Models\User;
 use App\Rules\LdapUser;
+use App\Traits\ImportableLdapUser;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Artisan;
 use Livewire\Component;
 
 /**
@@ -17,6 +16,7 @@ use Livewire\Component;
 class ConfigurationLivewireUpdate extends Component
 {
     use AuthorizesRequests;
+    use ImportableLdapUser;
     use WithFeedbackEvents;
 
     /**
@@ -99,28 +99,10 @@ class ConfigurationLivewireUpdate extends Component
     {
         $this->validate();
 
-        $this->importLdapUser();
+        $this->importLdapUser($this->configuration->superadmin);
 
         $saved = $this->configuration->save();
 
         $this->flashSelf($saved);
-    }
-
-    /**
-     * Importa para o database da aplicação o usuário do servidor LDAP e o
-     * retorna como um usuário da aplicação.
-     *
-     * @return \App\Models\User|null
-     */
-    private function importLdapUser()
-    {
-        Artisan::call('ldap:import', [
-            'provider' => 'users',
-            '--no-interaction',
-            '--filter' => "(samaccountname={$this->configuration->superadmin})",
-            '--attributes' => 'cn,samaccountname',
-        ]);
-
-        return User::where('username', $this->configuration->superadmin)->first();
     }
 }

@@ -3,11 +3,10 @@
 namespace App\Http\Livewire\Test\Simulation;
 
 use App\Enums\Policy;
-use App\Models\User;
 use App\Rules\LdapUser;
 use App\Rules\NotCurrentUser;
+use App\Traits\ImportableLdapUser;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -17,6 +16,7 @@ use Livewire\Component;
 class SimulationLivewireCreate extends Component
 {
     use AuthorizesRequests;
+    use ImportableLdapUser;
 
     /**
      * Usuário de rede que será simulado.
@@ -88,7 +88,7 @@ class SimulationLivewireCreate extends Component
         $this->validate();
 
         session()->put([
-            'simulated' => $this->importLdapUser(),
+            'simulated' => $this->importLdapUser($this->username),
             'simulator' => Auth::user(),
         ]);
 
@@ -110,23 +110,5 @@ class SimulationLivewireCreate extends Component
         session()->forget(['simulated']);
 
         return back();
-    }
-
-    /**
-     * Importa para o database da aplicação o usuário do servidor LDAP e o
-     * retorna como um usuário da aplicação.
-     *
-     * @return \App\Models\User|null
-     */
-    private function importLdapUser()
-    {
-        Artisan::call('ldap:import', [
-            'provider' => 'users',
-            '--no-interaction',
-            '--filter' => "(samaccountname={$this->username})",
-            '--attributes' => 'cn,samaccountname',
-        ]);
-
-        return User::where('username', $this->username)->first();
     }
 }
