@@ -100,17 +100,30 @@
 
 
     @if (
-            auth()->user()->can(\App\Enums\Policy::ImportationCreate->value)
+            auth()->user()->can(\App\Enums\Policy::View->value, \App\Models\Configuration::class)
+            || auth()->user()->can(\App\Enums\Policy::ImportationCreate->value)
             || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Server::class)
             || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Site::class)
         )
 
         <x-menu.group name="{{ __('Administration') }}">
 
+            @can(\App\Enums\Policy::View->value, \App\Models\Configuration::class)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('administration.configuration.*') ? 'active': '' }}"
+                    icon="gear"
+                    href="{{ route('administration.configuration.show') }}"
+                    text="{{ __('Configurations') }}"
+                    title="{{ __('Go to configurations page') }}"/>
+
+            @endcan
+
+
             @can(\App\Enums\Policy::ImportationCreate->value)
 
                 <x-menu.link
-                    class="{{ request()->routeIs('importation.*') ? 'active': '' }}"
+                    class="{{ request()->routeIs('administration.importation.*') ? 'active': '' }}"
                     icon="usb-drive"
                     href="{{ route('administration.importation.create') }}"
                     text="{{ __('Importation') }}"
@@ -217,7 +230,7 @@
             @can(\App\Enums\Policy::SimulationCreate->value)
 
                 <x-menu.link
-                    class="{{ request()->routeIs('simulation.*') ? 'active': '' }}"
+                    class="{{ request()->routeIs('test.simulation.*') ? 'active': '' }}"
                     icon="people"
                     href="{{ route('test.simulation.create') }}"
                     text="{{ __('Simulation') }}"

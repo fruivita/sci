@@ -2,6 +2,8 @@
 
 use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
+use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireUpdate;
+use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireShow;
 use App\Http\Livewire\Administration\Importation\ImportationLivewireCreate;
 use App\Http\Livewire\Administration\Server\ServerLivewireIndex;
 use App\Http\Livewire\Administration\Server\ServerLivewireShow;
@@ -22,6 +24,7 @@ use App\Http\Livewire\Report\Printer\PrinterReportLivewire;
 use App\Http\Livewire\Report\Printing\PrintingReportLivewire;
 use App\Http\Livewire\Report\Server\ServerReportLivewire;
 use App\Http\Livewire\Test\Simulation\SimulationLivewireCreate;
+use App\Models\Configuration;
 use App\Models\Department;
 use App\Models\Permission;
 use App\Models\Printer;
@@ -81,6 +84,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('administracao')->name('administration.')->group(function () {
+        Route::prefix('configuracao')->name('configuration.')->group(function () {
+            Route::get('show', ConfigurationLivewireShow::class)->name('show')->can(Policy::View->value, Configuration::class);
+            Route::get('edit', ConfigurationLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Configuration::class);
+        });
+
         Route::prefix('importacao')->name('importation.')->group(function () {
             Route::get('create', ImportationLivewireCreate::class)->name('create')->can(Policy::ImportationCreate->value);
         });
