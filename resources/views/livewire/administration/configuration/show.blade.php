@@ -14,7 +14,7 @@
 --}}
 
 
-<x-page header="{{ __('Configurations') }}">
+<x-page header="{{ __('Application settings') }}">
 
     <x-container class="space-y-6">
 

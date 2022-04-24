@@ -21,15 +21,15 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert([
             [
                 'id' => PermissionType::ConfigurationView->value,
-                'name' => __('Configuration: View one'),
-                'description' => __('Permission to view configurations individually.'),
+                'name' => __('Application settings: View'),
+                'description' => __('Permission to view application settings.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => PermissionType::ConfigurationUpdate->value,
-                'name' => __('Configuration: Update one'),
-                'description' => __('Permission to update configurations individually.'),
+                'name' => __('Application settings: Update'),
+                'description' => __('Permission to update application settings.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],

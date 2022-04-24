@@ -114,8 +114,8 @@
                     class="{{ request()->routeIs('administration.configuration.*') ? 'active': '' }}"
                     icon="gear"
                     href="{{ route('administration.configuration.show') }}"
-                    text="{{ __('Configurations') }}"
-                    title="{{ __('Go to configurations page') }}"/>
+                    text="{{ __('Configuration') }}"
+                    title="{{ __('Go to application settings page') }}"/>
 
             @endcan
 

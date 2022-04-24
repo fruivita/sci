@@ -14,7 +14,7 @@
 --}}
 
 
-<x-page header="{{ __('Edit the configuration') }}">
+<x-page header="{{ __('Edit the application settings') }}">
 
     <x-container>
 
