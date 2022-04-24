@@ -20,6 +20,20 @@ class PermissionSeeder extends Seeder
     {
         DB::table('permissions')->insert([
             [
+                'id' => PermissionType::ConfigurationView->value,
+                'name' => __('Configuration: View one'),
+                'description' => __('Permission to view configurations individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::ConfigurationUpdate->value,
+                'name' => __('Configuration: Update one'),
+                'description' => __('Permission to update configurations individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'id' => PermissionType::RoleViewAny->value,
                 'name' => __('Role: View all'),
                 'description' => __('Permission to list all roles.'),

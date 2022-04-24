@@ -22,6 +22,18 @@ class PermissionRoleSeeder extends Seeder
         DB::table('permission_role')->insert([
             [
                 'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => PermissionType::ConfigurationView->value,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
+                'permission_id' => PermissionType::ConfigurationUpdate->value,
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'role_id' => Role::ADMINISTRATOR,
                 'permission_id' => PermissionType::RoleViewAny->value,
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
