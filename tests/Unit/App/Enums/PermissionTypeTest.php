@@ -63,3 +63,8 @@ test('ids das permissões ligadas a administração das lotações estão defini
     ->and(PermissionType::ManagerialReport->value)->toBe(190102)
     ->and(PermissionType::InstitutionalReport->value)->toBe(190103);
 });
+
+test('ids das permissões ligadas a administração das configurações estão definidas', function () {
+    expect(PermissionType::ConfigurationView->value)->toBe(210002)
+    ->and(PermissionType::ConfigurationUpdate->value)->toBe(210004);
+});
