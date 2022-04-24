@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Administration\Configuration;
 use App\Enums\Policy;
 use App\Models\Configuration;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Artisan;
 use Livewire\Component;
 
 /**
@@ -16,7 +15,7 @@ class ConfigurationLivewireShow extends Component
     use AuthorizesRequests;
 
     /**
-     * Configuração que está em exibição
+     * Configuração que está em exibição.
      *
      * @var \App\Models\Configuration
      */

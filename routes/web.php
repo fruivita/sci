@@ -2,8 +2,8 @@
 
 use App\Enums\Policy;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireUpdate;
 use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireShow;
+use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireUpdate;
 use App\Http\Livewire\Administration\Importation\ImportationLivewireCreate;
 use App\Http\Livewire\Administration\Server\ServerLivewireIndex;
 use App\Http\Livewire\Administration\Server\ServerLivewireShow;

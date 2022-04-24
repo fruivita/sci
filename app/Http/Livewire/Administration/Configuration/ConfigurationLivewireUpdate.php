@@ -20,7 +20,7 @@ class ConfigurationLivewireUpdate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Configuração que está em edição
+     * Configuração que está em edição.
      *
      * @var \App\Models\Configuration
      */

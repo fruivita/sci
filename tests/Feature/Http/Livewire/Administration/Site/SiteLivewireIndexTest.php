@@ -6,7 +6,6 @@
 
 use App\Enums\PermissionType;
 use App\Http\Livewire\Administration\Site\SiteLivewireIndex;
-use App\Models\Server;
 use App\Models\Site;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;

@@ -16,7 +16,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->seed(DepartmentSeeder::class);
 });
 

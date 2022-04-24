@@ -43,8 +43,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //verificação para super admin
-        Gate::before(function(User $user) {
+        // verificação para super admin
+        Gate::before(function (User $user) {
             $this->useCache();
 
             $super_admin = $this->cache(

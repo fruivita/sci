@@ -4,7 +4,6 @@
  * @see https://pestphp.com/docs/
  */
 
-
 use App\Models\Configuration;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
