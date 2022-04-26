@@ -41,7 +41,8 @@
 @auth
 
     @if (
-        auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Printer::class)
+        auth()->user()->can(\App\Enums\Policy::ReportAny->value, \App\Models\Department::class)
+        || auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Printer::class)
         || auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Printing::class)
         || auth()->user()->can(\App\Enums\Policy::Report->value, \App\Models\Server::class)
     )
