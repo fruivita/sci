@@ -18,5 +18,5 @@ test('valida se o arquivo existe ou não no storage', function () {
 
     expect($rule->passes('file', 'foo.txt'))->toBeTrue();
 
-    $this->fake_disk = Storage::fake('log-impressao');
+    $fake_disk = Storage::fake('log-impressao');
 });
