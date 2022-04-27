@@ -51,13 +51,13 @@ trait WithDownloadableReport
     {
         $this->validate();
 
-        $file_name = str('report-')
+        $filename = str('report-')
         ->append(now()->format('d-m-Y'))
         ->finish('.pdf');
 
         $headers = [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "attachment; filename={$file_name}",
+            'Content-Disposition' => "attachment; filename={$filename}",
         ];
 
         $pdf_content = Pdf::loadView(
@@ -67,7 +67,7 @@ trait WithDownloadableReport
 
         return response()->streamDownload(
             fn () => print($pdf_content),
-            $file_name,
+            $filename,
             $headers
         );
     }
