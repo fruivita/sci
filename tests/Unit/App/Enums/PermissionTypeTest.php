@@ -68,3 +68,9 @@ test('ids das permissões ligadas a administração das configurações estão d
     expect(PermissionType::ConfigurationView->value)->toBe(210002)
     ->and(PermissionType::ConfigurationUpdate->value)->toBe(210004);
 });
+
+test('ids das permissões ligadas a administração das logs da aplicação estão definidas', function () {
+    expect(PermissionType::LogViewAny->value)->toBe(220001)
+    ->and(PermissionType::LogDelete->value)->toBe(220006)
+    ->and(PermissionType::LogDownload->value)->toBe(220101);
+});

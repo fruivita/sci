@@ -25,5 +25,8 @@ test('Policy enum corretamente definidos', function () {
     ->and(Policy::ImportationCreate->value)->toBe('importation-create')
     ->and(Policy::DelegationViewAny->value)->toBe('delegation-view-any')
     ->and(Policy::DelegationCreate->value)->toBe('delegation-create')
-    ->and(Policy::DelegationDelete->value)->toBe('delegation-delete');
+    ->and(Policy::DelegationDelete->value)->toBe('delegation-delete')
+    ->and(Policy::LogViewAny->value)->toBe('log-view-any')
+    ->and(Policy::LogDelete->value)->toBe('log-delete')
+    ->and(Policy::LogDownload->value)->toBe('log-download');
 });

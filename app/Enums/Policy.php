@@ -28,4 +28,7 @@ enum Policy: string
     case DelegationViewAny = 'delegation-view-any';
     case DelegationCreate = 'delegation-create';
     case DelegationDelete = 'delegation-delete';
+    case LogViewAny = 'log-view-any';
+    case LogDownload = 'log-download';
+    case LogDelete = 'log-delete';
 }

@@ -36,4 +36,7 @@ enum PermissionType: int
     case SiteUpdate = 200004;
     case ConfigurationView = 210002;
     case ConfigurationUpdate = 210004;
+    case LogViewAny = 220001;
+    case LogDelete = 220006;
+    case LogDownload = 220101;
 }
