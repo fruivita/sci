@@ -145,6 +145,18 @@
             @endcan
 
 
+            @can(\App\Enums\Policy::LogViewAny->value)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('administration.log.*') ? 'active': '' }}"
+                    icon="file-earmark-text"
+                    href="{{ route('administration.log.index') }}"
+                    text="{{ __('Logs') }}"
+                    title="{{ __('Go to application logs page') }}"/>
+
+            @endcan
+
+
             @can(\App\Enums\Policy::ViewAny->value, \App\Models\Server::class)
 
                 <x-menu.link

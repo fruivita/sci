@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireShow;
 use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireUpdate;
 use App\Http\Livewire\Administration\Importation\ImportationLivewireCreate;
+use App\Http\Livewire\Administration\Log\LogLivewireIndex;
 use App\Http\Livewire\Administration\Server\ServerLivewireIndex;
 use App\Http\Livewire\Administration\Server\ServerLivewireShow;
 use App\Http\Livewire\Administration\Server\ServerLivewireUpdate;
@@ -97,6 +98,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/', SiteLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Site::class);
             Route::get('show/{site}', SiteLivewireShow::class)->name('show')->can(Policy::View->value, Site::class);
             Route::get('edit/{site}', SiteLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Site::class);
+        });
+
+        Route::prefix('log')->name('log.')->group(function () {
+            Route::get('/', LogLivewireIndex::class)->name('index')->can(Policy::LogViewAny->value);
         });
 
         Route::prefix('servidor')->name('server.')->group(function () {
