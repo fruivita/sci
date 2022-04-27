@@ -378,3 +378,18 @@ test('sem a configuração definida, isSuperAdmin retorna false para qualquer us
 
     expect($user_foo->isSuperAdmin())->toBeFalse();
 });
+
+test('permissions() retorna o id de todas as permissões do usuário', function () {
+    $user_bar = login('bar');
+    $user_bar->refresh();
+
+    expect($user_bar->permissions())->toBeEmpty();
+
+    grantPermission(PermissionType::LogViewAny->value);
+    grantPermission(PermissionType::ServerReport->value);
+
+    expect($user_bar->permissions())->toContain(
+        PermissionType::LogViewAny->value,
+        PermissionType::ServerReport->value
+    );
+});

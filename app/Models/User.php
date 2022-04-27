@@ -214,6 +214,20 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
+     * Retorna o id de todas as permissões do usuário.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function permissions()
+    {
+        $this->load(['role.permissions' => function ($query) {
+            $query->select('id');
+        }]);
+
+        return $this->role->permissions->pluck('id');
+    }
+
+    /**
      * Verifica se o usuário possui a permissão informada.
      *
      * @param \App\Enums\PermissionType $permission
