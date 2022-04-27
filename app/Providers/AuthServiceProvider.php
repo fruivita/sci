@@ -6,6 +6,7 @@ use App\Enums\Policy;
 use App\Models\User;
 use App\Policies\DelegationPolicy;
 use App\Policies\ImportationPolicy;
+use App\Policies\LogPolicy;
 use App\Policies\SimulationPolicy;
 use App\Traits\WithCaching;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -66,6 +67,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Policy::ImportationCreate->value, [ImportationPolicy::class, 'create']);
         Gate::define(Policy::SimulationCreate->value, [SimulationPolicy::class, 'create']);
         Gate::define(Policy::SimulationDelete->value, [SimulationPolicy::class, 'delete']);
+        Gate::define(Policy::LogViewAny->value, [LogPolicy::class, 'viewAny']);
+        Gate::define(Policy::LogDelete->value, [LogPolicy::class, 'delete']);
+        Gate::define(Policy::LogDownload->value, [LogPolicy::class, 'download']);
 
         // autenticação
         Fortify::authenticateUsing(function ($request) {
