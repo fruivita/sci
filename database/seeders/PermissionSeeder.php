@@ -36,7 +36,7 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::RoleViewAny->value,
                 'name' => __('Role: View all'),
-                'description' => __('Permission to list all roles.'),
+                'description' => __('Permission to view all roles.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
@@ -57,7 +57,7 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::PermissionViewAny->value,
                 'name' => __('Permission: View all'),
-                'description' => __('Permission to list all permissions.'),
+                'description' => __('Permission to view all permissions.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
@@ -78,7 +78,7 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::UserViewAny->value,
                 'name' => __('User: View all'),
-                'description' => __('Permission to list all users.'),
+                'description' => __('Permission to view all users.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
@@ -106,7 +106,7 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::DelegationViewAny->value,
                 'name' => __('Delegation: View all'),
-                'description' => __('Permission to list all department delegations.'),
+                'description' => __('Permission to view all department delegations.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
@@ -134,7 +134,7 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::ServerViewAny->value,
                 'name' => __('Server: View all'),
-                'description' => __('Permission to list all servers.'),
+                'description' => __('Permission to view all servers.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
@@ -162,7 +162,7 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::SiteViewAny->value,
                 'name' => __('Site: View all'),
-                'description' => __('Permission to list all sites.'),
+                'description' => __('Permission to view all sites.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
