@@ -36,7 +36,7 @@ abstract class Policy
             key: $user->username . $permission->value,
             seconds: 5,
             callback: function () use ($user, $permission) {
-                return $this->hasAnyPermission($user, [$permission]);
+                return $this->hasAnyPermission($user, [$permission], true);
             }
         );
     }
@@ -62,7 +62,7 @@ abstract class Policy
             key: $user->username . $partial_key,
             seconds: 5,
             callback: function () use ($user, $permissions) {
-                return $this->hasAnyPermission($user, $permissions);
+                return $this->hasAnyPermission($user, $permissions, true);
             }
         );
     }
@@ -86,35 +86,31 @@ abstract class Policy
      *
      * @param \App\Models\User $user
      * @param \App\Enums\PermissionType[] $permissions
+     * @param bool $cache pode usar o cache na consulta?
      *
      * @return bool
      */
-    protected function hasAnyPermission(User $user, array $permissions)
+    protected function hasAnyPermission(User $user, array $permissions, bool $cache)
     {
-        $match = $this->allPermissionsWithCache($user)->filter(function ($value, $key) use ($permissions) {
-            return in_array(PermissionType::tryFrom($value), $permissions, true);
-        });
-
-        return $match->isNotEmpty();
+        return $this
+        ->permissions($user, $cache)
+        ->filter(
+            fn ($value) => in_array(PermissionType::tryFrom($value), $permissions, true)
+        )->isNotEmpty();
     }
 
     /**
      * Todas as permissões do usuário.
      *
      * @param \App\Models\User $user
+     * @param bool $cache pode usar o cache na consulta?
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function allPermissionsWithCache(User $user)
+    protected function permissions(User $user, bool $cache)
     {
-        $this->useCache();
-
-        return $this->cache(
-            key: $user->username . '-all-permissions',
-            seconds: 5,
-            callback: function () use ($user) {
-                return $user->permissions();
-            }
-        );
+        return ($cache === true)
+        ? cache()->get("{$user->username}-permissions", fn () => $user->permissions())
+        : $user->permissions();
     }
 }
