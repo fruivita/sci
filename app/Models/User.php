@@ -220,6 +220,10 @@ class User extends CorporateUser implements LdapAuthenticatable
      */
     public function permissions()
     {
+        if ($this->role === null) {
+            $this->refresh();
+        }
+
         $this->load(['role.permissions' => function ($query) {
             $query->select('id');
         }]);
@@ -236,6 +240,10 @@ class User extends CorporateUser implements LdapAuthenticatable
      */
     public function hasPermission(PermissionType $permission)
     {
+        if ($this->role === null) {
+            $this->refresh();
+        }
+
         $this->load(['role.permissions' => function ($query) use ($permission) {
             $query->select('id')->where('id', $permission->value);
         }]);
@@ -257,6 +265,10 @@ class User extends CorporateUser implements LdapAuthenticatable
      */
     public function hasAnyPermission(array $permissions)
     {
+        if ($this->role === null) {
+            $this->refresh();
+        }
+
         $this->load(['role.permissions' => function ($query) use ($permissions) {
             $query->select('id')->whereIn('id', $permissions);
         }]);
