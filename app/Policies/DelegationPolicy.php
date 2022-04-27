@@ -11,7 +11,7 @@ use App\Models\User;
 class DelegationPolicy extends Policy
 {
     /**
-     * Determine whether the user can view any delegations.
+     * Determine whether the user can view any delegations in their department.
      *
      * @param \App\Models\User $user
      *

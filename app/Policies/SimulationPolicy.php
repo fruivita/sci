@@ -25,7 +25,7 @@ class SimulationPolicy extends Policy
     }
 
     /**
-     * Determine whether the user can delete the simulation.
+     * Determine whether the user can delete a simulation.
      *
      * @param \App\Models\User $user
      *

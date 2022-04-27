@@ -23,7 +23,7 @@ class UserPolicy extends Policy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update a model.
      *
      * @param \App\Models\User $user
      *
