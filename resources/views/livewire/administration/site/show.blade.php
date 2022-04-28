@@ -19,7 +19,7 @@
             @isset($previous)
 
                 <x-link-button
-                    class="btn-do md:inline-flex"
+                    class="btn-do"
                     icon="chevron-double-left"
                     href="{{ route('administration.site.show', $previous) }}"
                     prepend="true"
@@ -36,7 +36,7 @@
             @isset($next)
 
                 <x-link-button
-                    class="btn-do md:inline-flex"
+                    class="btn-do"
                     icon="chevron-double-right"
                     href="{{ route('administration.site.show', $next) }}"
                     text="{{ __('Next') }}"
