@@ -265,7 +265,7 @@ test('emite evento de feedback ao atualizar uma localidade', function () {
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
-test('servidores associados são opcionais na atualização do site', function () {
+test('servidores associados são opcionais na atualização da localidade', function () {
     grantPermission(PermissionType::SiteUpdate->value);
 
     $site = Site::factory()
@@ -294,12 +294,14 @@ test('é possível atualizar uma localidade com permissão específica', functio
     $server = Server::factory()->create();
 
     Livewire::test(SiteLivewireUpdate::class, ['site' => $this->site])
+    ->set('site.name', 'foo bar')
     ->set('selected', [$server->id])
     ->call('update');
 
     $this->site->refresh();
 
-    expect($this->site->servers->first()->id)->toBe($server->id);
+    expect($this->site->name)->toBe('foo bar')
+    ->and($this->site->servers->first()->id)->toBe($server->id);
 });
 
 test('next e previous são registrados em cache com expiração de um minuto', function () {
