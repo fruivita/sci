@@ -129,7 +129,7 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Atualiza o servidor em edição.
+     * Atualiza a localidade em edição.
      *
      * @return void
      */
