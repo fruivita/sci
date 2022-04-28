@@ -20,8 +20,9 @@ class CacheUserPermissions
      *
      * Armazena em cache as permissões do usuário autenticado. As permissões e
      * o cache são renovados a cada request.
+     * Note que também tambem é verificado se o usuário é um superadmin.
      *
-     * O tempo de vida do cache é de 5 segundos.
+     * O tempo de vida dos caches é de 5 segundos.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
@@ -39,6 +40,12 @@ class CacheUserPermissions
                 key: "{$user->username}-permissions",
                 seconds: 5,
                 callback: fn () => $user->permissions()
+            );
+
+            $this->cache(
+                key: "{$user->username}-is-super-admin",
+                seconds: 5,
+                callback: fn () => $user->isSuperAdmin()
             );
         }
 
