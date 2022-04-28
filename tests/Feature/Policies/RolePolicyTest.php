@@ -8,7 +8,6 @@ use App\Enums\PermissionType;
 use App\Policies\RolePolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
-
 use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 

@@ -18,9 +18,10 @@ abstract class Policy
     /**
      * Verfica se o usuário possui uma das permissões informadas.
      *
-     * @param \App\Models\User $user
+     * @param \App\Models\User            $user
      * @param \App\Enums\PermissionType[] $permissions
-     * @param bool $cache pode usar o cache na consulta?
+     * @param bool                        $cache       pode usar o cache na
+     * consulta?
      *
      * @return bool
      */
@@ -37,7 +38,7 @@ abstract class Policy
      * Todas as permissões do usuário.
      *
      * @param \App\Models\User $user
-     * @param bool $cache pode usar o cache na consulta?
+     * @param bool             $cache pode usar o cache na consulta?
      *
      * @return \Illuminate\Support\Collection
      */

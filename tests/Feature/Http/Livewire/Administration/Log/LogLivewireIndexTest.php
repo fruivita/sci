@@ -12,7 +12,6 @@ use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
-
 use function Pest\Faker\faker;
 use function Pest\Laravel\get;
 
@@ -27,7 +26,7 @@ beforeEach(function () {
     $conten_1 = collect();
     $conten_2 = collect();
 
-    foreach(range(1, 110) as $counter) {
+    foreach (range(1, 110) as $counter) {
         $conten_1->push(faker()->sentence());
 
         if ($counter % 2 === 1) {
@@ -213,7 +212,7 @@ test('emite evento de feedback ao atualizar um perfil', function () {
     grantPermission(PermissionType::LogDelete->value);
 
     Livewire::test(LogLivewireIndex::class, [
-        'filename' => $this->log_files[1]
+        'filename' => $this->log_files[1],
     ])
     ->call('delete')
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));

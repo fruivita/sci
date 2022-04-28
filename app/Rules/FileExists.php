@@ -21,7 +21,7 @@ class FileExists implements Rule
 
     /**
      * @param string $disk nome do storage para verficiar a existência do
-     * arquivo.
+     *                     arquivo
      *
      * @return void
      */

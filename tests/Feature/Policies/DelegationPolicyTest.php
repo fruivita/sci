@@ -11,7 +11,6 @@ use App\Models\User;
 use App\Policies\DelegationPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
-
 use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 

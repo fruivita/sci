@@ -42,8 +42,8 @@ class LogLivewireIndex extends Component
                 'bail',
                 'required',
                 'string',
-                'regex:/^laravel(-\d{4}-\d{2}-\d{2})?.log$/',// laravel-1234-12-31.log ou laravel.log
-                new FileExists('application-log')
+                'regex:/^laravel(-\d{4}-\d{2}-\d{2})?.log$/', // laravel-1234-12-31.log ou laravel.log
+                new FileExists('application-log'),
             ],
         ];
     }
@@ -127,7 +127,7 @@ class LogLivewireIndex extends Component
 
         $collection = collect();
 
-        for ($i = $offset; $i < $offset + $this->per_page; $i++) {
+        for ($i = $offset; $i < $offset + $this->per_page; ++$i) {
             $file->seek($i);
 
             $collection->put($i + 1, $file->current());
@@ -153,12 +153,12 @@ class LogLivewireIndex extends Component
     {
         return view('livewire.administration.log.index', [
             'log_files' => $this->log_files,
-            'file_content' => $this->validator()->fails() ? null : $this->file_content
+            'file_content' => $this->validator()->fails() ? null : $this->file_content,
         ])->layout('layouts.app');
     }
 
     /**
-     * Full path do arquivo de log em exibição
+     * Full path do arquivo de log em exibição.
      *
      * @return string
      */
@@ -172,7 +172,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Runs after a property called $filename is updated
+     * Runs after a property called $filename is updated.
      *
      * @return void
      */
