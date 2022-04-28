@@ -32,6 +32,7 @@ parameters:
     - App\Http\Livewire\Administration\Site\SiteLivewireIndex
     - App\Http\Livewire\Administration\Site\SiteLivewireShow
     - App\Http\Livewire\Administration\Site\SiteLivewireUpdate
+    - App\Http\Livewire\Administration\Log\LogLivewireIndex
     - App\Http\Livewire\Report\Department\DepartmentReportLivewire
     - App\Http\Livewire\Report\Server\ServerReportLivewire
     - App\Http\Livewire\Report\Printer\PrinterReportLivewire
