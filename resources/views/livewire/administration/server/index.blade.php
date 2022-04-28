@@ -54,7 +54,7 @@
                                     <li>{{ $site->name }}</li>
 
 
-                                    @if ($loop->last && $server->sites->count() == $this->limit)
+                                    @if ($loop->last && $server->sites->count() == $limit)
 
                                         <li class="font-bold text-right">{{ __('There may be more') }}</li>
 

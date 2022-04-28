@@ -54,7 +54,7 @@
                                     <li>{{ $role->name }}</li>
 
 
-                                    @if ($loop->last && $permission->roles->count() == $this->limit)
+                                    @if ($loop->last && $permission->roles->count() == $limit)
 
                                         <li class="font-bold text-right">{{ __('There may be more') }}</li>
 
