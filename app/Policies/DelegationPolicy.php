@@ -19,7 +19,7 @@ class DelegationPolicy extends Policy
      */
     public function viewAny(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::DelegationViewAny);
+        return $this->hasAnyPermission($user, [PermissionType::DelegationViewAny]);
     }
 
     /**
@@ -38,7 +38,7 @@ class DelegationPolicy extends Policy
             && $user->role_id < $delegated->role_id
             // possuem a mesma lotação
             && $user->department_id == $delegated->department_id
-            && $this->hasPermissionWithCache($user, PermissionType::DelegationCreate);
+            && $this->hasAnyPermission($user, [PermissionType::DelegationCreate]);
     }
 
     /**

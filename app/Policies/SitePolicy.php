@@ -19,7 +19,7 @@ class SitePolicy extends Policy
      */
     public function viewAny(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::SiteViewAny);
+        return $this->hasAnyPermission($user, [PermissionType::SiteViewAny]);
     }
 
     /**
@@ -31,7 +31,7 @@ class SitePolicy extends Policy
      */
     public function view(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::SiteView);
+        return $this->hasAnyPermission($user, [PermissionType::SiteView]);
     }
 
     /**
@@ -43,6 +43,6 @@ class SitePolicy extends Policy
      */
     public function update(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::SiteUpdate);
+        return $this->hasAnyPermission($user, [PermissionType::SiteUpdate]);
     }
 }

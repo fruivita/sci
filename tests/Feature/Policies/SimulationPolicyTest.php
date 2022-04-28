@@ -9,6 +9,9 @@ use App\Policies\SimulationPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 
+use function Pest\Laravel\get;
+use function Spatie\PestPluginTestTime\testTime;
+
 beforeEach(function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
@@ -36,19 +39,35 @@ test('usuário não pode desfazer uma simulação se ela não existe em sua sess
 });
 
 // Happy path
-test('permissão de criar uma simulação não é persistida em cache', function () {
+test('permissão de criar uma simulação é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::SimulationCreate->value);
 
-    $key = $this->user->username . PermissionType::SimulationCreate->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SimulationPolicy)->create($this->user))->toBeTrue()
+    // sem cache
+    expect((new SimulationPolicy)->create($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    revokePermission(PermissionType::SimulationCreate->value);
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SimulationPolicy)->create($this->user))->toBeFalse()
+    // com cache
+    expect((new SimulationPolicy)->create($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
+    revokePermission(PermissionType::SimulationCreate->value);
+    testTime()->addSeconds(5);
+
+    // permissão ainda está em cache
+    expect((new SimulationPolicy)->create($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // expira o cache
+    testTime()->addSeconds(1);
+
+    expect((new SimulationPolicy)->create($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 

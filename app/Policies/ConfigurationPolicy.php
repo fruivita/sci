@@ -19,7 +19,7 @@ class ConfigurationPolicy extends Policy
      */
     public function view(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ConfigurationView);
+        return $this->hasAnyPermission($user, [PermissionType::ConfigurationView]);
     }
 
     /**
@@ -31,6 +31,6 @@ class ConfigurationPolicy extends Policy
      */
     public function update(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ConfigurationUpdate);
+        return $this->hasAnyPermission($user, [PermissionType::ConfigurationUpdate]);
     }
 }

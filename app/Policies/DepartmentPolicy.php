@@ -19,14 +19,13 @@ class DepartmentPolicy extends Policy
      */
     public function reportAny(User $user)
     {
-        return $this->hasAnyPermissionWithCache(
+        return $this->hasAnyPermission(
             $user,
             [
                 PermissionType::DepartmentReport,
                 PermissionType::ManagerialReport,
                 PermissionType::InstitutionalReport,
-            ],
-            'department-report-any'
+            ]
         );
     }
 
@@ -39,7 +38,7 @@ class DepartmentPolicy extends Policy
      */
     public function departmentReport(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::DepartmentReport);
+        return $this->hasAnyPermission($user, [PermissionType::DepartmentReport]);
     }
 
     /**
@@ -51,7 +50,7 @@ class DepartmentPolicy extends Policy
      */
     public function managerialReport(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ManagerialReport);
+        return $this->hasAnyPermission($user, [PermissionType::ManagerialReport]);
     }
 
     /**
@@ -63,6 +62,6 @@ class DepartmentPolicy extends Policy
      */
     public function institutionalReport(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::InstitutionalReport);
+        return $this->hasAnyPermission($user, [PermissionType::InstitutionalReport]);
     }
 }

@@ -8,6 +8,8 @@ use App\Enums\PermissionType;
 use App\Policies\DepartmentPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
+
+use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
@@ -39,87 +41,99 @@ test('usuário sem permissão alguma não pode gerar nenhum relatório por depar
 
 // Happy path
 test('permissão de gerar o relatório por lotação é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::DepartmentReport->value);
 
-    $key = $this->user->username . PermissionType::DepartmentReport->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::DepartmentReport->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue();
+    expect((new DepartmentPolicy)->departmentReport($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->departmentReport($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new DepartmentPolicy)->departmentReport($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('permissão de gerar o relatório por lotação (Gerencial) é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::ManagerialReport->value);
 
-    $key = $this->user->username . PermissionType::ManagerialReport->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->managerialReport($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new DepartmentPolicy)->managerialReport($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new DepartmentPolicy)->managerialReport($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::ManagerialReport->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->managerialReport($this->user))->toBeTrue();
+    expect((new DepartmentPolicy)->managerialReport($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->managerialReport($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new DepartmentPolicy)->managerialReport($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('permissão de gerar o relatório por lotação (Institucional) é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::InstitutionalReport->value);
 
-    $key = $this->user->username . PermissionType::InstitutionalReport->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->institutionalReport($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new DepartmentPolicy)->institutionalReport($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new DepartmentPolicy)->institutionalReport($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::InstitutionalReport->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->institutionalReport($this->user))->toBeTrue();
+    expect((new DepartmentPolicy)->institutionalReport($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->institutionalReport($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new DepartmentPolicy)->institutionalReport($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('usuário com permissão pode gerar o relatório por lotação', function () {
@@ -141,31 +155,35 @@ test('usuário com permissão pode gerar o relatório por lotação (Institucion
 });
 
 test('permissão para gerar algum relatório por lotação é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::InstitutionalReport->value);
 
-    $key = $this->user->username . 'department-report-any';
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->reportAny($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new DepartmentPolicy)->reportAny($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new DepartmentPolicy)->reportAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::InstitutionalReport->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->reportAny($this->user))->toBeTrue();
+    expect((new DepartmentPolicy)->reportAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DepartmentPolicy)->reportAny($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new DepartmentPolicy)->reportAny($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('usuário possui alguma das permissões para gerar o relatório por lotação', function ($permssion) {

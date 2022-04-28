@@ -82,6 +82,7 @@ test('não é possível simular usuário com outra simulação em andamento', fu
 });
 
 test('não é possível desfazer simulação se ela não existir', function () {
+    logout();
     login('bar');
     grantPermission(PermissionType::SimulationCreate->value);
 

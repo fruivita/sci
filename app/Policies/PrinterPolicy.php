@@ -19,6 +19,6 @@ class PrinterPolicy extends Policy
      */
     public function report(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::PrinterReport);
+        return $this->hasAnyPermission($user, [PermissionType::PrinterReport]);
     }
 }

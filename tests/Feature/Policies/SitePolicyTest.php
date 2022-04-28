@@ -8,6 +8,8 @@ use App\Enums\PermissionType;
 use App\Policies\SitePolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
+
+use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
@@ -35,87 +37,99 @@ test('usuário sem permissão não pode atualizar uma localidade', function () {
 
 // Happy path
 test('permissão de listagem das localidades é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::SiteViewAny->value);
 
-    $key = $this->user->username . PermissionType::SiteViewAny->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SitePolicy)->viewAny($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new SitePolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new SitePolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::SiteViewAny->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new SitePolicy)->viewAny($this->user))->toBeTrue();
+    expect((new SitePolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SitePolicy)->viewAny($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new SitePolicy)->viewAny($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('permissão de visualizar individualmente uma localidade é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::SiteView->value);
 
-    $key = $this->user->username . PermissionType::SiteView->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SitePolicy)->view($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new SitePolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new SitePolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::SiteView->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new SitePolicy)->view($this->user))->toBeTrue();
+    expect((new SitePolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SitePolicy)->view($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new SitePolicy)->view($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('permissão de atualizar individualmente uma localidade é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::SiteUpdate->value);
 
-    $key = $this->user->username . PermissionType::SiteUpdate->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SitePolicy)->update($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new SitePolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new SitePolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::SiteUpdate->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new SitePolicy)->update($this->user))->toBeTrue();
+    expect((new SitePolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new SitePolicy)->update($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new SitePolicy)->update($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('usuário com permissão pode listar as localidades', function () {

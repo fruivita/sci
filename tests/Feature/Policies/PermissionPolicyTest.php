@@ -8,6 +8,8 @@ use App\Enums\PermissionType;
 use App\Policies\PermissionPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
+
+use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
@@ -35,87 +37,99 @@ test('usuário sem permissão não pode atualizar uma permissão', function () {
 
 // Happy path
 test('permissão de listagem das permissões é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::PermissionViewAny->value);
 
-    $key = $this->user->username . PermissionType::PermissionViewAny->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new PermissionPolicy)->viewAny($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new PermissionPolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new PermissionPolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::PermissionViewAny->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new PermissionPolicy)->viewAny($this->user))->toBeTrue();
+    expect((new PermissionPolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new PermissionPolicy)->viewAny($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new PermissionPolicy)->viewAny($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('permissão de visualizar individualmente uma permissão é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::PermissionView->value);
 
-    $key = $this->user->username . PermissionType::PermissionView->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new PermissionPolicy)->view($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new PermissionPolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new PermissionPolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::PermissionView->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new PermissionPolicy)->view($this->user))->toBeTrue();
+    expect((new PermissionPolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new PermissionPolicy)->view($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new PermissionPolicy)->view($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('permissão de atualizar individualmente uma permissão é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::PermissionUpdate->value);
 
-    $key = $this->user->username . PermissionType::PermissionUpdate->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new PermissionPolicy)->update($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new PermissionPolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new PermissionPolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::PermissionUpdate->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new PermissionPolicy)->update($this->user))->toBeTrue();
+    expect((new PermissionPolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new PermissionPolicy)->update($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new PermissionPolicy)->update($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('usuário com permissão pode listar as permissões', function () {

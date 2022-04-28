@@ -5,9 +5,13 @@
  */
 
 use App\Enums\PermissionType;
+use App\Http\Livewire\Administration\Configuration\ConfigurationLivewireShow;
 use App\Policies\ConfigurationPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
+use Livewire\Livewire;
+
+use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
@@ -31,59 +35,67 @@ test('usuário sem permissão não pode atualizar uma configuração', function 
 
 // Happy path
 test('permissão de visualizar individualmente uma configuração é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::ConfigurationView->value);
 
-    $key = $this->user->username . PermissionType::ConfigurationView->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new ConfigurationPolicy)->view($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new ConfigurationPolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new ConfigurationPolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::ConfigurationView->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new ConfigurationPolicy)->view($this->user))->toBeTrue();
+    expect((new ConfigurationPolicy)->view($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new ConfigurationPolicy)->view($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new ConfigurationPolicy)->view($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('permissão de atualizar individualmente uma configuração é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
-    $key = $this->user->username . PermissionType::ConfigurationUpdate->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new ConfigurationPolicy)->update($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new ConfigurationPolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new ConfigurationPolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::ConfigurationUpdate->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new ConfigurationPolicy)->update($this->user))->toBeTrue();
+    expect((new ConfigurationPolicy)->update($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new ConfigurationPolicy)->update($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new ConfigurationPolicy)->update($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('usuário com permissão pode visualizar individualmente uma configuração', function () {

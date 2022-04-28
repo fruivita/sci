@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Policies\DelegationPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
+
+use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
@@ -137,31 +139,35 @@ test('usuário não pode remover delegação de usuário de outra lotação', fu
 
 // Happy path
 test('permissão de listar as delegações é persistida em cache por 5 segundos', function () {
+    testTime()->freeze();
     grantPermission(PermissionType::DelegationViewAny->value);
 
-    $key = $this->user->username . PermissionType::DelegationViewAny->value;
+    $key = "{$this->user->username}-permissions";
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue();
+    // sem cache
+    expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->missing($key))->toBeTrue();
 
-    testTime()->freeze();
+    // cria o cache das permissões ao fazer um request
+    get(route('home'));
+
+    // com cache
+    expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
+
+    // revoga a permissão e move o tempo para o limite da expiração
     revokePermission(PermissionType::DelegationViewAny->value);
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeTrue()
-    ->and((new DelegationPolicy)->viewAny($this->user))->toBeTrue();
+    expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
+    ->and(cache()->has($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect(cache()->missing($key))->toBeTrue()
-    ->and((new DelegationPolicy)->viewAny($this->user))->toBeFalse()
-    ->and(cache()->has($key))->toBeTrue()
-    ->and(cache()->get($key))->toBeFalse();
+    expect((new DelegationPolicy)->viewAny($this->user))->toBeFalse()
+    ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('usuário pode listar delegações de sua lotação se possuir permissão', function () {

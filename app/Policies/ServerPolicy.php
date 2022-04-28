@@ -19,7 +19,7 @@ class ServerPolicy extends Policy
      */
     public function viewAny(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ServerViewAny);
+        return $this->hasAnyPermission($user, [PermissionType::ServerViewAny]);
     }
 
     /**
@@ -31,7 +31,7 @@ class ServerPolicy extends Policy
      */
     public function view(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ServerView);
+        return $this->hasAnyPermission($user, [PermissionType::ServerView]);
     }
 
     /**
@@ -43,7 +43,7 @@ class ServerPolicy extends Policy
      */
     public function update(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ServerUpdate);
+        return $this->hasAnyPermission($user, [PermissionType::ServerUpdate]);
     }
 
     /**
@@ -55,6 +55,6 @@ class ServerPolicy extends Policy
      */
     public function report(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ServerReport);
+        return $this->hasAnyPermission($user, [PermissionType::ServerReport]);
     }
 }

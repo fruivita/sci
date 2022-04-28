@@ -19,6 +19,6 @@ class ImportationPolicy extends Policy
      */
     public function create(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::ImportationCreate);
+        return $this->hasAnyPermission($user, [PermissionType::ImportationCreate]);
     }
 }

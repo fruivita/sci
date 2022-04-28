@@ -19,7 +19,7 @@ class LogPolicy extends Policy
      */
     public function viewAny(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::LogViewAny);
+        return $this->hasAnyPermission($user, [PermissionType::LogViewAny]);
     }
 
     /**
@@ -31,7 +31,7 @@ class LogPolicy extends Policy
      */
     public function delete(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::LogDelete);
+        return $this->hasAnyPermission($user, [PermissionType::LogDelete]);
     }
 
     /**
@@ -43,6 +43,6 @@ class LogPolicy extends Policy
      */
     public function download(User $user)
     {
-        return $this->hasPermissionWithCache($user, PermissionType::LogDownload);
+        return $this->hasAnyPermission($user, [PermissionType::LogDownload]);
     }
 }
