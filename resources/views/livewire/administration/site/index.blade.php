@@ -32,7 +32,7 @@
             @endcan
 
 
-            <x-table.perpage
+            <x-perpage
                 wire:key="per-page"
                 wire:model="per_page"
                 :error="$errors->first('per_page')"/>

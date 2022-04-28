@@ -1,5 +1,5 @@
 {{--
-    Paginação da tabela.
+    Paginação dos registros.
 
     Props:
     - error: mensagem de erro que deverá ser exibida
@@ -16,7 +16,10 @@
 @props(['error' => ''])
 
 
-<div {{ $attributes->merge(['class' => "space-x-3 text-right"]) }} >
+<div
+    title="{{ __('Paginations available') }}"
+    {{ $attributes->merge(['class' => "space-x-3 text-right"]) }}
+>
 
     <label for="per_page">{{ __('Pagination') }}</label>
 

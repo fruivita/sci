@@ -71,7 +71,7 @@
 
                 <div class="overflow-x-auto">
 
-                    <x-table.perpage
+                    <x-perpage
                         wire:key="per-page"
                         wire:model="per_page"
                         class="mb-3"
