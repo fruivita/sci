@@ -77,7 +77,7 @@ class PrinterReportLivewire extends Component
     }
 
     /**
-     * Get custom attributes for validator errors.
+     * Get custom attributes for query strings.
      *
      * @return array<string, mixed>
      */
