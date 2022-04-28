@@ -103,29 +103,12 @@
 
                             <x-table.heading class="text-left">
 
-                                <select
+                                <x-table.checkbox-action
                                     wire:key="checkbox-action"
-                                    wire:model="checkbox_action"
                                     wire:loading.delay.attr="disabled"
                                     wire:loading.delay.class="cursor-not-allowed"
                                     wire:target="per_page,update"
-                                    class="bg-primary-300 rounded w-14 dark:bg-secondary-500"
-                                >
-
-                                    <option value=""></option>
-
-
-                                    @foreach (\App\Enums\CheckboxAction::cases() as $action)
-
-                                        <option value="{{ $action->value }}">
-
-                                            {{ $action->label() }}
-
-                                        </option>
-
-                                    @endforeach
-
-                                </select>
+                                    wire:model="checkbox_action" />
 
                             </x-table.heading>
 
