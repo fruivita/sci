@@ -46,7 +46,15 @@ class AuthServiceProvider extends ServiceProvider
 
         // verificação para super admin
         Gate::before(function (User $user) {
-            if (session()->get("{$user->username}-is-super-admin", fn () => $user->isSuperAdmin()) === true) {
+            $this->useCache();
+
+            $is_super_admin = $this->cache(
+                key: "{$user->username}-is-super-admin",
+                seconds: 5,
+                callback: fn () => $user->isSuperAdmin()
+            );
+
+            if ($is_super_admin === true) {
                 return true;
             }
         });

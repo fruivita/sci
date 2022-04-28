@@ -9,7 +9,6 @@ use App\Models\Permission;
 use Database\Seeders\ConfigurationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
-use function Pest\Laravel\get;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
@@ -31,13 +30,9 @@ test('gate de verificação de super admin é persistido em cache por 5 segundos
     // sem cache
     expect($this->user->role->permissions)->toBeEmpty()
     ->and(cache()->missing($key))->toBeTrue()
-    ->and($this->user->can(Policy::Update, Permission::class))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
-    get(route('home'));
-
-    // com cache
-    expect($this->user->can(Policy::Update, Permission::class))->toBeTrue()
+    //criou o cache
+    ->and($this->user->can(Policy::Update, Permission::class))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
@@ -45,15 +40,13 @@ test('gate de verificação de super admin é persistido em cache por 5 segundos
     testTime()->addSeconds(5);
 
     // permissão ainda está em cache
-    expect($this->user->can(Policy::Update, Permission::class))->toBeTrue()
-    ->and(cache()->has($key))->toBeTrue()
+    expect(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
     // expira o cache
     testTime()->addSeconds(1);
 
-    expect($this->user->can(Policy::Update, Permission::class))->toBeTrue()
-    ->and(cache()->missing($key))->toBeTrue();
+    expect(cache()->missing($key))->toBeTrue();
 });
 
 test('super admin possui todos os acessos, mesmo sem nenhuma permissão específica', function () {
