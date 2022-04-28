@@ -9,6 +9,7 @@ use App\Http\Livewire\Administration\Log\LogLivewireIndex;
 use App\Http\Livewire\Administration\Server\ServerLivewireIndex;
 use App\Http\Livewire\Administration\Server\ServerLivewireShow;
 use App\Http\Livewire\Administration\Server\ServerLivewireUpdate;
+use App\Http\Livewire\Administration\Site\SiteLivewireCreate;
 use App\Http\Livewire\Administration\Site\SiteLivewireIndex;
 use App\Http\Livewire\Administration\Site\SiteLivewireShow;
 use App\Http\Livewire\Administration\Site\SiteLivewireUpdate;
@@ -96,6 +97,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('localidade')->name('site.')->group(function () {
             Route::get('/', SiteLivewireIndex::class)->name('index')->can(Policy::ViewAny->value, Site::class);
+            Route::get('create', SiteLivewireCreate::class)->name('create')->can(Policy::Create->value, Site::class);
             Route::get('show/{site}', SiteLivewireShow::class)->name('show')->can(Policy::View->value, Site::class);
             Route::get('edit/{site}', SiteLivewireUpdate::class)->name('edit')->can(Policy::Update->value, Site::class);
         });

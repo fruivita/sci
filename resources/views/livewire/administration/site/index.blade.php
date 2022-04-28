@@ -14,10 +14,30 @@
 
     <x-container>
 
-        <x-table.perpage
-            wire:key="per-page"
-            wire:model="per_page"
-            :error="$errors->first('per_page')"/>
+        <div class="flex items-center justify-between mb-3">
+
+            @can(\App\Enums\Policy::Create->value, \App\Models\Site::class)
+
+                <x-link-button
+                    class="btn-do"
+                    icon="building"
+                    href="{{ route('administration.site.create') }}"
+                    text="{{ __('New site') }}"
+                    title="{{ __('Create a new record') }}"/>
+
+            @else
+
+                <div></div>
+
+            @endcan
+
+
+            <x-table.perpage
+                wire:key="per-page"
+                wire:model="per_page"
+                :error="$errors->first('per_page')"/>
+
+        </div>
 
 
         <x-table wire:key="table-site-servers" wire:loading.delay.class="opacity-25">
@@ -53,7 +73,7 @@
                                     <li>{{ $server->name }}</li>
 
 
-                                    @if ($loop->last && $site->servers->count() == $this->limit)
+                                    @if ($loop->last && $site->servers->count() == $limit)
 
                                         <li class="font-bold text-right">{{ __('There may be more') }}</li>
 
