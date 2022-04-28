@@ -4,6 +4,7 @@
  * @see https://pestphp.com/docs/
  */
 
+use App\Enums\FeedbackType;
 use App\Enums\PermissionType;
 use App\Http\Livewire\Administration\Site\SiteLivewireIndex;
 use App\Models\Site;
@@ -37,6 +38,19 @@ test('autenticado, mas sem permissão específica, não é possível executar a 
 
 test('não é possível renderizar o componente de listagem das localidades sem permissão específica', function () {
     Livewire::test(SiteLivewireIndex::class)->assertForbidden();
+});
+
+test('não é possível excluir a localidade sem permissão específica', function () {
+    grantPermission(PermissionType::SiteViewAny->value);
+
+    $site = Site::factory()->create(['name' => 'foo']);
+
+    Livewire::test(SiteLivewireIndex::class)
+    ->assertOk()
+    ->call('destroy', $site->id)
+    ->assertForbidden();
+
+    expect(Site::where('name', 'foo')->exists())->toBeTrue();
 });
 
 // Rules
@@ -87,4 +101,31 @@ test('é possível listar as localidades com permissão específica', function (
     get(route('administration.site.index'))
     ->assertOk()
     ->assertSeeLivewire(SiteLivewireIndex::class);
+});
+
+test('emite evento de feedback ao excluir uma localidade', function () {
+    grantPermission(PermissionType::SiteViewAny->value);
+    grantPermission(PermissionType::SiteDelete->value);
+
+    $site = Site::factory()->create(['name' => 'foo']);
+
+    Livewire::test(SiteLivewireIndex::class)
+    ->call('destroy', $site->id)
+    ->assertOk()
+    ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
+});
+
+test('é possível excluir a localidade com permissão específica', function () {
+    grantPermission(PermissionType::SiteViewAny->value);
+    grantPermission(PermissionType::SiteDelete->value);
+
+    $site = Site::factory()->create(['name' => 'foo']);
+
+    expect(Site::where('name', 'foo')->exists())->toBeTrue();
+
+    Livewire::test(SiteLivewireIndex::class)
+    ->call('destroy', $site->id)
+    ->assertOk();
+
+    expect(Site::where('name', 'foo')->doesntExist())->toBeTrue();
 });

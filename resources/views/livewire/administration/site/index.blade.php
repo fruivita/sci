@@ -117,6 +117,23 @@
 
                                 @endcan
 
+
+                                @can(\App\Enums\Policy::Delete->value, \App\Models\Site::class)
+
+                                    <x-button
+                                        wire:click="destroy({{ $site->id }})"
+                                        wire:key="btn-delete-{{ $site->id }}"
+                                        wire:loading.delay.attr="disabled"
+                                        wire:loading.delay.class="cursor-not-allowed"
+                                        wire:target="*"
+                                        class="btn-danger"
+                                        icon="trash"
+                                        text="{{ __('Delete') }}"
+                                        title="{{ __('Delete the record') }}"
+                                        type="button"/>
+
+                                @endcan
+
                             </div>
 
                         </x-table.cell>

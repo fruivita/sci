@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Administration\Site;
 
 use App\Enums\Policy;
+use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Http\Livewire\Traits\WithLimit;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Models\Site;
@@ -17,6 +18,7 @@ class SiteLivewireIndex extends Component
     use WithPerPagePagination;
     use AuthorizesRequests;
     use WithLimit;
+    use WithFeedbackEvents;
 
     /**
      * Runs on every request, immediately after the component is instantiated,
@@ -53,5 +55,19 @@ class SiteLivewireIndex extends Component
         return view('livewire.administration.site.index', [
             'sites' => $this->sites,
         ])->layout('layouts.app');
+    }
+
+    /**
+     * Deleta a localidade informada.
+     *
+     * @return void
+     */
+    public function destroy(Site $site)
+    {
+        $this->authorize(Policy::Delete->value, Site::class);
+
+        $deleted = $site->delete();
+
+        $this->flashSelf($deleted);
     }
 }
