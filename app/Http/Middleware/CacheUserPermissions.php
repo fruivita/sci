@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use App\Traits\WithCaching;
 use Closure;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class CacheUserPermissions
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check()) {
+            /** @var \App\Models\User */
             $user = auth()->user();
 
             $this->useCache();

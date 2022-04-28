@@ -224,7 +224,7 @@ class LogLivewireIndex extends Component
     /**
      * Storage de armazenamento dos arquivos de log da aplicação.
      *
-     * @return  \Illuminate\Filesystem\Filesystem
+     * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
     private function storage()
     {
