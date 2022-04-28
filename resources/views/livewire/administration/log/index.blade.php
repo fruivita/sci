@@ -113,11 +113,11 @@
 
             @if (preg_match('/^\[\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\]/', $row))
 
-                <p class="border-t-4 font-bold text-primary-500"><span>{{ $row_number }}</span>: {{ $row }}</p>
+                <p class="border-t-4 break-words font-bold mt-3 pt-3 text-primary-500"><span>{{ $row_number }}</span>: {{ $row }}</p>
 
             @else
 
-                <p>{{ $row }}</p>
+                <p class="break-words">{{ $row }}</p>
 
             @endif
 
