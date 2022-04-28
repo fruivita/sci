@@ -70,7 +70,7 @@ test('não é possível excluir o arquivo de log sem permissão específica', fu
 
     Livewire::test(LogLivewireIndex::class)
     ->set('filename', $this->log_files[0])
-    ->call('delete')
+    ->call('destroy')
     ->assertForbidden();
 });
 
@@ -214,7 +214,7 @@ test('emite evento de feedback ao atualizar um perfil', function () {
     Livewire::test(LogLivewireIndex::class, [
         'filename' => $this->log_files[1],
     ])
-    ->call('delete')
+    ->call('destroy')
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
@@ -246,7 +246,7 @@ test('é possível excluir o arquivo de log com permissão específica', functio
 
     Livewire::test(LogLivewireIndex::class)
     ->set('filename', $this->log_files[0])
-    ->call('delete')
+    ->call('destroy')
     ->assertOk();
 
     $this->fake_disk->assertMissing($this->log_files[0]);

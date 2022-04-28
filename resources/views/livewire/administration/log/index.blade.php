@@ -79,7 +79,7 @@
                     @can(\App\Enums\Policy::LogDelete->value)
 
                         <x-button
-                            wire:click="delete"
+                            wire:click="destroy"
                             wire:key="btn-delete"
                             wire:loading.delay.attr="disabled"
                             wire:loading.delay.class="cursor-not-allowed"

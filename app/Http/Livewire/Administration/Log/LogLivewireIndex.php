@@ -204,11 +204,11 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Download do arquivo de log.
+     * Exclui o arquivo de log.
      *
      * @return void
      */
-    public function delete()
+    public function destroy()
     {
         $this->authorize(Policy::LogDelete->value);
 
