@@ -17,6 +17,7 @@
         <x-table.perpage
             wire:key="per-page"
             wire:model="per_page"
+            class="mb-3"
             :error="$errors->first('per_page')"/>
 
 

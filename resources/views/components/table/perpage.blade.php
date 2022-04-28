@@ -16,7 +16,7 @@
 @props(['error' => ''])
 
 
-<div class="pb-3 space-x-3 text-right">
+<div {{ $attributes->merge(['class' => "space-x-3 text-right"]) }} >
 
     <label for="per_page">{{ __('Pagination') }}</label>
 
@@ -24,7 +24,7 @@
     <select
         class="bg-primary-300 p-1 rounded text-right dark:bg-secondary-500"
         id="per_page"
-        {{ $attributes }}
+        {{ $attributes->except('class') }}
     >
 
         <option value="10">10</option>
