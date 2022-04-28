@@ -35,6 +35,18 @@ class SitePolicy extends Policy
     }
 
     /**
+     * Determine whether the user can create models.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
+     */
+    public function create(User $user)
+    {
+        return $this->hasAnyPermission($user, [PermissionType::SiteCreate]);
+    }
+
+    /**
      * Determine whether the user can update a model.
      *
      * @param \App\Models\User $user
@@ -44,5 +56,17 @@ class SitePolicy extends Policy
     public function update(User $user)
     {
         return $this->hasAnyPermission($user, [PermissionType::SiteUpdate]);
+    }
+
+    /**
+     * Determine whether the user can delete any model.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool|\Illuminate\Auth\Access\Response
+     */
+    public function delete(User $user)
+    {
+        return $this->hasAnyPermission($user, [PermissionType::SiteDelete]);
     }
 }

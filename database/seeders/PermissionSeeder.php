@@ -174,9 +174,23 @@ class PermissionSeeder extends Seeder
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
+                'id' => PermissionType::SiteCreate->value,
+                'name' => __('Site: Create one'),
+                'description' => __('Permission to create sites individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
                 'id' => PermissionType::SiteUpdate->value,
                 'name' => __('Site: Update one'),
                 'description' => __('Permission to update sites individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::SiteDelete->value,
+                'name' => __('Site: Delete one'),
+                'description' => __('Permission to delete sites individually.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],

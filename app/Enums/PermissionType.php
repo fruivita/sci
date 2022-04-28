@@ -33,7 +33,9 @@ enum PermissionType: int
     case InstitutionalReport = 190103;
     case SiteViewAny = 200001;
     case SiteView = 200002;
+    case SiteCreate = 200003;
     case SiteUpdate = 200004;
+    case SiteDelete = 200006;
     case ConfigurationView = 210002;
     case ConfigurationUpdate = 210004;
     case LogViewAny = 220001;
