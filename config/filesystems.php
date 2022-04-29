@@ -34,9 +34,9 @@ return [
             'throw' => false,
         ],
 
-        'log-impressao' => [
+        'print-log' => [
             'driver' => 'local',
-            'root' => env('LOG_IMPRESSAO', false),
+            'root' => env('PRINT_LOG', false),
         ],
 
         'application-log' => [

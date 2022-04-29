@@ -19,7 +19,7 @@ final class PrintLogImporter implements IImportablePrintLog
      *
      * @var string
      */
-    private $disk_name = 'log-impressao';
+    private $disk_name = 'print-log';
 
     /**
      * File System em que estão armazenados os logs de impressão.

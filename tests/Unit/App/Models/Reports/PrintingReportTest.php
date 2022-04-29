@@ -37,7 +37,7 @@ beforeEach(function () {
         '21-01-2021.txt' => 'server1.domain.gov.br╡21/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡9╡1' . PHP_EOL,
     ];
 
-    $this->fake_disk = Storage::fake('log-impressao');
+    $this->fake_disk = Storage::fake('print-log');
 
     foreach ($this->print_log_files as $filename => $content) {
         $this->fake_disk->put($filename, $content);
@@ -47,7 +47,7 @@ beforeEach(function () {
 });
 
 afterEach(function () {
-    $this->fake_disk = Storage::fake('log-impressao');
+    $this->fake_disk = Storage::fake('print-log');
 });
 
 test('relatório de impressão agrupado por mês traz os resultados esperados', function () {

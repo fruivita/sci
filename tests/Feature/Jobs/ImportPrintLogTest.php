@@ -26,7 +26,7 @@ beforeEach(function () {
         '03-12-2020.txt' => '',
     ];
 
-    $this->fake_disk = Storage::fake('log-impressao');
+    $this->fake_disk = Storage::fake('print-log');
 
     foreach ($this->print_log_files as $filename => $content) {
         $this->fake_disk->put($filename, $content);
@@ -34,7 +34,7 @@ beforeEach(function () {
 });
 
 afterEach(function () {
-    $this->fake_disk = Storage::fake('log-impressao');
+    $this->fake_disk = Storage::fake('print-log');
 });
 
 test('o job importa o log de impressão', function () {

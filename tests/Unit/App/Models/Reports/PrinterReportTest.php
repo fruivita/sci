@@ -31,7 +31,7 @@ beforeEach(function () {
             'server1.domain.gov.br╡25/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
     ];
 
-    $this->fake_disk = Storage::fake('log-impressao');
+    $this->fake_disk = Storage::fake('print-log');
 
     foreach ($this->print_log_files as $filename => $content) {
         $this->fake_disk->put($filename, $content);
@@ -39,7 +39,7 @@ beforeEach(function () {
 });
 
 afterEach(function () {
-    $this->fake_disk = Storage::fake('log-impressao');
+    $this->fake_disk = Storage::fake('print-log');
 });
 
 test('relatório contabiliza e informa a data da última impressão', function () {
