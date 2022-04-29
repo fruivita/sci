@@ -84,7 +84,7 @@ test('não é possível fazer o download do arquivo de log sem permissão espec�
 });
 
 // Failure
-test('se as valores forem inválidos na query string, eles serão definidas pelo sistema', function () {
+test('se os valores de inicialização forem inválidos, eles serão definidas pelo sistema', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     // força dormir 1 segundos, para alterar o time no file system, pois travel
@@ -193,7 +193,7 @@ test('arquivo de log default é o com a modificação mais recente', function ()
     ->assertSet('filename', $this->log_files[1]);
 });
 
-test('se as valores forem válidos na query string, eles serão utilizados', function () {
+test('se os valores de inicialização forem válidos, eles serão utilizados', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class, [

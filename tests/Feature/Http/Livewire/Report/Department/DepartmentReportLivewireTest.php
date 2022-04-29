@@ -86,7 +86,7 @@ test('sem permissão, não é possível gerar o relatório por lotação (Instit
 });
 
 // Failure
-test('se as valores forem inválidos na query string, eles serão definidas pelo sistema', function () {
+test('se os valores de inicialização forem inválidos, eles serão definidas pelo sistema', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [
@@ -319,7 +319,7 @@ test('faz o download do relatório por lotação (Institucional) em formato pdf'
     ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
 });
 
-test('valores válidos na query string serão utilizados para inicializar as variáveis do relatório por departamento', function () {
+test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis do relatório por departamento', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [
@@ -332,7 +332,7 @@ test('valores válidos na query string serão utilizados para inicializar as var
     ->assertSet('report_type', DepartmentReportType::Department->value);
 });
 
-test('valores válidos na query string serão utilizados para inicializar as variáveis do relatório por departamento (Gerencial)', function () {
+test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis do relatório por departamento (Gerencial)', function () {
     grantPermission(PermissionType::ManagerialReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [
@@ -345,7 +345,7 @@ test('valores válidos na query string serão utilizados para inicializar as var
     ->assertSet('report_type', DepartmentReportType::Managerial->value);
 });
 
-test('valores válidos na query string serão utilizados para inicializar as variáveis do relatório por departamento (Institucional)', function () {
+test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis do relatório por departamento (Institucional)', function () {
     grantPermission(PermissionType::InstitutionalReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [

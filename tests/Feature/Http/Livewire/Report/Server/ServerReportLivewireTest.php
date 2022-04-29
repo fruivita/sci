@@ -44,7 +44,7 @@ test('autenticado, mas sem permissão específica, não é possível renderizar 
 });
 
 // Failure
-test('se as valores forem inválidos na query string, eles serão definidas pelo sistema', function () {
+test('se os valores de inicialização forem inválidos, eles serão definidas pelo sistema', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class, [
@@ -211,7 +211,7 @@ test('faz o download do relatório em formato pdf', function () {
     ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
 });
 
-test('valores válidos na query string serão utilizados para inicializar as variáveis', function () {
+test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class, [
