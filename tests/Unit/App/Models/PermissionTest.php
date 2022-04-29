@@ -32,7 +32,7 @@ test('lança exceção ao tentar cadastrar permissão com campo inválido', func
 ]);
 
 // Failures
-test('método updateAndSync faz rollback em casa de falha na atualização da permissão', function () {
+test('método atomicSaveWithRoles faz rollback em casa de falha na atualização da permissão', function () {
     $permission_name = 'foo';
     $permission_description = 'bar';
 
@@ -45,7 +45,7 @@ test('método updateAndSync faz rollback em casa de falha na atualização da pe
     $permission->description = 'new bar';
 
     // relacionamento com perfis inexistentes
-    $saved = $permission->updateAndSync([1, 2]);
+    $saved = $permission->atomicSaveWithRoles([1, 2]);
 
     $permission->refresh()->load('roles');
 
@@ -55,13 +55,13 @@ test('método updateAndSync faz rollback em casa de falha na atualização da pe
     ->and($permission->roles)->toBeEmpty();
 });
 
-test('método updateAndSync cria log em casa de falha na atualização da permissão', function () {
+test('método atomicSaveWithRoles cria log em casa de falha na atualização da permissão', function () {
     Log::shouldReceive('error')->once();
 
     $permission = Permission::factory()->create();
 
     // relacionamento com perfis inexistentes
-    $permission->updateAndSync([1, 2]);
+    $permission->atomicSaveWithRoles([1, 2]);
 });
 
 // Happy path
@@ -96,7 +96,7 @@ test('uma permissão pertente a diversos perfis', function () {
     expect($permission->roles)->toHaveCount(3);
 });
 
-test('método updateAndSync salva os novos atributos e cria relacionamento com os perfis informadas', function () {
+test('método atomicSaveWithRoles salva os novos atributos e cria relacionamento com os perfis informadas', function () {
     $permission_name = 'foo';
     $permission_description = 'bar';
 
@@ -112,7 +112,7 @@ test('método updateAndSync salva os novos atributos e cria relacionamento com o
     $permission->name = $permission_name;
     $permission->description = $permission_description;
 
-    $saved = $permission->updateAndSync([1, 3]);
+    $saved = $permission->atomicSaveWithRoles([1, 3]);
     $permission->refresh()->load('roles');
 
     expect($saved)->toBeTrue()

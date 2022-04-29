@@ -27,7 +27,7 @@ test('lança exceção ao tentar cadastrar localidade com campo inválido', func
 ]);
 
 // Failure
-test('método updateAndSync faz rollback em casa de falha na atualização da localidade', function () {
+test('método atomicSaveWithServers faz rollback em casa de falha na atualização da localidade', function () {
     $site = Site::factory()->create([
         'name' => 'foo',
     ]);
@@ -35,7 +35,7 @@ test('método updateAndSync faz rollback em casa de falha na atualização da lo
     $site->name = 'new foo';
 
     // relacionamento com servidores inexistentes
-    $saved = $site->updateAndSync([1, 2]);
+    $saved = $site->atomicSaveWithServers([1, 2]);
 
     $site->refresh()->load('servers');
 
@@ -44,13 +44,13 @@ test('método updateAndSync faz rollback em casa de falha na atualização da lo
     ->and($site->servers)->toBeEmpty();
 });
 
-test('método updateAndSync cria log em casa de falha na atualização da localidade', function () {
+test('método atomicSaveWithServers cria log em casa de falha na atualização da localidade', function () {
     Log::shouldReceive('error')->once();
 
     $site = Site::factory()->create();
 
     // relacionamento com permissões inexistentes
-    $site->updateAndSync([1, 2]);
+    $site->atomicSaveWithServers([1, 2]);
 });
 
 // Happy path
@@ -108,7 +108,7 @@ test('retorna as localidades usando o escopo de ordenação default definido', f
     ->and($sites->get(2)->name)->toBe($third);
 });
 
-test('método updateAndSync salva os novos atributos e cria relacionamento com os servidores informados', function () {
+test('método atomicSaveWithServers salva os novos atributos e cria relacionamento com os servidores informados', function () {
     $site = Site::factory()->create([
         'name' => 'foo',
     ]);
@@ -119,7 +119,7 @@ test('método updateAndSync salva os novos atributos e cria relacionamento com o
 
     $site->name = 'new foo';
 
-    $saved = $site->updateAndSync([1, 3]);
+    $saved = $site->atomicSaveWithServers([1, 3]);
     $site->refresh()->load('servers');
 
     expect($saved)->toBeTrue()

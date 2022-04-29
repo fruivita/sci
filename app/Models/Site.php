@@ -76,13 +76,14 @@ class Site extends Model
     }
 
     /**
-     * Atualiza uma localidade no banco de dados e syncroniza seus servidores.
+     * Salva a localidade no banco de dados e syncroniza seus servidores em uma
+     * operação atômica, isto é, tudo ou nada.
      *
      * @param array|int|null $servers ids dos servidores
      *
      * @return bool
      */
-    public function updateAndSync(mixed $servers)
+    public function atomicSaveWithServers(mixed $servers)
     {
         try {
             DB::beginTransaction();

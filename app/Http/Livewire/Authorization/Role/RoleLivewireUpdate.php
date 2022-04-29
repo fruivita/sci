@@ -145,7 +145,7 @@ class RoleLivewireUpdate extends Component
     {
         $this->validate();
 
-        $saved = $this->role->updateAndSync($this->selected);
+        $saved = $this->role->atomicSaveWithPermissions($this->selected);
 
         $this->flashSelf($saved);
     }

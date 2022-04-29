@@ -122,7 +122,7 @@ class SiteLivewireCreate extends Component
     {
         $this->validate();
 
-        $saved = $this->site->updateAndSync($this->selected);
+        $saved = $this->site->atomicSaveWithServers($this->selected);
 
         $this->flashSelf($saved);
     }

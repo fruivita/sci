@@ -42,7 +42,7 @@ test('lança exceção ao tentar cadastrar perfil com campo inválido', function
 ]);
 
 // Failures
-test('método updateAndSync faz rollback em casa de falha na atualização do perfil', function () {
+test('método atomicSaveWithPermissions faz rollback em casa de falha na atualização do perfil', function () {
     $role_name = 'foo';
     $role_description = 'bar';
 
@@ -55,7 +55,7 @@ test('método updateAndSync faz rollback em casa de falha na atualização do pe
     $role->description = 'new bar';
 
     // relacionamento com permissões inexistentes
-    $saved = $role->updateAndSync([1, 2]);
+    $saved = $role->atomicSaveWithPermissions([1, 2]);
 
     $role->refresh()->load('permissions');
 
@@ -65,13 +65,13 @@ test('método updateAndSync faz rollback em casa de falha na atualização do pe
     ->and($role->permissions)->toBeEmpty();
 });
 
-test('método updateAndSync cria log em casa de falha na atualização do perfil', function () {
+test('método atomicSaveWithPermissions cria log em casa de falha na atualização do perfil', function () {
     Log::shouldReceive('error')->once();
 
     $role = Role::factory()->create();
 
     // relacionamento com permissões inexistentes
-    $role->updateAndSync([1, 2]);
+    $role->atomicSaveWithPermissions([1, 2]);
 });
 
 // Happy path
@@ -123,7 +123,7 @@ test('um perfil possui vários usuários', function () {
     expect($role->users)->toHaveCount(3);
 });
 
-test('método updateAndSync salva os novos atributos e cria relacionamento com as permissões informadas', function () {
+test('método atomicSaveWithPermissions salva os novos atributos e cria relacionamento com as permissões informadas', function () {
     $role_name = 'foo';
     $role_description = 'bar';
 
@@ -139,7 +139,7 @@ test('método updateAndSync salva os novos atributos e cria relacionamento com a
     $role->name = $role_name;
     $role->description = $role_description;
 
-    $saved = $role->updateAndSync([1, 3]);
+    $saved = $role->atomicSaveWithPermissions([1, 3]);
     $role->refresh()->load('permissions');
 
     expect($saved)->toBeTrue()

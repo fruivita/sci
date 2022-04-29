@@ -71,13 +71,14 @@ class Permission extends Model
     }
 
     /**
-     * Atualiza uma permissão no banco de dados e syncroniza seus perfis.
+     * Salva a permissão no banco de dados e syncroniza seus perfis em uma
+     * operação atômica, isto é, tudo ou nada.
      *
      * @param array|int|null $roles ids dos perfis
      *
      * @return bool
      */
-    public function updateAndSync(mixed $roles)
+    public function atomicSaveWithRoles(mixed $roles)
     {
         try {
             DB::beginTransaction();

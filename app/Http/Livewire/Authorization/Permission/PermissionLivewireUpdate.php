@@ -145,7 +145,7 @@ class PermissionLivewireUpdate extends Component
     {
         $this->validate();
 
-        $saved = $this->permission->updateAndSync($this->selected);
+        $saved = $this->permission->atomicSaveWithRoles($this->selected);
 
         $this->flashSelf($saved);
     }
