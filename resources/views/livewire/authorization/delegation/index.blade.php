@@ -77,30 +77,36 @@
 
                                 @can(\App\Enums\Policy::DelegationDelete->value, [$user])
 
-                                    <x-button
-                                        class="btn-danger"
-                                        wire:click="destroy({{ $user->id }})"
-                                        wire:key="delegation-destroy-{{ $user->id }}"
-                                        wire:loading.delay.attr="disabled"
-                                        wire:loading.delay.class="cursor-not-allowed"
-                                        class="btn-danger"
-                                        icon="pencil-square"
-                                        text="{{ __('Revoke') }}"
-                                        title="{{ __('Revoke user permissions') }}"
-                                        type="button"/>
+                                    <form wire:key="form-delegation-destroy-{{ $user->id }}" wire:submit.prevent="destroy({{ $user->id }})" method="POST">
+
+                                        <x-button
+                                            class="btn-danger"
+                                            wire:key="delegation-destroy-{{ $user->id }}"
+                                            wire:loading.delay.attr="disabled"
+                                            wire:loading.delay.class="cursor-not-allowed"
+                                            class="btn-danger w-full"
+                                            icon="pencil-square"
+                                            text="{{ __('Revoke') }}"
+                                            title="{{ __('Revoke user permissions') }}"
+                                            type="submit"/>
+
+                                    </form>
 
                                 @elsecan(\App\Enums\Policy::DelegationCreate->value, [$user])
 
-                                    <x-button
-                                        wire:click="create({{ $user->id }})"
-                                        wire:key="delegation-create-{{ $user->id }}"
-                                        wire:loading.delay.attr="disabled"
-                                        wire:loading.delay.class="cursor-not-allowed"
-                                        class="btn-do"
-                                        icon="pencil-square"
-                                        text="{{ __('Grant') }}"
-                                        title="{{ __('Grant my permissions to the user') }}"
-                                        type="button"/>
+                                    <form wire:key="form-delegation-create-{{ $user->id }}" wire:submit.prevent="create({{ $user->id }})" method="POST">
+
+                                        <x-button
+                                            wire:key="delegation-create-{{ $user->id }}"
+                                            wire:loading.delay.attr="disabled"
+                                            wire:loading.delay.class="cursor-not-allowed"
+                                            class="btn-do w-full"
+                                            icon="pencil-square"
+                                            text="{{ __('Grant') }}"
+                                            title="{{ __('Grant my permissions to the user') }}"
+                                            type="submit"/>
+
+                                    </form>
 
                                 @endcan
 

@@ -120,16 +120,19 @@
 
                                 @can(\App\Enums\Policy::Delete->value, \App\Models\Site::class)
 
-                                    <x-button
-                                        wire:click="destroy({{ $site->id }})"
-                                        wire:key="btn-delete-{{ $site->id }}"
-                                        wire:loading.delay.attr="disabled"
-                                        wire:loading.delay.class="cursor-not-allowed"
-                                        class="btn-danger"
-                                        icon="trash"
-                                        text="{{ __('Delete') }}"
-                                        title="{{ __('Delete the record') }}"
-                                        type="button"/>
+                                    <form wire:key="form-delete-site-{{ $site->id }}" wire:submit.prevent="destroy({{ $site->id }})" method="POST">
+
+                                        <x-button
+                                            wire:key="btn-delete-{{ $site->id }}"
+                                            wire:loading.delay.attr="disabled"
+                                            wire:loading.delay.class="cursor-not-allowed"
+                                            class="btn-danger w-full"
+                                            icon="trash"
+                                            text="{{ __('Delete') }}"
+                                            title="{{ __('Delete the record') }}"
+                                            type="submit"/>
+
+                                    </form>
 
                                 @endcan
 
