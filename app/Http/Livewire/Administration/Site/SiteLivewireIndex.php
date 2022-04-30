@@ -21,6 +21,20 @@ class SiteLivewireIndex extends Component
     use WithFeedbackEvents;
 
     /**
+     * Deve-se exibir o modal para excluir a localidade?
+     *
+     * @var bool
+     */
+    public $show_delete_modal = false;
+
+    /**
+     * Localidade que será excluída
+     *
+     * @var null|\App\Models\Site
+     */
+    public $deleting = null;
+
+    /**
      * Runs on every request, immediately after the component is instantiated,
      * but before any other lifecycle methods are called.
      *
@@ -29,6 +43,18 @@ class SiteLivewireIndex extends Component
     public function boot()
     {
         $this->authorize(Policy::ViewAny->value, Site::class);
+    }
+
+    /**
+     * Runs once, immediately after the component is instantiated, but before
+     * render() is called. This is only called once on initial page load and
+     * never called again, even on component refreshes.
+     *
+     * @return void
+     */
+    public function mount()
+    {
+        $this->deleting = Site::make();
     }
 
     /**
@@ -58,15 +84,36 @@ class SiteLivewireIndex extends Component
     }
 
     /**
+     * Exibe o modal e define o site que será excluído.
+     *
+     * @param \App\Models\Site
+     *
+     * @return void
+     */
+    public function setDeleteSite(Site $site)
+    {
+        $this->authorize(Policy::Delete->value, Site::class);
+
+        $this->show_delete_modal = true;
+
+        $this->deleting = $site;
+    }
+
+    /**
      * Deleta a localidade informada.
      *
      * @return void
      */
-    public function destroy(Site $site)
+    public function destroy()
     {
         $this->authorize(Policy::Delete->value, Site::class);
 
-        $deleted = $site->delete();
+        $deleted = $this->deleting->delete();
+
+        $this->fill([
+            'show_delete_modal' => false,
+            'deleting' => Site::make(),
+        ]);
 
         $this->notify($deleted);
     }

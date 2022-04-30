@@ -40,6 +40,19 @@ test('não é possível renderizar o componente de listagem das localidades sem 
     Livewire::test(SiteLivewireIndex::class)->assertForbidden();
 });
 
+test('não é possível definir a localidade que será excluída sem permissão específica', function () {
+    grantPermission(PermissionType::SiteViewAny->value);
+
+    $site = Site::factory()->create(['name' => 'foo']);
+
+    Livewire::test(SiteLivewireIndex::class)
+    ->assertOk()
+    ->call('setDeleteSite', $site->id)
+    ->assertForbidden()
+    ->assertSet('show_delete_modal', false)
+    ->assertSet('deleting', Site::make());
+});
+
 test('não é possível excluir a localidade sem permissão específica', function () {
     grantPermission(PermissionType::SiteViewAny->value);
 
@@ -47,7 +60,8 @@ test('não é possível excluir a localidade sem permissão específica', functi
 
     Livewire::test(SiteLivewireIndex::class)
     ->assertOk()
-    ->call('destroy', $site->id)
+    ->call('setDeleteSite', $site->id)
+    ->call('destroy')
     ->assertForbidden();
 
     expect(Site::where('name', 'foo')->exists())->toBeTrue();
@@ -110,7 +124,8 @@ test('emite evento de feedback ao excluir uma localidade', function () {
     $site = Site::factory()->create(['name' => 'foo']);
 
     Livewire::test(SiteLivewireIndex::class)
-    ->call('destroy', $site->id)
+    ->call('setDeleteSite', $site->id)
+    ->call('destroy')
     ->assertOk()
     ->assertDispatchedBrowserEvent('notify', [
         'type' => FeedbackType::Success->value,
@@ -119,6 +134,19 @@ test('emite evento de feedback ao excluir uma localidade', function () {
         'message' => null,
         'timeout' => 3000,
     ]);
+});
+
+test('é possível definir a localidade que será exluida com permissão específica', function () {
+    grantPermission(PermissionType::SiteViewAny->value);
+    grantPermission(PermissionType::SiteDelete->value);
+
+    $site = Site::factory()->create(['name' => 'foo']);
+
+    Livewire::test(SiteLivewireIndex::class)
+    ->call('setDeleteSite', $site->id)
+    ->assertOk()
+    ->assertSet('show_delete_modal', true)
+    ->assertSet('deleting.id', $site->id);
 });
 
 test('é possível excluir a localidade com permissão específica', function () {
@@ -130,6 +158,8 @@ test('é possível excluir a localidade com permissão específica', function ()
     expect(Site::where('name', 'foo')->exists())->toBeTrue();
 
     Livewire::test(SiteLivewireIndex::class)
+    ->call('setDeleteSite', $site->id)
+    ->assertOk()
     ->call('destroy', $site->id)
     ->assertOk();
 

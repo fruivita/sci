@@ -120,19 +120,16 @@
 
                                 @can(\App\Enums\Policy::Delete->value, \App\Models\Site::class)
 
-                                    <form wire:key="form-delete-site-{{ $site->id }}" wire:submit.prevent="destroy({{ $site->id }})" method="POST">
-
-                                        <x-button
-                                            wire:key="btn-delete-{{ $site->id }}"
-                                            wire:loading.delay.attr="disabled"
-                                            wire:loading.delay.class="cursor-not-allowed"
-                                            class="btn-danger w-full"
-                                            icon="trash"
-                                            text="{{ __('Delete') }}"
-                                            title="{{ __('Delete the record') }}"
-                                            type="submit"/>
-
-                                    </form>
+                                    <x-button
+                                        wire:click="setDeleteSite({{ $site->id }})"
+                                        wire:key="btn-delete-{{ $site->id }}"
+                                        wire:loading.delay.attr="disabled"
+                                        wire:loading.delay.class="cursor-not-allowed"
+                                        class="btn-danger w-full"
+                                        icon="trash"
+                                        text="{{ __('Delete') }}"
+                                        title="{{ __('Delete the record') }}"
+                                        type="button"/>
 
                                 @endcan
 
@@ -160,5 +157,41 @@
 
 
     {{ $sites->links() }}
+
+
+    @can(\App\Enums\Policy::Delete->value, \App\Models\Site::class)
+
+
+        {{-- Modal de exclusão da localidade --}}
+        <x-confirmation>
+
+            <x-slot name="title">{{ __('Delete :attribute?', ['attribute' => $deleting->name]) }}</x-slot>
+
+
+            <x-slot name="content">{{ __('This operation is irreversible. Are you sure you wish to proceed?') }}</x-slot>
+
+
+            <x-slot name="footer">
+
+                <form
+                    wire:key="deleting-user-modal-{{ $deleting->id }}"
+                    wire:submit.prevent="destroy"
+                    method="POST"
+                >
+
+                    <x-button
+                        class="btn-danger"
+                        icon="check-circle"
+                        text="{{ __('Confirm') }}"
+                        title="{{ __('Confirm the operation') }}"
+                        type="submit"/>
+
+                </form>
+
+            </x-slot>
+
+        </x-confirmation>
+
+    @endcan
 
 </x-page>
