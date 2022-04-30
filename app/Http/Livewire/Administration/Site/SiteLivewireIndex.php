@@ -68,6 +68,6 @@ class SiteLivewireIndex extends Component
 
         $deleted = $site->delete();
 
-        $this->flashSelf($deleted);
+        $this->notify($deleted);
     }
 }

@@ -112,7 +112,13 @@ test('emite evento de feedback ao excluir uma localidade', function () {
     Livewire::test(SiteLivewireIndex::class)
     ->call('destroy', $site->id)
     ->assertOk()
-    ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
+    ->assertDispatchedBrowserEvent('notify', [
+        'type' => FeedbackType::Success->value,
+        'icon' => FeedbackType::Success->icon(),
+        'header' => FeedbackType::Success->label(),
+        'message' => null,
+        'timeout' => 3000,
+    ]);
 });
 
 test('é possível excluir a localidade com permissão específica', function () {
