@@ -113,7 +113,7 @@
 
 
         {{-- mensagem de retorno ao usuário --}}
-        <livewire:flash />
+        <x-feedback.notification />
 
         {{-- javascript --}}
         @livewireScripts

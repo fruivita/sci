@@ -92,9 +92,10 @@ class ImportationLivewireCreate extends Component
             in_array(ImportationType::PrintLog->value, $this->import)
         )->onQueue(ImportationType::PrintLog->queue());
 
-        $this->flash(
+        $this->notify(
             true,
             __('The requested data import has been scheduled to run. In a few minutes, the data will be available.'),
+            10
         );
     }
 }

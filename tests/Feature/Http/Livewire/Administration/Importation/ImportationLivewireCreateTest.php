@@ -121,9 +121,11 @@ test('da feedback ao usuário se a importação for solicitada corretamente', fu
     Livewire::test(ImportationLivewireCreate::class)
     ->set('import', [ImportationType::Corporate->value, ImportationType::PrintLog->value])
     ->call('store')
-    ->assertEmitted(
-        'showFlash',
-        FeedbackType::Success->value,
-        __('The requested data import has been scheduled to run. In a few minutes, the data will be available.')
-    );
+    ->assertDispatchedBrowserEvent('notify', [
+        'type' => FeedbackType::Success->value,
+        'icon' => FeedbackType::Success->icon(),
+        'header' => FeedbackType::Success->label(),
+        'message' => __('The requested data import has been scheduled to run. In a few minutes, the data will be available.'),
+        'timeout' => 10000,
+    ]);
 });
