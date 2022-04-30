@@ -2,8 +2,8 @@
     Feedback ao usuário para ser, preferencialmente, adicionado ao lado do
     botão de ação para exibir de retorno ao usuário.
 
-    O componente aguarda a emissão do evento 'feeback' acompanhado de uma
-    string para exibição.
+    O componente aguarda a emissão do evento 'feedback' acompanhado do tipo (
+    error ou success) e da mensagem que deve ser exibida.
 
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
@@ -12,6 +12,7 @@
     @see https://alpinejs.dev/
     @see https://icons.getbootstrap.com/
 --}}
+
 
 <span
     x-data="{ showInlineFeedback : false , type : '', message : '' }"
