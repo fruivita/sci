@@ -112,15 +112,18 @@
     {{ $users->links() }}
 
 
-    @isset($editing)
+    @can(\App\Enums\Policy::Update->value, \App\Models\User::class)
 
         <form
-            wire:key="editing-user-modal-{{ $editing->id }}"
+            wire:key="editing-user-form-{{ $editing->id }}"
             wire:submit.prevent="update"
             method="POST"
         >
 
-            <x-modal>
+            <x-modal
+                wire:key="editing-user-modal-{{ $editing->id }}"
+                wire:model="show_edit_modal"
+            >
 
                 <x-slot name="title">{{ $editing->username . ' ' . $editing->name }}</x-slot>
 
@@ -175,6 +178,6 @@
 
         </form>
 
-    @endisset
+    @endcan
 
 </x-page>

@@ -161,9 +161,8 @@
 
     @can(\App\Enums\Policy::Delete->value, \App\Models\Site::class)
 
-
-        {{-- Modal de exclusão da localidade --}}
-        <x-confirmation>
+        {{-- Modal para confimar a exclusão da localidade --}}
+        <x-modal wire:model="show_delete_modal">
 
             <x-slot name="title">{{ __('Delete :attribute?', ['attribute' => $deleting->name]) }}</x-slot>
 
@@ -180,7 +179,7 @@
                 >
 
                     <x-button
-                        class="btn-danger"
+                        class="btn-danger w-full"
                         icon="check-circle"
                         text="{{ __('Confirm') }}"
                         title="{{ __('Confirm the operation') }}"
@@ -190,7 +189,7 @@
 
             </x-slot>
 
-        </x-confirmation>
+        </x-modal>
 
     @endcan
 

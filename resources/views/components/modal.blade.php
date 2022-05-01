@@ -10,23 +10,50 @@
 --}}
 
 
+@props(['id'])
+
+
+@php $id = $id ?? md5($attributes->wire('model')) @endphp
+
+
 <div
-    x-data="{ open: @entangle('show_edit_modal').defer }"
-    x-show="open"
-    x-transition.duration.500ms
+    x-data="{ show: @entangle($attributes->wire('model')).defer }"
+    x-show="show"
+    x-on:keydown.escape.window="show = false"
+    id="{{ $id }}"
     class="fixed flex inset-0 items-center justify-center text-primary-900 z-30 dark:text-secondary-50"
-    {{ $attributes }}
+    style="display: none;"
 >
 
     {{-- modal background --}}
-    <div class="fixed inset-0 bg-primary-100 opacity-90 dark:bg-secondary-900"></div>
+    <div
+        x-show="show"
+        x-on:click="show = false"
+        x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 transform transition-all"
+    >
+
+        <div class="absolute inset-0 bg-primary-100 opacity-90 dark:bg-secondary-900"></div>
+
+    </div>
 
 
     {{-- modal propriamente dito --}}
     <article
-        x-on:click.away="open = false"
-        x-on:keyup.escape.window="open = false"
-        class="divide-y w-full z-40 lg:w-10/12"
+        x-show="show"
+        x-on:click.away="show = false"
+        x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+        x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        class="divide-y transform transition-all w-full z-40 lg:w-10/12"
     >
 
         <header class="bg-primary-300 rounded-t-lg p-3 dark:bg-secondary-600">
@@ -53,7 +80,7 @@
 
 
             <x-button
-                x-on:click="open = false"
+                x-on:click="show = false"
                 class="btn-cancel"
                 icon="x-circle"
                 text="{{ __('Cancel') }}"
