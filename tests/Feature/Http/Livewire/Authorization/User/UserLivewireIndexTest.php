@@ -116,6 +116,17 @@ test('id do perfil que será associado ao usuário deve existir previamente no b
     ->assertHasErrors(['editing.role_id' => 'exists']);
 });
 
+test('id do perfil que será associado ao usuário é obrigatório', function () {
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->call('edit', $this->user->id)
+    ->set('editing.role_id', '')
+    ->call('update')
+    ->assertHasErrors(['editing.role_id' => 'required']);
+});
+
 test('termo pesquisável deve ser uma string', function () {
     grantPermission(PermissionType::UserViewAny->value);
 

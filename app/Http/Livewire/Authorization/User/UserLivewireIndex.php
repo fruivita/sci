@@ -58,7 +58,7 @@ class UserLivewireIndex extends Component
         return [
             'editing.role_id' => [
                 'bail',
-                'nullable',
+                'required',
                 'integer',
                 'exists:roles,id',
             ],
