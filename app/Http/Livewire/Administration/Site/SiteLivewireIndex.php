@@ -21,7 +21,7 @@ class SiteLivewireIndex extends Component
     use WithFeedbackEvents;
 
     /**
-     * Deve-se exibir o modal para excluir a localidade?
+     * Deve-se exibir o modal de exclusão da localidade?
      *
      * @var bool
      */
@@ -86,7 +86,7 @@ class SiteLivewireIndex extends Component
     /**
      * Exibe o modal e define o site que será excluído.
      *
-     * @param \App\Models\Site
+     * @param \App\Models\Site $site
      *
      * @return void
      */
@@ -94,13 +94,13 @@ class SiteLivewireIndex extends Component
     {
         $this->authorize(Policy::Delete->value, Site::class);
 
-        $this->show_delete_modal = true;
-
         $this->deleting = $site;
+
+        $this->show_delete_modal = true;
     }
 
     /**
-     * Deleta a localidade informada.
+     * Deleta a localidade definida para exclusão.
      *
      * @return void
      */
