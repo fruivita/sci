@@ -35,7 +35,7 @@ class UserLivewireIndex extends Component
     public $roles;
 
     /**
-     * Deve-se exibir o modal de edição?
+     * Deve-se exibir o modal de edição do usuário?
      *
      * @var bool
      */
@@ -86,6 +86,18 @@ class UserLivewireIndex extends Component
     public function boot()
     {
         $this->authorize(Policy::ViewAny->value, User::class);
+    }
+
+    /**
+     * Runs once, immediately after the component is instantiated, but before
+     * render() is called. This is only called once on initial page load and
+     * never called again, even on component refreshes.
+     *
+     * @return void
+     */
+    public function mount()
+    {
+        $this->editing = User::make();
     }
 
     /**
@@ -150,7 +162,7 @@ class UserLivewireIndex extends Component
     }
 
     /**
-     * Exibe o modal de edição.
+     * Exibe o modal de edição e define o usuário que será editado.
      *
      * @param \App\Models\User $user
      *
