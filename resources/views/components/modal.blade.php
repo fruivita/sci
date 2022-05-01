@@ -56,7 +56,7 @@
         class="divide-y transform transition-all w-full z-40 lg:w-10/12"
     >
 
-        <header class="bg-primary-300 rounded-t-lg p-3 dark:bg-secondary-600">
+        <header class="bg-primary-300 rounded-t-lg p-3 dark:bg-secondary-700">
 
             <h2 class="font-bold text-2xl">
 
@@ -74,7 +74,7 @@
         </div>
 
 
-        <footer class="bg-primary-300 flex flex-col justify-end p-3 rounded-b-lg space-x-0 space-y-3 dark:bg-secondary-600 lg:flex-row lg:items-center lg:space-x-3 lg:space-y-0">
+        <footer class="bg-primary-300 flex flex-col justify-end p-3 rounded-b-lg space-x-0 space-y-3 dark:bg-secondary-700 lg:flex-row lg:items-center lg:space-x-3 lg:space-y-0">
 
             {{ $footer }}
 
