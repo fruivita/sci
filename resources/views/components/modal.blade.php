@@ -84,7 +84,7 @@
                 class="btn-cancel"
                 icon="x-circle"
                 text="{{ __('Cancel') }}"
-                title="{{ __('Cancel the procedure') }}"
+                title="{{ __('Cancel the operation') }}"
                 type="button"/>
 
         </footer>
