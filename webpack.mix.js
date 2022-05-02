@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/blue.css', 'public/css/blue.css', [
         require('tailwindcss')('./tailwind.config.js')
     ])
+    .postCss('resources/css/error.css', 'public/css', [])
     .postCss('resources/css/pdf.css', 'public/css', [])
     .sourceMaps()
     .extract()
