@@ -16,7 +16,7 @@
 --}}
 
 
-@props(['color' => 'btn-default', 'icon', 'prepend' => false, 'text'])
+@props(['color' => 'btn-default', 'icon' => false, 'prepend' => false, 'text'])
 
 
 <a
@@ -24,21 +24,30 @@
     {{ $attributes->except('class') }}
 >
 
-    {{-- insere o ícone antes do texto do botão --}}
-    @if ($prepend)
 
-        <x-icon name="{{ $icon }}"/>
+    @if($icon)
+
+        {{-- insere o ícone antes do texto do botão --}}
+        @if ($prepend)
+
+            <x-icon name="{{ $icon }}"/>
 
 
-        <span>{{ $text }}</span>
+            <span>{{ $text }}</span>
 
-    {{-- insere o ícone após o texto do botão --}}
+        {{-- insere o ícone após o texto do botão --}}
+        @else
+
+            <span>{{ $text }}</span>
+
+
+            <x-icon name="{{ $icon }}"/>
+
+        @endif
+
     @else
 
         <span>{{ $text }}</span>
-
-
-        <x-icon name="{{ $icon }}"/>
 
     @endif
 
