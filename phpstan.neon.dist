@@ -30,6 +30,7 @@ parameters:
     - App\Http\Livewire\Administration\Server\ServerLivewireShow
     - App\Http\Livewire\Administration\Server\ServerLivewireUpdate
     - App\Http\Livewire\Administration\Site\SiteLivewireIndex
+    - App\Http\Livewire\Administration\Site\SiteLivewireCreate
     - App\Http\Livewire\Administration\Site\SiteLivewireShow
     - App\Http\Livewire\Administration\Site\SiteLivewireUpdate
     - App\Http\Livewire\Administration\Log\LogLivewireIndex
