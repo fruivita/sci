@@ -97,7 +97,7 @@ class UserLivewireIndex extends Component
      */
     public function mount()
     {
-        $this->editing = User::make();
+        $this->editing = new User();
     }
 
     /**

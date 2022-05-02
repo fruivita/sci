@@ -50,7 +50,7 @@ test('não é possível definir a localidade que será excluída sem permissão 
     ->call('setDeleteSite', $site->id)
     ->assertForbidden()
     ->assertSet('show_delete_modal', false)
-    ->assertSet('deleting', Site::make());
+    ->assertSet('deleting', new Site());
 });
 
 test('não é possível excluir a localidade sem permissão específica', function () {

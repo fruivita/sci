@@ -54,7 +54,17 @@ class SiteLivewireIndex extends Component
      */
     public function mount()
     {
-        $this->deleting = Site::make();
+        $this->deleting = $this->blankModel();
+    }
+
+    /**
+     * Objeto em branco.
+     *
+     * @return \App\Models\Site
+     */
+    private function blankModel()
+    {
+        return new Site();
     }
 
     /**
@@ -112,7 +122,7 @@ class SiteLivewireIndex extends Component
 
         $this->fill([
             'show_delete_modal' => false,
-            'deleting' => Site::make(),
+            'deleting' => $this->blankModel(),
         ]);
 
         $this->notify($deleted);

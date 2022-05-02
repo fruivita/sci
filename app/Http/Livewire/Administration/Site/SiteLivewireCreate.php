@@ -145,7 +145,7 @@ class SiteLivewireCreate extends Component
      * Todos as linhas (ids dos checkbox) que devem ser selecionados no
      * carregamento inicial (mount) da página.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Support\Collection
      */
     private function rowsToCheck()
     {
