@@ -55,7 +55,7 @@
                     icon="graph-up"
                     href="{{ route('report.printing.create') }}"
                     text="{{ __('Print') }}"
-                    title="{{ __('General print report') }}"/>
+                    title="{{ __('Go to general print report page') }}"/>
 
             @endcan
 
@@ -67,7 +67,7 @@
                     icon="printer"
                     href="{{ route('report.printer.create') }}"
                     text="{{ __('Printer') }}"
-                    title="{{ __('Report by printer') }}"/>
+                    title="{{ __('Go to report by printer page') }}"/>
 
             @endcan
 
@@ -79,7 +79,7 @@
                     icon="diagram-3"
                     href="{{ route('report.department.create') }}"
                     text="{{ __('Department') }}"
-                    title="{{ __('Report by department') }}"/>
+                    title="{{ __('Go to report by department page') }}"/>
 
             @endcan
 
@@ -91,7 +91,7 @@
                     icon="server"
                     href="{{ route('report.server.create') }}"
                     text="{{ __('Server') }}"
-                    title="{{ __('Report by server') }}"/>
+                    title="{{ __('Go to report by server page') }}"/>
 
             @endcan
 
@@ -103,6 +103,7 @@
     @if (
             auth()->user()->can(\App\Enums\Policy::View->value, \App\Models\Configuration::class)
             || auth()->user()->can(\App\Enums\Policy::ImportationCreate->value)
+            || auth()->user()->can(\App\Enums\Policy::LogViewAny->value)
             || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Server::class)
             || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Site::class)
         )
