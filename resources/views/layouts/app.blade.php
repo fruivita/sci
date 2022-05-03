@@ -93,6 +93,15 @@
             {{-- conteúdo principal --}}
             <main class="flex-grow lg:ml-72 lg:px-6">
 
+                {{-- ambiente de execução da aplicação --}}
+                @production
+                @else
+
+                    <x-environment />
+
+                @endproduction
+
+
                 {{-- será adicionada quando houver simulação --}}
                 @if(session()->has('simulator'))
 
