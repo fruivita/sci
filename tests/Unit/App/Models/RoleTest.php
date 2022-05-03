@@ -66,12 +66,17 @@ test('método atomicSaveWithPermissions faz rollback em casa de falha na atualiz
 });
 
 test('método atomicSaveWithPermissions cria log em casa de falha na atualização do perfil', function () {
-    Log::shouldReceive('error')->once();
+    Log::spy();
 
     $role = Role::factory()->create();
 
     // relacionamento com permissões inexistentes
     $role->atomicSaveWithPermissions([1, 2]);
+
+    Log::shouldHaveReceived('error')
+    ->withArgs(function ($message) {
+        return $message === __('Role update failed');
+    })->once();
 });
 
 // Happy path

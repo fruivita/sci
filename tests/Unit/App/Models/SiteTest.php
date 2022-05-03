@@ -45,12 +45,17 @@ test('método atomicSaveWithServers faz rollback em casa de falha na atualizaç�
 });
 
 test('método atomicSaveWithServers cria log em casa de falha na atualização da localidade', function () {
-    Log::shouldReceive('error')->once();
+    Log::spy();
 
     $site = Site::factory()->create();
 
     // relacionamento com permissões inexistentes
     $site->atomicSaveWithServers([1, 2]);
+
+    Log::shouldHaveReceived('error')
+    ->withArgs(function ($message) {
+        return $message === __('Site update failed');
+    })->once();
 });
 
 // Happy path

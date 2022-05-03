@@ -19,14 +19,11 @@ test('registra em log o ínicio e o fim da tarefa dispachada pelo schedule', fun
     $this->artisan('schedule:run');
 
     Log::shouldHaveReceived('log')
-    ->withArgs(
-        function ($level, $message) {
-            return $level === 'notice' && $message === 'ScheduledTaskStarting';
-        }
-    )->once()
-    ->withArgs(
-        function ($level, $message) {
-            return $level === 'notice' && $message === 'ScheduledTaskFinished';
-        }
-    )->once();
+    ->withArgs(function ($level, $message) {
+        return $level === 'notice' && $message === 'ScheduledTaskStarting';
+    })->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(function ($level, $message) {
+        return $level === 'notice' && $message === 'ScheduledTaskFinished';
+    })->once();
 });

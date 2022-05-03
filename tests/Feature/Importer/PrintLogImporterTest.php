@@ -61,7 +61,19 @@ test('cria o log para registrar o início, a conclusão e a importação de cada
     PrintLogImporter::make()->import();
 
     expect(Printing::count())->toBe(5);
-    Log::shouldHaveReceived('log')->times(1 + 3 + 1)->withArgs(fn ($level) => in_array($level, ['notice', 'info']));
+
+    Log::shouldHaveReceived('log')
+    ->withArgs(function($level, $message) {
+        return $level === 'notice' && $message === __('Print log import started');
+    })->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(function($level, $message) {
+        return $level === 'info' && $message === __('File processed correctly');
+    })->times(3); // 3 arquivos
+    Log::shouldHaveReceived('log')
+    ->withArgs(function($level, $message) {
+        return $level === 'notice' && $message === __('Print log import completed');
+    })->once();
 });
 
 test('exclui os arquivos de log após serem importados', function () {
