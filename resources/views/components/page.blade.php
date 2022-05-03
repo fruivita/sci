@@ -13,7 +13,7 @@
 --}}
 
 
-@props(['header' => ''])
+@props(['header'])
 
 
 <article
@@ -21,11 +21,8 @@
     {{ $attributes }}
 >
 
-    @if($header)
+    <h1 class="font-bold text-2xl text-center">{{ $header }}</h1>
 
-        <h1 class="font-bold text-2xl text-center">{{ $header }}</h1>
-
-    @endif
 
     {{ $slot }}
 
