@@ -24,9 +24,7 @@ test('schedule fora do horário, não dispara os jobs', function ($datetime, $jo
 
     $this->artisan('schedule:run');
 
-    Event::assertNotDispatched(ScheduledTaskStarting::class, function ($event) use ($job) {
-        return strpos($event->task->description, $job) !== false;
-    });
+    Event::assertNotDispatched(ScheduledTaskStarting::class);
 
     Bus::assertNothingDispatched();
 })->with([
