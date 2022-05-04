@@ -195,6 +195,10 @@ test('perfil administrador possui todas as permissões', function ($permission) 
     PermissionType::LogViewAny,
     PermissionType::LogDelete,
     PermissionType::LogDownload,
+    PermissionType::DocumentationViewAny,
+    PermissionType::DocumentationCreate,
+    PermissionType::DocumentationUpdate,
+    PermissionType::DocumentationDelete,
 ]);
 
 test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {

@@ -76,3 +76,10 @@ test('ids das permissões ligadas a administração das logs da aplicação est�
     ->and(PermissionType::LogDelete->value)->toBe(220006)
     ->and(PermissionType::LogDownload->value)->toBe(220101);
 });
+
+test('ids das permissões ligadas a administração da documentação da aplicação estão definidas', function () {
+    expect(PermissionType::DocumentationViewAny->value)->toBe(230001)
+    ->and(PermissionType::DocumentationCreate->value)->toBe(230003)
+    ->and(PermissionType::DocumentationUpdate->value)->toBe(230004)
+    ->and(PermissionType::DocumentationDelete->value)->toBe(230006);
+});

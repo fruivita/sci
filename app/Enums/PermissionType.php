@@ -41,4 +41,8 @@ enum PermissionType: int
     case LogViewAny = 220001;
     case LogDelete = 220006;
     case LogDownload = 220101;
+    case DocumentationViewAny = 230001;
+    case DocumentationCreate = 230003;
+    case DocumentationUpdate = 230004;
+    case DocumentationDelete = 230006;
 }
