@@ -43,16 +43,15 @@ trait WithFeedbackEvents
      * o resultado da solicitação do usuário.
      *
      * @param bool        $success se a solicitação do usuário foi executada
-     * com sucesso.
-     * @param string|null $message mensagem de retorno.
+     *                             com sucesso
+     * @param string|null $message mensagem de retorno
      * @param int         $timeout tempo de exibição da mensagem antes de ela
-     *                    desaparecer em segundos.
+     *                             desaparecer em segundos
      *
      * @return void
      */
     private function notify(bool $success, string $message = null, int $timeout = 3)
     {
-
         $feedback = ($success === true)
         ? FeedbackType::Success
         : FeedbackType::Error;

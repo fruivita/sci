@@ -163,7 +163,7 @@ test('link para a documentação é opcional na criação do registro de documen
     ->call('store')
     ->assertOk();
 
-    $documentation =  Documentation::first();
+    $documentation = Documentation::first();
 
     expect($documentation->app_route_name)->toBe('report.printing.create')
     ->and($documentation->doc_link)->toBeEmpty();
@@ -178,7 +178,7 @@ test('é possível cadastrar um registro de documentação da aplicação com pe
     ->call('store')
     ->assertOk();
 
-    $documentation =  Documentation::first();
+    $documentation = Documentation::first();
 
     expect($documentation->app_route_name)->toBe('report.printing.create')
     ->and($documentation->doc_link)->toBe('http://valid-url.com');

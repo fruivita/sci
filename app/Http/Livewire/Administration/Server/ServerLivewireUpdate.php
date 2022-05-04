@@ -19,10 +19,10 @@ use Livewire\Component;
 class ServerLivewireUpdate extends Component
 {
     use AuthorizesRequests;
-    use WithCheckboxActions;
-    use WithPerPagePagination;
     use WithCaching;
+    use WithCheckboxActions;
     use WithFeedbackEvents;
+    use WithPerPagePagination;
     use WithPreviousNext;
 
     /**

@@ -16,8 +16,8 @@ use Livewire\Component;
 class ServerLivewireShow extends Component
 {
     use AuthorizesRequests;
-    use WithPerPagePagination;
     use WithCaching;
+    use WithPerPagePagination;
     use WithPreviousNext;
 
     /**

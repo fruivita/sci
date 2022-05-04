@@ -3,7 +3,7 @@
 /**
  * @author Fábio Cassiano <fabiocassiano@jfes.jus.br>
  *
- * @link https://pestphp.com/docs/
+ * @see https://pestphp.com/docs/
  */
 
 use Illuminate\Support\Facades\Storage;

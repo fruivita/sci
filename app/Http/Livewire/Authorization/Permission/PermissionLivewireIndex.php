@@ -14,9 +14,9 @@ use Livewire\Component;
  */
 class PermissionLivewireIndex extends Component
 {
-    use WithPerPagePagination;
     use AuthorizesRequests;
     use WithLimit;
+    use WithPerPagePagination;
 
     /**
      * Runs on every request, immediately after the component is instantiated,

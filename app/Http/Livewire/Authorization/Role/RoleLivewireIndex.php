@@ -14,9 +14,9 @@ use Livewire\Component;
  */
 class RoleLivewireIndex extends Component
 {
-    use WithPerPagePagination;
     use AuthorizesRequests;
     use WithLimit;
+    use WithPerPagePagination;
 
     /**
      * Runs on every request, immediately after the component is instantiated,

@@ -23,7 +23,7 @@ class ImportPrintLog extends Command
      *
      * @var string
      */
-    protected $description = "Import the print log.";
+    protected $description = 'Import the print log.';
 
     /**
      * Execute the console command.

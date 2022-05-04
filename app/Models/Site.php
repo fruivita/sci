@@ -13,8 +13,8 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
  */
 class Site extends Model
 {
-    use HasFactory;
     use HasEagerLimit;
+    use HasFactory;
 
     protected $table = 'sites';
 

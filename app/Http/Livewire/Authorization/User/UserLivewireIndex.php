@@ -17,8 +17,8 @@ use Livewire\Component;
 class UserLivewireIndex extends Component
 {
     use AuthorizesRequests;
-    use WithPerPagePagination;
     use WithFeedbackEvents;
+    use WithPerPagePagination;
 
     /**
      * Usuário em edição no modal.

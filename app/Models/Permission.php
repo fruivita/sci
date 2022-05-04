@@ -13,8 +13,8 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
  */
 class Permission extends Model
 {
-    use HasFactory;
     use HasEagerLimit;
+    use HasFactory;
 
     protected $table = 'permissions';
 

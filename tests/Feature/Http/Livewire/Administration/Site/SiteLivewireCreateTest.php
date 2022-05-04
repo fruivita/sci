@@ -261,7 +261,7 @@ test('servidores associados são opcionais na criação da localidade', function
     ->call('store')
     ->assertOk();
 
-    $site =  Site::with('servers')->firstWhere('name', 'foo');
+    $site = Site::with('servers')->firstWhere('name', 'foo');
 
     expect($site->servers)->toBeEmpty();
 });
@@ -276,7 +276,7 @@ test('é possível cadastrar uma localidade com permissão específica', functio
     ->set('selected', [$server->id])
     ->call('store');
 
-    $site =  Site::with('servers')->firstWhere('name', 'foo');
+    $site = Site::with('servers')->firstWhere('name', 'foo');
 
     expect($site->name)->toBe('foo')
     ->and($site->servers->first()->id)->toBe($server->id);

@@ -161,7 +161,7 @@ test('link para a documentação é opcional na atualização do registro de doc
     ->call('update')
     ->assertOk();
 
-    $documentation =  Documentation::first();
+    $documentation = Documentation::first();
 
     expect($documentation->app_route_name)->toBe($this->doc->app_route_name)
     ->and($documentation->doc_link)->toBeEmpty();

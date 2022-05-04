@@ -15,10 +15,10 @@ use Livewire\Component;
  */
 class SiteLivewireIndex extends Component
 {
-    use WithPerPagePagination;
     use AuthorizesRequests;
-    use WithLimit;
     use WithFeedbackEvents;
+    use WithLimit;
+    use WithPerPagePagination;
 
     /**
      * Deve-se exibir o modal de exclusão da localidade?
@@ -28,9 +28,9 @@ class SiteLivewireIndex extends Component
     public $show_delete_modal = false;
 
     /**
-     * Localidade que será excluída
+     * Localidade que será excluída.
      *
-     * @var null|\App\Models\Site
+     * @var \App\Models\Site|null
      */
     public $deleting = null;
 

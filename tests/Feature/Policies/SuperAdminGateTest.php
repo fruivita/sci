@@ -31,7 +31,7 @@ test('gate de verificação de super admin é persistido em cache por 5 segundos
     expect($this->user->role->permissions)->toBeEmpty()
     ->and(cache()->missing($key))->toBeTrue()
 
-    //criou o cache
+    // criou o cache
     ->and($this->user->can(Policy::Update, Permission::class))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();

@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Administration\Documentation;
 
 use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithFeedbackEvents;
-use App\Models\Server;
 use App\Models\Documentation;
 use App\Rules\RouteExists;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

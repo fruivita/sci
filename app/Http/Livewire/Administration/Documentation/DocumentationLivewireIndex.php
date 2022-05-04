@@ -15,10 +15,10 @@ use Livewire\Component;
  */
 class DocumentationLivewireIndex extends Component
 {
-    use WithPerPagePagination;
     use AuthorizesRequests;
-    use WithLimit;
     use WithFeedbackEvents;
+    use WithLimit;
+    use WithPerPagePagination;
 
     /**
      * Deve-se exibir o modal de exclusão da documentação?
@@ -28,9 +28,9 @@ class DocumentationLivewireIndex extends Component
     public $show_delete_modal = false;
 
     /**
-     * Documentação que será excluída
+     * Documentação que será excluída.
      *
-     * @var null|\App\Models\Documentation
+     * @var \App\Models\Documentation|null
      */
     public $deleting = null;
 

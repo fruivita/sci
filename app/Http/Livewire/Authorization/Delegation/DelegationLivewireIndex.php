@@ -14,8 +14,8 @@ use Livewire\Component;
  */
 class DelegationLivewireIndex extends Component
 {
-    use WithPerPagePagination;
     use AuthorizesRequests;
+    use WithPerPagePagination;
 
     /**
      * Termo pesquisável informado pelo usuário.

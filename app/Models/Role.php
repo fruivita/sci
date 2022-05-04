@@ -13,8 +13,8 @@ use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
  */
 class Role extends Model
 {
-    use HasFactory;
     use HasEagerLimit;
+    use HasFactory;
 
     protected $table = 'roles';
 

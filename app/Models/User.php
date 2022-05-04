@@ -19,8 +19,8 @@ use LdapRecord\Laravel\Auth\LdapAuthenticatable;
  */
 class User extends CorporateUser implements LdapAuthenticatable
 {
-    use Notifiable;
     use AuthenticatesWithLdap;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

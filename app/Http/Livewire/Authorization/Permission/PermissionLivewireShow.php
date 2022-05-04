@@ -16,8 +16,8 @@ use Livewire\Component;
 class PermissionLivewireShow extends Component
 {
     use AuthorizesRequests;
-    use WithPerPagePagination;
     use WithCaching;
+    use WithPerPagePagination;
     use WithPreviousNext;
 
     /**

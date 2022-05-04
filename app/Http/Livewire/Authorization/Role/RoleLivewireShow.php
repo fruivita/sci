@@ -16,8 +16,8 @@ use Livewire\Component;
 class RoleLivewireShow extends Component
 {
     use AuthorizesRequests;
-    use WithPerPagePagination;
     use WithCaching;
+    use WithPerPagePagination;
     use WithPreviousNext;
 
     /**

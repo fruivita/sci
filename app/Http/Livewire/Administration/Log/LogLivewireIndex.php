@@ -20,8 +20,8 @@ use Livewire\Component;
 class LogLivewireIndex extends Component
 {
     use AuthorizesRequests;
-    use WithPerPagePagination;
     use WithFeedbackEvents;
+    use WithPerPagePagination;
 
     /**
      * Nome do arquivo de log em exibição.

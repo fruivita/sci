@@ -6,7 +6,6 @@
 
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
-
 use function Spatie\PestPluginTestTime\testTime;
 
 // Happy path

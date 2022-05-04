@@ -18,10 +18,10 @@ use Livewire\Component;
 class SiteLivewireCreate extends Component
 {
     use AuthorizesRequests;
-    use WithCheckboxActions;
-    use WithPerPagePagination;
     use WithCaching;
+    use WithCheckboxActions;
     use WithFeedbackEvents;
+    use WithPerPagePagination;
 
     /**
      * Localidade que será criada.

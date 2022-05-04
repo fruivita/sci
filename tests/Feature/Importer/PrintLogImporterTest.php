@@ -63,15 +63,15 @@ test('cria o log para registrar o início, a conclusão e a importação de cada
     expect(Printing::count())->toBe(5);
 
     Log::shouldHaveReceived('log')
-    ->withArgs(function($level, $message) {
+    ->withArgs(function ($level, $message) {
         return $level === 'notice' && $message === __('Print log import started');
     })->once();
     Log::shouldHaveReceived('log')
-    ->withArgs(function($level, $message) {
+    ->withArgs(function ($level, $message) {
         return $level === 'info' && $message === __('File processed correctly');
     })->times(3); // 3 arquivos
     Log::shouldHaveReceived('log')
-    ->withArgs(function($level, $message) {
+    ->withArgs(function ($level, $message) {
         return $level === 'notice' && $message === __('Print log import completed');
     })->once();
 });

@@ -21,7 +21,7 @@ abstract class Policy
      * @param \App\Models\User            $user
      * @param \App\Enums\PermissionType[] $permissions
      * @param bool                        $cache       pode usar o cache na
-     * consulta?
+     *                                                 consulta?
      *
      * @return bool
      */

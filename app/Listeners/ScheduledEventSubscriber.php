@@ -2,10 +2,8 @@
 
 namespace App\Listeners;
 
-use Illuminate\Console\Events\ScheduledBackgroundTaskFinished;
 use Illuminate\Console\Events\ScheduledTaskFailed;
 use Illuminate\Console\Events\ScheduledTaskFinished;
-use Illuminate\Console\Events\ScheduledTaskSkipped;
 use Illuminate\Console\Events\ScheduledTaskStarting;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +23,7 @@ class ScheduledEventSubscriber
     {
         $this->log('notice', 'ScheduledTaskStarting', [
             'expression' => $event->task->expression,
-            'description' => $event->task->description
+            'description' => $event->task->description,
         ]);
     }
 
@@ -38,7 +36,7 @@ class ScheduledEventSubscriber
     {
         $this->log('notice', 'ScheduledTaskFinished', [
             'expression' => $event->task->expression,
-            'description' => $event->task->description
+            'description' => $event->task->description,
         ]);
     }
 
@@ -52,15 +50,15 @@ class ScheduledEventSubscriber
         $this->log('critical', 'ScheduledTaskFailed', [
             'expression' => $event->task->expression,
             'description' => $event->task->description,
-            'exception' => $event->exception
+            'exception' => $event->exception,
         ]);
     }
-
 
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  \Illuminate\Events\Dispatcher  $events
+     * @param \Illuminate\Events\Dispatcher $events
+     *
      * @return void
      */
     public function subscribe(Dispatcher $events)
