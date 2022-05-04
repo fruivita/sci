@@ -34,6 +34,6 @@ class LdapUser implements Rule
      */
     public function message()
     {
-        return __('User not found');
+        return __('validation.not_found.user');
     }
 }

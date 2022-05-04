@@ -50,6 +50,6 @@ class FileExists implements Rule
      */
     public function message()
     {
-        return __('File not found');
+        return __('validation.not_found.file');
     }
 }

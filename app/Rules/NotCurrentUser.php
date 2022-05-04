@@ -34,6 +34,6 @@ class NotCurrentUser implements Rule
      */
     public function message()
     {
-        return __('User must be different from authenticated user');
+        return __('validation.not_current_user');
     }
 }

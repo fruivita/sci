@@ -99,6 +99,12 @@ return [
         'date' => 'A :attribute mínima é :min.',
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
+    'not_current_user' => 'Usuário precisa ser diferente do usuário autenticado',
+    'not_found' => [
+        'file' => 'Arquivo não encontrado',
+        'route' => 'Rota não encontrada',
+        'user' => 'Usuário não encontrado',
+    ],
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'The :attribute must be a number.',

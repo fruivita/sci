@@ -33,6 +33,6 @@ class RouteExists implements Rule
      */
     public function message()
     {
-        return __('Route not found');
+        return __('validation.not_found.route');
     }
 }
