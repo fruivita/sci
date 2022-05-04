@@ -7,6 +7,7 @@ use Illuminate\Console\Events\ScheduledTaskFailed;
 use Illuminate\Console\Events\ScheduledTaskFinished;
 use Illuminate\Console\Events\ScheduledTaskSkipped;
 use Illuminate\Console\Events\ScheduledTaskStarting;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -60,9 +61,9 @@ class ScheduledEventSubscriber
      * Register the listeners for the subscriber.
      *
      * @param  \Illuminate\Events\Dispatcher  $events
-     * @return array
+     * @return void
      */
-    public function subscribe($events)
+    public function subscribe(Dispatcher $events)
     {
         $events->listen(
             ScheduledTaskStarting::class,
