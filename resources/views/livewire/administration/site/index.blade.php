@@ -20,9 +20,9 @@
 
                 <x-link-button
                     class="btn-do"
-                    icon="building"
+                    icon="plus-circle"
                     href="{{ route('administration.site.create') }}"
-                    text="{{ __('New site') }}"
+                    text="{{ __('New') }}"
                     title="{{ __('Create a new record') }}"/>
 
             @else
