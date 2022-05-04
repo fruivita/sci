@@ -22,7 +22,7 @@
                     icon="graph-up"
                     href="{{ route('report.printing.create') }}"
                     text="{{ __('General print report') }}"
-                    title="{{ __('Go to general print report page') }}"/>
+                    title="{{ __('Generating the general print report') }}"/>
 
             @endcan
 
@@ -33,7 +33,7 @@
                     icon="printer"
                     href="{{ route('report.printer.create') }}"
                     text="{{ __('Report by printer') }}"
-                    title="{{ __('Go to report by printer page') }}"/>
+                    title="{{ __('Generating the print report by printer') }}"/>
 
             @endcan
 
@@ -44,7 +44,7 @@
                     icon="diagram-3"
                     href="{{ route('report.department.create') }}"
                     text="{{ __('Report by department') }}"
-                    title="{{ __('Go to report by department page') }}"/>
+                    title="{{ __('Generating the print report by department') }}"/>
 
             @endcan
 
@@ -55,7 +55,7 @@
                     icon="server"
                     href="{{ route('report.server.create') }}"
                     text="{{ __('Report by server') }}"
-                    title="{{ __('Go to report by server page') }}"/>
+                    title="{{ __('Generating the print report by server') }}"/>
 
             @endcan
 
@@ -66,7 +66,7 @@
                     icon="gear"
                     href="{{ route('administration.configuration.show') }}"
                     text="{{ __('Application settings') }}"
-                    title="{{ __('Go to application settings page') }}"/>
+                    title="{{ __('Application working settings management') }}"/>
 
             @endcan
 
@@ -77,7 +77,7 @@
                     icon="usb-drive"
                     href="{{ route('administration.importation.create') }}"
                     text="{{ __('Forced data import') }}"
-                    title="{{ __('Go to data importation page') }}"/>
+                    title="{{ __('Execution of forced data import') }}"/>
 
             @endcan
 
@@ -88,7 +88,7 @@
                     icon="building"
                     href="{{ route('administration.site.index') }}"
                     text="{{ __('Manage sites') }}"
-                    title="{{ __('Go to sites page') }}"/>
+                    title="{{ __('Sites management') }}"/>
 
             @endcan
 
@@ -99,7 +99,7 @@
                     icon="file-earmark-text"
                     href="{{ route('administration.log.index') }}"
                     text="{{ __('Manage logs') }}"
-                    title="{{ __('Go to application logs page') }}"/>
+                    title="{{ __('Application operation logs management') }}"/>
 
             @endcan
 
@@ -110,7 +110,7 @@
                     icon="server"
                     href="{{ route('administration.server.index') }}"
                     text="{{ __('Manage servers') }}"
-                    title="{{ __('Go to servers page') }}"/>
+                    title="{{ __('Print servers management') }}"/>
 
             @endcan
 
@@ -121,7 +121,7 @@
                     icon="person-lines-fill"
                     href="{{ route('authorization.delegations.index') }}"
                     text="{{ __('Role delegation') }}"
-                    title="{{ __('Go to delegations page') }}"/>
+                    title="{{ __('Roles delegation management') }}"/>
 
             @endcan
 
@@ -132,7 +132,7 @@
                     icon="award"
                     href="{{ route('authorization.role.index') }}"
                     text="{{ __('Manage roles') }}"
-                    title="{{ __('Go to roles page') }}"/>
+                    title="{{ __('Application roles management') }}"/>
 
             @endcan
 
@@ -143,7 +143,7 @@
                     icon="vector-pen"
                     href="{{ route('authorization.permission.index') }}"
                     text="{{ __('Manage permissions') }}"
-                    title="{{ __('Go to permissions page') }}"/>
+                    title="{{ __('Application permissions management') }}"/>
 
             @endcan
 
@@ -154,7 +154,7 @@
                     icon="person-check"
                     href="{{ route('authorization.user.index') }}"
                     text="{{ __('Manage users') }}"
-                    title="{{ __('Go to users page') }}"/>
+                    title="{{ __('Users management') }}"/>
 
             @endcan
 
@@ -165,7 +165,7 @@
                     icon="people"
                     href="{{ route('test.simulation.create') }}"
                     text="{{ __('Usage simulation') }}"
-                    title="{{ __('Go to simulation page') }}"/>
+                    title="{{ __('Application usage simulation') }}"/>
 
             @endcan
 
