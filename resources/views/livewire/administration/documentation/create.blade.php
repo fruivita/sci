@@ -40,7 +40,6 @@
                     icon="link"
                     maxlength="255"
                     placeholder="{{ __('http://example.com/') }}"
-                    required
                     text="{{ __('Documentation link') }}"
                     title="{{ __('Inform the link to the documentation of the route informed') }}"
                     type="text"
