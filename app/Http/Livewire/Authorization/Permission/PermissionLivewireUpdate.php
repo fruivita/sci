@@ -121,7 +121,7 @@ class PermissionLivewireUpdate extends Component
      */
     public function getRolesProperty()
     {
-        return $this->applyPagination(Role::query()->defaultOrder());
+        return $this->applyPagination(Role::defaultOrder());
     }
 
     /**

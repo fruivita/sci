@@ -104,7 +104,7 @@ class ServerLivewireUpdate extends Component
      */
     public function getSitesProperty()
     {
-        return $this->applyPagination(Site::query()->defaultOrder());
+        return $this->applyPagination(Site::defaultOrder());
     }
 
     /**

@@ -98,7 +98,7 @@ class SiteLivewireCreate extends Component
      */
     public function getServersProperty()
     {
-        return $this->applyPagination(Server::query()->defaultOrder());
+        return $this->applyPagination(Server::defaultOrder());
     }
 
     /**
