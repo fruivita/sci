@@ -26,6 +26,7 @@ parameters:
     - App\Http\Livewire\Authorization\Role\RoleLivewireShow
     - App\Http\Livewire\Authorization\Role\RoleLivewireUpdate
     - App\Http\Livewire\Authorization\User\UserLivewireIndex
+    - App\Http\Livewire\Administration\Documentation\DocumentationLivewireIndex
     - App\Http\Livewire\Administration\Server\ServerLivewireIndex
     - App\Http\Livewire\Administration\Server\ServerLivewireShow
     - App\Http\Livewire\Administration\Server\ServerLivewireUpdate
