@@ -20,7 +20,7 @@
 
         <div class="flex itens-center justify-center space-x-3">
 
-            <a href="#" class="space-x-1">
+            <a href="{{ $doc_link }}" class="space-x-1">
 
                 <x-icon name="book" class="inline"/>
 

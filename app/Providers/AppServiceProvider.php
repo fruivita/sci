@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\View\Composers\DocumentationComposer;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,5 +50,7 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
         });
+
+        View::composer('components.footer', DocumentationComposer::class);
     }
 }
