@@ -1,5 +1,6 @@
 {{--
-    View livewire para criação individual da documentação da aplicação.
+    View livewire para criação individual da documentação das rotas da
+    aplicação.
 
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
@@ -24,10 +25,10 @@
                     :error="$errors->first('doc.app_route_name')"
                     icon="signpost-2"
                     maxlength="255"
-                    placeholder="{{ __('Name of the new route') }}"
+                    placeholder="{{ __('example.create.index') }}"
                     required
                     text="{{ __('Route name') }}"
-                    title="{{ __('Name of the new route') }}"
+                    title="{{ __('Inform the route name') }}"
                     type="text"
                     withcounter/>
 
@@ -38,10 +39,10 @@
                     :error="$errors->first('doc.doc_link')"
                     icon="link"
                     maxlength="255"
-                    placeholder="{{ __('Documentation link') }}"
+                    placeholder="{{ __('http://example.com/') }}"
                     required
                     text="{{ __('Documentation link') }}"
-                    title="{{ __('Documentation link') }}"
+                    title="{{ __('Inform the link to the documentation of the route informed') }}"
                     type="text"
                     withcounter/>
 

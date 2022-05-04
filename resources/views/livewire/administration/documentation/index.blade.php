@@ -1,5 +1,5 @@
 {{--
-    View livewire para listagem da documentação.
+    View livewire para listagem da documentação das rotas da aplicação.
 
     @see https://laravel.com/docs/9.x/blade
     @see https://tailwindcss.com/
@@ -10,7 +10,7 @@
 --}}
 
 
-<x-page header="{{ __('Documentation') }}">
+<x-page header="{{ __('Routes documentation') }}">
 
     <x-container>
 
@@ -20,9 +20,9 @@
 
                 <x-link-button
                     class="btn-do"
-                    icon="book"
+                    icon="plus-circle"
                     href="{{ route('administration.doc.create') }}"
-                    text="{{ __('New documentation') }}"
+                    text="{{ __('New') }}"
                     title="{{ __('Create a new record') }}"/>
 
             @else
