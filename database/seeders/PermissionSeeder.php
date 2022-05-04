@@ -236,6 +236,34 @@ class PermissionSeeder extends Seeder
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
+            [
+                'id' => PermissionType::DocumentationViewAny->value,
+                'name' => __('Documentation: View all'),
+                'description' => __('Permission to view all application documentation records.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::DocumentationCreate->value,
+                'name' => __('Documentation: Create one'),
+                'description' => __('Permission to create application documentation records individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::DocumentationUpdate->value,
+                'name' => __('Documentation: Update one'),
+                'description' => __('Permission to update documentation records individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => PermissionType::DocumentationDelete->value,
+                'name' => __('Documentation: Delete one'),
+                'description' => __('Permission to delete documentation records individually.'),
+                'created_at' => now()->format('Y-m-d H:i:s'),
+                'updated_at' => now()->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }
