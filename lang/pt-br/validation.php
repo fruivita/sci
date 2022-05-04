@@ -129,7 +129,7 @@ return [
     'timezone' => 'The :attribute must be a valid timezone.',
     'unique' => ':attribute informado já existe.',
     'uploaded' => 'The :attribute failed to upload.',
-    'url' => 'The :attribute must be a valid URL.',
+    'url' => ':attribute precisa ser uma URL válida.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
     /*
