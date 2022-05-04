@@ -61,10 +61,10 @@
                     :error="$errors->first('permission.name')"
                     icon="vector-pen"
                     maxlength="50"
-                    placeholder="{{ __('New permission name') }}"
+                    placeholder="{{ __('Permission name') }}"
                     required
                     text="{{ __('Name') }}"
-                    title="{{ __('New permission name') }}"
+                    title="{{ __('Inform the permission name') }}"
                     type="text"
                     withcounter/>
 
@@ -77,7 +77,7 @@
                     maxlength="255"
                     placeholder="{{ __('About the permission') }}"
                     text="{{ __('Description') }}"
-                    title="{{ __('About the permission') }}"
+                    title="{{ __('Describes the permission') }}"
                     withcounter/>
 
 

@@ -61,10 +61,10 @@
                     :error="$errors->first('role.name')"
                     icon="award"
                     maxlength="50"
-                    placeholder="{{ __('New role name') }}"
+                    placeholder="{{ __('Role name') }}"
                     required
                     text="{{ __('Name') }}"
-                    title="{{ __('New role name') }}"
+                    title="{{ __('Role name') }}"
                     type="text"
                     withcounter/>
 
@@ -77,7 +77,7 @@
                     maxlength="255"
                     placeholder="{{ __('About the role') }}"
                     text="{{ __('Description') }}"
-                    title="{{ __('About the role') }}"
+                    title="{{ __('Describes the role') }}"
                     withcounter/>
 
 

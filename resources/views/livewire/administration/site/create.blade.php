@@ -24,10 +24,10 @@
                     :error="$errors->first('site.name')"
                     icon="building"
                     maxlength="255"
-                    placeholder="{{ __('New site name') }}"
+                    placeholder="{{ __('Site name') }}"
                     required
                     text="{{ __('Site') }}"
-                    title="{{ __('New site name') }}"
+                    title="{{ __('Inform the site name') }}"
                     type="text"
                     withcounter/>
 
