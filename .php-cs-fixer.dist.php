@@ -35,6 +35,7 @@ $rules = [
         'null_adjustment' => 'always_last', 'sort_algorithm' => 'alpha',
     ],
     'phpdoc_var_annotation_correct_order' => true,
+    'ordered_traits' => true,
 ];
 
 return (new \PhpCsFixer\Config())
