@@ -41,6 +41,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Documentation link default
+    |--------------------------------------------------------------------------
+    |
+    | This value is the default link to the application documentation. This
+    | value is used when the framework needs to place the application's
+    | documentation in a notification or any other location as required by the
+    | application or its packages.
+    */
+    'doc_link_default' => 'https://github.com/fruivita/sci/wiki',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
