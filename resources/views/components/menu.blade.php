@@ -102,6 +102,7 @@
 
     @if (
             auth()->user()->can(\App\Enums\Policy::View->value, \App\Models\Configuration::class)
+            || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Documentation::class)
             || auth()->user()->can(\App\Enums\Policy::ImportationCreate->value)
             || auth()->user()->can(\App\Enums\Policy::LogViewAny->value)
             || auth()->user()->can(\App\Enums\Policy::ViewAny->value, \App\Models\Server::class)
@@ -118,6 +119,18 @@
                     href="{{ route('administration.configuration.show') }}"
                     text="{{ __('Configuration') }}"
                     title="{{ __('Go to application settings page') }}"/>
+
+            @endcan
+
+
+            @can(\App\Enums\Policy::ViewAny->value, \App\Models\Documentation::class)
+
+                <x-menu.link
+                    class="{{ request()->routeIs('administration.doc.*') ? 'active': '' }}"
+                    icon="book"
+                    href="{{ route('administration.doc.index') }}"
+                    text="{{ __('Documentation') }}"
+                    title="{{ __('Go to documentation page') }}"/>
 
             @endcan
 
