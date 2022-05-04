@@ -71,6 +71,17 @@
             @endcan
 
 
+            @can(\App\Enums\Policy::ViewAny->value, \App\Models\Documentation::class)
+
+                <x-link-card
+                    icon="book"
+                    href="{{ route('administration.doc.index') }}"
+                    text="{{ __('Documentation') }}"
+                    title="{{ __('Application routes documentation management') }}"/>
+
+            @endcan
+
+
             @can(\App\Enums\Policy::ImportationCreate->value)
 
                 <x-link-card
