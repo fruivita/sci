@@ -27,7 +27,7 @@ __webpack_require__.r(__webpack_exports__);
   \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ \"./node_modules/alpinejs/dist/module.esm.js\");\n\nwindow.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__[\"default\"];\nalpinejs__WEBPACK_IMPORTED_MODULE_0__[\"default\"].start();//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvYm9vdHN0cmFwLmpzLmpzIiwibWFwcGluZ3MiOiI7O0FBQUE7QUFFQUMsTUFBTSxDQUFDRCxNQUFQLEdBQWdCQSxnREFBaEI7QUFFQUEsc0RBQUEiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvYm9vdHN0cmFwLmpzPzZkZTciXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IEFscGluZSBmcm9tICdhbHBpbmVqcydcblxud2luZG93LkFscGluZSA9IEFscGluZVxuXG5BbHBpbmUuc3RhcnQoKVxuIl0sIm5hbWVzIjpbIkFscGluZSIsIndpbmRvdyIsInN0YXJ0Il0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/bootstrap.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ \"./node_modules/alpinejs/dist/module.esm.js\");\n/* harmony import */ var _ryangjchandler_alpine_mask__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ryangjchandler/alpine-mask */ \"./node_modules/@ryangjchandler/alpine-mask/dist/module.esm.js\");\n/* harmony import */ var flatpickr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flatpickr */ \"./node_modules/flatpickr/dist/esm/index.js\");\n/* harmony import */ var flatpickr_dist_l10n_pt__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flatpickr/dist/l10n/pt */ \"./node_modules/flatpickr/dist/l10n/pt.js\");\n/* harmony import */ var flatpickr_dist_l10n_pt__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_l10n_pt__WEBPACK_IMPORTED_MODULE_3__);\n\n\nalpinejs__WEBPACK_IMPORTED_MODULE_0__[\"default\"].plugin(_ryangjchandler_alpine_mask__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\nwindow.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__[\"default\"];\nalpinejs__WEBPACK_IMPORTED_MODULE_0__[\"default\"].start();\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvYm9vdHN0cmFwLmpzLmpzIiwibWFwcGluZ3MiOiI7Ozs7OztBQUFBO0FBQ0E7QUFDQUEsdURBQUEsQ0FBY0MsbUVBQWQ7QUFDQUUsTUFBTSxDQUFDSCxNQUFQLEdBQWdCQSxnREFBaEI7QUFDQUEsc0RBQUE7QUFFQSIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9qcy9ib290c3RyYXAuanM/NmRlNyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgQWxwaW5lIGZyb20gJ2FscGluZWpzJztcbmltcG9ydCBNYXNrIGZyb20gXCJAcnlhbmdqY2hhbmRsZXIvYWxwaW5lLW1hc2tcIjtcbkFscGluZS5wbHVnaW4oTWFzayk7XG53aW5kb3cuQWxwaW5lID0gQWxwaW5lXG5BbHBpbmUuc3RhcnQoKVxuXG5pbXBvcnQgZmxhdHBpY2tyIGZyb20gXCJmbGF0cGlja3JcIjtcbmltcG9ydCBwdCBmcm9tICdmbGF0cGlja3IvZGlzdC9sMTBuL3B0JztcbiJdLCJuYW1lcyI6WyJBbHBpbmUiLCJNYXNrIiwicGx1Z2luIiwid2luZG93Iiwic3RhcnQiLCJmbGF0cGlja3IiLCJwdCJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/bootstrap.js\n");
 
 /***/ }),
 
@@ -41,20 +41,30 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 
 /***/ }),
 
+/***/ "./resources/css/error.css":
+/*!*********************************!*\
+  !*** ./resources/css/error.css ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvY3NzL2Vycm9yLmNzcy5qcyIsIm1hcHBpbmdzIjoiO0FBQUEiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvY3NzL2Vycm9yLmNzcz9iYWViIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIGV4dHJhY3RlZCBieSBtaW5pLWNzcy1leHRyYWN0LXBsdWdpblxuZXhwb3J0IHt9OyJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/css/error.css\n");
+
+/***/ }),
+
 /***/ "./resources/css/pdf.css":
 /*!*******************************!*\
   !*** ./resources/css/pdf.css ***!
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvY3NzL3BkZi5jc3MuanMiLCJtYXBwaW5ncyI6IjtBQUFBIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vcmVzb3VyY2VzL2Nzcy9wZGYuY3NzP2VkMmYiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0cmFjdGVkIGJ5IG1pbmktY3NzLWV4dHJhY3QtcGx1Z2luXG5leHBvcnQge307Il0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/css/pdf.css\n");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvY3NzL3BkZi5jc3MuanMiLCJtYXBwaW5ncyI6IjtBQUFBIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vcmVzb3VyY2VzL2Nzcy9wZGYuY3NzPzU3OWQiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gZXh0cmFjdGVkIGJ5IG1pbmktY3NzLWV4dHJhY3QtcGx1Z2luXG5leHBvcnQge307Il0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/css/pdf.css\n");
 
 /***/ })
 
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ __webpack_require__.O(0, ["css/blue","css/pdf","/js/vendor"], () => (__webpack_exec__("./resources/js/app.js"), __webpack_exec__("./resources/css/blue.css"), __webpack_exec__("./resources/css/pdf.css")));
+/******/ __webpack_require__.O(0, ["css/blue","css/pdf","css/error","/js/vendor"], () => (__webpack_exec__("./resources/js/app.js"), __webpack_exec__("./resources/css/blue.css"), __webpack_exec__("./resources/css/error.css"), __webpack_exec__("./resources/css/pdf.css")));
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);

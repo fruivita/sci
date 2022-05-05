@@ -1,0 +1,340 @@
+/**
+ * Css utilizado para animação do boneco Sovog de erro.
+ *
+ * @see \resources\svg\sovog.svg
+ * @see https://codepen.io/fixcl/pen/eYpmYj
+ */
+svg#robot {
+  display: block;
+  position: relative;
+  margin: 6em auto 0 auto;
+  padding: 10px;
+  transform-origin: bottom;
+  transform: rotate(0deg) translate3d(0px,0px,0px);
+  -webkit-animation: move 2s ease infinite;
+          animation: move 2s ease infinite;
+}
+
+@-webkit-keyframes move {
+  0%, 100% {
+    transform: rotate(0deg) translate3d(0px,0px,0px);
+  }
+  25% {
+    transform: rotate(5deg) translate3d(5px,5px,0px);
+  }
+  75% {
+    transform: rotate(-6deg) translate3d(-5px,5px,0px);
+  }
+}
+
+@keyframes move {
+  0%, 100% {
+    transform: rotate(0deg) translate3d(0px,0px,0px);
+  }
+  25% {
+    transform: rotate(5deg) translate3d(5px,5px,0px);
+  }
+  75% {
+    transform: rotate(-6deg) translate3d(-5px,5px,0px);
+  }
+}
+
+g#head {
+  transform: rotate(0deg) translate3d(0px,0px,0px);
+  transform-origin: bottom center;
+  -webkit-animation: head 1s 1s ease infinite;
+          animation: head 1s 1s ease infinite;
+  #leftAntenna, #rightAntenna {
+    > ellipse {
+      -webkit-animation: color 350ms linear infinite;
+              animation: color 350ms linear infinite;
+    }
+  }
+}
+
+@-webkit-keyframes head {
+  0%, 46%, 50%, 55%, 100% {
+    transform: rotate(0deg) translate3d(0px,0px,0px);
+  }
+  49% {
+    transform: rotate(20deg) translate3d(0px,0px,0px);
+  }
+  51% {
+    transform: rotate(-10deg) translate3d(0px,0px,0px);
+  }
+}
+
+@keyframes head {
+  0%, 46%, 50%, 55%, 100% {
+    transform: rotate(0deg) translate3d(0px,0px,0px);
+  }
+  49% {
+    transform: rotate(20deg) translate3d(0px,0px,0px);
+  }
+  51% {
+    transform: rotate(-10deg) translate3d(0px,0px,0px);
+  }
+}
+
+@-webkit-keyframes color {
+  0%, 100% {
+    fill: #ccc;
+  }
+  50% {
+    fill: rgb(255,0,0);
+  }
+}
+
+@keyframes color {
+  0%, 100% {
+    fill: #ccc;
+  }
+  50% {
+    fill: rgb(255,0,0);
+  }
+}
+
+#upperTorso {
+  transform: rotate(0deg);
+  transform-origin: center;
+  -webkit-animation: torso 600ms 1s ease infinite;
+          animation: torso 600ms 1s ease infinite;
+  #leftArm {
+    transform: rotate(0deg);
+    transform-origin: 80% 5%;
+    -webkit-animation: left 1s ease infinite;
+            animation: left 1s ease infinite;
+    .forearm {
+      transform: rotate(0deg);
+      transform-origin: 68% 10%;
+      -webkit-animation: forearm 800ms 1s ease infinite;
+              animation: forearm 800ms 1s ease infinite;
+    }
+  }
+  #rightArm {
+    transform: rotate(0deg);
+    transform-origin: 18% 0%;
+    -webkit-animation: right 1s ease infinite;
+            animation: right 1s ease infinite;
+    .forearm {
+      transform: rotate(0deg);
+      transform-origin: 68% 10%;
+      -webkit-animation: forearm 700ms 1s ease infinite;
+              animation: forearm 700ms 1s ease infinite;
+    }
+  }
+}
+
+@-webkit-keyframes torso {
+  40%, 50%, 60% {
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(5deg);
+  }
+  55% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes torso {
+  40%, 50%, 60% {
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(5deg);
+  }
+  55% {
+    transform: rotate(-5deg);
+  }
+}
+
+@-webkit-keyframes left {
+  60% {
+    transform: rotate(100deg);
+  }
+}
+
+@keyframes left {
+  60% {
+    transform: rotate(100deg);
+  }
+}
+
+@-webkit-keyframes right {
+  50% {
+    transform: rotate(-70deg);
+  }
+}
+
+@keyframes right {
+  50% {
+    transform: rotate(-70deg);
+  }
+}
+
+@-webkit-keyframes forearm {
+  0%, 30%, 50%, 70%, 100% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(25deg);
+  }
+  60% {
+    transform: rotate(-25deg);
+  }
+}
+
+@keyframes forearm {
+  0%, 30%, 50%, 70%, 100% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(25deg);
+  }
+  60% {
+    transform: rotate(-25deg);
+  }
+}
+
+#lowerTrunk {
+  transform: rotate(0deg);
+  transform-origin: 60% 5%;
+  -webkit-animation: lowerTrunk 1s ease infinite;
+          animation: lowerTrunk 1s ease infinite;
+}
+
+@-webkit-keyframes lowerTrunk {
+  0%, 100% {
+    transform: rotate(0deg) translate3d(0px,0px,0px);
+  }
+  25% {
+    transform: rotate(2deg) translate3d(2px,0px,0px);
+  }
+  75% {
+    transform: rotate(-2deg) translate3d(-2px,0px,0px);
+  }
+}
+
+@keyframes lowerTrunk {
+  0%, 100% {
+    transform: rotate(0deg) translate3d(0px,0px,0px);
+  }
+  25% {
+    transform: rotate(2deg) translate3d(2px,0px,0px);
+  }
+  75% {
+    transform: rotate(-2deg) translate3d(-2px,0px,0px);
+  }
+}
+
+#leftFoot {
+  transform: rotate(0deg);
+  transform-origin: 60% 5%;
+  -webkit-animation: leftFoot 2s ease infinite;
+          animation: leftFoot 2s ease infinite;
+  > .lowerLeg {
+    transform: rotate(0deg);
+    transform-origin: 68% 10%;
+    -webkit-animation: lowerLeg 2s ease infinite;
+            animation: lowerLeg 2s ease infinite;
+  }
+}
+
+@-webkit-keyframes leftFoot {
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(70deg);
+  }
+}
+
+@keyframes leftFoot {
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(70deg);
+  }
+}
+
+@-webkit-keyframes lowerLeg {
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  8%, 14% {
+    transform: rotate(-15deg);
+  }
+  11%, 18% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes lowerLeg {
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  8%, 14% {
+    transform: rotate(-15deg);
+  }
+  11%, 18% {
+    transform: rotate(15deg);
+  }
+}
+
+#rightFoot {
+  transform: rotate(0deg);
+  transform-origin: 50% 5%;
+  -webkit-animation: rightFoot 2s ease infinite;
+          animation: rightFoot 2s ease infinite;
+  > .lowerLeg {
+    transform: rotate(0deg);
+    transform-origin: 68% 10%;
+    -webkit-animation: lowerLegIz 2s ease infinite;
+            animation: lowerLegIz 2s ease infinite;
+  }
+}
+
+@-webkit-keyframes rightFoot {
+  75% {
+    transform: rotate(-60deg);
+  }
+  50%, 100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes rightFoot {
+  75% {
+    transform: rotate(-60deg);
+  }
+  50%, 100% {
+    transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes lowerLegIz {
+  50%, 100% {
+    transform: rotate(0deg);
+  }
+  60%, 70% {
+    transform: rotate(15deg);
+  }
+  65%, 85% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes lowerLegIz {
+  50%, 100% {
+    transform: rotate(0deg);
+  }
+  60%, 70% {
+    transform: rotate(15deg);
+  }
+  65%, 85% {
+    transform: rotate(-15deg);
+  }
+}
+
