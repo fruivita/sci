@@ -51,7 +51,10 @@ parameters:
       message: '#Call to an undefined static method Illuminate\\Support\\Facades\\[a-zA-Z]+\:\:should[Not]*HaveReceived\(\)#'
       path: tests/*
     -
-      message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:[previous\|next]+\(\)#'
+      message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:next\(\)#'
+      path: app/http/livewire/*
+    -
+      message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:previous\(\)#'
       path: app/http/livewire/*
 
   tmpDir: build/phpstan
