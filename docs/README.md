@@ -1,6 +1,6 @@
 # Sistema de Contagem de Impressão
 
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fruivita/sci)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fruivita/sci?logo=github)
 [![GitHub Release Date](https://img.shields.io/github/release-date/fruivita/sci?logo=github)](/../../releases)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/fruivita/sci/main?logo=github)](/../../commits/main)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Unit%20and%20Feature%20tests/main?label=tests&logo=github)](/../../actions/workflows/tests.yml?query=branch%3Amain)
@@ -9,7 +9,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Static%20Analysis/main?label=code%20style&logo=github)](/../../actions/workflows/static.yml?query=branch%3Amain)
 [![GitHub issues](https://img.shields.io/github/issues/fruivita/sci?logo=github)](/../../issues)
 ![GitHub repo size](https://img.shields.io/github/repo-size/fruivita/sci?logo=github)
-[![Packagist Total Downloads](https://img.shields.io/packagist/dt/fruivita/sci?logo=packagist)](https://packagist.org/packages/fruivita/sci)
+![GitHub all releases](https://img.shields.io/github/downloads/fruivita/sci/total?logo=github)
 [![GitHub](https://img.shields.io/github/license/fruivita/sci?logo=github)](LICENSE.md)
 
 O Sistema de Contagem de Impressão (SCI) é uma aplicação web desenvolvida utilizando-se a ***TALL Stack***:
@@ -83,7 +83,7 @@ Para melhor compreender cada aspecto da aplicação, sugere-se a leitura da docu
 
 ## Installation
 
-[Laravel Deployment](https://laravel.com/docs/9.x/deployment)
+[Laravel Deployment](https://laravel.com/docs/deployment)
 
 ⬆️ [Voltar](#table-of-contents)
 
@@ -101,6 +101,10 @@ De maneira resumida, a aplicação espera que lhe sejam fornecidos dois tipos de
 Esses arquivos, gerados por aplicações/scripts externos, são mapeados pelo SCI que, diariamente, os importa permitindo, a partir desses dados, a emissão dos relatórios.
 
 Para maiores detalhes, consultar a **[Wiki](/../../wiki)** deste projeto.
+
+⬆️ [Voltar](#table-of-contents)
+
+&nbsp;
 
 ## Testing and Continuous Integration
 
@@ -134,7 +138,7 @@ Por favor, veja [CONTRIBUTING](CONTRIBUTING.md) para maiores detalhes sobre como
 
 Para garantir que todos sejam bem vindos a contribuir com este projeto open-source, por favor leia e siga o [Código de Conduta](CODE_OF_CONDUCT.md).
 
-⬆️ [Back](#conteúdo)
+⬆️ [Voltar](#table-of-contents)
 
 &nbsp;
 
@@ -152,7 +156,7 @@ A versão mais recente receberá suporte e atualizações sempre que houver nece
 
 | Version | PHP     | Release    | End of Life |
 |---------|---------|------------|-------------|
-| 1.0     | ^8.1    | 07/04/2022 | dd-mm-yyyy  |
+| 1.0     | ^8.1    | dd-mm-yyyy | dd-mm-yyyy  |
 
 🐛 Encontrou um bug?!?! Abra um **[issue](/../../issues/new?assignees=fcno&labels=bug%2Ctriage&template=bug_report.yml&title=%5BA+concise+title+for+the+bug%5D)**.
 
@@ -188,7 +192,7 @@ Como esse projeto destina-se a um cliente específico, só serão implementadas 
 
 👋 Agradeço às pessoas e organizações abaixo por terem doado seu tempo na construção de projetos open-source que foram usados nesta aplicação.
 
-- ❤️ [Laravel](https://github.com/laravel) pelos packages:
+- ❤️ [The Laravel Framework](https://github.com/laravel) pelos packages:
 
   - [laravel/framework](https://github.com/laravel/framework)
 
@@ -233,6 +237,8 @@ Como esse projeto destina-se a um cliente específico, só serão implementadas 
   - [pestphp/pest](https://github.com/pestphp/pest)
 
   - [pestphp/pest-plugin-faker](https://github.com/pestphp/pest-plugin-faker)
+  
+  - [pestphp/pest-plugin-laravel](https://github.com/pestphp/pest-plugin-laravel)
 
 - ❤️ [PHPStan](https://github.com/phpstan) pelos packages:
 
@@ -247,8 +253,6 @@ Como esse projeto destina-se a um cliente específico, só serão implementadas 
   - [spatie/laravel-ignition](https://github.com/spatie/laravel-ignition)
 
   - [spatie/pest-plugin-test-time](https://github.com/spatie/pest-plugin-test-time)
-
-- ❤️ [Spatie](https://github.com/spatie) pelos packages:
 
 - ❤️ [ergebnis](https://github.com/ergebnis) pelo package [ergebnis/composer-normalize](https://github.com/ergebnis/composer-normalize)
 
@@ -287,6 +291,6 @@ Como esse projeto destina-se a um cliente específico, só serão implementadas 
 
 ## License
 
-The MIT License (MIT). Por favor, veja o **[License File](../LICENSE.md)** para maiores informações.
+The MIT License (MIT). Por favor, veja o **[License File](LICENSE.md)** para maiores informações.
 
 ⬆️ [Voltar](#table-of-contents)
