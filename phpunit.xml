@@ -50,5 +50,11 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
+        <!-- Apenas para o github -->
+        <env name="DB_DATABASE_TEST" value="sci"/>
+        <env name="DB_USERNAME_TEST" value="root"/>
+        <env name="DB_PASSWORD_TEST" value="root"/>
+        <env name="DB_HOST_TEST" value="127.0.0.1"/>
+        <env name="DB_PORT_TEST" value="3306"/>
     </php>
 </phpunit>
