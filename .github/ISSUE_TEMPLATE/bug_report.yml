@@ -1,0 +1,112 @@
+###############################################################################
+# Sobre o issue forms                                                         #
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#creating-issue-forms
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+###############################################################################
+
+name: Bug Report
+description: Create a report to help us improve
+title: "[A concise title for the bug]"
+labels: [bug, triage]
+assignees: fcno
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening a bug report, please search for the behaviour in the existing issues.
+
+        ---
+
+        Thanks for taking the time to fill out this bug report!
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "What version of this application are you running?"
+      placeholder: "1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: "Which operating system this application is running on? Please provide the version as well."
+      placeholder: "Ubuntu 7.10"
+    validations:
+      required: true
+
+  - type: input
+    id: php
+    attributes:
+      label: PHP Version
+      description: "Please provide the full PHP version that is powering this application."
+      placeholder: "PHP 8.0.7, built: Jun 4 2021 01:50:04"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+        - Other or None (please specify in the description!)
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: "If you don't mind, How can we get in touch with you if we need more info?"
+      placeholder: "ex. email@example.com"
+    validations:
+      required: false
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug description?
+      description: "What happened?"
+      placeholder: "Tell us everything about the bug and why is this a bug!"
+      value: "A bug happened!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we reproduce?
+      description: Which steps do we need to take to reproduce this error?
+      placeholder: Steps to reproduce the behavior.
+      value: |
+        Steps to reproduce the behavior:
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What would be the expected behavior?
+      description: "Tell us what did you expect to happen!"
+      placeholder: "Concisely tell us what did you expect to happen!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false

@@ -166,7 +166,7 @@ A versão mais recente receberá suporte e atualizações sempre que houver nece
 
 ## Roadmap
 
-> ✨ Alguma ideia nova?!?! Inicie **[uma discussão](/../../discussions/new?category=ideas)**.
+> ✨ Alguma ideia nova?!?! Inicie **[uma discussão](https://github.com/orgs/fruivita/discussions/new?category=ideas)**.
 
 A lista a seguir contém as necessidades de melhorias identificadas e aprovadas que serão implementadas na primeira janela de oportunidade.
 
