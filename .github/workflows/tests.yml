@@ -25,17 +25,6 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
 
-    # Definição do database que será utilizado para os testes
-    services:
-      mysql:
-        image: mysql:8
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: sci_test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     strategy:
       fail-fast: true
       matrix:
@@ -49,6 +38,13 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Setup MySql
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE site_test;' -uroot -proot
+          mysql -e 'SHOW DATABASES;' -uroot -proot
+          mysql -V
 
       - name: Cache dependencies
         uses: actions/cache@v3
