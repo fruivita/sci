@@ -1,11 +1,11 @@
 # Sistema de Contagem de Impressão
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/fruivita/sci?logo=packagist)](https://packagist.org/packages/fruivita/sci)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fruivita/sci)
 [![GitHub Release Date](https://img.shields.io/github/release-date/fruivita/sci?logo=github)](/../../releases)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/fruivita/sci/main?logo=github)](/../../commits/main)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Unit%20and%20Feature%20tests/main?label=tests&logo=github)](/../../actions/workflows/tests.yml?query=branch%3Amain)
-<!-- [![Test Coverage](https://api.codeclimate.com/v1/badges/98e8f7e0704865225131/test_coverage)](https://codeclimate.com/github/fruivita/sci/test_coverage) -->
-<!-- [![Maintainability](https://api.codeclimate.com/v1/badges/98e8f7e0704865225131/maintainability)](https://codeclimate.com/github/fruivita/sci/maintainability) -->
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ce3fc9536abe326d5766/test_coverage)](https://codeclimate.com/github/fruivita/sci/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ce3fc9536abe326d5766/maintainability)](https://codeclimate.com/github/fruivita/sci/maintainability)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Static%20Analysis/main?label=code%20style&logo=github)](/../../actions/workflows/static.yml?query=branch%3Amain)
 [![GitHub issues](https://img.shields.io/github/issues/fruivita/sci?logo=github)](/../../issues)
 ![GitHub repo size](https://img.shields.io/github/repo-size/fruivita/sci?logo=github)
