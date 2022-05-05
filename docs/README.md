@@ -112,6 +112,7 @@ Para maiores detalhes, consultar a **[Wiki](/../../wiki)** deste projeto.
 composer analyse
 composer test
 composer coverage
+composer csfix
 ```
 
 ⬆️ [Voltar](#table-of-contents)
