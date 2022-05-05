@@ -1,6 +1,6 @@
 # Sistema de Contagem de Impressão
 
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fruivita/sci?logo=github)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fruivita/sci?logo=github)](/../../releases)
 [![GitHub Release Date](https://img.shields.io/github/release-date/fruivita/sci?logo=github)](/../../releases)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/fruivita/sci/main?logo=github)](/../../commits/main)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Unit%20and%20Feature%20tests/main?label=tests&logo=github)](/../../actions/workflows/tests.yml?query=branch%3Amain)
@@ -9,8 +9,8 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Static%20Analysis/main?label=code%20style&logo=github)](/../../actions/workflows/static.yml?query=branch%3Amain)
 [![GitHub issues](https://img.shields.io/github/issues/fruivita/sci?logo=github)](/../../issues)
 ![GitHub repo size](https://img.shields.io/github/repo-size/fruivita/sci?logo=github)
-![GitHub all releases](https://img.shields.io/github/downloads/fruivita/sci/total?logo=github)
-[![GitHub](https://img.shields.io/github/license/fruivita/sci?logo=github)](LICENSE.md)
+[![GitHub all releases](https://img.shields.io/github/downloads/fruivita/sci/total?logo=github)](/../../releases)
+[![GitHub](https://img.shields.io/github/license/fruivita/sci?logo=github)](../LICENSE.md)
 
 O Sistema de Contagem de Impressão (SCI) é uma aplicação web desenvolvida utilizando-se a ***TALL Stack***:
 
@@ -291,6 +291,6 @@ Como esse projeto destina-se a um cliente específico, só serão implementadas 
 
 ## License
 
-The MIT License (MIT). Por favor, veja o **[License File](LICENSE.md)** para maiores informações.
+The MIT License (MIT). Por favor, veja o **[License File](../LICENSE.md)** para maiores informações.
 
 ⬆️ [Voltar](#table-of-contents)
