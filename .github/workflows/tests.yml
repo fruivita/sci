@@ -85,7 +85,7 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
 
       - name: Execute tests
-        run: ./vendor/bin/pest --coverage --colors=always --stop-on-failure
+        run: ./vendor/bin/pest --coverage --colors=always --stop-on-failure --exclude-group=integration
 
       - name: Upload coverage to Code Climate
         uses: paambaati/codeclimate-action@v3.0.0
