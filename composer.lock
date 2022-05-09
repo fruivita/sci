@@ -1019,31 +1019,31 @@
         },
         {
             "name": "fruivita/corporate",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruivita/corporate.git",
-                "reference": "134811fb111b35bd4248bf6e7131778d8f94dab5"
+                "reference": "fe6b8abff9182d068770da83f0c6481d1f008629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruivita/corporate/zipball/134811fb111b35bd4248bf6e7131778d8f94dab5",
-                "reference": "134811fb111b35bd4248bf6e7131778d8f94dab5",
+                "url": "https://api.github.com/repos/fruivita/corporate/zipball/fe6b8abff9182d068770da83f0c6481d1f008629",
+                "reference": "fe6b8abff9182d068770da83f0c6481d1f008629",
                 "shasum": ""
             },
             "require": {
                 "ext-xmlreader": "*",
-                "illuminate/collections": "^9.7",
-                "illuminate/database": "^9.7",
-                "illuminate/support": "^9.7",
+                "illuminate/collections": "^9.11",
+                "illuminate/database": "^9.11",
+                "illuminate/support": "^9.11",
                 "php": "^8.0"
             },
             "require-dev": {
                 "nunomaduro/larastan": "^2.1",
-                "orchestra/testbench": "^7.3",
+                "orchestra/testbench": "^7.4",
                 "pestphp/pest": "^1.21",
                 "pestphp/pest-plugin-laravel": "^1.2",
-                "phpstan/phpstan": "^1.5",
+                "phpstan/phpstan": "^1.6",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
@@ -1087,9 +1087,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fruivita/corporate/issues",
-                "source": "https://github.com/fruivita/corporate/tree/v1.0.0"
+                "source": "https://github.com/fruivita/corporate/tree/v1.0.1"
             },
-            "time": "2022-04-07T03:52:40+00:00"
+            "time": "2022-05-09T01:27:25+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -10381,5 +10381,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
