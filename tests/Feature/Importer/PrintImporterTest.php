@@ -24,7 +24,7 @@ test('make retorna o objeto da classe', function () {
     expect(PrintImporter::make())->toBeInstanceOf(PrintImporter::class);
 });
 
-// Happy path
+// Invalid
 test('todos os campos da impressão precisam estar presentes, mesmo que vazios', function () {
     // sem delimitar o último parâmetro (qtd de cópias), portanto, campos incompletos
     $print = 'server.dominio.org.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1';
@@ -190,16 +190,6 @@ test('cria o log se o tamanho do arquivo for inválido na string de impressão',
     'foo', // não conversível em inteiro
 ]);
 
-test('o tamanho do arquivo é opcional', function () {
-    $file_size = null;
-
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡documento.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡{$file_size}╡1╡1";
-
-    PrintImporter::make()->import($print);
-
-    expect(Printing::count())->toBe(1);
-});
-
 test('transação faz roolback em caso de exception na persistência da impressão', function () {
     // Note que duas impressões com a mesma data, hora, cliente, impressora, usuário e servidor são considerais iguais.
     // Nesse caso, os dados da segunda impressão não devem existir no banco de dados devido ao roolback.
@@ -229,6 +219,17 @@ test('cria o log se houver exception durante a persistência da impressão', fun
 
     expect(Printing::count())->toBe(1);
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'critical')->once();
+});
+
+// Happy path
+test('o tamanho do arquivo é opcional', function () {
+    $file_size = null;
+
+    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡documento.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡{$file_size}╡1╡1";
+
+    PrintImporter::make()->import($print);
+
+    expect(Printing::count())->toBe(1);
 });
 
 test('se a lotação existir, não acusará erro de validação', function () {
