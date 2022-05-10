@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @see https://laravel.com/docs/9.x/database-testing
+ * @see https://laravel.com/docs/database-testing
  */
 class ConfigurationSeeder extends Seeder
 {

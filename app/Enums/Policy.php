@@ -6,7 +6,7 @@ namespace App\Enums;
  * Tipos de actions/métodos tratados por uma policy.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
- * @see https://laravel.com/docs/9.x/authorization
+ * @see https://laravel.com/docs/authorization
  */
 enum Policy: string
 {

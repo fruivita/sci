@@ -5,8 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /*
- * @see https://laravel.com/docs/9.x/migrations
- * @see https://laravel.com/docs/9.x/cache#lock-driver-prerequisites
+ * @see https://laravel.com/docs/migrations
+ * @see https://laravel.com/docs/cache#lock-driver-prerequisites
  * @see https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
  */
 return new class extends Migration {

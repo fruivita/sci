@@ -7,7 +7,7 @@ use FruiVita\Corporate\Models\Occupation as CorporateOccupation;
 /**
  * Cargo de um determinado usuário.
  *
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Occupation extends CorporateOccupation
 {

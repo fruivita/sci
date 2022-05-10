@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
  * Verifica se a rota informada existe na aplicação, isto é, se é uma rota
  * válida.
  *
- * @see https://laravel.com/docs/9.x/validation#custom-validation-rules
+ * @see https://laravel.com/docs/validation#custom-validation-rules
  */
 class RouteExists implements Rule
 {

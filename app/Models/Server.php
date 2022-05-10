@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 /**
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Server extends Model
 {
@@ -119,7 +119,7 @@ class Server extends Model
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      *
-     * @see https://laravel.com/docs/9.x/pagination#appending-query-string-values
+     * @see https://laravel.com/docs/pagination#appending-query-string-values
      */
     public static function report(Carbon $initial_date, Carbon $final_date, int $per_page)
     {

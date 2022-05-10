@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /*
- * @see https://laravel.com/docs/9.x/migrations
+ * @see https://laravel.com/docs/migrations
  * @see https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
  * @see https://dev.mysql.com/worklog/task/?id=12571
  */

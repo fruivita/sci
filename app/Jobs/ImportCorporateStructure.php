@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
 
 /**
- * @see https://laravel.com/docs/9.x/queues
+ * @see https://laravel.com/docs/queues
  */
 class ImportCorporateStructure implements ShouldQueue, ShouldBeUnique
 {

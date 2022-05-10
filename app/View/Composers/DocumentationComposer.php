@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 /**
- * @see https://laravel.com/docs/9.x/views#view-composers
+ * @see https://laravel.com/docs/views#view-composers
  */
 class DocumentationComposer
 {

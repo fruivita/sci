@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 /**
- * @see https://laravel.com/docs/9.x/controllers
+ * @see https://laravel.com/docs/controllers
  */
 class HomeController extends Controller
 {

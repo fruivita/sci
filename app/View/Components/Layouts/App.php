@@ -5,7 +5,7 @@ namespace App\View\Components\Layouts;
 use Illuminate\View\Component;
 
 /**
- * @see https://laravel.com/docs/9.x/blade#components
+ * @see https://laravel.com/docs/blade#components
  */
 class App extends Component
 {

@@ -8,7 +8,7 @@ use LdapRecord\Models\ActiveDirectory\User;
 /**
  * Verifica se o samaccountname é válido, isto é, se existe no servidor LDAP.
  *
- * @see https://laravel.com/docs/9.x/validation#custom-validation-rules
+ * @see https://laravel.com/docs/validation#custom-validation-rules
  */
 class LdapUser implements Rule
 {

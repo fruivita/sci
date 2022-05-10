@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Documentation extends Model
 {

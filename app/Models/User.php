@@ -14,7 +14,7 @@ use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 /**
  * Os usuários são sincronizados com o servidor LDAP.
  *
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  * @see https://ldaprecord.com/docs/laravel/v2/auth/database
  */
 class User extends CorporateUser implements LdapAuthenticatable

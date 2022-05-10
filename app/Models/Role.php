@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 /**
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Role extends Model
 {

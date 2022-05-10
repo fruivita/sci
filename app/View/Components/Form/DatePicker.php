@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\View\Component;
 
 /**
- * @see https://laravel.com/docs/9.x/blade#components
+ * @see https://laravel.com/docs/blade#components
  * @see https://flatpickr.js.org/
  * @see https://www.youtube.com/watch?v=lKg7AMeRtJY
  */

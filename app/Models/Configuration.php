@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Configurações da aplicação.
  *
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Configuration extends Model
 {

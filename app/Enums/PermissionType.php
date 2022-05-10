@@ -6,7 +6,7 @@ namespace App\Enums;
  * Ids das permissões registrados no banco de dados.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
- * @see https://laravel.com/docs/9.x/authorization
+ * @see https://laravel.com/docs/authorization
  */
 enum PermissionType: int
 {

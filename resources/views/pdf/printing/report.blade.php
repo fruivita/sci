@@ -1,7 +1,7 @@
 {{--
   Subview para exibir o relatório geral de impressão em pdf.
 
-  @link https://laravel.com/docs/9.x/blade
+  @link https://laravel.com/docs/blade
   @link https://github.com/barryvdh/laravel-dompdf
   @link https://github.com/dompdf/dompdf
 --}}

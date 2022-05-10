@@ -6,7 +6,7 @@ namespace App\Enums;
  * Tipos de relatório por lotação.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
- * @see https://laravel.com/docs/9.x/collections
+ * @see https://laravel.com/docs/collections
  */
 enum DepartmentReportType: string
 {

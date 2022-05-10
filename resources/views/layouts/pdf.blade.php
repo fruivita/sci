@@ -1,7 +1,7 @@
 {{--
   Master Page para os relatórios em PDF.
 
-  @see https://laravel.com/docs/9.x/blade
+  @see https://laravel.com/docs/blade
   @see https://github.com/barryvdh/laravel-dompdf
   @see https://github.com/dompdf/dompdf
 --}}

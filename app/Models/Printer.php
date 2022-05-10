@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Impressoras.
  *
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Printer extends Model
 {

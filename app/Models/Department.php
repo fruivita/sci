@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Lotação de um determinado usuário.
  *
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Department extends CorporateDepartment
 {

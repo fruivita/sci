@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 /**
  * Usuário informado não é o usuário autenticado.
  *
- * @see https://laravel.com/docs/9.x/validation#custom-validation-rules
+ * @see https://laravel.com/docs/validation#custom-validation-rules
  */
 class NotCurrentUser implements Rule
 {

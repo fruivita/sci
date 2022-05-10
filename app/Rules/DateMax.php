@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
  * Verifica se a data em validação é menor que a data máxima para geração dos
  * relatórios.
  *
- * @see https://laravel.com/docs/9.x/validation#custom-validation-rules
+ * @see https://laravel.com/docs/validation#custom-validation-rules
  */
 class DateMax implements Rule
 {

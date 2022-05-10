@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * @see https://laravel.com/docs/9.x/middleware
+ * @see https://laravel.com/docs/middleware
  */
 class Simulation
 {

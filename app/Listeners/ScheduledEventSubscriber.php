@@ -9,8 +9,8 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Log;
 
 /**
- * @see https://laravel.com/docs/9.x/events
- * @see https://laravel.com/docs/9.x/scheduling#events
+ * @see https://laravel.com/docs/events
+ * @see https://laravel.com/docs/scheduling#events
  */
 class ScheduledEventSubscriber
 {

@@ -7,7 +7,7 @@ use App\Jobs\ImportCorporateStructure as ImportCorporateStructureJob;
 use Illuminate\Console\Command;
 
 /**
- * @see https://laravel.com/docs/9.x/artisan
+ * @see https://laravel.com/docs/artisan
  */
 class ImportCorporateStructure extends Command
 {

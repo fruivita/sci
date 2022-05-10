@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 /**
  * Classe base para concentrar rotinas comuns às diversas policies.
  *
- * @see https://laravel.com/docs/9.x/authorization
+ * @see https://laravel.com/docs/authorization
  */
 abstract class Policy
 {

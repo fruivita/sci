@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @see https://laravel.com/docs/9.x/configuration
+ * @see https://laravel.com/docs/configuration
  */
 return [
     /*

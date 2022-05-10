@@ -6,7 +6,7 @@ use App\Enums\PermissionType;
 use App\Models\User;
 
 /**
- * @see https://laravel.com/docs/9.x/authorization
+ * @see https://laravel.com/docs/authorization
  */
 class PrintingPolicy extends Policy
 {

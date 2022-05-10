@@ -2,7 +2,7 @@
     Elemento não clicável que imita, visualmente, os links do menu, isto é,
     para ser exibido no menu por questões estéticas.
 
-    @see https://laravel.com/docs/9.x/blade
+    @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com

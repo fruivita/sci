@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * Permissões do usuário autenticado.
  *
- * @see https://laravel.com/docs/9.x/middleware
+ * @see https://laravel.com/docs/middleware
  */
 class CacheUserPermissions
 {

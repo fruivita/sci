@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * Ex.: computador, notebook, tablet.
  *
- * @see https://laravel.com/docs/9.x/eloquent
+ * @see https://laravel.com/docs/eloquent
  */
 class Client extends Model
 {

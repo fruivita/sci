@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * Verifica se o arquivo existe no storage informado.
  *
- * @see https://laravel.com/docs/9.x/validation#custom-validation-rules
+ * @see https://laravel.com/docs/validation#custom-validation-rules
  */
 class FileExists implements Rule
 {

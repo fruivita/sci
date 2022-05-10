@@ -1,5 +1,5 @@
 /**
- * @see https://laravel.com/docs/9.x/mix
+ * @see https://laravel.com/docs/mix
  */
 const mix = require('laravel-mix');
 

@@ -1,7 +1,7 @@
 {{--
     Container padrão padrão da aplicação.
 
-    @see https://laravel.com/docs/9.x/blade
+    @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com

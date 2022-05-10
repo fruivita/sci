@@ -7,7 +7,7 @@ use App\Jobs\ImportPrintLog as ImportPrintLogJob;
 use Illuminate\Console\Command;
 
 /**
- * @see https://laravel.com/docs/9.x/artisan
+ * @see https://laravel.com/docs/artisan
  */
 class ImportPrintLog extends Command
 {

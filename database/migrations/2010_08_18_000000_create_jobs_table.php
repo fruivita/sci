@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /*
- * @see https://laravel.com/docs/9.x/queues#driver-prerequisites
+ * @see https://laravel.com/docs/queues#driver-prerequisites
  */
 return new class extends Migration {
     /**
