@@ -28,10 +28,10 @@
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^1.0",
-        "bcremer/line-reader": "^1.2",
         "blade-ui-kit/blade-icons": "^1.2",
         "directorytree/ldaprecord-laravel": "^2.5",
         "fruivita/corporate": "^1.0",
+        "fruivita/line-reader": "^1.0",
         "guzzlehttp/guzzle": "^7.4",
         "laravel/fortify": "^1.12",
         "laravel/framework": "^9.11",
