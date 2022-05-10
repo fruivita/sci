@@ -3,7 +3,7 @@
 namespace App\Importer;
 
 use App\Importer\Contracts\IImportablePrintLog;
-use Bcremer\LineReader\LineReader;
+use FruiVita\LineReader\Facades\LineReader;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -130,11 +130,11 @@ final class PrintLogImporter implements IImportablePrintLog
      *
      * @param string $print_log_file ex.: 21-02-2012.txt
      *
-     * @return void
+     * @return bool
      */
     private function delete(string $print_log_file)
     {
-        $this->file_system->delete($print_log_file);
+        return $this->file_system->delete($print_log_file);
     }
 
     /**
@@ -148,9 +148,9 @@ final class PrintLogImporter implements IImportablePrintLog
     private function save(string $print_log_file)
     {
         /*
-         * Utiliza-se a biblioteca LineReader para fazer a leitura dos arquivos
-         * de log, pois eles podem ser grandes o que poderia levar ao estouro
-         * de memória.
+         * Utiliza-se o package LineReader para fazer a leitura dos arquivos de
+         * log, pois eles podem ser grandes o que poderia levar ao estouro de
+         * memória.
          * Assim, em vez de se ler o arquivo inteiro de uma vez, a biblioteca
          * faz a leitura do arquivo linha por linha.
          * Se necessário, para ver o consumo de mermória, basta colocar o
@@ -163,7 +163,7 @@ final class PrintLogImporter implements IImportablePrintLog
          * https://www.php.net/manual/en/function.memory-get-usage.php
          * https://stackoverflow.com/questions/15745385/memory-get-peak-usage-with-real-usage
          * https://www.sitepoint.com/performant-reading-big-files-php/
-         * https://github.com/bcremer/LineReader
+         * https://github.com/fruivita/line-reader
          */
         try {
             foreach (LineReader::readLines($this->fullPath($print_log_file)) as $print) {

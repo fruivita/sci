@@ -6,6 +6,7 @@ use App\Enums\Policy;
 use App\Http\Livewire\Traits\WithFeedbackEvents;
 use App\Http\Livewire\Traits\WithPerPagePagination;
 use App\Rules\FileExists;
+use FruiVita\LineReader\Facades\LineReader;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -121,26 +122,10 @@ class LogLivewireIndex extends Component
      */
     public function getFileContentProperty()
     {
-        $offset = ($this->page - 1) * $this->per_page;
-
-        $file = new \SplFileObject($this->fileFullPath());
-
-        $collection = collect();
-
-        for ($i = $offset; $i < $offset + $this->per_page; ++$i) {
-            $file->seek($i);
-
-            $collection->put($i + 1, $file->current());
-        }
-
-        // posiciona-se no final do arquivo
-        $file->seek(PHP_INT_MAX);
-
-        return $collection
-        ->customPaginate(
-            $file->key() + 1,
-            $this->per_page,
-            $this->page
+        return LineReader::readPaginatedLines(
+            file_path: $this->fileFullPath(),
+            per_page: $this->per_page,
+            page: $this->page
         )->onEachSide($this->on_each_side);
     }
 
