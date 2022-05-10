@@ -217,8 +217,6 @@ Como esse projeto destina-se a um cliente específico, só serão implementadas 
 
   - [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar)
 
-- ❤️ [Benjamin Cremer](https://github.com/bcremer) pelo package [bcremer/LineReader](https://github.com/bcremer/LineReader)
-
 - ❤️ [Jonas Staudenmeir](https://github.com/staudenmeir) pelo package [staudenmeir/eloquent-eager-limit](https://github.com/staudenmeir/eloquent-eager-limit)
 
 - ❤️ [FakerPHP](https://github.com/FakerPHP) pelo package [fakerphp/faker](https://github.com/fakerphp/faker)
