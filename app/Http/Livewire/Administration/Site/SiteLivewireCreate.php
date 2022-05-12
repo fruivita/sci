@@ -145,7 +145,7 @@ class SiteLivewireCreate extends Component
      * All lines (checkbox ids) that must be selected on initial load (mount)
      * of the page.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Support\Collection
      */
     private function rowsToCheck()
     {
