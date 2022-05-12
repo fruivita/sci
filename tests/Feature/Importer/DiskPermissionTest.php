@@ -19,3 +19,9 @@ test('has write permission to print log storage', function () {
 
     $disk->assertMissing($filename);
 })->group('integration');
+
+test('can read the corporate file', function () {
+    $full_path = config('company.corporate_file');
+
+    expect((new \SplFileInfo($full_path))->isReadable())->toBeTrue();
+})->group('integration');
