@@ -48,6 +48,6 @@ Describe the big picture of your changes here to communicate to the maintainers 
 
 ## Further comments (if appropriate)
 
-> If this is a relatively large or complex change, kick off the [discussion](/../../discussions/new?category=ideas) by explaining why you chose the solution you did and what alternatives you considered, etc...
+> If this is a relatively large or complex change, kick off the [discussion](https://github.com/orgs/fruivita/discussions/new?category=ideas&title=[SCI]) by explaining why you chose the solution you did and what alternatives you considered, etc...
 
 💔Thank you!
