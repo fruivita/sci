@@ -1,8 +1,8 @@
 {{--
-    View para erro HTTP 5xx.
+    View for HTTP 5xx error.
 
-    Nota: Esse view é usada como view default para erros do range 500 ~ 599,
-    isto é, para quando não houver uma view específica para exibir o erro.
+    Note: This view is used as the default view for errors in the range 500 ~
+    599, that is, when there is no specific view to display the error.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

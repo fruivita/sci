@@ -1,7 +1,7 @@
 {{--
-    Exibe a tarja indicativa do ambiente em que roda a aplicação.
+    Stripe indicating the environment in which the application runs.
 
-    Indicada para ser exibida apenas quando não se está em produção.
+    Indicated to be displayed only when not in production.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

@@ -1,8 +1,8 @@
 {{--
-    Links da paginação.
+    Paging links.
 
-    Trata-se de uma customização da view disponibilizada pelo framework laravel
-    compatibilizada para o livewire.
+    It is a customization of the view provided by the laravel framework
+    compatible with livewire.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

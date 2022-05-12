@@ -1,5 +1,5 @@
 {{--
-    Mensagem de erro de validação.
+    Validation error message.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

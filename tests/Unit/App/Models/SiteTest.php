@@ -11,30 +11,30 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 // Exceptions
-test('lança exceção ao tentar cadastrar localidades em duplicidade, isto é, com nomes iguais', function () {
+test('throws exception when trying to create sites in duplicate, that is, with the same names', function () {
     expect(
         fn () => Site::factory(2)->create(['name' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
-test('lança exceção ao tentar cadastrar localidade com campo inválido', function ($field, $value, $message) {
+test('throws exception when trying to create site with invalid field', function ($field, $value, $message) {
     expect(
         fn () => Site::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['name', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
-    ['name', null,             'cannot be null'],           // obrigatório
+    ['name', Str::random(256), 'Data too long for column'], // maximum 255 characters
+    ['name', null,             'cannot be null'],           // required
 ]);
 
 // Failure
-test('método atomicSaveWithServers faz rollback em casa de falha na atualização da localidade', function () {
+test('atomicSaveWithServers method rolls back on failure of site update', function () {
     $site = Site::factory()->create([
         'name' => 'foo',
     ]);
 
     $site->name = 'new foo';
 
-    // relacionamento com servidores inexistentes
+    // relationship with non-existent servers
     $saved = $site->atomicSaveWithServers([1, 2]);
 
     $site->refresh()->load('servers');
@@ -44,12 +44,12 @@ test('método atomicSaveWithServers faz rollback em casa de falha na atualizaç�
     ->and($site->servers)->toBeEmpty();
 });
 
-test('método atomicSaveWithServers cria log em casa de falha na atualização da localidade', function () {
+test('atomicSaveWithServers method creates log if site update fails', function () {
     Log::spy();
 
     $site = Site::factory()->create();
 
-    // relacionamento com permissões inexistentes
+    // relationship with non-existent servers
     $site->atomicSaveWithServers([1, 2]);
 
     Log::shouldHaveReceived('error')
@@ -59,19 +59,19 @@ test('método atomicSaveWithServers cria log em casa de falha na atualização d
 });
 
 // Happy path
-test('cadastra múltiplas localidades', function () {
+test('create many sites', function () {
     Site::factory(30)->create();
 
     expect(Site::count())->toBe(30);
 });
 
-test('nome do localidade em seu tamanho máximo é aceito', function () {
+test('site name at its maximum size is accepted', function () {
     Site::factory()->create(['name' => Str::random(255)]);
 
     expect(Site::count())->toBe(1);
 });
 
-test('uma localidade é controlada por vários servidores', function () {
+test('one site is controlled by many servers', function () {
     Site::factory()
         ->has(Server::factory(3), 'servers')
         ->create();
@@ -81,7 +81,7 @@ test('uma localidade é controlada por vários servidores', function () {
     expect($sites->servers)->toHaveCount(3);
 });
 
-test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
+test('previous returns the correct previous record, even if it is the first', function () {
     $site_1 = Site::factory()->create(['name' => 'bar']);
     $site_2 = Site::factory()->create(['name' => 'foo']);
 
@@ -89,7 +89,7 @@ test('previous retorna o registro anterior correto, mesmo sendo o primeiro', fun
     ->and($site_1->previous()->first())->toBeNull();
 });
 
-test('next retorna o registro posterior correto, mesmo sendo o último', function () {
+test('next returns the correct back record even though it is the last', function () {
     $site_1 = Site::factory()->create(['name' => 'bar']);
     $site_2 = Site::factory()->create(['name' => 'foo']);
 
@@ -97,7 +97,7 @@ test('next retorna o registro posterior correto, mesmo sendo o último', functio
     ->and($site_2->next()->first())->toBeNull();
 });
 
-test('retorna as localidades usando o escopo de ordenação default definido', function () {
+test('returns the sites using the default sort scope defined', function () {
     $first = 'bar';
     $second = 'baz';
     $third = 'foo';
@@ -113,7 +113,7 @@ test('retorna as localidades usando o escopo de ordenação default definido', f
     ->and($sites->get(2)->name)->toBe($third);
 });
 
-test('método atomicSaveWithServers salva os novos atributos e cria relacionamento com os servidores informados', function () {
+test('atomicSaveWithServers method saves the new attributes and creates a relationship with the informed servers', function () {
     $site = Site::factory()->create([
         'name' => 'foo',
     ]);

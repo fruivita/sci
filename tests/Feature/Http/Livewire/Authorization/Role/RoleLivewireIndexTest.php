@@ -23,33 +23,33 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível listar os perfis sem estar autenticado', function () {
+test('cannot list roles without being authenticated', function () {
     logout();
 
     get(route('authorization.role.index'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos perfis', function () {
+test('authenticated but without specific permission, unable to access role listing route', function () {
     get(route('authorization.role.index'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de listagem dos perfis sem permissão específica', function () {
+test('cannot render role listing component without specific permission', function () {
     Livewire::test(RoleLivewireIndex::class)->assertForbidden();
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::RoleViewAny->value);
 
     Livewire::test(RoleLivewireIndex::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('paginação retorna a quantidade de perfis esperada', function () {
+test('pagination returns the expected number of roles', function () {
     grantPermission(PermissionType::RoleViewAny->value);
 
     Role::factory(120)->create();
@@ -66,7 +66,7 @@ test('paginação retorna a quantidade de perfis esperada', function () {
     ->assertCount('roles', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::RoleViewAny->value);
 
     Livewire::test(RoleLivewireIndex::class)
@@ -81,7 +81,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível listar os perfis com permissão específica', function () {
+test('lists roles with specific permission', function () {
     grantPermission(PermissionType::RoleViewAny->value);
 
     get(route('authorization.role.index'))

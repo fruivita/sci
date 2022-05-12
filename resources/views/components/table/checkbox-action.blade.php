@@ -1,8 +1,8 @@
 {{--
-    Ações sobre os múltiplos checkbox.
+    Actions on multiple checkboxes in a table.
 
     Props:
-    - error: mensagem de erro que deverá ser exibida
+    - error: error message that will be displayed
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

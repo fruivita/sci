@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Traits;
 use App\Enums\FeedbackType;
 
 /**
- * Trait idealizada para emissão de eventos de feedback ao usuário.
+ * Trait designed to issue feedback events to the user.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  * @see https://laravel-livewire.com/docs/2.x/traits
@@ -14,13 +14,13 @@ use App\Enums\FeedbackType;
 trait WithFeedbackEvents
 {
     /**
-     * Emite evento de feedback para o próprio componente decidir onde melhor
-     * será exibi-lo.
+     * Emits feedback event for the component itself to decide where best to
+     * display it.
      *
-     * A mensagem informada será exibida ou, se não informada, será utilizada a
-     * mensagem padrão.
+     * The informed message will be displayed or, if not informed, the default
+     * message will be used.
      *
-     * @param bool        $success se o comando foi executao com sucesso
+     * @param bool        $success if the command was executed successfully
      * @param string|null $message
      *
      * @return void
@@ -39,14 +39,14 @@ trait WithFeedbackEvents
     }
 
     /**
-     * Dispara um browser event para ser capturado por javascript detalhando
-     * o resultado da solicitação do usuário.
+     * Fires a browser event to be captured by javascript detailing the result
+     * of the user's request.
      *
-     * @param bool        $success se a solicitação do usuário foi executada
-     *                             com sucesso
-     * @param string|null $message mensagem de retorno
-     * @param int         $timeout tempo de exibição da mensagem antes de ela
-     *                             desaparecer em segundos
+     * @param bool        $success whether the user's request was executed
+     *                             successfully
+     * @param string|null $message return message
+     * @param int         $timeout message display time before it disappears in
+     *                             seconds
      *
      * @return void
      */

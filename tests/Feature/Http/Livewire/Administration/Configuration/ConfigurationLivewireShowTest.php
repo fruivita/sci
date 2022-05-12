@@ -24,25 +24,25 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível visualizar individualmente uma configuração sem estar autenticado', function () {
+test('it is not possible to individually view a configuration without being authenticated', function () {
     logout();
 
     get(route('administration.configuration.show'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual da configuração', function () {
+test('authenticated but without specific permission, unable to access individual configuration view route', function () {
     get(route('administration.configuration.show'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de visualização individual da configuração sem permissão específica', function () {
+test('cannot render individual view component of configuration without specific permission', function () {
     Livewire::test(ConfigurationLivewireShow::class)
     ->assertForbidden();
 });
 
 // Happy path
-test('é possível renderizar o componente de visualização individual da configuração com permissão específica', function () {
+test('renders the individual view component of the configuration with specific permission', function () {
     grantPermission(PermissionType::ConfigurationView->value);
 
     get(route('administration.configuration.show'))
@@ -50,14 +50,14 @@ test('é possível renderizar o componente de visualização individual da confi
     ->assertSeeLivewire(ConfigurationLivewireShow::class);
 });
 
-test('a configuração carregada para visualização é a esperada, pois é única e pré-definida', function () {
+test('the configuration loaded for visualization is the expected one as it is unique and pre-defined', function () {
     grantPermission(PermissionType::ConfigurationView->value);
 
     Livewire::test(ConfigurationLivewireShow::class)
     ->assertSet('configuration.id', Configuration::MAIN);
 });
 
-test('é possível visualizar individualmente a configuração com permissão específica', function () {
+test('individually view configuration with specific permission', function () {
     grantPermission(PermissionType::ConfigurationView->value);
 
     get(route('administration.configuration.show'))

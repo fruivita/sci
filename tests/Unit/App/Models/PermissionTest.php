@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 // Exceptions
-test('lança exceção ao tentar cadastrar permissões em duplicidade, isto é, com ids ou nomes iguais', function () {
+test('throws an exception when trying to create duplicate permissions, that is, with the same ids or names', function () {
     expect(
         fn () => Permission::factory(2)->create(['id' => 1])
     )->toThrow(QueryException::class, 'Duplicate entry');
@@ -21,18 +21,18 @@ test('lança exceção ao tentar cadastrar permissões em duplicidade, isto é, 
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
-test('lança exceção ao tentar cadastrar permissão com campo inválido', function ($field, $value, $message) {
+test('throws exception when trying to create permission with invalid field', function ($field, $value, $message) {
     expect(
         fn () => Permission::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
     ['name', Str::random(51), 'Data too long for column'],         // máximo 50 caracteres
-    ['name', null,            'cannot be null'],                   // obrigatório
-    ['description', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
+    ['name', null,            'cannot be null'],                   // required
+    ['description', Str::random(256), 'Data too long for column'], // maximum 255 characters
 ]);
 
 // Failures
-test('método atomicSaveWithRoles faz rollback em casa de falha na atualização da permissão', function () {
+test('atomicSaveWithRoles method rolls back on failure of permission update', function () {
     $permission_name = 'foo';
     $permission_description = 'bar';
 
@@ -44,7 +44,7 @@ test('método atomicSaveWithRoles faz rollback em casa de falha na atualização
     $permission->name = 'new foo';
     $permission->description = 'new bar';
 
-    // relacionamento com perfis inexistentes
+    // relationship with non-existent roles
     $saved = $permission->atomicSaveWithRoles([1, 2]);
 
     $permission->refresh()->load('roles');
@@ -55,12 +55,12 @@ test('método atomicSaveWithRoles faz rollback em casa de falha na atualização
     ->and($permission->roles)->toBeEmpty();
 });
 
-test('método atomicSaveWithRoles cria log em casa de falha na atualização da permissão', function () {
+test('atomicSaveWithRoles method creates log on failed permission update', function () {
     Log::spy();
 
     $permission = Permission::factory()->create();
 
-    // relacionamento com perfis inexistentes
+    // relationship with non-existent roles
     $permission->atomicSaveWithRoles([1, 2]);
 
     Log::shouldHaveReceived('error')
@@ -70,19 +70,19 @@ test('método atomicSaveWithRoles cria log em casa de falha na atualização da 
 });
 
 // Happy path
-test('cadastra múltiplas permissões', function () {
+test('create many permissions', function () {
     Permission::factory(30)->create();
 
     expect(Permission::count())->toBe(30);
 });
 
-test('campos opcionais da permissão são aceitos', function () {
+test('optional permission fields are accepted', function () {
     Permission::factory()->create(['description' => null]);
 
     expect(Permission::count())->toBe(1);
 });
 
-test('campos da permissão em seu tamanho máximo são aceitos', function () {
+test('permission fields at their maximum size are accepted', function () {
     Permission::factory()->create([
         'name' => Str::random(50),
         'description' => Str::random(255),
@@ -91,7 +91,7 @@ test('campos da permissão em seu tamanho máximo são aceitos', function () {
     expect(Permission::count())->toBe(1);
 });
 
-test('uma permissão pertente a diversos perfis', function () {
+test('one permission belong to many roles', function () {
     $permission = Permission::factory()
         ->has(Role::factory(3), 'roles')
         ->create();
@@ -101,7 +101,7 @@ test('uma permissão pertente a diversos perfis', function () {
     expect($permission->roles)->toHaveCount(3);
 });
 
-test('método atomicSaveWithRoles salva os novos atributos e cria relacionamento com os perfis informadas', function () {
+test('atomicSaveWithRoles method saves the new attributes and creates relationship with the informed roles', function () {
     $permission_name = 'foo';
     $permission_description = 'bar';
 
@@ -126,7 +126,7 @@ test('método atomicSaveWithRoles salva os novos atributos e cria relacionamento
     ->and($permission->roles->modelKeys())->toBe([1, 3]);
 });
 
-test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
+test('previous returns the correct previous record, even if it is the first', function () {
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
 
@@ -134,7 +134,7 @@ test('previous retorna o registro anterior correto, mesmo sendo o primeiro', fun
     ->and($permission_1->previous()->first())->toBeNull();
 });
 
-test('next retorna o registro posterior correto, mesmo sendo o último', function () {
+test('next returns the correct back record even though it is the last', function () {
     $permission_1 = Permission::factory()->create(['id' => 1]);
     $permission_2 = Permission::factory()->create(['id' => 2]);
 
@@ -142,7 +142,7 @@ test('next retorna o registro posterior correto, mesmo sendo o último', functio
     ->and($permission_2->next()->first())->toBeNull();
 });
 
-test('retorna as permissões usando o escopo de ordenação default definido', function () {
+test('returns the permissions using the defined default sort scope', function () {
     $first = 1;
     $second = 2;
     $third = 3;

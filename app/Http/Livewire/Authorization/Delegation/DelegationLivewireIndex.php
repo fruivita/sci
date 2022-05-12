@@ -18,7 +18,7 @@ class DelegationLivewireIndex extends Component
     use WithPerPagePagination;
 
     /**
-     * Termo pesquisável informado pelo usuário.
+     * Searchable term entered by the user.
      *
      * @var string
      */
@@ -36,7 +36,7 @@ class DelegationLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar os usuários passíveis de delegação.
+     * Computed property to list delegable users.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -51,7 +51,7 @@ class DelegationLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -78,7 +78,7 @@ class DelegationLivewireIndex extends Component
     }
 
     /**
-     * Volta a paginação à paginação inicial.
+     * Returns the pagination to the initial pagination.
      *
      * Runs before a property called $term is updated.
      *
@@ -98,8 +98,8 @@ class DelegationLivewireIndex extends Component
     }
 
     /**
-     * Cria uma delegação, atribuindo ao usuário informado o mesmo perfil do
-     * usuário autenticado.
+     * Creates a delegation, giving the informed user the same role as the
+     * authenticated user.
      *
      * @param \App\Models\User $delegated
      *
@@ -120,8 +120,8 @@ class DelegationLivewireIndex extends Component
     }
 
     /**
-     * Desfaz uma delegação, atribuindo ao usuário informado o perfil padrão
-     * do usuário comum da aplicação.
+     * Undo a delegation, attributing to the informed user the default role of
+     * the common user of the application.
      *
      * @param \App\Models\User $delegated
      *

@@ -1,9 +1,9 @@
 {{--
-    Link do menu principal.
+    Main menu link.
 
     Props:
-    - icon: ícone svg que será exibido
-    - text: texto de descrição/significado do item do menu
+    - icon: svg icon that will be displayed
+    - text: description/meaning text of the menu item
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

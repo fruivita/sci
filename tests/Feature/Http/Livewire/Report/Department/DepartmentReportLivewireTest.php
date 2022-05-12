@@ -26,28 +26,28 @@ afterEach(function () {
 });
 
 // Forbidden
-test('não é possível exibir o relatório por lotação sem estar autenticado', function () {
+test('it is not possible to view the report by department without being authenticated', function () {
     logout();
 
     get(route('report.department.create'))
     ->assertRedirect(route('login'));
 });
 
-test('não é possível exibir o relatório por lotação sem permissão específica', function () {
+test('cannot view report by department without specific permission', function () {
     get(route('report.department.create'))
     ->assertForbidden();
 });
 
-test('autenticado, mas sem permissão específica, não é possível renderizar o componente de relatório por lotação', function () {
+test('authenticated but without specific permission, unable to render report component by department', function () {
     Livewire::test(DepartmentReportLivewire::class)
     ->assertForbidden();
 });
 
-test('sem permissão, não é possível gerar o relatório por lotação', function () {
-    // Garante alguma permissão para renderizar o componente
+test('without permission, it is not possible to generate the report by department', function () {
+    // grant some permission to render the component
     grantPermission(PermissionType::InstitutionalReport->value);
 
-    // Não possui a permissão específica
+    // does not have the specific permission
     Livewire::test(DepartmentReportLivewire::class)
     ->assertOk()
     ->set('report_type', DepartmentReportType::Department->value)
@@ -57,11 +57,11 @@ test('sem permissão, não é possível gerar o relatório por lotação', funct
     ->assertForbidden();
 });
 
-test('sem permissão, não é possível gerar o relatório por lotação (Gerencial)', function () {
-    // Garante alguma permissão para renderizar o componente
+test('without permission, it is not possible to generate the report by department (Managerial)', function () {
+    // grant some permission to render the component
     grantPermission(PermissionType::InstitutionalReport->value);
 
-    // Não possui a permissão específica
+    // does not have the specific permission
     Livewire::test(DepartmentReportLivewire::class)
     ->assertOk()
     ->set('report_type', DepartmentReportType::Managerial->value)
@@ -71,11 +71,11 @@ test('sem permissão, não é possível gerar o relatório por lotação (Gerenc
     ->assertForbidden();
 });
 
-test('sem permissão, não é possível gerar o relatório por lotação (Institucional)', function () {
-    // Garante alguma permissão para renderizar o componente
+test('without permission, it is not possible to generate the report by department (Institutional)', function () {
+    // grant some permission to render the component
     grantPermission(PermissionType::ManagerialReport->value);
 
-    // Não possui a permissão específica
+    // does not have the specific permission
     Livewire::test(DepartmentReportLivewire::class)
     ->assertOk()
     ->set('report_type', DepartmentReportType::Institutional->value)
@@ -86,7 +86,7 @@ test('sem permissão, não é possível gerar o relatório por lotação (Instit
 });
 
 // Failure
-test('se os valores de inicialização forem inválidos, eles serão definidas pelo sistema', function () {
+test('if the initialization values are invalid they will be set by the system', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [
@@ -100,15 +100,15 @@ test('se os valores de inicialização forem inválidos, eles serão definidas p
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
-test('data inicial é obrigatório', function () {
+test('inital date is required', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -116,7 +116,7 @@ test('data inicial é obrigatório', function () {
     ->assertHasErrors(['initial_date' => 'required']);
 });
 
-test('data inicial deve ser no formato dd-mm-yyyy', function () {
+test('inital date must be in dd-mm-yyyy format', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -124,7 +124,7 @@ test('data inicial deve ser no formato dd-mm-yyyy', function () {
     ->assertHasErrors(['initial_date' => 'date_format']);
 });
 
-test('data inicial mínima é de 100 anos atrás', function () {
+test('minimum initial date is 100 years ago', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -132,7 +132,7 @@ test('data inicial mínima é de 100 anos atrás', function () {
     ->assertHasErrors(['initial_date' => DateMin::class]);
 });
 
-test('data inicial máxima é hoje', function () {
+test('maximum initial date is today', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -140,7 +140,7 @@ test('data inicial máxima é hoje', function () {
     ->assertHasErrors(['initial_date' => DateMax::class]);
 });
 
-test('data inicial está sujeita a validação em tempo real', function () {
+test('initial date is validated in real time', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -150,7 +150,7 @@ test('data inicial está sujeita a validação em tempo real', function () {
     ->assertHasErrors(['initial_date' => 'required']);
 });
 
-test('data final é obrigatório', function () {
+test('final date is required', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -158,7 +158,7 @@ test('data final é obrigatório', function () {
     ->assertHasErrors(['final_date' => 'required']);
 });
 
-test('data final deve ser no formato dd-mm-yyyy', function () {
+test('final date must be in dd-mm-yyyy format', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -166,7 +166,7 @@ test('data final deve ser no formato dd-mm-yyyy', function () {
     ->assertHasErrors(['final_date' => 'date_format']);
 });
 
-test('data final mínima é de 100 anos atrás', function () {
+test('minimum final date is 100 years ago', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -174,7 +174,7 @@ test('data final mínima é de 100 anos atrás', function () {
     ->assertHasErrors(['final_date' => DateMin::class]);
 });
 
-test('data final máxima é hoje', function () {
+test('maximum final date is today', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -182,7 +182,7 @@ test('data final máxima é hoje', function () {
     ->assertHasErrors(['final_date' => DateMax::class]);
 });
 
-test('data final está sujeita a validação em tempo real', function () {
+test('final date is validated in real time', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -192,7 +192,7 @@ test('data final está sujeita a validação em tempo real', function () {
     ->assertHasErrors(['final_date' => 'required']);
 });
 
-test('tipo de relatório é obrigatório', function () {
+test('report type is required', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -200,7 +200,7 @@ test('tipo de relatório é obrigatório', function () {
     ->assertHasErrors(['report_type' => 'required']);
 });
 
-test('tipo de relatório deve ser uma string', function () {
+test('report type must be a string', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -208,7 +208,7 @@ test('tipo de relatório deve ser uma string', function () {
     ->assertHasErrors(['report_type' => 'string']);
 });
 
-test('tipo de relatório deve ser uma das opções do enum DepartmentReportType', function () {
+test('report type must be one of the enum options DepartmentReportType', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -216,7 +216,7 @@ test('tipo de relatório deve ser uma das opções do enum DepartmentReportType'
     ->assertHasErrors(['report_type' => 'in']);
 });
 
-test('tipo de relatório está sujeito a validação em tempo real', function () {
+test('report type is validated in real time', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -227,7 +227,7 @@ test('tipo de relatório está sujeito a validação em tempo real', function ()
 });
 
 // Happy path
-test('com permissão específica é possível renderizar o componente do relatório de impressão por lotação', function () {
+test('with specific permission it is possible to render the print report component by department', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     get(route('report.department.create'))
@@ -235,7 +235,7 @@ test('com permissão específica é possível renderizar o componente do relató
     ->assertSeeLivewire(DepartmentReportLivewire::class);
 });
 
-test('com permissão específica é possível renderizar o componente do relatório de impressão por lotação (Gerencial)', function () {
+test('with specific permission it is possible to render the print report component by department (Managerial)', function () {
     grantPermission(PermissionType::ManagerialReport->value);
 
     get(route('report.department.create'))
@@ -243,7 +243,7 @@ test('com permissão específica é possível renderizar o componente do relató
     ->assertSeeLivewire(DepartmentReportLivewire::class);
 });
 
-test('com permissão específica é possível renderizar o componente do relatório de impressão por lotação (Institucional)', function () {
+test('with specific permission it is possible to render the print report component by department (Institutional)', function () {
     grantPermission(PermissionType::InstitutionalReport->value);
 
     get(route('report.department.create'))
@@ -251,7 +251,7 @@ test('com permissão específica é possível renderizar o componente do relató
     ->assertSeeLivewire(DepartmentReportLivewire::class);
 });
 
-test('paginação retorna a quantidade de resultados esperada', function () {
+test('pagination returns the amount of expected results', function () {
     grantPermission(PermissionType::InstitutionalReport->value);
 
     Department::factory(120)->create();
@@ -268,7 +268,7 @@ test('paginação retorna a quantidade de resultados esperada', function () {
     ->assertCount('result', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::InstitutionalReport->value);
 
     Livewire::test(DepartmentReportLivewire::class)
@@ -283,7 +283,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('faz o download do relatório por lotação em formato pdf', function () {
+test('download the report by department in pdf format', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Department::factory(10)->create();
@@ -295,7 +295,7 @@ test('faz o download do relatório por lotação em formato pdf', function () {
     ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
 });
 
-test('faz o download do relatório por lotação (Gerencial) em formato pdf', function () {
+test('downloads the report by department (Managerial) in pdf format', function () {
     grantPermission(PermissionType::ManagerialReport->value);
 
     Department::factory(10)->create();
@@ -307,7 +307,7 @@ test('faz o download do relatório por lotação (Gerencial) em formato pdf', fu
     ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
 });
 
-test('faz o download do relatório por lotação (Institucional) em formato pdf', function () {
+test('downloads the report by department (Institutional) in pdf format', function () {
     grantPermission(PermissionType::InstitutionalReport->value);
 
     Department::factory(10)->create();
@@ -319,7 +319,7 @@ test('faz o download do relatório por lotação (Institucional) em formato pdf'
     ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
 });
 
-test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis do relatório por departamento', function () {
+test('if initialization values are valid, they will be used to initialize report variables by department', function () {
     grantPermission(PermissionType::DepartmentReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [
@@ -332,7 +332,7 @@ test('se os valores de inicialização forem válidos, eles serão utilizados pa
     ->assertSet('report_type', DepartmentReportType::Department->value);
 });
 
-test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis do relatório por departamento (Gerencial)', function () {
+test('if the initialization values are valid, they will be used to initialize the report variables by department (Managerial)', function () {
     grantPermission(PermissionType::ManagerialReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [
@@ -345,7 +345,7 @@ test('se os valores de inicialização forem válidos, eles serão utilizados pa
     ->assertSet('report_type', DepartmentReportType::Managerial->value);
 });
 
-test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis do relatório por departamento (Institucional)', function () {
+test('if initialization values are valid, they will be used to initialize report variables by department (Institutional)', function () {
     grantPermission(PermissionType::InstitutionalReport->value);
 
     Livewire::test(DepartmentReportLivewire::class, [

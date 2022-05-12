@@ -7,8 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Carbon;
 
 /**
- * Verifica se a data em validação é maior que a data mínima para geração dos
- * relatórios.
+ * Checks if the date is greater than the minimum date for generating reports.
  *
  * @see https://laravel.com/docs/validation#custom-validation-rules
  */

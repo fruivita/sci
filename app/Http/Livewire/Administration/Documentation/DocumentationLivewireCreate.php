@@ -18,14 +18,14 @@ class DocumentationLivewireCreate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Documentação da aplicação que será criada.
+     * Resource that will be created.
      *
      * @var \App\Models\Documentation
      */
     public Documentation $doc;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -88,7 +88,7 @@ class DocumentationLivewireCreate extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -98,7 +98,7 @@ class DocumentationLivewireCreate extends Component
     }
 
     /**
-     * Cadastra a documentação da aplicação.
+     * Store a newly created resource in storage.
      *
      * @return void
      */

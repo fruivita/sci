@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Impressoras.
+ * Printers.
  *
  * @see https://laravel.com/docs/eloquent
  */
@@ -26,9 +26,9 @@ class Printer extends Model
     protected $fillable = ['name'];
 
     /**
-     * Impressões feitas por uma determinada impressora.
+     * Prints from a particular printer.
      *
-     * Relacionamento impressora (1:N) impressões.
+     * Relationship printer (1:N) prints.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -38,25 +38,25 @@ class Printer extends Model
     }
 
     /**
-     * Gera o relatório de volume de impressão por impressora de acordo com o
-     * período e a(s) impressora(s) informadas.
+     * Generates the print volume report by printer according to the period and
+     * printer(s) informed.
      *
-     * O relatório traz as seguintes informações de acordo com os parâmetros
-     * informados:
-     * - total_print: volume de impressão
-     * - printer: nome da impressora
-     * - last_print_date: data da última impressão da impressora
+     * The report brings the following information according to the parameters
+     * informed:
+     * - total_print: print volume
+     * - printer:printer name
+     * - last_print_date: printer's last print date
      *
-     * O retorno é ordenado pelo:
+     * The return is ordered by:
      * - total_print desc
      * - printer asc
      *
-     * Regra de negócio: calcula o volume de impressão de todas as impressoras
-     * e/ou apenas das informadas, bem como a data de sua última impressão de
-     * acordo com o range de datas informados.
-     * A data da última impressão também é limitada pelo range.
-     * Somente são exibidas as impressoras que realizaram alguma impressão no
-     * período informado.
+     * Business rule: calculates the printing volume of all printers and/or
+     * only the ones informed, as well as the date of its last printing
+     * according to the range of dates informed.
+     * The last print date is also limited by the range.
+     * Only printers that performed some printing in the informed period are
+     * displayed.
      *
      * @param \Carbon\Carbon $initial_date
      * @param \Carbon\Carbon $final_date

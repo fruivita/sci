@@ -10,19 +10,19 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
- * Importador destinado à importação da impressão.
+ * Importer for importing the print log file.
  */
 final class PrintLogImporter implements IImportablePrintLog
 {
     /**
-     * Nome do disco do file system.
+     * File system disk name.
      *
      * @var string
      */
     private $disk_name = 'print-log';
 
     /**
-     * File System em que estão armazenados os logs de impressão.
+     * File System where the print logs are stored.
      *
      * @var \Illuminate\Contracts\Filesystem\Filesystem
      */
@@ -59,7 +59,7 @@ final class PrintLogImporter implements IImportablePrintLog
     }
 
     /**
-     * Tratativas iniciais para a importação.
+     * Prepare the import.
      *
      * @return void
      */
@@ -72,7 +72,7 @@ final class PrintLogImporter implements IImportablePrintLog
     }
 
     /**
-     * Execução propriamente dita da importação.
+     * Run the import.
      *
      * @return void
      */
@@ -95,7 +95,7 @@ final class PrintLogImporter implements IImportablePrintLog
     }
 
     /**
-     * Conclusão do processamento de importação.
+     * Finishes the import.
      *
      * @return void
      */
@@ -108,10 +108,10 @@ final class PrintLogImporter implements IImportablePrintLog
     }
 
     /**
-     * Lista de arquivos de log de impressão para serem importados.
+     * List of print log files to be imported.
      *
-     * Não retonra o full path, mas tão somente o file name, filtrando os
-     * arquivos para não retornar os logs de erro de impressão.
+     * It does not return the full path, but only the file name, filtering the
+     * files so as not to return the print error logs.
      *
      * @return string[]
      */
@@ -126,7 +126,7 @@ final class PrintLogImporter implements IImportablePrintLog
     }
 
     /**
-     * Exclui o arquivo de log de impressão informado.
+     * Deletes the specified print log file.
      *
      * @param string $print_log_file ex.: 21-02-2012.txt
      *
@@ -138,27 +138,26 @@ final class PrintLogImporter implements IImportablePrintLog
     }
 
     /**
-     * Persistência para todas as impressões presentes no arquivo de log.
+     * Persistence for all prints present in the log file.
      *
      * @param string $print_log_file Ex.: 21-02-2012.txt
      *
-     * @return bool true se a persistência integral do arquivo foi feita ou
-     *              false caso alguma linha do arquivo tenha falhado
+     * @return bool true if full file persistence was done or false if any
+     *              lines in the file failed
      */
     private function save(string $print_log_file)
     {
         /*
-         * Utiliza-se o package LineReader para fazer a leitura dos arquivos de
-         * log, pois eles podem ser grandes o que poderia levar ao estouro de
-         * memória.
-         * Assim, em vez de se ler o arquivo inteiro de uma vez, a biblioteca
-         * faz a leitura do arquivo linha por linha.
-         * Se necessário, para ver o consumo de mermória, basta colocar o
-         * trecho abaixo onde se deseja medi-lo.
+         * The LineReader package is used to read the log files, as they can be
+         * large which could lead to memory overflow.
+         * So, instead of reading the entire file at once, the library reads
+         * the file line by line.
+         * If necessary, to see the memory consumption, just put the snippet
+         * below where you want to measure it.
          *
-         * php echo memory_get_peak_usage(false)/1024/1024 . PHP_EOL;
+         * echo memory_get_peak_usage(false)/1024/1024 . PHP_EOL;
          *
-         * Para maiores informações:
+         * For more informations:
          * https://www.php.net/manual/en/ini.core.php
          * https://www.php.net/manual/en/function.memory-get-usage.php
          * https://stackoverflow.com/questions/15745385/memory-get-peak-usage-with-real-usage
@@ -186,7 +185,7 @@ final class PrintLogImporter implements IImportablePrintLog
     }
 
     /**
-     * Caminho completo do arquivo de log informado.
+     * Full path of the log file provided.
      *
      * @param string $print_log_file ex.: 21-02-2012.txt
      *
@@ -209,13 +208,12 @@ final class PrintLogImporter implements IImportablePrintLog
      * can be made by implementors is that if an Exception instance is given
      * to produce a stack trace, it MUST be in a key named "exception".
      *
-     * Os dados de contexto informado são acrescentados aos seguintes dados da
-     * classe:
-     * - disk - file system do log de impressão;
+     * The given context data is appended to the following class data:
+     * - disk - print log file system;
      *
-     * @param string               $level   nível do log
-     * @param string|\Stringable   $message sobre o ocorrido
-     * @param array<string, mixed> $context dados de contexto
+     * @param string               $level   log level
+     * @param string|\Stringable   $message about what happened
+     * @param array<string, mixed> $context context data
      *
      * @return void
      *

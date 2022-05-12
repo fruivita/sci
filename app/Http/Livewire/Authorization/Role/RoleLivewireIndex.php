@@ -30,7 +30,7 @@ class RoleLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar os perfis paginados e suas permissões.
+     * Computed property to list the paginated roles and their permissions.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -44,7 +44,7 @@ class RoleLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */

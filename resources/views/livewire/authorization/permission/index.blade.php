@@ -1,5 +1,5 @@
 {{--
-    View livewire para listagem das permissões.
+    View livewire for permissions listing.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

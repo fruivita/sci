@@ -24,23 +24,23 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível listar as localidades sem estar autenticado', function () {
+test('cannot list sites without being authenticated', function () {
     logout();
 
     get(route('administration.site.index'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem das localidades', function () {
+test('authenticated but without specific permission, unable to access site listing route', function () {
     get(route('administration.site.index'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de listagem das localidades sem permissão específica', function () {
+test('cannot render site listing component without specific permission', function () {
     Livewire::test(SiteLivewireIndex::class)->assertForbidden();
 });
 
-test('não é possível definir a localidade que será excluída sem permissão específica', function () {
+test('cannot set the site that will be deleted without specific permission', function () {
     grantPermission(PermissionType::SiteViewAny->value);
 
     $site = Site::factory()->create(['name' => 'foo']);
@@ -53,7 +53,7 @@ test('não é possível definir a localidade que será excluída sem permissão 
     ->assertSet('deleting', new Site());
 });
 
-test('não é possível excluir a localidade sem permissão específica', function () {
+test('cannot delete site without specific permission', function () {
     grantPermission(PermissionType::SiteViewAny->value);
 
     $site = Site::factory()->create(['name' => 'foo']);
@@ -68,16 +68,16 @@ test('não é possível excluir a localidade sem permissão específica', functi
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::SiteViewAny->value);
 
     Livewire::test(SiteLivewireIndex::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('paginação retorna a quantidade de localidades esperada', function () {
+test('pagination returns the number of sites expected', function () {
     grantPermission(PermissionType::SiteViewAny->value);
 
     Site::factory(120)->create();
@@ -94,7 +94,7 @@ test('paginação retorna a quantidade de localidades esperada', function () {
     ->assertCount('sites', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::SiteViewAny->value);
 
     Livewire::test(SiteLivewireIndex::class)
@@ -109,7 +109,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível listar as localidades com permissão específica', function () {
+test('list sites with specific permission', function () {
     grantPermission(PermissionType::SiteViewAny->value);
 
     get(route('administration.site.index'))
@@ -117,7 +117,7 @@ test('é possível listar as localidades com permissão específica', function (
     ->assertSeeLivewire(SiteLivewireIndex::class);
 });
 
-test('emite evento de feedback ao excluir uma localidade', function () {
+test('emits feedback event when deleting a site', function () {
     grantPermission(PermissionType::SiteViewAny->value);
     grantPermission(PermissionType::SiteDelete->value);
 
@@ -136,7 +136,7 @@ test('emite evento de feedback ao excluir uma localidade', function () {
     ]);
 });
 
-test('é possível definir a localidade que será exluida com permissão específica', function () {
+test('defines the site that will be excluded with specific permission', function () {
     grantPermission(PermissionType::SiteViewAny->value);
     grantPermission(PermissionType::SiteDelete->value);
 
@@ -149,7 +149,7 @@ test('é possível definir a localidade que será exluida com permissão especí
     ->assertSet('deleting.id', $site->id);
 });
 
-test('é possível excluir a localidade com permissão específica', function () {
+test('delete site with specific permission', function () {
     grantPermission(PermissionType::SiteViewAny->value);
     grantPermission(PermissionType::SiteDelete->value);
 

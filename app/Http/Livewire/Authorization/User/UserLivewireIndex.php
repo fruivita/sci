@@ -21,35 +21,35 @@ class UserLivewireIndex extends Component
     use WithPerPagePagination;
 
     /**
-     * Usuário em edição no modal.
+     * Editing resource.
      *
      * @var \App\Models\User
      */
     public User $editing;
 
     /**
-     * Perfis disponíveis.
+     * Avaiable roles.
      *
      * @var \Illuminate\Database\Eloquent\Collection
      */
     public $roles;
 
     /**
-     * Deve-se exibir o modal de edição do usuário?
+     * Should the modal for editing the resouce be displayed?
      *
      * @var bool
      */
     public $show_edit_modal = false;
 
     /**
-     * Termo pesquisável informado pelo usuário.
+     * Searchable term entered by the user.
      *
      * @var string
      */
     public $term;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -101,7 +101,7 @@ class UserLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar os usuários paginados e seu perfil.
+     * Computed property to list paged users and their roles.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -115,7 +115,7 @@ class UserLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -142,7 +142,7 @@ class UserLivewireIndex extends Component
     }
 
     /**
-     * Volta a paginação à paginação inicial.
+     * Returns the pagination to the initial pagination.
      *
      * Runs before a property called $term is updated.
      *
@@ -162,7 +162,7 @@ class UserLivewireIndex extends Component
     }
 
     /**
-     * Exibe o modal de edição e define o usuário que será editado.
+     * Displays the editing modal and defines the resource that will be edited.
      *
      * @param \App\Models\User $user
      *
@@ -180,7 +180,7 @@ class UserLivewireIndex extends Component
     }
 
     /**
-     * Atualiza o usuário em edição.
+     * Update the specified resource in storage.
      *
      * @return void
      */

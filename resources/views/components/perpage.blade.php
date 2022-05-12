@@ -1,8 +1,8 @@
 {{--
-    Paginação dos registros.
+    Pagination of records.
 
     Props:
-    - error: mensagem de erro que deverá ser exibida
+    - error: error message that will be displayed
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -44,7 +44,7 @@
     </select>
 
 
-    {{-- exibição de eventual mensagem de erro --}}
+    {{-- display of any error message --}}
     <x-error>{{ $error }}</x-error>
 
 </div>

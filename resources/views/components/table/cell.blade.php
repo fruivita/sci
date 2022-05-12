@@ -1,5 +1,5 @@
 {{--
-    Célula da tabela.
+    Table cell.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

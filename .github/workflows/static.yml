@@ -1,15 +1,13 @@
 ###############################################################################
-# Sobre GitHub Actions                                                        #
+# About GitHub Actions                                                        #
 # https://docs.github.com/en/actions/learn-github-actions                     #
 # https://www.youtube.com/watch?v=TLB5MY9BBa4                                 #
 ###############################################################################
 #
-# Executa a análise estática do código php e força a padronização do estilo
+# Perform static analysis of php code and force style standardization.
 #
-# PHPStan: análise estática https://phpstan.org/
-# PHP CS Fixer: padronização https://github.com/FriendsOfPHP/PHP-CS-Fixer
-#
-#
+# PHPStan: static analysis https://phpstan.org/
+# PHP CS Fixer: php code pattern https://github.com/FriendsOfPHP/PHP-CS-Fixer
 
 name: Static Analysis
 
@@ -40,7 +38,7 @@ jobs:
       - name: Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'style: força padrão de código com php-cs-fixer'
+          commit_message: 'style: code pattern with php-cs-fixer'
           branch: ${{ github.head_ref }}
 
   phpstan:

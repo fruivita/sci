@@ -1,12 +1,12 @@
 {{--
-    Select padrão.
+    Default select.
 
     Props:
-    - error: mensagem de erro que será exibida
-    - icon: ícone svg que será exibido
-    - id: id do item
-    - text: texto de descrição/significado do item
-    - title: title do item
+    - error: error message that will be displayed
+    - icon: svg icon that will be displayed
+    - id: item id
+    - text: item description/meaning text
+    - title: item title
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -23,10 +23,10 @@
 @php $id = $id ?? md5(random_int(PHP_INT_MIN, PHP_INT_MAX)); @endphp
 
 
-{{-- container do select --}}
+{{-- select container --}}
 <div class="text-left w-full" title="{{ $title }}">
 
-    {{-- texto acima do select --}}
+    {{-- text above select --}}
     <label class="font-bold text-lg" for="{{ $id }}">
 
         {{ $text }}
@@ -43,7 +43,7 @@
 
     <div class="bg-primary-100 border-2 border-primary-300 flex items-center rounded">
 
-        {{-- ícone à frente do select --}}
+        {{-- icon in front of select --}}
         <label class="text-primary-900 p-2" for="{{ $id }}">
 
             <x-icon name="{{ $icon }}"/>
@@ -51,7 +51,7 @@
         </label>
 
 
-        {{-- select propriamente dito --}}
+        {{-- select itself --}}
         <select
             id="{{ $id }}"
             name="{{ $id }}"
@@ -74,7 +74,7 @@
 
     <div>
 
-        {{-- exibição de eventual mensagem de erro --}}
+        {{-- display of any error message --}}
         <x-error>{{ $error }}</x-error>
 
     </div>

@@ -1,9 +1,9 @@
 {{--
-    Feedback ao usuário para ser, preferencialmente, adicionado ao lado do
-    botão de ação para exibir de retorno ao usuário.
+    User feedback to preferably be added next to the action button to display
+    feedback to the user.
 
-    O componente aguarda a emissão do evento 'feedback' acompanhado do tipo (
-    error ou success) e da mensagem que deve ser exibida.
+    The component waits for the 'feedback' event to be issued, accompanied by
+    the type (error or success) and the message that should be displayed.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

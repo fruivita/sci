@@ -1,17 +1,19 @@
 {{--
-    Feedback em forma de notificação popup para dar retorno à solicitação do
-    usuário. Indicada para quando o feedback 'inline' não for indicado.
+    Feedback in the form of a popup notification to respond to the user's
+    request.
+    Suitable for when 'inline' feedback is not indicated.
 
-    Trata-se de elemento intrusivo, pois se sobrepõe ao conteúdo da página.
+    After a certain time, the message will be automatically extinguished.
 
-    Decorrido um determinado tempo, a mensagem se extinguirá automaticamente.
+    The component waits for the 'notify' event to be emitted accompanied by:
+    - message type (error or success)
+    - representative image icon
+    - header
+    - message
+    - message timeout.
 
-    O componente aguarda a emissão do evento 'notify' acompanhado de
-    - tipo de mensagem (error ou success)
-    - ícone representativo da imagem
-    - cabeçalho
-    - mensagem
-    - timeout da mensagem .
+    Note: This is an intrusive display component, as it overlays the page
+    content.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -44,22 +46,22 @@
 
     <div class="flex items-center space-x-3">
 
-        {{-- Ícone de contexto da mensagem --}}
+        {{-- message context icon --}}
         <div x-html="icon"></div>
 
 
         <div x-bind:class="(header && message) ? 'space-y-3' : ''">
 
-            {{-- Cabeçalho da mensagem --}}
+            {{-- message header --}}
             <h3 x-text="header" class="font-bold text-lg"></h3>
 
 
-            {{-- Mensagem propriamente dita --}}
+            {{-- message itself --}}
             <p x-text="message"></p>
 
         </div>
 
-            {{-- Botão para fechar a caixa de diálogo --}}
+            {{-- button to close the dialog box --}}
             <button x-on:click="notify = false;" class="animate-none lg:animate-ping" id="btn-flash" type="button">
 
                 <x-icon name="x-circle"/>

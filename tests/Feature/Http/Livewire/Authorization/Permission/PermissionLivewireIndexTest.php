@@ -23,33 +23,33 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível listar as permissões sem estar autenticado', function () {
+test('cannot list permissions without being authenticated', function () {
     logout();
 
     get(route('authorization.permission.index'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem das permissões', function () {
+test('authenticated but without specific permission, unable to access permissions listing route', function () {
     get(route('authorization.permission.index'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de listagem das permissões sem permissão específica', function () {
+test('cannot render permissions listing component without specific permission', function () {
     Livewire::test(PermissionLivewireIndex::class)->assertForbidden();
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::PermissionViewAny->value);
 
     Livewire::test(PermissionLivewireIndex::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('paginação retorna a quantidade de permissões esperada', function () {
+test('pagination returns the amount of permissions expected', function () {
     grantPermission(PermissionType::PermissionViewAny->value);
 
     Permission::factory(120)->create();
@@ -66,7 +66,7 @@ test('paginação retorna a quantidade de permissões esperada', function () {
     ->assertCount('permissions', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::PermissionViewAny->value);
 
     Livewire::test(PermissionLivewireIndex::class)
@@ -81,7 +81,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível listar as permissões com permissão específica', function () {
+test('list permissions with specific permission', function () {
     grantPermission(PermissionType::PermissionViewAny->value);
 
     get(route('authorization.permission.index'))

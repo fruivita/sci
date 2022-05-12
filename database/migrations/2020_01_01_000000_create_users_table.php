@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Schema;
 /*
  * Usuários
  *
- * Os usuários são sincronizados com o servidor LDAP.
- *
  * @see https://laravel.com/docs/8.x/migrations
  * @see https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
  * @see https://docs.microsoft.com/pt-br/windows/win32/adschema/a-samaccountname?redirectedfrom=MSDN
@@ -44,21 +42,25 @@ return new class extends Migration {
                 ->references('id')
                 ->on('departments')
                 ->onUpdate('cascade');
+
             $table
                 ->foreign('duty_id')
                 ->references('id')
                 ->on('duties')
                 ->onUpdate('cascade');
+
             $table
                 ->foreign('occupation_id')
                 ->references('id')
                 ->on('occupations')
                 ->onUpdate('cascade');
+
             $table
                 ->foreign('role_id')
                 ->references('id')
                 ->on('roles')
                 ->onUpdate('cascade');
+
             $table
                 ->foreign('role_granted_by')
                 ->references('id')

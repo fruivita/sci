@@ -17,8 +17,8 @@ beforeEach(function () {
     Event::fake();
 });
 
-// Fora do horário
-test('schedule fora do horário, não dispara os jobs', function ($datetime, $job) {
+// outside the scheduled time
+test('schedule out of time, does not trigger jobs', function ($datetime, $job) {
     testTime()->freeze($datetime);
 
     $this->artisan('schedule:run');
@@ -32,7 +32,7 @@ test('schedule fora do horário, não dispara os jobs', function ($datetime, $jo
 ]);
 
 // Happy path
-test('schedule no horário correto, dispara os jobs previstos', function ($datetime, $job) {
+test('schedule at the correct time, triggers the scheduled jobs', function ($datetime, $job) {
     testTime()->freeze($datetime);
 
     $this->artisan('schedule:run');

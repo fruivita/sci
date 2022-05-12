@@ -1,5 +1,5 @@
 {{--
-    View livewire para exibição individual dos servidores.
+    View livewire for individual server views.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

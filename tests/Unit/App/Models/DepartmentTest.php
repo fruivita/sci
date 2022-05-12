@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 // Happy path
-test('uma lotação possui várias impressões', function () {
+test('one department has many prints', function () {
     $department = Department::first();
     Printing::factory(3)
         ->for($department, 'department')
@@ -24,6 +24,6 @@ test('uma lotação possui várias impressões', function () {
     expect($department->prints)->toHaveCount(3);
 });
 
-test('ids da lotação default para usuários sem lotação está definida', function () {
+test('default department ids for users with no department is set', function () {
     expect(Department::DEPARTMENTLESS)->toBe(0);
 });

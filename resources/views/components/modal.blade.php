@@ -1,5 +1,5 @@
 {{--
-    Modal padrão.
+    Default modal.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -43,7 +43,7 @@
     </div>
 
 
-    {{-- modal propriamente dito --}}
+    {{-- modal itself --}}
     <article
         x-show="show"
         x-on:click.away="show = false"

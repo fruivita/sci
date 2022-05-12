@@ -21,7 +21,7 @@ class PermissionLivewireShow extends Component
     use WithPreviousNext;
 
     /**
-     * Permissão que está em exibição.
+     * Resource on display.
      *
      * @var \App\Models\Permission
      */
@@ -39,8 +39,8 @@ class PermissionLivewireShow extends Component
     }
 
     /**
-     * Objeto base que será utilizado definir os ids do registro anterior do
-     * próximo.
+     * Base resource that will be used to define the ids of the previous record
+     * of the next one.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -50,7 +50,7 @@ class PermissionLivewireShow extends Component
     }
 
     /**
-     * Computed property para a listar os perfis paginados.
+     * Computed property to list the paginated roles.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -62,7 +62,7 @@ class PermissionLivewireShow extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */

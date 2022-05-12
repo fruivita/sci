@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use function Spatie\PestPluginTestTime\testTime;
 
 // Happy path
-test('registra em log o ínicio e o fim da tarefa dispachada pelo schedule', function () {
+test('logs the start and end of the task dispatched by the schedule', function () {
     Bus::fake();
     Log::spy();
 

@@ -22,128 +22,128 @@ afterEach(function () {
 });
 
 // Forbidden
-test('usuário sem permissão não pode listar os logs da aplicação', function () {
+test('user without permission cannot list application logs', function () {
     expect((new LogPolicy)->viewAny($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode deletar os logs da aplicação', function () {
+test('user without permission cannot delete application logs', function () {
     expect((new LogPolicy)->delete($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode fazer o download dos logs da aplicação', function () {
+test('user without permission cannot download application logs', function () {
     expect((new LogPolicy)->download($this->user))->toBeFalse();
 });
 
 // Happy path
-test('permissão de listagem dos logs da aplicação é persistida em cache por 5 segundos', function () {
+test('application log listing permission is persisted in cache for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::LogViewAny->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new LogPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new LogPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::LogViewAny->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new LogPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new LogPolicy)->viewAny($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de excluir individualmente os logs da aplicação é persistida em cache por 5 segundos', function () {
+test('permission to individually delete application logs is persisted in cache for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::LogDelete->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new LogPolicy)->delete($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new LogPolicy)->delete($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::LogDelete->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new LogPolicy)->delete($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new LogPolicy)->delete($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de fazer o download individual dos logs da aplicação é persistida em cache por 5 segundos', function () {
+test('permission to download individual application logs is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::LogDownload->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new LogPolicy)->download($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new LogPolicy)->download($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::LogDownload->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new LogPolicy)->download($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new LogPolicy)->download($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('usuário com permissão pode listar os logs da aplicação', function () {
+test('user with permission can list application logs', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     expect((new LogPolicy)->viewAny($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode excluir individualmente um log da aplicação', function () {
+test('user with permission can individually delete an application log', function () {
     grantPermission(PermissionType::LogDelete->value);
 
     expect((new LogPolicy)->delete($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode fazer o download individual de um log da aplicação', function () {
+test('user with permission can download individual application log', function () {
     grantPermission(PermissionType::LogDownload->value);
 
     expect((new LogPolicy)->download($this->user))->toBeTrue();

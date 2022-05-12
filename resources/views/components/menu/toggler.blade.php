@@ -1,5 +1,5 @@
 {{--
-    Toggler para exibir/esconder o menu principal.
+    Toggler to show/hide the main menu.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

@@ -1,5 +1,5 @@
 {{--
-    Rodapé da aplicação.
+    Application footer.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

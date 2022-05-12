@@ -30,7 +30,7 @@ class ServerLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar os servidores paginados e suas localidades.
+     * Computed property to list paged servers and their sites.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -44,7 +44,7 @@ class ServerLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */

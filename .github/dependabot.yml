@@ -1,4 +1,4 @@
-# Cria pull requests para atualizar as dependências e vulnerabilidades de segurança
+# Create pull requests to update security dependencies and vulnerabilities
 #
 # https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/enabling-and-disabling-dependabot-version-updates
 # https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/configuration-options-for-dependency-updates

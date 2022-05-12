@@ -1,5 +1,5 @@
 {{--
-    Linha da tabela.
+    Table row.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

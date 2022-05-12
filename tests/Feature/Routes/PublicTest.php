@@ -9,11 +9,11 @@ use Database\Seeders\RoleSeeder;
 use function Pest\Laravel\get;
 
 // Happy path
-test('rota de login está disponível sem necessidade de autenticação', function () {
+test('login route is available with no authentication required', function () {
     get(route('login'))->assertOk();
 });
 
-test('usuário autenticado, se tentar acessar a página de login novamente, será redirecionado para a página home', function () {
+test('authenticated user, if try to access the login page again, you will be redirected to the home page', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     get(route('login'))->assertOk();
@@ -27,6 +27,6 @@ test('usuário autenticado, se tentar acessar a página de login novamente, ser�
     get(route('login'))->assertOk();
 });
 
-test('rota de login retorna a view de login', function () {
+test('login route returns login view', function () {
     get(route('login'))->assertViewIs('login');
 });

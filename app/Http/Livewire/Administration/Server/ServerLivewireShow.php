@@ -21,15 +21,15 @@ class ServerLivewireShow extends Component
     use WithPreviousNext;
 
     /**
-     * Servidor que está em exibição.
+     * Resource on display.
      *
      * @var \App\Models\Server
      */
     public Server $server;
 
     /**
-     * Objeto base que será utilizado definir os ids do registro anterior do
-     * próximo.
+     * Base resource that will be used to define the ids of the previous record
+     * of the next one.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -50,7 +50,7 @@ class ServerLivewireShow extends Component
     }
 
     /**
-     * Computed property para a listar as localidades paginadas.
+     * Computed property to list paginated sites.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -62,7 +62,7 @@ class ServerLivewireShow extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */

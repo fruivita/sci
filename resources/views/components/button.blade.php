@@ -1,10 +1,10 @@
 {{--
-    Button padrão.
+    Default button.
 
     Props:
-    - icon: ícone svg que será exibido
-    - prepend: se o text do button deve vir antes ou depois do icon
-    - text: texto de descrição/significado do item
+    - icon: svg icon that will be displayed
+    - prepend: if the text of the button must come before or after the icon
+    - text: item description/meaning text
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -23,7 +23,7 @@
     {{ $attributes->except('class') }}
 >
 
-    {{-- insere o ícone antes do texto do botão --}}
+    {{-- inserts icon before button text --}}
     @if ($prepend)
 
         <x-icon name="{{ $icon }}"/>
@@ -31,7 +31,7 @@
 
         <span>{{ $text }}</span>
 
-    {{-- insere o ícone após o texto do botão --}}
+    {{-- inserts icon after button text --}}
     @else
 
         <span>{{ $text }}</span>

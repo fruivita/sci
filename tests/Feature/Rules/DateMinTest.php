@@ -11,7 +11,7 @@ test('valida a data mínima permitida na aplicação', function ($value, $expect
 
     expect($rule->passes('date', $value))->toBe($expect);
 })->with([
-    [now()->subCentury()->subDay()->format('d-m-Y'), false], // inválido, data mínima é de 100 anos atrás
-    [now()->subCentury()->format('d-m-Y'), true],            // a data mínima é válida
-    [today()->format('d-m-Y'), true],                        // data maior que a mínima é válida
+    [now()->subCentury()->subDay()->format('d-m-Y'), false], // invalid, minimum date is 100 years ago
+    [now()->subCentury()->format('d-m-Y'), true],            // the minimum date is valid
+    [today()->format('d-m-Y'), true],                        // today's date is valid
 ]);

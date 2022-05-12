@@ -25,34 +25,34 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível visualizar individualmente um servidor sem estar autenticado', function () {
+test('it is not possible to individually view a server without being authenticated', function () {
     logout();
 
     get(route('administration.server.show', $this->server))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual do servidor', function () {
+test("authenticated but without specific permission, unable to access the server's individual view route", function () {
     get(route('administration.server.show', $this->server))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de visualização individual do servidor sem permissão específica', function () {
+test('cannot render individual server view component without specific permission', function () {
     Livewire::test(ServerLivewireShow::class, ['server' => $this->server])
     ->assertForbidden();
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::ServerView->value);
 
     Livewire::test(ServerLivewireShow::class, ['server' => $this->server])
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('é possível renderizar o componente de visualização individual do servidor com permissão específica', function () {
+test('renders individual server view component with specific permission', function () {
     grantPermission(PermissionType::ServerView->value);
 
     get(route('administration.server.show', $this->server))
@@ -60,7 +60,7 @@ test('é possível renderizar o componente de visualização individual do servi
     ->assertSeeLivewire(ServerLivewireShow::class);
 });
 
-test('paginação retorna a quantidade de localidades esperada', function () {
+test('pagination returns the number of servers expected', function () {
     grantPermission(PermissionType::ServerView->value);
 
     Site::factory(120)->create();
@@ -80,7 +80,7 @@ test('paginação retorna a quantidade de localidades esperada', function () {
     ->assertCount('sites', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::ServerView->value);
 
     Livewire::test(ServerLivewireShow::class, ['server' => $this->server])
@@ -95,7 +95,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível visualizar individualmente um servidor com permissão específica', function () {
+test('individually view a server with specific permission', function () {
     grantPermission(PermissionType::ServerView->value);
 
     get(route('administration.server.show', $this->server))
@@ -103,23 +103,23 @@ test('é possível visualizar individualmente um servidor com permissão especí
     ->assertSeeLivewire(ServerLivewireShow::class);
 });
 
-test('next e previous estão disponíveis durante a visualização individual dos servidores, inclusive em se tratando do primeiro ou último registros', function () {
+test('next and previous are available when viewing the individual servers, even when dealing with the first or last record', function () {
     grantPermission(PermissionType::ServerView->value);
 
     $server_1 = Server::factory()->create(['name' => 'bar']);
     $server_2 = Server::factory()->create(['name' => 'baz']);
 
-    // possui anterior e próximo
+    // has previous and next
     Livewire::test(ServerLivewireShow::class, ['server' => $server_2])
     ->assertSet('previous', $server_1->id)
     ->assertSet('next', $this->server->id);
 
-    // possui apenas próximo
+    // only has next
     Livewire::test(ServerLivewireShow::class, ['server' => $server_1])
     ->assertSet('previous', null)
     ->assertSet('next', $server_2->id);
 
-    // possui apenas anterior
+    // has only previous
     Livewire::test(ServerLivewireShow::class, ['server' => $this->server])
     ->assertSet('previous', $server_2->id)
     ->assertSet('next', null);

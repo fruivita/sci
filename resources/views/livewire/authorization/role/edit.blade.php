@@ -1,5 +1,5 @@
 {{--
-    View livewire para edição individual dos perfis.
+    View livewire for individual editing of role.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

@@ -25,34 +25,34 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível visualizar individualmente um perfil sem estar autenticado', function () {
+test('it is not possible to individually view a role without being authenticated', function () {
     logout();
 
     get(route('authorization.role.show', $this->role))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual do perfil', function () {
+test('authenticated but without specific permission, unable to access individual role view route', function () {
     get(route('authorization.role.show', $this->role))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de visualização individual do perfil sem permissão específica', function () {
+test('cannot render individual role view component without specific permission', function () {
     Livewire::test(RoleLivewireShow::class, ['role' => $this->role])
     ->assertForbidden();
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::RoleView->value);
 
     Livewire::test(RoleLivewireShow::class, ['role' => $this->role])
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('é possível renderizar o componente de visualização individual do perfil com permissão específica', function () {
+test('renders individual role view component with specific permission', function () {
     grantPermission(PermissionType::RoleView->value);
 
     get(route('authorization.role.show', $this->role))
@@ -60,7 +60,7 @@ test('é possível renderizar o componente de visualização individual do perfi
     ->assertSeeLivewire(RoleLivewireShow::class);
 });
 
-test('paginação retorna a quantidade de permissões esperada', function () {
+test('pagination returns the amount of permissions expected', function () {
     grantPermission(PermissionType::RoleView->value);
 
     Permission::factory(120)->create();
@@ -80,7 +80,7 @@ test('paginação retorna a quantidade de permissões esperada', function () {
     ->assertCount('permissions', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::RoleView->value);
 
     Livewire::test(RoleLivewireShow::class, ['role' => $this->role])
@@ -95,7 +95,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível visualizar individualmente um perfil com permissão específica', function () {
+test('individually view a role with specific permission', function () {
     grantPermission(PermissionType::RoleView->value);
 
     get(route('authorization.role.show', $this->role))
@@ -103,7 +103,7 @@ test('é possível visualizar individualmente um perfil com permissão específi
     ->assertSeeLivewire(RoleLivewireShow::class);
 });
 
-test('next e previous estão disponíveis durante a visualização individual dos perfis, inclusive em se tratando do primeiro ou último registros', function () {
+test('next and previous are available when viewing individual roles, even when dealing with the first or last record', function () {
     $this->role->delete();
     grantPermission(PermissionType::RoleView->value);
 
@@ -111,17 +111,17 @@ test('next e previous estão disponíveis durante a visualização individual do
     $second = Role::find(Role::INSTITUTIONALMANAGER);
     $last = Role::find(Role::ORDINARY);
 
-    // possui anterior e próximo
+    // has previous and next
     Livewire::test(RoleLivewireShow::class, ['role' => $second])
     ->assertSet('previous', Role::ADMINISTRATOR)
     ->assertSet('next', Role::DEPARTMENTMANAGER);
 
-    // possui apenas próximo
+    // only has next
     Livewire::test(RoleLivewireShow::class, ['role' => $first])
     ->assertSet('previous', null)
     ->assertSet('next', Role::INSTITUTIONALMANAGER);
 
-    // possui apenas anterior
+    // has only previous
     Livewire::test(RoleLivewireShow::class, ['role' => $last])
     ->assertSet('previous', Role::DEPARTMENTMANAGER)
     ->assertSet('next', null);

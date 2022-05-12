@@ -5,8 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /*
- * Não deve haver vários registros, mas apenas um único registro, ou seja, não
- * haverá creates, apenas update.
+ * There must not be multiple records, but only a single record, that is, there
+ * will be no creates, only update.
  *
  * @see https://laravel.com/docs/8.x/migrations
  * @see https://dev.mysql.com/doc/refman/8.0/en/integer-types.html

@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /*
- * Tipos de importação que a aplicação pode fazer.
+ * Types of import that the application can do.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  * @see https://laravel.com/docs/collections
@@ -13,7 +13,7 @@ enum ImportationType: string
     case Corporate = 'corporate';
     case PrintLog = 'print_log';
     /**
-     * Nome para exibição do tipo de importação.
+     * Display name of the import type.
      *
      * @return string
      */
@@ -26,7 +26,7 @@ enum ImportationType: string
     }
 
     /**
-     * Nome para exibição da queue que será usada para o tipo de importação.
+     * Display name of the queue that will be used for the import type.
      *
      * @return string
      */
@@ -39,7 +39,7 @@ enum ImportationType: string
     }
 
     /**
-     * Todos os valores possíveis para o value do enum.
+     * All possible values for the enum value.
      *
      * @return \Illuminate\Support\Collection
      */

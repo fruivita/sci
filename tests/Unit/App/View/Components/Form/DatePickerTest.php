@@ -7,32 +7,32 @@
 use App\View\Components\Form\DatePicker;
 
 // Invalid
-test('data mínima em formato inválido, usa a data de 100 anos atrás', function () {
+test('if minimum date is in invalid format, use date from 100 years ago', function () {
     $config = (new DatePicker(min_date: '15.02.2020'))->getFlatpickrConfiguration();
 
     expect($config['minDate'])->toBe(now()->subCentury()->format('d-m-Y'));
 });
 
-test('data máxima em formato inválido, usa a data de hoje', function () {
+test("if the maximum date is in invalid format, use today's date", function () {
     $config = (new DatePicker(max_date: '15.02.2020'))->getFlatpickrConfiguration();
 
     expect($config['maxDate'])->toBe(now()->format('d-m-Y'));
 });
 
 // Happy path
-test('define a data mínima', function () {
+test('sets the minimum date', function () {
     $config = (new DatePicker(min_date: '15-02-2020'))->getFlatpickrConfiguration();
 
     expect($config['minDate'])->toBe('15-02-2020');
 });
 
-test('define a data máxima', function () {
+test('sets the maximum date', function () {
     $config = (new DatePicker(max_date: '15-02-2020'))->getFlatpickrConfiguration();
 
     expect($config['maxDate'])->toBe('15-02-2020');
 });
 
-test('se não informar os parâmetros, utilizada-se os valores default', function () {
+test('if do not inform the parameters, the default values are used', function () {
     $config = (new DatePicker())->getFlatpickrConfiguration();
 
     expect($config)->toBe([

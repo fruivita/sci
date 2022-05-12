@@ -22,128 +22,128 @@ afterEach(function () {
 });
 
 // Forbidden
-test('usuário sem permissão não pode listar os perfis', function () {
+test('user without permission cannot list roles', function () {
     expect((new RolePolicy)->viewAny($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode visualizar individualmente um perfil', function () {
+test('user without permission cannot individually view a role', function () {
     expect((new RolePolicy)->view($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode atualizar um perfil', function () {
+test('user without permission cannot update a role', function () {
     expect((new RolePolicy)->update($this->user))->toBeFalse();
 });
 
 // Happy path
-test('permissão de listagem dos perfis é persistida em cache por 5 segundos', function () {
+test('roles listing permission is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::RoleViewAny->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new RolePolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new RolePolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::RoleViewAny->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new RolePolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new RolePolicy)->viewAny($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de visualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
+test('permission to individually view a role is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::RoleView->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new RolePolicy)->view($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new RolePolicy)->view($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::RoleView->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new RolePolicy)->view($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new RolePolicy)->view($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de atualizar individualmente um perfil é persistida em cache por 5 segundos', function () {
+test('permission to individually update a role is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::RoleUpdate->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new RolePolicy)->update($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new RolePolicy)->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::RoleUpdate->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new RolePolicy)->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new RolePolicy)->update($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('usuário com permissão pode listar os perfis', function () {
+test('user with permission can list roles', function () {
     grantPermission(PermissionType::RoleViewAny->value);
 
     expect((new RolePolicy)->viewAny($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode visualizar individualmente um perfil', function () {
+test('user with permission can individually view a role', function () {
     grantPermission(PermissionType::RoleView->value);
 
     expect((new RolePolicy)->view($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode atualizar individualmente um perfil', function () {
+test('user with permission can individually update a role', function () {
     grantPermission(PermissionType::RoleUpdate->value);
 
     expect((new RolePolicy)->update($this->user))->toBeTrue();

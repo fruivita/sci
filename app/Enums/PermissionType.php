@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /*
- * Ids das permissões registrados no banco de dados.
+ * Permission ids registered in the database.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  * @see https://laravel.com/docs/authorization

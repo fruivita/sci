@@ -5,7 +5,7 @@ namespace App\Models;
 use FruiVita\Corporate\Models\Occupation as CorporateOccupation;
 
 /**
- * Cargo de um determinado usuário.
+ * Occupation (Cargo) of a given user.
  *
  * @see https://laravel.com/docs/eloquent
  */

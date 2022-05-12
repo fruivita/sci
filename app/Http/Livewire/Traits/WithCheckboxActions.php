@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Traits;
 use App\Enums\CheckboxAction;
 
 /**
- * Trait idealizada para ser utilizada em componente livewire que precise.
+ * Trait designed to be used in a livewire component that needs it.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  * @see https://laravel-livewire.com/docs/2.x/traits
@@ -13,50 +13,50 @@ use App\Enums\CheckboxAction;
 trait WithCheckboxActions
 {
     /**
-     * Chaves dos checkbox devem ser marcados.
+     * Checkbox keys must be marked.
      *
      * @var string[]
      */
     public $selected = [];
 
     /**
-     * Actions de seleção de checkbox disponíveis.
+     * Checkbox selection actions available.
      *
-     * - check-all - marca todos os registros
-     * - uncheck-all - desmarca todos os registros
-     * - check-all-page - marca todos os registros em exibição na página
-     * - uncheck-all-page - desmarca todos os registros em exibição na página
+     * - check-all - check all records
+     * - uncheck-all - uncheck all records
+     * - check-all-page - checks all records displayed on the page
+     * - uncheck-all-page - unchecks all records displayed on the page
      *
      * @var string
      */
     public $checkbox_action = '';
 
     /**
-     * Todos as linhas (ids dos checkbox) que devem ser selecionados no
-     * carregamento inicial (mount) da página.
+     * All lines (checkbox ids) that must be selected on initial load (mount)
+     * of the page.
      *
      * @return \Illuminate\Support\Collection
      */
     abstract private function rowsToCheck();
 
     /**
-     * Todos as linhas (ids dos checkbox) disponíveis para seleção.
+     * All lines (checkbox ids) available for selection.
      *
      * @return \Illuminate\Support\Collection
      */
     abstract private function allCheckableRows();
 
     /**
-     * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra
-     * as linhas atualmente exibidas na página.
+     * Range of lines (checkbox ids) available for selection. As a rule, the
+     * lines currently displayed on the page.
      *
      * @return \Illuminate\Support\Collection
      */
     abstract private function currentlyCheckableRows();
 
     /**
-     * Inicializa os valores dos checkbox que devem ser marcados quando a trait
-     * é inicializada pela primeira vez.
+     * Initializes the values of the checkboxes that must be checked when the
+     * trait is initialized for the first time.
      *
      * Runs once, immediately after the component is instantiated, but before
      * render() is called. This is only called once on initial page load and
@@ -72,13 +72,13 @@ trait WithCheckboxActions
     }
 
     /**
-     * Executa a action informada.
+     * Executes the given action.
      *
-     * As actions permitidas são:
-     * - check-all - marca todos os registros
-     * - uncheck-all - desmarca todos os registros
-     * - check-all-page - marca todos os registros em exibição na página
-     * - uncheck-all-page - desmarca todos os registros em exibição na página
+     * The allowed actions are:
+     * - check-all - check all records
+     * - uncheck-all - uncheck all records
+     * - check-all-page - checks all records displayed on the page
+     * - uncheck-all-page - unchecks all records displayed on the page
      *
      * Runs after a property called $checkbox_action is updated
      *
@@ -104,10 +104,10 @@ trait WithCheckboxActions
     }
 
     /**
-     * Retorna todos os ids dos checkbox que devem ser marcados respondendo à
-     * action check-all.
+     * Returns all checkbox ids that should be checked responding to the
+     * check-all action.
      *
-     * Nesse caso, todos os ids existentes na entidade.
+     * In this case, all existing ids in the entity.
      *
      * @return string[]
      */
@@ -119,10 +119,10 @@ trait WithCheckboxActions
     }
 
     /**
-     * Retorna todos os ids dos checkbox que devem ser desmarcados respondendo
-     * à action uncheck-all.
+     * Returns all checkbox ids that should be unchecked by responding to the
+     * uncheck-all action.
      *
-     * Nesse caso, todos os ids existentes na entidade.
+     * In this case, all existing ids in the entity.
      *
      * @return string[]
      */
@@ -132,10 +132,10 @@ trait WithCheckboxActions
     }
 
     /**
-     * Retorna todos os ids dos checkbox que devem ser marcados respondendo à
-     * action check-all-page.
+     * Returns all checkbox ids that should be checked responding to the
+     * check-all-page action.
      *
-     * Nesse caso, todos os ids exibidos na página atual.
+     * In this case, all ids displayed on the current page.
      *
      * @return string[]
      */
@@ -149,10 +149,10 @@ trait WithCheckboxActions
     }
 
     /**
-     * Retorna todos os ids dos checkbox que devem ser desmarcados respondendo
-     * à action uncheck-all-page.
+     * Returns all checkbox ids that should be unchecked by responding to the
+     * uncheck-all-page action.
      *
-     * Nesse caso, todos os ids exibidos na página atual.
+     * In this case, all ids displayed on the current page.
      *
      * @return string[]
      */
@@ -166,13 +166,12 @@ trait WithCheckboxActions
     }
 
     /**
-     * Converte a coleção em um array padronizado para o trabalho com livewire,
-     * isto é, converte o id em string, reseta os índices e, por fim, gera o
-     * array.
+     * Converts the collection into a standardized array for working with
+     * livewire, ie converts the id to a string, resets the indices and finally
+     * generates the array.
      *
-     * A conversão em string e o reset do índice é necessário para compatilizar
-     * com o Livewire evitando-se resultados inexperados na seleção dos
-     * checkbox.
+     * String conversion and index reset is necessary to make it compatible
+     * with Livewire avoiding unexpected results in checkbox selection.
      *
      * @param \Illuminate\Support\Collection $collection
      *

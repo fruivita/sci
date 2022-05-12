@@ -6,11 +6,11 @@
 
 use App\Rules\RouteExists;
 
-test('valida se a rota existe na aplicação, isto é, se é uma rota válida', function ($value, $expect) {
+test('validates if the route exists in the application, that is, if it is a valid route', function ($value, $expect) {
     $rule = new RouteExists();
 
     expect($rule->passes('app_route_name', $value))->toBe($expect);
 })->with([
-    ['foo.bar', false], // inválida, rota inexistente
+    ['foo.bar', false], // invalid, non-existent route
     ['administration.log.index', true],
 ]);

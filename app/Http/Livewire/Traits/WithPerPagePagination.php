@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Traits;
 use Livewire\WithPagination;
 
 /**
- * Trait para definir a paginação utilizada.
+ * Trait to define the pagination used.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  * @see https://laravel-livewire.com/docs/2.x/traits
@@ -15,21 +15,21 @@ trait WithPerPagePagination
     use WithPagination;
 
     /**
-     * Paginação padrão.
+     * Default pagination.
      *
      * @var int
      */
     public $per_page = 10;
 
     /**
-     * Quantidade padrão de links em cada lado na paginação.
+     * Default number of links on each side in pagination.
      *
      * @var int
      */
     private $on_each_side = 1;
 
     /**
-     * Define o valor da paginação.
+     * Sets the pagination value.
      *
      * Runs on every request, immediately after the component is instantiated,
      * but before any other lifecycle methods are called.
@@ -42,7 +42,7 @@ trait WithPerPagePagination
     }
 
     /**
-     * Define a view padrão para a paginação.
+     * Sets the default view for pagination.
      *
      * @return string
      */
@@ -52,7 +52,7 @@ trait WithPerPagePagination
     }
 
     /**
-     * Define a quantidade padrão de links em cada lado na paginação.
+     * Sets the default amount of links on each side in pagination.
      *
      * @param int $value
      *
@@ -64,8 +64,8 @@ trait WithPerPagePagination
     }
 
     /**
-     * Define paginação e a persiste na seção para ser utilizada como
-     * preferência durante toda a navegação do usuário.
+     * Sets pagination and persists the section to be used as a preference
+     * throughout the user's navigation.
      *
      * Runs after a property called $per_page is updated
      *
@@ -87,7 +87,7 @@ trait WithPerPagePagination
     }
 
     /**
-     * Aplica a paginação na query informada.
+     * Applies pagination in the given query.
      *
      * @param \Illuminate\Contracts\Database\Query\Builder $query
      *

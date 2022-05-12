@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /*
- * Tipos de relatório por lotação.
+ * Report types by department.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  * @see https://laravel.com/docs/collections
@@ -14,7 +14,7 @@ enum DepartmentReportType: string
     case Managerial = 'managerial';
     case Department = 'department';
     /**
-     * Nome para exibição do tipo de relatório por lotação.
+     * Display name of the report type by department.
      *
      * @return string
      */
@@ -28,7 +28,7 @@ enum DepartmentReportType: string
     }
 
     /**
-     * Todos os valores possíveis para o value do enum.
+     * All possible values for the enum value.
      *
      * @return \Illuminate\Support\Collection
      */

@@ -16,25 +16,25 @@ beforeEach(function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->print_log_files = [
-        '12-12-2019.txt' => 'server1.domain.gov.br╡12/12/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
-        '15-12-2019.txt' => 'server1.domain.gov.br╡15/12/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡2╡3' . PHP_EOL,
-        '15-01-2020.txt' => 'server1.domain.gov.br╡15/01/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
-        '16-01-2020.txt' => 'server1.domain.gov.br╡16/01/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
-        '15-04-2020.txt' => 'server1.domain.gov.br╡15/04/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
-        '16-04-2020.txt' => 'server1.domain.gov.br╡16/04/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡1╡3' . PHP_EOL,
-        '15-08-2020.txt' => 'server1.domain.gov.br╡15/08/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
-        '15-09-2020.txt' => 'server1.domain.gov.br╡15/09/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
-        '15-11-2020.txt' => 'server1.domain.gov.br╡15/11/2020╡01:00:00╡report.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-444╡1000╡1╡1' . PHP_EOL .
-                            'server1.domain.gov.br╡15/11/2020╡02:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡1╡2' . PHP_EOL,
-        '15-12-2020.txt' => 'server1.domain.gov.br╡15/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
-        '16-12-2020.txt' => 'server1.domain.gov.br╡16/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡1╡3' . PHP_EOL,
-        '17-12-2020.txt' => 'server1.domain.gov.br╡17/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
-        '18-12-2020.txt' => 'server1.domain.gov.br╡18/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-222╡1000╡3╡1' . PHP_EOL,
-        '20-12-2020.txt' => 'server1.domain.gov.br╡20/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡3╡1' . PHP_EOL,
-        '20-01-2021.txt' => 'server1.domain.gov.br╡20/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
-        '20-02-2021.txt' => 'server1.domain.gov.br╡20/02/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡2╡1' . PHP_EOL .
-                            'server1.domain.gov.br╡20/02/2021╡03:00:00╡report.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-333╡1000╡2╡2' . PHP_EOL,
-        '21-01-2021.txt' => 'server1.domain.gov.br╡21/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡9╡1' . PHP_EOL,
+        '12-12-2019.txt' => 'server1.domain.org.br╡12/12/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
+        '15-12-2019.txt' => 'server1.domain.org.br╡15/12/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡2╡3' . PHP_EOL,
+        '15-01-2020.txt' => 'server1.domain.org.br╡15/01/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
+        '16-01-2020.txt' => 'server1.domain.org.br╡16/01/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
+        '15-04-2020.txt' => 'server1.domain.org.br╡15/04/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
+        '16-04-2020.txt' => 'server1.domain.org.br╡16/04/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡1╡3' . PHP_EOL,
+        '15-08-2020.txt' => 'server1.domain.org.br╡15/08/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
+        '15-09-2020.txt' => 'server1.domain.org.br╡15/09/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
+        '15-11-2020.txt' => 'server1.domain.org.br╡15/11/2020╡01:00:00╡report.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-444╡1000╡1╡1' . PHP_EOL .
+                            'server1.domain.org.br╡15/11/2020╡02:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡1╡2' . PHP_EOL,
+        '15-12-2020.txt' => 'server1.domain.org.br╡15/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
+        '16-12-2020.txt' => 'server1.domain.org.br╡16/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡1╡3' . PHP_EOL,
+        '17-12-2020.txt' => 'server1.domain.org.br╡17/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL,
+        '18-12-2020.txt' => 'server1.domain.org.br╡18/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-222╡1000╡3╡1' . PHP_EOL,
+        '20-12-2020.txt' => 'server1.domain.org.br╡20/12/2020╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡3╡1' . PHP_EOL,
+        '20-01-2021.txt' => 'server1.domain.org.br╡20/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡3╡1' . PHP_EOL,
+        '20-02-2021.txt' => 'server1.domain.org.br╡20/02/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡2╡1' . PHP_EOL .
+                            'server1.domain.org.br╡20/02/2021╡03:00:00╡report.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-333╡1000╡2╡2' . PHP_EOL,
+        '21-01-2021.txt' => 'server1.domain.org.br╡21/01/2021╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡1000╡9╡1' . PHP_EOL,
     ];
 
     $this->fake_disk = Storage::fake('print-log');
@@ -50,7 +50,7 @@ afterEach(function () {
     $this->fake_disk = Storage::fake('print-log');
 });
 
-test('relatório de impressão agrupado por mês traz os resultados esperados', function () {
+test('print report grouped by month brings expected results', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -148,7 +148,7 @@ test('relatório de impressão agrupado por mês traz os resultados esperados', 
     ->and($fourteenth->grouping_for_humans)->toBe('2º Mês 2021');
 });
 
-test('relatório de impressão agrupado por bimestre traz os resultados esperados', function () {
+test('print report grouped by bimonthly brings expected results', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -204,7 +204,7 @@ test('relatório de impressão agrupado por bimestre traz os resultados esperado
     ->and($seventh->grouping_for_humans)->toBe('1º Bimestre 2021');
 });
 
-test('relatório de impressão agrupado por trimestre traz os resultados esperados', function () {
+test('print report grouped by trimonthly brings expected results', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -248,7 +248,7 @@ test('relatório de impressão agrupado por trimestre traz os resultados esperad
     ->and($fifth->grouping_for_humans)->toBe('1º Trimestre 2021');
 });
 
-test('relatório de impressão agrupado por quadrimestre traz os resultados esperados', function () {
+test('print report grouped by quadrimester brings expected results', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -286,7 +286,7 @@ test('relatório de impressão agrupado por quadrimestre traz os resultados espe
     ->and($fourth->grouping_for_humans)->toBe('1º Quadrimestre 2021');
 });
 
-test('relatório de impressão agrupado por semestre traz os resultados esperados', function () {
+test('print report grouped by semiannual brings expected results', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -318,7 +318,7 @@ test('relatório de impressão agrupado por semestre traz os resultados esperado
     ->and($third->grouping_for_humans)->toBe('1º Semestre 2021');
 });
 
-test('relatório de impressão agrupado por ano, incluindo ano zerado de impressão, traz os resultados esperados', function () {
+test('print report grouped by year, including year without print, brings the expected results', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -344,7 +344,7 @@ test('relatório de impressão agrupado por ano, incluindo ano zerado de impress
     ->and($second->grouping_for_humans)->toBe('2021');
 });
 
-test('custom pagination do relatório de impressão está funcionando', function () {
+test('custom pagination of print report is working', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -359,7 +359,7 @@ test('custom pagination do relatório de impressão está funcionando', function
     ->and($result->lastPage())->toBe(3);
 });
 
-test('relatório de impressão agrupado por mês sem impressão no período', function () {
+test('print report grouped by month without print in period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -445,7 +445,7 @@ test('relatório de impressão agrupado por mês sem impressão no período', fu
     ->and($twelfth->grouping_for_humans)->toBe('12º Mês 2010');
 });
 
-test('relatório de impressão agrupado por bimestre sem impressão no período', function () {
+test('print report grouped by bimonthly without print in period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -495,7 +495,7 @@ test('relatório de impressão agrupado por bimestre sem impressão no período'
     ->and($sixth->grouping_for_humans)->toBe('6º Bimestre 2010');
 });
 
-test('relatório de impressão agrupado por trimestre sem impressão no período', function () {
+test('print report grouped by trimonthly without print in period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -533,7 +533,7 @@ test('relatório de impressão agrupado por trimestre sem impressão no período
     ->and($fourth->grouping_for_humans)->toBe('4º Trimestre 2010');
 });
 
-test('relatório de impressão agrupado por quadrimestre sem impressão no período', function () {
+test('print report grouped by quadrimester without print in period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -565,7 +565,7 @@ test('relatório de impressão agrupado por quadrimestre sem impressão no perí
     ->and($third->grouping_for_humans)->toBe('3º Quadrimestre 2010');
 });
 
-test('relatório de impressão agrupado por semestre sem impressão no período', function () {
+test('print report grouped by semiannual without print in period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(
@@ -591,7 +591,7 @@ test('relatório de impressão agrupado por semestre sem impressão no período'
     ->and($second->grouping_for_humans)->toBe('2º Semestre 2010');
 });
 
-test('relatório de impressão agrupado por ano sem impressão no período', function () {
+test('print report grouped by year without print in period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printing::report(

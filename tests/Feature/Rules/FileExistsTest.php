@@ -7,7 +7,7 @@
 use App\Rules\FileExists;
 use Illuminate\Support\Facades\Storage;
 
-test('valida se o arquivo existe ou não no storage', function () {
+test('validates whether or not the file exists in storage', function () {
     $fake_disk = Storage::fake('print-log');
 
     $rule = new FileExists('print-log');

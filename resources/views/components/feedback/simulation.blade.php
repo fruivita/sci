@@ -1,9 +1,10 @@
 {{--
-    Tarja indicativa de simulação ativa.
+    Indicative stripe of active simulation.
 
-    A simulação é o ato de um usuário, em regra do perfil administrador, usar a
-    aplicação como se fosse outra usuário. Útil para testar a aplicação vendo
-    como ela se comporta pelo prisma de determinado usuário.
+    Simulation is the act of a user, usually an administrator, using the
+    application as if it were another user.
+    Useful for testing the application seeing how it behaves through the prism
+    of a given user.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

@@ -26,14 +26,14 @@ class SiteLivewireUpdate extends Component
     use WithPreviousNext;
 
     /**
-     * Localidade que está em edição.
+     * Editing resource.
      *
      * @var \App\Models\Site
      */
     public Site $site;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -71,8 +71,8 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Objeto base que será utilizado definir os ids do registro anterior do
-     * próximo.
+     * Base resource that will be used to define the ids of the previous record
+     * of the next one.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -107,7 +107,7 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Computed property para a listar os servidores paginados.
+     * * Computed property to list paged servers.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -117,7 +117,7 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -129,7 +129,7 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Atualiza a localidade em edição.
+     * Update the specified resource in storage.
      *
      * @return void
      */
@@ -143,11 +143,11 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Reseta a propriedade checkbox_action se houver navegação entre as
-     * páginas, isto é, caso o usuário navegue para outra página.
+     * Resets the checkbox_action property if there is navigation between
+     * pages, that is, if the user navigates to another page.
      *
-     * Útil para que o usuário tenha que definir o comportamento desejado para
-     * os checkboxs na página seguinte.
+     * Useful so that the user has to define the desired behavior for the
+     * checkboxes on the next page.
      *
      * @return void
      */
@@ -157,8 +157,8 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Todos as linhas (ids dos checkbox) que devem ser selecionados no
-     * carregamento inicial (mount) da página.
+     * All lines (checkbox ids) that must be selected on initial load (mount)
+     * of the page.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -168,7 +168,7 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Todos as linhas (ids dos checkbox) disponíveis para seleção.
+     * All lines (checkbox ids) available for selection.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -186,8 +186,8 @@ class SiteLivewireUpdate extends Component
     }
 
     /**
-     * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra,
-     * as linhas atualmente exibidas na página.
+     * Range of lines (checkbox ids) available for selection. As a rule, the
+     * lines currently displayed on the page.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */

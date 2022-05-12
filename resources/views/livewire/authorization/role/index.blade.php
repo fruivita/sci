@@ -1,5 +1,5 @@
 {{--
-    View livewire para listagem dos perfis.
+    View livewire for listing the roles.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

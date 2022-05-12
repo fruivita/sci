@@ -1,13 +1,13 @@
 {{--
-    Textarea padrão.
+    Default textarea.
 
     Props:
-    - error: mensagem de erro que será exibida
-    - icon: ícone svg que será exibido
-    - id: id do item
-    - text: texto de descrição/significado do item
-    - title: title do item
-    - withcounter: se é necessário exibir o contador de caracteres digitados
+    - error: error message that will be displayed
+    - icon: svg icon that will be displayed
+    - id: item id
+    - text: item description/meaning text
+    - title: item title
+    - withcounter: whether to display the counter of typed characters
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -24,14 +24,14 @@
 @php $id = $id ?? md5(random_int(PHP_INT_MIN, PHP_INT_MAX)); @endphp
 
 
-{{-- container do textbox --}}
+{{-- textbox container --}}
 <div
     @if ($withcounter) x-data="{ counter: 0 }"@endif
     class="text-left w-full"
     title="{{ $title }}"
 >
 
-    {{-- texto acima do textbox --}}
+    {{-- text above textbox --}}
     <label class="font-bold text-lg" for="{{ $id }}">
 
         {{ $text }}
@@ -48,7 +48,7 @@
 
     <div class="bg-primary-100 border-2 border-primary-300 flex items-center rounded">
 
-        {{-- ícone à textbox do input --}}
+        {{-- icon to input textbox --}}
         <label class="text-primary-900 p-2" for="{{ $id }}">
 
             <x-icon name="{{ $icon }}"/>
@@ -56,7 +56,7 @@
         </label>
 
 
-        {{-- textbox propriamente dito --}}
+        {{-- textbox itself --}}
         <textarea
 
             @if ($withcounter)
@@ -84,11 +84,11 @@
 
     <div class="flex justify-between space-x-3">
 
-        {{-- exibição de eventual mensagem de erro --}}
+        {{-- display of any error message --}}
         <x-error>{{ $error }}</x-error>
 
 
-        {{-- exibição eventual do contador de caracteres --}}
+        {{-- eventual display of character counter --}}
         @if ($withcounter)
 
             <p

@@ -1,5 +1,5 @@
 {{--
-    View de login.
+    Login view.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

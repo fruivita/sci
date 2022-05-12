@@ -16,9 +16,9 @@ class Documentation extends Model
     protected $table = 'docs';
 
     /**
-     * Ordenação padrão do modelo.
+     * Default ordering of the model.
      *
-     * Ordem: name app_route_name
+     * Order: name app_route_name
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *

@@ -1,5 +1,5 @@
 {{--
-    View livewire para exibição individual das localidades.
+    View livewire for individual sites display.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

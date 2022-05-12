@@ -26,34 +26,34 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível cadastrar um registro de documentação da aplicação sem estar autenticado', function () {
+test('it is not possible to create an application documentation record without being authenticated', function () {
     logout();
 
     get(route('administration.doc.create'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de criação do registro de documentação da aplicação', function () {
+test('authenticated but without specific permission, cannot access application documentation record creation route', function () {
     get(route('administration.doc.create'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de criação do registro de documentação da aplicação sem permissão específica', function () {
+test('cannot render application documentation record creation component without specific permission', function () {
     Livewire::test(DocumentationLivewireCreate::class)
     ->assertForbidden();
 });
 
-test('não é possível cadastrar um registro de documentação da aplicação sem permissão específica', function () {
+test('it is not possible to create an application documentation record without specific permission', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
-    // concede permissão para abrir o página de edição
+    // grant permission to open the edit page
     $livewire = Livewire::test(DocumentationLivewireCreate::class)
     ->set('doc.app_route_name', 'new foo');
 
-    // remove a permissão
+    // remove permission
     revokePermission(PermissionType::DocumentationCreate->value);
 
-    // expira o cache dos servidores em 5 segundos
+    // cache expires in 5 seconds
     $this->travel(6)->seconds();
 
     $livewire
@@ -62,7 +62,7 @@ test('não é possível cadastrar um registro de documentação da aplicação s
 });
 
 // Rules
-test('nome da rota que será documentada é obrigatório', function () {
+test('route name is required', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -71,7 +71,7 @@ test('nome da rota que será documentada é obrigatório', function () {
     ->assertHasErrors(['doc.app_route_name' => 'required']);
 });
 
-test('nome da rota que será documentada deve ser uma string', function () {
+test('route name must be a string', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -80,7 +80,7 @@ test('nome da rota que será documentada deve ser uma string', function () {
     ->assertHasErrors(['doc.app_route_name' => 'string']);
 });
 
-test('nome da rota que será documentada deve ter no máximo 255 caracteres', function () {
+test('route name must be a maximum of 255 characters', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -89,7 +89,7 @@ test('nome da rota que será documentada deve ter no máximo 255 caracteres', fu
     ->assertHasErrors(['doc.app_route_name' => 'max']);
 });
 
-test('nome da rota que será documentada deve existir na aplicação', function () {
+test('route name must exist in the application', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -98,7 +98,7 @@ test('nome da rota que será documentada deve existir na aplicação', function 
     ->assertHasErrors(['doc.app_route_name' => RouteExists::class]);
 });
 
-test('nome da rota que será documentada deve ser único', function () {
+test('route name must be unique', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Documentation::factory()->create(['app_route_name' => 'report.printing.create']);
@@ -109,7 +109,7 @@ test('nome da rota que será documentada deve ser único', function () {
     ->assertHasErrors(['doc.app_route_name' => 'unique']);
 });
 
-test('link para a documentação da rota deve ser uma string', function () {
+test('link must be a string', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -118,7 +118,7 @@ test('link para a documentação da rota deve ser uma string', function () {
     ->assertHasErrors(['doc.doc_link' => 'string']);
 });
 
-test('link para a documentação da rota deve ter no máximo 255 caracteres', function () {
+test('link must be a maximum of 255 characters', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -127,7 +127,7 @@ test('link para a documentação da rota deve ter no máximo 255 caracteres', fu
     ->assertHasErrors(['doc.doc_link' => 'max']);
 });
 
-test('link para a documentação da rota deve ser uma url válida', function () {
+test('link must be a valid url', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -137,7 +137,7 @@ test('link para a documentação da rota deve ser uma url válida', function () 
 });
 
 // Happy path
-test('é possível renderizar o componente de criação do registro de documentação da aplicação com permissão específica', function () {
+test('renders application documentation record creation component with specific permission', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     get(route('administration.doc.create'))
@@ -145,7 +145,7 @@ test('é possível renderizar o componente de criação do registro de documenta
     ->assertSeeLivewire(DocumentationLivewireCreate::class);
 });
 
-test('emite evento de feedback ao cadastrar um registro de documentação da aplicação', function () {
+test('emits feedback event when creates an application documentation record', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -154,7 +154,7 @@ test('emite evento de feedback ao cadastrar um registro de documentação da apl
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
-test('link para a documentação é opcional na criação do registro de documentação da aplicação', function () {
+test('link is optional when creating application documentation record', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)
@@ -169,7 +169,7 @@ test('link para a documentação é opcional na criação do registro de documen
     ->and($documentation->doc_link)->toBeEmpty();
 });
 
-test('é possível cadastrar um registro de documentação da aplicação com permissão específica', function () {
+test('creates an application documentation record with specific permission', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     Livewire::test(DocumentationLivewireCreate::class)

@@ -8,7 +8,7 @@ use App\Jobs\ImportCorporateStructure;
 use Illuminate\Support\Facades\Bus;
 
 // Happy path
-test('comando import:corporate dispara o job de importação do arquivo corporativo', function () {
+test('import:corporate command triggers the import corporate file job', function () {
     Bus::fake();
 
     $this

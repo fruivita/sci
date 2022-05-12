@@ -1,5 +1,5 @@
 {{--
-    Master Page padrão.
+    Default Master Page.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -50,11 +50,11 @@
 
             <div x-data="{ menuVisible : false }">
 
-                {{-- exibe/esconde o menu de navegação --}}
+                {{-- show/hide navigation menu --}}
                 <x-menu.toggler class="z-20"/>
 
 
-                {{-- navegação / menu lateral --}}
+                {{-- navigation / side menu --}}
                 <nav x-bind:class="menuVisible ? '' : 'hidden'" class="bg-primary-200 border-r-4 border-primary-900 fixed inset-0 overflow-y-auto pt-16 px-3 w-72 z-10 dark:bg-secondary-700 dark:border-secondary-50 lg:block">
 
                     {{-- Logo/Home --}}
@@ -82,7 +82,7 @@
                     </header>
 
 
-                    {{-- links do menu --}}
+                    {{-- menu links --}}
                     <x-menu/>
 
                 </nav>
@@ -90,10 +90,10 @@
             </div>
 
 
-            {{-- conteúdo principal --}}
+            {{-- main content --}}
             <main class="flex-grow lg:ml-72 lg:px-6">
 
-                {{-- ambiente de execução da aplicação --}}
+                {{-- application execution environment --}}
                 @production
                 @else
 
@@ -102,7 +102,7 @@
                 @endproduction
 
 
-                {{-- será adicionada quando houver simulação --}}
+                {{-- will be added when there is simulation --}}
                 @if(session()->has('simulator'))
 
                     <x-feedback.simulation />
@@ -121,7 +121,7 @@
         </div>
 
 
-        {{-- mensagem de retorno ao usuário --}}
+        {{-- user return message box --}}
         <x-feedback.notification />
 
         {{-- javascript --}}

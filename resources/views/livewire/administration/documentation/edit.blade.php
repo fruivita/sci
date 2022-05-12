@@ -1,6 +1,5 @@
 {{--
-    View livewire para edição individual da documentação das rotas da
-    aplicação.
+    View livewire for individual editing of application routes documentation.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

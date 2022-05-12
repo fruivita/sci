@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /*
- * Tipos de actions disponíveis para os checkbox.
+ * Types of actions available for checkboxes.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  * @see https://laravel.com/docs/collections
@@ -15,7 +15,7 @@ enum CheckboxAction: string
     case CheckAllPage = 'check-all-page';
     case UncheckAllPage = 'uncheck-all-page';
     /**
-     * Nome para exibição do tipo de ação para o checkbox.
+     * Display name of the action type for the checkbox.
      *
      * @return string
      */
@@ -30,7 +30,7 @@ enum CheckboxAction: string
     }
 
     /**
-     * Todos os valores possíveis para o value do enum.
+     * All possible values for the enum value.
      *
      * @return \Illuminate\Support\Collection
      */

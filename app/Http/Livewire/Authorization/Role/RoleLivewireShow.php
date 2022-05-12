@@ -21,15 +21,15 @@ class RoleLivewireShow extends Component
     use WithPreviousNext;
 
     /**
-     * Perfil que está em exibição.
+     * Resource on display.
      *
      * @var \App\Models\Role
      */
     public Role $role;
 
     /**
-     * Objeto base que será utilizado definir os ids do registro anterior do
-     * próximo.
+     * Runs on every request, immediately after the component is instantiated,
+     * but before any other lifecycle methods are called.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -50,7 +50,7 @@ class RoleLivewireShow extends Component
     }
 
     /**
-     * Computed property para a listar as permissões paginadas.
+     * Computed property to list paged permissions.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -62,7 +62,7 @@ class RoleLivewireShow extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */

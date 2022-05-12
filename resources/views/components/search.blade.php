@@ -1,9 +1,9 @@
 {{--
-    Form padrão para pesquisa.
+    Default form for search.
 
      Props:
-    - error: mensagem de erro que será exibida
-    - withcounter: se é necessário exibir o contador de caracteres digitados
+    - error: error message that will be displayed
+    - withcounter: whether to display the counter of typed characters
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -54,11 +54,11 @@
 
     <div class="flex justify-between space-x-3">
 
-        {{-- exibição de eventual mensagem de erro --}}
+        {{-- display of any error message --}}
         <x-error class="text-right">{{ $error }}</x-error>
 
 
-        {{-- exibição eventual do contador de caracteres --}}
+        {{-- eventual display of character counter --}}
         @if ($withcounter)
 
             <p

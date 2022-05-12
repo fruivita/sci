@@ -20,7 +20,7 @@ beforeEach(function () {
 });
 
 // Exceptions
-test('lança exceção ao tentar cadastrar usuários em duplicidade, isto é, com username ou guid iguais', function () {
+test('throws an exception when trying to create users in duplicate, that is, with the same username or guid', function () {
     expect(
         fn () => User::factory(2)->create(['username' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
@@ -30,42 +30,42 @@ test('lança exceção ao tentar cadastrar usuários em duplicidade, isto é, co
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
-test('lança exceção ao tentar cadastrar usuário com campo inválido', function ($field, $value, $message) {
+test('throws exception when trying to create user with invalid field', function ($field, $value, $message) {
     expect(
         fn () => User::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['name', Str::random(256), 'Data too long for column'],     // máximo 255 caracteres
-    ['username', Str::random(21), 'Data too long for column'],  // máximo 20 caracteres
-    ['username', null,            'cannot be null'],            // obrigatório
-    ['password', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
-    ['guid', Str::random(256), 'Data too long for column'],     // máximo 255 caracteres
-    ['domain', Str::random(256), 'Data too long for column'],   // máximo 255 caracteres
+    ['name', Str::random(256),     'Data too long for column'], // maximum 255 characters
+    ['username', Str::random(21),  'Data too long for column'], // maximum 20 characters
+    ['username', null,             'cannot be null'],           // required
+    ['password', Str::random(256), 'Data too long for column'], // maximum 255 characters
+    ['guid', Str::random(256),     'Data too long for column'], // maximum 255 characters
+    ['domain', Str::random(256),   'Data too long for column'], // maximum 255 characters
 ]);
 
-test('lança exceção ao tentar definir relacionamento inválido', function ($field, $value, $message) {
+test('throws exception when trying to set invalid relationship', function ($field, $value, $message) {
     expect(
         fn () => User::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['role_id',         10, 'Cannot add or update a child row'], // inexistente
-    ['role_granted_by', 10, 'Cannot add or update a child row'], // inexistente
+    ['role_id',         10, 'Cannot add or update a child row'], // nonexistent
+    ['role_granted_by', 10, 'Cannot add or update a child row'], // nonexistent
 ]);
 
 // Happy path
-test('cadastra múltiplos usuários', function () {
+test('create many users', function () {
     User::factory(30)->create();
 
     expect(User::count())->toBe(30);
 });
 
-test('campos opcionais do usuário são aceitos', function () {
+test('optional user fields are accepted', function () {
     User::factory()->create(['name' => null]);
 
     expect(User::count())->toBe(1);
 });
 
-test('campos do usuário em seu tamanho máximo são aceitos', function () {
+test('user fields at their maximum size are accepted', function () {
     User::factory()->create([
         'name' => Str::random(255),
         'username' => Str::random(20),
@@ -77,7 +77,7 @@ test('campos do usuário em seu tamanho máximo são aceitos', function () {
     expect(User::count())->toBe(1);
 });
 
-test('um usuário possui um perfil', function () {
+test('one user has one role', function () {
     $role = Role::factory()->create();
 
     $user = User::factory()
@@ -89,7 +89,7 @@ test('um usuário possui um perfil', function () {
     expect($user->role)->toBeInstanceOf(Role::class);
 });
 
-test('perfil padrão do usuário é ordinário', function () {
+test('default user role is ordinary', function () {
     $user = User::create([
         'username' => 'foo',
     ]);
@@ -99,7 +99,7 @@ test('perfil padrão do usuário é ordinário', function () {
     expect($user->role->id)->toBe(Role::ORDINARY);
 });
 
-test('se não informar lotação, a lotação padrão é a "sem lotação"', function () {
+test('if do not inform a department, the default department is "departmentless"', function () {
     $user = User::create([
         'username' => 'foo',
     ]);
@@ -109,7 +109,7 @@ test('se não informar lotação, a lotação padrão é a "sem lotação"', fun
     expect($user->department->id)->toBe(Department::DEPARTMENTLESS);
 });
 
-test('usuário pode delegar seu perfil a vários outros, porém o usuário só pode receber uma única delegação', function () {
+test('user can delegate their role to several others, however the user can only receive a single delegation', function () {
     $delegated_amount = 3;
 
     $user_delegator = User::factory()->create();
@@ -128,7 +128,7 @@ test('usuário pode delegar seu perfil a vários outros, porém o usuário só p
     ->and($user_delegated->delegatedUsers)->toHaveCount(0);
 });
 
-test('hasPermission informa se o usuário possui ou não determinada permissão', function () {
+test('hasPermission tells whether or not the user has a certain permission', function () {
     login('foo');
 
     expect(authenticatedUser()->hasPermission(PermissionType::SimulationCreate))->toBeFalse();
@@ -144,7 +144,7 @@ test('hasPermission informa se o usuário possui ou não determinada permissão'
     logout();
 });
 
-test('hasAnyPermission informa se o usuário possui uma das permissões informadas', function () {
+test('hasAnyPermission tells if the user has one of the given permissions', function () {
     login('foo');
 
     expect(authenticatedUser()->hasAnyPermission([
@@ -179,7 +179,7 @@ test('hasAnyPermission informa se o usuário possui uma das permissões informad
     logout();
 });
 
-test('forHumans retorna username formatado para exibição', function () {
+test('forHumans returns username formatted for display', function () {
     $samaccountname = 'foo';
     $user = login($samaccountname);
 
@@ -188,7 +188,7 @@ test('forHumans retorna username formatado para exibição', function () {
     logout();
 });
 
-test('retorna os usuários usando o escopo de ordenação default definido', function () {
+test('returns users using the defined default sort scope', function () {
     $first = ['name' => 'foo', 'username' => 'bar'];
     $second = ['name' => 'foo', 'username' => 'baz'];
     $third = ['name' => null, 'username' => 'barr'];
@@ -207,7 +207,7 @@ test('retorna os usuários usando o escopo de ordenação default definido', fun
     ->and($users->get(3)->username)->toBe($fourth['username']);
 });
 
-test('a pesquisa, com o termo parcial ou não, retorna os valores esperados', function () {
+test('the search, with partial term or not, returns the expected values', function () {
     User::factory()->create(['username' => 'foo', 'name' => 'foo']);
     User::factory()->create(['username' => 'bar', 'name' => 'foo bar']);
     User::factory()->create(['username' => 'foo baz', 'name' => 'foo bar baz']);
@@ -219,7 +219,7 @@ test('a pesquisa, com o termo parcial ou não, retorna os valores esperados', fu
     ->and(User::search('foo baz')->get())->toHaveCount(1);
 });
 
-test('revokeDelegation revoga a permissão do usuário e de todos que ele delegou definindo o perfil padrão (ordinário) para todos', function () {
+test('revokeDelegation revokes the permission of the user and everyone he delegated by setting the default (ordinary) role for everyone', function () {
     $user_foo = User::factory()->create([
         'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
@@ -272,7 +272,7 @@ test('revokeDelegation revoga a permissão do usuário e de todos que ele delego
     ->and($user_ipsen->role_granted_by)->toBe($user_foo->id);
 });
 
-test('revokeDelegatedUsers remove as delegações feitas pelo usuário', function () {
+test('revokeDelegatedUsers removes delegations made by the user', function () {
     $user_foo = User::factory()->create([
         'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
@@ -301,7 +301,7 @@ test('revokeDelegatedUsers remove as delegações feitas pelo usuário', functio
     ->and($user_baz->role_granted_by)->toBeNull();
 });
 
-test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações feitas pelo (e do) usuário', function () {
+test("updateAndRevokeDelegatedUsers updates the role and removes the user's delegations and the ones he made", function () {
     $user_foo = User::factory()->create([
         'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
@@ -339,7 +339,7 @@ test('updateAndRevokeDelegatedUsers atualiza a role e remove as delegações fei
     ->and($user_taz->role_granted_by)->toBeNull();
 });
 
-test('um usuário possui várias impressões', function () {
+test('one user has many prints', function () {
     User::factory()
         ->has(Printing::factory(3), 'prints')
         ->create();
@@ -349,7 +349,7 @@ test('um usuário possui várias impressões', function () {
     expect($user->prints)->toHaveCount(3);
 });
 
-test('isSuperAdmin identifica corretamente um superadmin', function () {
+test('isSuperAdmin correctly identifies a superadmin', function () {
     $this->seed(ConfigurationSeeder::class);
 
     $user_bar = login('bar');
@@ -365,7 +365,7 @@ test('isSuperAdmin identifica corretamente um superadmin', function () {
     expect($user_foo->isSuperAdmin())->toBeTrue();
 });
 
-test('sem a configuração definida, isSuperAdmin retorna false para qualquer usuário', function () {
+test('without configuration set, isSuperAdmin returns false for any user', function () {
     $user_bar = login('bar');
     $user_bar->refresh();
 
@@ -379,7 +379,7 @@ test('sem a configuração definida, isSuperAdmin retorna false para qualquer us
     expect($user_foo->isSuperAdmin())->toBeFalse();
 });
 
-test('permissions() retorna o id de todas as permissões do usuário', function () {
+test('permissions() returns the id of all user permissions', function () {
     $user_bar = login('bar');
     $user_bar->refresh();
 

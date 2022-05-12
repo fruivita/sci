@@ -16,20 +16,20 @@ beforeEach(function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->print_log_files = [
-        '30-06-2019.txt' => 'server1.domain.gov.br╡30/06/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL .
-            'server1.domain.gov.br╡30/06/2019╡10:30:00╡private.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-555╡5000╡8╡2' . PHP_EOL,
+        '30-06-2019.txt' => 'server1.domain.org.br╡30/06/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-444╡1000╡3╡1' . PHP_EOL .
+            'server1.domain.org.br╡30/06/2019╡10:30:00╡private.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-555╡5000╡8╡2' . PHP_EOL,
 
-        '02-12-2020.txt' => 'server3.domain.gov.br╡02/12/2020╡02:05:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-666╡3000╡3╡6' . PHP_EOL .
-            'server2.domain.gov.br╡02/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡3╡1' . PHP_EOL .
-            'server2.domain.gov.br╡02/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡2000╡9╡2' . PHP_EOL,
+        '02-12-2020.txt' => 'server3.domain.org.br╡02/12/2020╡02:05:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-666╡3000╡3╡6' . PHP_EOL .
+            'server2.domain.org.br╡02/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡3╡1' . PHP_EOL .
+            'server2.domain.org.br╡02/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡2000╡9╡2' . PHP_EOL,
 
-        '05-12-2020.txt' => 'server1.domain.gov.br╡05/12/2020╡03:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-555╡3000╡5╡3' . PHP_EOL .
-            'server1.domain.gov.br╡05/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡1000╡5╡7' . PHP_EOL .
-            'server1.domain.gov.br╡05/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡2000╡3╡2' . PHP_EOL,
+        '05-12-2020.txt' => 'server1.domain.org.br╡05/12/2020╡03:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-555╡3000╡5╡3' . PHP_EOL .
+            'server1.domain.org.br╡05/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡1000╡5╡7' . PHP_EOL .
+            'server1.domain.org.br╡05/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡2000╡3╡2' . PHP_EOL,
 
-        '25-12-2020.txt' => 'server4.domain.gov.br╡25/12/2020╡03:30:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡MLT-333╡3000╡10╡1' . PHP_EOL .
-            'server2.domain.gov.br╡25/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
-            'server4.domain.gov.br╡25/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡5╡3' . PHP_EOL,
+        '25-12-2020.txt' => 'server4.domain.org.br╡25/12/2020╡03:30:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡MLT-333╡3000╡10╡1' . PHP_EOL .
+            'server2.domain.org.br╡25/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
+            'server4.domain.org.br╡25/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡5╡3' . PHP_EOL,
     ];
 
     $this->fake_disk = Storage::fake('print-log');
@@ -43,7 +43,7 @@ afterEach(function () {
     $this->fake_disk = Storage::fake('print-log');
 });
 
-test('relatório por servidor contabiliza e traz localidade nula se não cadastrada', function () {
+test('report by server counts and brings null site if not created', function () {
     PrintLogImporter::make()->import();
 
     $result = Server::report(
@@ -52,10 +52,10 @@ test('relatório por servidor contabiliza e traz localidade nula se não cadastr
         9999
     );
 
-    $server1 = $result->firstWhere('server', 'server1.domain.gov.br');
-    $server2 = $result->firstWhere('server', 'server2.domain.gov.br');
-    $server3 = $result->firstWhere('server', 'server3.domain.gov.br');
-    $server4 = $result->firstWhere('server', 'server4.domain.gov.br');
+    $server1 = $result->firstWhere('server', 'server1.domain.org.br');
+    $server2 = $result->firstWhere('server', 'server2.domain.org.br');
+    $server3 = $result->firstWhere('server', 'server3.domain.org.br');
+    $server4 = $result->firstWhere('server', 'server4.domain.org.br');
 
     expect($result)->toHaveCount(4)
     ->and($server1->total_print)->toBe('75')
@@ -76,7 +76,7 @@ test('relatório por servidor contabiliza e traz localidade nula se não cadastr
     ->and($server4->site)->toBeNull();
 });
 
-test('relatório por servidor com restrição de período', function () {
+test('per-server report with period constraint', function () {
     PrintLogImporter::make()->import();
 
     $result = Server::report(
@@ -85,10 +85,10 @@ test('relatório por servidor com restrição de período', function () {
         9999
     );
 
-    $server1 = $result->firstWhere('server', 'server1.domain.gov.br');
-    $server2 = $result->firstWhere('server', 'server2.domain.gov.br');
-    $server3 = $result->firstWhere('server', 'server3.domain.gov.br');
-    $server4 = $result->firstWhere('server', 'server4.domain.gov.br');
+    $server1 = $result->firstWhere('server', 'server1.domain.org.br');
+    $server2 = $result->firstWhere('server', 'server2.domain.org.br');
+    $server3 = $result->firstWhere('server', 'server3.domain.org.br');
+    $server4 = $result->firstWhere('server', 'server4.domain.org.br');
 
     expect($result)->toHaveCount(4)
     ->and($server1->total_print)->toBeNull()
@@ -109,7 +109,7 @@ test('relatório por servidor com restrição de período', function () {
     ->and($server4->site)->toBeNull();
 });
 
-test('relatório por servidor é ordenado pelo volume de impressão desc e localidade asc', function () {
+test('report by server is sorted by print volume desc and site asc', function () {
     PrintLogImporter::make()->import();
 
     $result = Server::report(
@@ -125,31 +125,31 @@ test('relatório por servidor é ordenado pelo volume de impressão desc e local
 
     expect($result)->toHaveCount(4)
     ->and($first->total_print)->toBe('75')
-    ->and($first->server)->toBe('server1.domain.gov.br')
+    ->and($first->server)->toBe('server1.domain.org.br')
     ->and($second->total_print)->toBe('25')
-    ->and($second->server)->toBe('server2.domain.gov.br')
+    ->and($second->server)->toBe('server2.domain.org.br')
     ->and($third->total_print)->toBe('25')
-    ->and($third->server)->toBe('server4.domain.gov.br')
+    ->and($third->server)->toBe('server4.domain.org.br')
     ->and($fourth->total_print)->toBe('18')
-    ->and($fourth->server)->toBe('server3.domain.gov.br');
+    ->and($fourth->server)->toBe('server3.domain.org.br');
 });
 
-test('relatório por servidor traz localidades cadastradas', function () {
+test('report by server brings created sites', function () {
     PrintLogImporter::make()->import();
 
     $site1 = Site::factory()->create(['name' => 'localidade 1']);
     $site2 = Site::factory()->create(['name' => 'localidade 2']);
     $site3 = Site::factory()->create(['name' => 'localidade 3']);
 
-    Server::firstWhere('name', 'server1.domain.gov.br')
+    Server::firstWhere('name', 'server1.domain.org.br')
         ->sites()
         ->attach([$site1->id, $site2->id]);
 
-    Server::firstWhere('name', 'server2.domain.gov.br')
+    Server::firstWhere('name', 'server2.domain.org.br')
         ->sites()
         ->attach([$site2->id, $site3->id]);
 
-    Server::firstWhere('name', 'server3.domain.gov.br')
+    Server::firstWhere('name', 'server3.domain.org.br')
         ->sites()
         ->attach($site2->id);
 
@@ -159,10 +159,10 @@ test('relatório por servidor traz localidades cadastradas', function () {
         9999
     );
 
-    $server1 = $result->firstWhere('server', 'server1.domain.gov.br');
-    $server2 = $result->firstWhere('server', 'server2.domain.gov.br');
-    $server3 = $result->firstWhere('server', 'server3.domain.gov.br');
-    $server4 = $result->firstWhere('server', 'server4.domain.gov.br');
+    $server1 = $result->firstWhere('server', 'server1.domain.org.br');
+    $server2 = $result->firstWhere('server', 'server2.domain.org.br');
+    $server3 = $result->firstWhere('server', 'server3.domain.org.br');
+    $server4 = $result->firstWhere('server', 'server4.domain.org.br');
 
     expect($result)->toHaveCount(4)
     ->and($server1->site)->toBe('localidade 1,localidade 2')
@@ -171,7 +171,7 @@ test('relatório por servidor traz localidades cadastradas', function () {
     ->and($server4->site)->toBeNull();
 });
 
-test('relatório por servidor sem impressão no período', function () {
+test('report by server without print in the period', function () {
     PrintLogImporter::make()->import();
 
     $result = Server::report(
@@ -180,10 +180,10 @@ test('relatório por servidor sem impressão no período', function () {
         9999
     );
 
-    $server1 = $result->firstWhere('server', 'server1.domain.gov.br');
-    $server2 = $result->firstWhere('server', 'server2.domain.gov.br');
-    $server3 = $result->firstWhere('server', 'server3.domain.gov.br');
-    $server4 = $result->firstWhere('server', 'server4.domain.gov.br');
+    $server1 = $result->firstWhere('server', 'server1.domain.org.br');
+    $server2 = $result->firstWhere('server', 'server2.domain.org.br');
+    $server3 = $result->firstWhere('server', 'server3.domain.org.br');
+    $server4 = $result->firstWhere('server', 'server4.domain.org.br');
 
     expect($result)->toHaveCount(4)
     ->and($server1->total_print)->toBeNull()

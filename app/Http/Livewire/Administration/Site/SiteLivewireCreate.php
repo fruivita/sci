@@ -24,14 +24,14 @@ class SiteLivewireCreate extends Component
     use WithPerPagePagination;
 
     /**
-     * Localidade que será criada.
+     * Resource that will be created.
      *
      * @var \App\Models\Site
      */
     public Site $site;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -92,7 +92,7 @@ class SiteLivewireCreate extends Component
     }
 
     /**
-     * Computed property para a listar os servidores paginados.
+     * * Computed property to list paginated servers.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -102,7 +102,7 @@ class SiteLivewireCreate extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -114,7 +114,7 @@ class SiteLivewireCreate extends Component
     }
 
     /**
-     * Cadastra a localidade.
+     * Store a newly created resource in storage.
      *
      * @return void
      */
@@ -128,11 +128,11 @@ class SiteLivewireCreate extends Component
     }
 
     /**
-     * Reseta a propriedade checkbox_action se houver navegação entre as
-     * páginas, isto é, caso o usuário navegue para outra página.
+     * Resets the checkbox_action property if there is navigation between
+     * pages, that is, if the user navigates to another page.
      *
-     * Útil para que o usuário tenha que definir o comportamento desejado para
-     * os checkboxs na página seguinte.
+     * Useful so that the user has to define the desired behavior for the
+     * checkboxes on the next page.
      *
      * @return void
      */
@@ -142,10 +142,10 @@ class SiteLivewireCreate extends Component
     }
 
     /**
-     * Todos as linhas (ids dos checkbox) que devem ser selecionados no
-     * carregamento inicial (mount) da página.
+     * All lines (checkbox ids) that must be selected on initial load (mount)
+     * of the page.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     private function rowsToCheck()
     {
@@ -153,7 +153,7 @@ class SiteLivewireCreate extends Component
     }
 
     /**
-     * Todos as linhas (ids dos checkbox) disponíveis para seleção.
+     * All lines (checkbox ids) available for selection.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -171,8 +171,8 @@ class SiteLivewireCreate extends Component
     }
 
     /**
-     * Range das linhas (ids dos checkboxs) disponíveis para seleção. Em regra,
-     * as linhas atualmente exibidas na página.
+     * Range of lines (checkbox ids) available for selection. As a rule, the
+     * lines currently displayed on the page.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */

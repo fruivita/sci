@@ -4,8 +4,8 @@ namespace App;
 
 if (! function_exists('App\maxSafeInteger')) {
     /**
-     * O integer máximo aceitável pelo Javascript. Especialmente útil para
-     * aplicações que utilizam Livewire.
+     * The maximum integer acceptable by JavaScript. Especially useful for
+     * applications that use Livewire.
      *
      * @return int
      *
@@ -20,18 +20,19 @@ if (! function_exists('App\maxSafeInteger')) {
 
 if (! function_exists('App\stringToArrayAssoc')) {
     /**
-     * Divide uma string com base no delimitador informado e a retorna como um
-     * array associativo usando as chaves para cada valor extraído da string.
+     * Splits a string based on the given delimiter and returns it as an
+     * associative array using the braces for each value extracted from the
+     * string.
      *
-     * Os valores extraídos devem ser compatíveis numericamente com a
-     * quantidade de chaves informadas, caso contrário retornará nulo.
-     * Também retornará nulo se algum dos parâmetros for um valor false para o
-     * php
+     * The extracted values must be numerically compatible with the number of
+     * keys informed, otherwise it will return null.
+     * It will also return null if any of the parameters is a false value to
+     * php.
      *
-     * @param string[] $keys      chaves que serão usadas para indexar o
-     *                            array de retorno
-     * @param string   $str       string que será explodida
-     * @param string   $delimiter delimitador para a explodir a string
+     * @param string[] $keys      keys that will be used to index the return
+     *                            array
+     * @param string   $str       string to be exploded
+     * @param string   $delimiter delimiter to explode the string
      *
      * @return array<string, string>|null
      *
@@ -57,7 +58,7 @@ if (! function_exists('App\stringToArrayAssoc')) {
 
 if (! function_exists('App\reportMinYear')) {
     /**
-     * Ano mínimo para geração dos relatórios.
+     * Minimum year for reporting.
      *
      * @return int
      */
@@ -69,7 +70,7 @@ if (! function_exists('App\reportMinYear')) {
 
 if (! function_exists('App\reportMaxYear')) {
     /**
-     * Ano máximo para geração dos relatórios.
+     * Maximum year for generating reports.
      *
      * @return int
      */
@@ -81,7 +82,7 @@ if (! function_exists('App\reportMaxYear')) {
 
 if (! function_exists('App\reportMinDate')) {
     /**
-     * Data mínima para geração dos relatórios.
+     * Minimum date for generating reports.
      *
      * @return \Illuminate\Support\Carbon
      */
@@ -93,7 +94,7 @@ if (! function_exists('App\reportMinDate')) {
 
 if (! function_exists('App\reportMaxDate')) {
     /**
-     * Data mínima para geração dos relatórios.
+     * Minimum date for generating reports.
      *
      * @return \Illuminate\Support\Carbon
      */

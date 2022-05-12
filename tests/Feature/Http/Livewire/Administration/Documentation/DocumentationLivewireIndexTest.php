@@ -24,23 +24,23 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível listar os registros de documentação da aplicação sem estar autenticado', function () {
+test('cannot list application documentation records without being authenticated', function () {
     logout();
 
     get(route('administration.doc.index'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos registros de documentação da aplicação', function () {
+test('authenticated but without specific permission, cannot access application documentation records listing route', function () {
     get(route('administration.doc.index'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de listagem dos registros de documentação da aplicação sem permissão específica', function () {
+test('cannot render listing component from application documentation records without specific permission', function () {
     Livewire::test(DocumentationLivewireIndex::class)->assertForbidden();
 });
 
-test('não é possível definir o registro de documentação da aplicação que será excluído sem permissão específica', function () {
+test('it is not possible to set the application documentation record which will be deleted without specific permission', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     $doc = Documentation::factory()->create(['app_route_name' => 'foo']);
@@ -53,7 +53,7 @@ test('não é possível definir o registro de documentação da aplicação que 
     ->assertSet('deleting', new Documentation());
 });
 
-test('não é possível excluir um registro de documentação da aplicação sem permissão específica', function () {
+test('it is not possible to delete an application documentation record without specific permission', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     $doc = Documentation::factory()->create(['app_route_name' => 'foo']);
@@ -68,16 +68,16 @@ test('não é possível excluir um registro de documentação da aplicação sem
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     Livewire::test(DocumentationLivewireIndex::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('paginação retorna a quantidade de registros de documentação da aplicação esperada', function () {
+test('pagination returns the amount of expected application documentation records', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     Documentation::factory(120)->create();
@@ -94,7 +94,7 @@ test('paginação retorna a quantidade de registros de documentação da aplica�
     ->assertCount('docs', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     Livewire::test(DocumentationLivewireIndex::class)
@@ -109,7 +109,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível listar os registros de documentação da aplicação com permissão específica', function () {
+test('lists application documentation records with specific permission', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     get(route('administration.doc.index'))
@@ -117,7 +117,7 @@ test('é possível listar os registros de documentação da aplicação com perm
     ->assertSeeLivewire(DocumentationLivewireIndex::class);
 });
 
-test('emite evento de feedback ao excluir um registro de documentação da aplicação', function () {
+test('emits feedback event when deleting an application documentation record', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
     grantPermission(PermissionType::DocumentationDelete->value);
 
@@ -136,7 +136,7 @@ test('emite evento de feedback ao excluir um registro de documentação da aplic
     ]);
 });
 
-test('é possível definir o registro de documentação da aplicação que será exluido com permissão específica', function () {
+test('defines the application documentation record that will be deleted with specific permission', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
     grantPermission(PermissionType::DocumentationDelete->value);
 
@@ -149,7 +149,7 @@ test('é possível definir o registro de documentação da aplicação que será
     ->assertSet('deleting.id', $doc->id);
 });
 
-test('é possível excluir um registro de documentação da aplicação com permissão específica', function () {
+test('deletes an application documentation record with specific permission', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
     grantPermission(PermissionType::DocumentationDelete->value);
 

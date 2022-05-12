@@ -1,5 +1,5 @@
 {{--
-    View livewire para criação individual das localidades.
+    View livewire for individual site creation.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

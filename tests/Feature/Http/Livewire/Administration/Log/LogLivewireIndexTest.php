@@ -18,7 +18,7 @@ use function Pest\Laravel\get;
 beforeEach(function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
-    // cria fake logs de aplicação
+    // create fake application logs
     $this->log_files = ['laravel-2020-10-30.log', 'laravel.log'];
 
     $this->fake_disk = Storage::fake('application-log');
@@ -47,23 +47,23 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível listar os logs da aplicação sem estar autenticado', function () {
+test('cannot list application logs without being authenticated', function () {
     logout();
 
     get(route('administration.log.index'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos logs da aplicação', function () {
+test('authenticated but without specific permission, cannot access application logs listing route', function () {
     get(route('administration.log.index'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de listagem dos logs da aplicação sem permissão específica', function () {
+test('cannot render application logs listing component without specific permission', function () {
     Livewire::test(LogLivewireIndex::class)->assertForbidden();
 });
 
-test('não é possível excluir o arquivo de log sem permissão específica', function () {
+test('cannot delete log file without specific permission', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     $this->fake_disk->assertExists($this->log_files);
@@ -74,7 +74,7 @@ test('não é possível excluir o arquivo de log sem permissão específica', fu
     ->assertForbidden();
 });
 
-test('não é possível fazer o download do arquivo de log sem permissão específica', function () {
+test('cannot download log file without specific permission', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
@@ -84,13 +84,14 @@ test('não é possível fazer o download do arquivo de log sem permissão espec�
 });
 
 // Failure
-test('se os valores de inicialização forem inválidos, eles serão definidas pelo sistema', function () {
+test('if the initialization values are invalid they will be set by the system', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
-    // força dormir 1 segundos, para alterar o time no file system, pois travel
-    // e testtime não alteram o tempo do fileserver, apenas em nível de php.
+    // force sleep 1 seconds, to change the time in the file system, because
+    // travel and testtime do not change the time of the fileserver, only in
+    // php level.
     sleep(1);
-    // modifica o arquivo para ser o arquivo mais recente.
+    // modifies the file to be the most recent file.
     $this->fake_disk->append($this->log_files[1], 'foo');
 
     Livewire::test(LogLivewireIndex::class, [
@@ -100,23 +101,23 @@ test('se os valores de inicialização forem inválidos, eles serão definidas p
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
-test('filename é obrigatório', function () {
+test('filename is required', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
-    ->set('filename', '') // valores possíveis: 10/25/50/100
+    ->set('filename', '') // possible values: 10/25/50/100
     ->assertHasErrors(['filename' => 'required']);
 });
 
-test('filename deve ser uma string', function () {
+test('filename must be a string', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
@@ -124,7 +125,7 @@ test('filename deve ser uma string', function () {
     ->assertHasErrors(['filename' => 'string']);
 });
 
-test('filename deve respeitar o padrão de nome default do laravel para arquivos de log', function () {
+test("filename must respect laravel's default name pattern for log files", function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
@@ -132,7 +133,7 @@ test('filename deve respeitar o padrão de nome default do laravel para arquivos
     ->assertHasErrors(['filename' => 'regex']);
 });
 
-test('arquivo definido no filename deve exister no storage', function () {
+test('file defined in filename must exist in storage', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
@@ -141,7 +142,7 @@ test('arquivo definido no filename deve exister no storage', function () {
 });
 
 // Happy path
-test('paginação retorna a quantidade de linhas do arquivo de log da aplicação esperada', function () {
+test('pagination returns the number of lines of the expected application log file', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
@@ -156,14 +157,14 @@ test('paginação retorna a quantidade de linhas do arquivo de log da aplicaçã
     ->assertCount('file_content', 100);
 });
 
-test('retorna a quantidade de arquivos de logs de aplicação esperada', function () {
+test('returns the amount of expected application log files', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
     ->assertCount('log_files', 2);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class)
@@ -178,13 +179,14 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('arquivo de log default é o com a modificação mais recente', function () {
+test('default log file is the one with the most recent modification', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
-    // força dormir 1 segundos, para alterar o time no file system, pois travel
-    // e testtime não alteram o tempo do fileserver, apenas em nível de php.
+    // force sleep 1 seconds, to change the time in the file system, because
+    // travel and testtime do not change the time of the fileserver, only in
+    // php level.
     sleep(1);
-    // modifica o arquivo para ser o arquivo mais recente.
+    // modifies the file to be the most recent file.
     $this->fake_disk->append($this->log_files[1], 'foo');
 
     Livewire::test(LogLivewireIndex::class, [
@@ -193,7 +195,7 @@ test('arquivo de log default é o com a modificação mais recente', function ()
     ->assertSet('filename', $this->log_files[1]);
 });
 
-test('se os valores de inicialização forem válidos, eles serão utilizados', function () {
+test('if the initialization values are valid, they will be used', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     Livewire::test(LogLivewireIndex::class, [
@@ -207,7 +209,7 @@ test('se os valores de inicialização forem válidos, eles serão utilizados', 
     ->assertSet('filename', $this->log_files[1]);
 });
 
-test('emite evento de feedback ao atualizar um perfil', function () {
+test('emits feedback event when updating a role', function () {
     grantPermission(PermissionType::LogViewAny->value);
     grantPermission(PermissionType::LogDelete->value);
 
@@ -218,7 +220,7 @@ test('emite evento de feedback ao atualizar um perfil', function () {
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
-test('mesmo sem arquivo a ser exibido, o componente é carregado sem erros', function () {
+test('even with no file to be displayed, the component loads without errors', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     $this->fake_disk->delete($this->log_files);
@@ -230,7 +232,7 @@ test('mesmo sem arquivo a ser exibido, o componente é carregado sem erros', fun
     ->assertOk();
 });
 
-test('é possível listar os logs da aplicação com permissão específica', function () {
+test('list application logs with specific permission', function () {
     grantPermission(PermissionType::LogViewAny->value);
 
     get(route('administration.log.index'))
@@ -238,7 +240,7 @@ test('é possível listar os logs da aplicação com permissão específica', fu
     ->assertSeeLivewire(LogLivewireIndex::class);
 });
 
-test('é possível excluir o arquivo de log com permissão específica', function () {
+test('delete log file with specific permission', function () {
     grantPermission(PermissionType::LogViewAny->value);
     grantPermission(PermissionType::LogDelete->value);
 
@@ -253,7 +255,7 @@ test('é possível excluir o arquivo de log com permissão específica', functio
     $this->fake_disk->assertExists($this->log_files[1]);
 });
 
-test('é possível fazer o download do arquivo de log com permissão específica', function () {
+test('downloads log file with specific permission', function () {
     grantPermission(PermissionType::LogViewAny->value);
     grantPermission(PermissionType::LogDownload->value);
 

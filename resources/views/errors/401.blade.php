@@ -1,5 +1,5 @@
 {{--
-    View para erro HTTP 401.
+    View for HTTP 401 error.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

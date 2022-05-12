@@ -1,9 +1,9 @@
 {{--
-    Checkbox padrão.
+    Default checkbox.
 
     Props:
-    - checked: se o checkbox deve ser selecionado
-    - text: texto de descrição/significado do item
+    - checked: whether the checkbox should be selected
+    - text: item description/meaning text
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

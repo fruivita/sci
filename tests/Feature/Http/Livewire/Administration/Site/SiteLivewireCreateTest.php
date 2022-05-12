@@ -28,34 +28,34 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível cadastrar a localidade sem estar autenticado', function () {
+test('it is not possible to create the site without being authenticated', function () {
     logout();
 
     get(route('administration.site.create'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de criação da localidade', function () {
+test('authenticated but without specific permission, unable to access site creation route', function () {
     get(route('administration.site.create'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de criação da localidade sem permissão específica', function () {
+test('cannot render site build component without specific permission', function () {
     Livewire::test(SiteLivewireCreate::class)
     ->assertForbidden();
 });
 
-test('não é possível cadastrar a localidade sem permissão específica', function () {
+test('it is not possible to create the site without specific permission', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
-    // concede permissão para abrir o página de edição
+    // grant permission to open the edit page
     $livewire = Livewire::test(SiteLivewireCreate::class)
     ->set('site.name', 'new foo');
 
-    // remove a permissão
+    // remove permission
     revokePermission(PermissionType::SiteCreate->value);
 
-    // expira o cache dos servidores em 5 segundos
+    // expires cache in 5 seconds
     $this->travel(6)->seconds();
 
     $livewire
@@ -64,7 +64,7 @@ test('não é possível cadastrar a localidade sem permissão específica', func
 });
 
 // Rules
-test('nome da localidade é obrigatório', function () {
+test('site name is required', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -73,7 +73,7 @@ test('nome da localidade é obrigatório', function () {
     ->assertHasErrors(['site.name' => 'required']);
 });
 
-test('nome da localidade deve ser uma string', function () {
+test('site name must be a string', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -82,7 +82,7 @@ test('nome da localidade deve ser uma string', function () {
     ->assertHasErrors(['site.name' => 'string']);
 });
 
-test('nome da localidade deve ter no máximo 255 caracteres', function () {
+test('site name must be a maximum of 255 characters', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -91,7 +91,7 @@ test('nome da localidade deve ter no máximo 255 caracteres', function () {
     ->assertHasErrors(['site.name' => 'max']);
 });
 
-test('nome da localidade deve ser único', function () {
+test('site name must be unique', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Site::factory()->create(['name' => 'foo']);
@@ -102,7 +102,7 @@ test('nome da localidade deve ser único', function () {
     ->assertHasErrors(['site.name' => 'unique']);
 });
 
-test('ids dos servidores que serão associadas a localidade deve ser um array', function () {
+test('ids of the servers that will be associated with the site must be an array', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -111,7 +111,7 @@ test('ids dos servidores que serão associadas a localidade deve ser um array', 
     ->assertHasErrors(['selected' => 'array']);
 });
 
-test('ids dos servidores que serão associadas a localidade devem existir previamente no banco de dados', function () {
+test('ids of the servers that will be associated with the site must previously exist in the database', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -120,16 +120,16 @@ test('ids dos servidores que serão associadas a localidade devem existir previa
     ->assertHasErrors(['selected' => 'exists']);
 });
 
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('é possível renderizar o componente de criação da localidade com permissão específica', function () {
+test('render site creation component with specific permission', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     get(route('administration.site.create'))
@@ -137,7 +137,7 @@ test('é possível renderizar o componente de criação da localidade com permis
     ->assertSeeLivewire(SiteLivewireCreate::class);
 });
 
-test('não há servidores para serem pre-selecionadas', function () {
+test('there are no servers to be pre-selected', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Server::factory(30)->create();
@@ -146,7 +146,7 @@ test('não há servidores para serem pre-selecionadas', function () {
     ->assertCount('selected', 0);
 });
 
-test('actions de manipulação do checkbox dos servidores funcionam como esperado', function () {
+test('server checkbox manipulation actions work as expected', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Server::factory(50)->create();
@@ -163,7 +163,7 @@ test('actions de manipulação do checkbox dos servidores funcionam como esperad
     ->assertCount('selected', 0);
 });
 
-test('paginação retorna a quantidade de servidores esperada', function () {
+test('pagination returns the number of servers expected', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Server::factory(120)->create();
@@ -180,7 +180,7 @@ test('paginação retorna a quantidade de servidores esperada', function () {
     ->assertCount('servers', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -195,7 +195,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('getCheckAllProperty é registrado em cache com expiração de um minuto', function () {
+test('getCheckAllProperty is cached with one minute expiration', function () {
     grantPermission(PermissionType::SiteCreate->value);
     Server::factory(5)->create();
 
@@ -207,18 +207,18 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     $livewire->set('checkbox_action', CheckboxAction::CheckAll->value);
     testTime()->addSeconds(60);
 
-    // não serão contabilizados pois o cache já foi registrado por 1 minuto
+    // will not be counted as the cache has already been registered for 1 minute
     Server::factory(3)->create();
 
     expect(cache()->has('all-checkable' . $livewire->id))->toBeTrue()
     ->and(cache()->get('all-checkable' . $livewire->id))->toHaveCount(5);
 
-    // expirará o cache
+    // will expire cache
     testTime()->addSeconds(1);
     expect(cache()->missing('all-checkable' . $livewire->id))->toBeTrue();
 });
 
-test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
+test('getCheckAllProperty displays expected results according to cache', function () {
     grantPermission(PermissionType::SiteCreate->value);
     Server::factory(5)->create();
 
@@ -227,23 +227,23 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     ->set('checkbox_action', CheckboxAction::CheckAll->value);
     testTime()->addSeconds(60);
 
-    // não serão contabilizados pois o cache já foi registrado por 1 minuto
+    // will not be counted as the cache has already been registered for 1 minute
     Server::factory(3)->create();
 
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
     ->assertCount('CheckAll', 5);
 
-    // expirará o cache
+    // will expire cache
     testTime()->addSeconds(1);
 
-    // contabiliza as novas inserções após expirado
+    // count new inserts after expired
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
     ->assertCount('CheckAll', 5 + 3);
 });
 
-test('emite evento de feedback ao cadastrar uma localidade', function () {
+test('emits feedback event when creates a site', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -252,7 +252,7 @@ test('emite evento de feedback ao cadastrar uma localidade', function () {
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
-test('servidores associados são opcionais na criação da localidade', function () {
+test('associated servers are optional when creating the site', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     Livewire::test(SiteLivewireCreate::class)
@@ -266,7 +266,7 @@ test('servidores associados são opcionais na criação da localidade', function
     expect($site->servers)->toBeEmpty();
 });
 
-test('é possível cadastrar uma localidade com permissão específica', function () {
+test('create a site with specific permission', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
     $server = Server::factory()->create();

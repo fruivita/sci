@@ -9,7 +9,7 @@ return [
     | Top Name
     |--------------------------------------------------------------------------
     |
-    | Topo da estrutura organizacional.
+    | Top name of the organizational structure.
     |
     | Ex.: Poder Judiciário
     |
@@ -21,7 +21,7 @@ return [
     | Middle Name
     |--------------------------------------------------------------------------
     |
-    | Atuação/especialidade da organização.
+    | Organization activity/specialty.
     |
     | Ex.: Justiça Federal
     |
@@ -33,7 +33,9 @@ return [
     | Botton Name
     |--------------------------------------------------------------------------
     |
-    | Nome propriamente dito da organização.
+    | Name of the organization itself.
+    |
+    | Ex.: Seção Judiciária do Espírito Santo
     |
     */
     'botton_name' => env('BOTTON_NAME'),
@@ -43,7 +45,9 @@ return [
     | Acronym
     |--------------------------------------------------------------------------
     |
-    | Sigla da organização.
+    | Organization acronym.
+    |
+    | Ex.: SJES
     |
     */
     'acronym' => env('ACRONYM'),
@@ -53,7 +57,7 @@ return [
     | Corporate File
     |--------------------------------------------------------------------------
     |
-    | Full path para o arquivo com a estrutura corporativa.
+    | Full path to the corporate structure file.
     |
     */
     'corporate_file' => env('CORPORATE_FILE'),

@@ -6,17 +6,17 @@ use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 
 /**
- * Trait para importação de usuários do servidor LDAP.
+ * Trait for importing users from LDAP server.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  */
 trait ImportableLdapUser
 {
     /**
-     * Importa para o database da aplicação o usuário do servidor LDAP e o
-     * retorna como um usuário da aplicação.
+     * It imports the user from the LDAP server into the application database
+     * and returns it as an application user.
      *
-     * @param string $username usuário/samaccountname do servidor LDAP
+     * @param string $username
      *
      * @return \App\Models\User|null
      */

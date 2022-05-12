@@ -1,10 +1,10 @@
 {{--
-    Elemento não clicável que imita, visualmente, os links do menu, isto é,
-    para ser exibido no menu por questões estéticas.
+    Non-clickable element that visually mimics the menu links, ie to be
+    displayed in the menu for aesthetic reasons.
 
     Props:
-    - icon: ícone svg que será exibido
-    - text: texto de descrição/significado do item do menu
+    - icon: svg icon that will be displayed
+    - text: item description/meaning text do menu
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

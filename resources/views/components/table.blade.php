@@ -1,5 +1,5 @@
 {{--
-    Tabela padrão.
+    Default table.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

@@ -27,23 +27,23 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível listar os usuários sem estar autenticado', function () {
+test('cannot list users without being authenticated', function () {
     logout();
 
     get(route('authorization.user.index'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos usuários sem permissão específica', function () {
+test('authenticated but without specific permission, cannot access users listing route without specific permission', function () {
     get(route('authorization.user.index'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de listagem dos usuários sem permissão específica', function () {
+test('cannot render users listing component without specific permission', function () {
     Livewire::test(UserLivewireIndex::class)->assertForbidden();
 });
 
-test('não é possível exibir o modal de edição de usuário sem permissão específica', function () {
+test('cannot display user edit modal without specific permission', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
@@ -53,7 +53,7 @@ test('não é possível exibir o modal de edição de usuário sem permissão es
     ->assertForbidden();
 });
 
-test('não é possível atualizar um usuário sem permissão específica', function () {
+test('cannot update a user without specific permission', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
@@ -64,7 +64,7 @@ test('não é possível atualizar um usuário sem permissão específica', funct
 
     revokePermission(PermissionType::UserUpdate->value);
 
-    // expira o cache das permissões em 5 segundos
+    // expires cache in 5 seconds
     $this->travel(6)->seconds();
 
     $livewire
@@ -72,7 +72,7 @@ test('não é possível atualizar um usuário sem permissão específica', funct
     ->assertForbidden();
 });
 
-test('os perfis não estão disponíveis se o modal não puder ser carregadado', function () {
+test('roles are not available if modal cannot be loaded', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     expect(Role::count())->toBeGreaterThan(1);
@@ -86,15 +86,15 @@ test('os perfis não estão disponíveis se o modal não puder ser carregadado',
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
-test('id do perfil que será associado ao usuário deve ser um inteiro', function () {
+test('id of the role that will be associated with the user must be an integer', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
@@ -105,7 +105,7 @@ test('id do perfil que será associado ao usuário deve ser um inteiro', functio
     ->assertHasErrors(['editing.role_id' => 'integer']);
 });
 
-test('id do perfil que será associado ao usuário deve existir previamente no banco de dados', function () {
+test('id of the role that will be associated with the user must previously exist in the database', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
@@ -116,7 +116,7 @@ test('id do perfil que será associado ao usuário deve existir previamente no b
     ->assertHasErrors(['editing.role_id' => 'exists']);
 });
 
-test('id do perfil que será associado ao usuário é obrigatório', function () {
+test('id of the role that will be associated with the user is mandatory', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
@@ -127,7 +127,7 @@ test('id do perfil que será associado ao usuário é obrigatório', function ()
     ->assertHasErrors(['editing.role_id' => 'required']);
 });
 
-test('termo pesquisável deve ser uma string', function () {
+test('searchable term must be a string', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
@@ -135,7 +135,7 @@ test('termo pesquisável deve ser uma string', function () {
     ->assertHasErrors(['term' => 'string']);
 });
 
-test('termo pesquisável deve ter no máximo 50 caracteres', function () {
+test('searchable term must be a maximum of 50 characters', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
@@ -143,7 +143,7 @@ test('termo pesquisável deve ter no máximo 50 caracteres', function () {
     ->assertHasErrors(['term' => 'max']);
 });
 
-test('termo pesquisável está sujeito à validação em tempo real', function () {
+test('searchable term is validated in real time', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
@@ -154,7 +154,7 @@ test('termo pesquisável está sujeito à validação em tempo real', function (
 });
 
 // Happy path
-test('é possível renderizar o componente de listagem dos usuários com permissão específica', function () {
+test('renders listing component of users with specific permission', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     get(route('authorization.user.index'))
@@ -162,7 +162,7 @@ test('é possível renderizar o componente de listagem dos usuários com permiss
     ->assertSeeLivewire(UserLivewireIndex::class);
 });
 
-test('paginação retorna a quantidade de usuários esperada', function () {
+test('pagination returns the expected amount of users', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     User::factory(120)->create();
@@ -179,7 +179,7 @@ test('paginação retorna a quantidade de usuários esperada', function () {
     ->assertCount('users', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     Livewire::test(UserLivewireIndex::class)
@@ -194,7 +194,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível exibir o modal de edição de usuário com permissão específica', function () {
+test('display user edit modal with specific permission', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
@@ -205,7 +205,7 @@ test('é possível exibir o modal de edição de usuário com permissão especí
     ->assertSet('show_edit_modal', true);
 });
 
-test('os perfis estão disponíveis se o modal puder ser carregadado', function () {
+test('roles are available if modal can be loaded', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
@@ -219,7 +219,7 @@ test('os perfis estão disponíveis se o modal puder ser carregadado', function 
     expect(Role::count())->toBe(4);
 });
 
-test('emite evento de feedback ao atualizar um usuário', function () {
+test('emits feedback event when updating a user', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
@@ -229,7 +229,7 @@ test('emite evento de feedback ao atualizar um usuário', function () {
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
-test('é possível atualizar um usuário com permissão específica', function () {
+test('updates a user with specific permission', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::UserViewAny->value);
@@ -249,7 +249,7 @@ test('é possível atualizar um usuário com permissão específica', function (
     expect($user->role->id)->toBe(Role::ADMINISTRATOR);
 });
 
-test('atualização do perfil remove eventual delegação', function () {
+test('role update removes eventual delegation', function () {
     $department = Department::factory()->create();
     logout();
 
@@ -281,7 +281,7 @@ test('atualização do perfil remove eventual delegação', function () {
     ->and($this->user->role_granted_by)->toBeNull();
 });
 
-test('pesquisa retorna os resultados esperados', function () {
+test('search returns expected results', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
     User::factory()->create([

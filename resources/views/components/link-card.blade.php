@@ -1,9 +1,9 @@
 {{--
-    Links estilizados como um card para exibição na página home.
+    Links styled as a card for display on the home page.
 
     Props:
-    - icon: ícone svg que será exibido
-    - text: texto de descrição/significado do item
+    - icon: svg icon that will be displayed
+    - text: item description/meaning text
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

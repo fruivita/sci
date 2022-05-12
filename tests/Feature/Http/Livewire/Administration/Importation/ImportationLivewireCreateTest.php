@@ -27,23 +27,23 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível carregar página de importação de dados sem estar autenticado', function () {
+test('cannot load data import page without being authenticated', function () {
     logout();
 
     get(route('administration.importation.create'))->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica não, não é possível executar a rota de importação de dados', function () {
+test('authenticated but without specific permission no, unable to access data import route', function () {
     get(route('administration.importation.create'))->assertForbidden();
 });
 
-test('autenticado, mas sem permissão específica, não é possível renderizar o componente de importação de dados', function () {
+test('authenticated but without specific permission, unable to render data import component', function () {
     Livewire::test(ImportationLivewireCreate::class)
     ->assertForbidden();
 });
 
 // Rules
-test('itens que serão importados é obrigatório', function () {
+test('items that will be imported is mandatory', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
     Livewire::test(ImportationLivewireCreate::class)
@@ -52,7 +52,7 @@ test('itens que serão importados é obrigatório', function () {
     ->assertHasErrors(['import' => 'required']);
 });
 
-test('itens que serão importados deve ser um array', function () {
+test('items to be imported must be an array', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
     Livewire::test(ImportationLivewireCreate::class)
@@ -61,7 +61,7 @@ test('itens que serão importados deve ser um array', function () {
     ->assertHasErrors(['import' => 'array']);
 });
 
-test('não aceita importar itens fora das opções oferecidas', function () {
+test('does not accept to import items outside the options offered', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
     Livewire::test(ImportationLivewireCreate::class)
@@ -71,7 +71,7 @@ test('não aceita importar itens fora das opções oferecidas', function () {
 });
 
 // Happy path
-test('é possível renderizar o componente de importação de dados com permissão específica', function () {
+test('renders data import component with specific permission', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
     get(route('administration.importation.create'))
@@ -79,7 +79,7 @@ test('é possível renderizar o componente de importação de dados com permiss�
     ->assertSeeLivewire(ImportationLivewireCreate::class);
 });
 
-test('dispara job de importação do arquivo corporativo', function () {
+test('triggers import corporate file job', function () {
     grantPermission(PermissionType::ImportationCreate->value);
     Bus::fake();
 
@@ -91,7 +91,7 @@ test('dispara job de importação do arquivo corporativo', function () {
     Bus::assertNotDispatched(ImportPrintLog::class);
 });
 
-test('dispara job de importação do print log', function () {
+test('triggers import print log job', function () {
     grantPermission(PermissionType::ImportationCreate->value);
     Bus::fake();
 
@@ -103,7 +103,7 @@ test('dispara job de importação do print log', function () {
     Bus::assertNotDispatched(ImportCorporateStructure::class);
 });
 
-test('dispara job de todos os importáveis', function () {
+test('triggers job of all imports', function () {
     grantPermission(PermissionType::ImportationCreate->value);
     Bus::fake();
 
@@ -115,7 +115,7 @@ test('dispara job de todos os importáveis', function () {
     Bus::assertDispatched(ImportCorporateStructure::class);
 });
 
-test('da feedback ao usuário se a importação for solicitada corretamente', function () {
+test('gives feedback to the user if the import is correctly requested', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
     Livewire::test(ImportationLivewireCreate::class)

@@ -20,14 +20,14 @@ beforeEach(function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 });
 
-test('make retorna o objeto da classe', function () {
+test('make returns the object', function () {
     expect(PrintImporter::make())->toBeInstanceOf(PrintImporter::class);
 });
 
 // Invalid
-test('todos os campos da impressão precisam estar presentes, mesmo que vazios', function () {
-    // sem delimitar o último parâmetro (qtd de cópias), portanto, campos incompletos
-    $print = 'server.dominio.org.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1';
+test('all fields in the print must be present, even if empty', function () {
+    // without delimiting the last parameter (copy qty), so incomplete fields
+    $print = 'server.domain.org.br╡01/06/2020╡07:35:35╡foo-doc.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1';
 
     PrintImporter::make()->import($print);
 
@@ -38,8 +38,8 @@ test('todos os campos da impressão precisam estar presentes, mesmo que vazios',
     ->and(User::count())->toBe(0);
 });
 
-test('cria o log se o servidor de impressão for inválido na string de impressão', function ($server) {
-    $print = "{$server}╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
+test('create log if print server is invalid in print string', function ($server) {
+    $print = "{$server}╡01/06/2020╡07:35:35╡foo-doc.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -47,37 +47,24 @@ test('cria o log se o servidor de impressão for inválido na string de impress�
     expect(Printing::count())->toBe(0);
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    Str::random(256), // máximo 255 caracteres
-    null,             // obrigatório
+    Str::random(256), // maximum 255 characters
+    null,             // required
 ]);
 
-test('cria o log se o cliente for inválido na string de impressão', function ($client) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡{$client}╡IMP-123╡2567217╡1╡1";
+test('create log if client is invalid in print string', function ($client) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡foo-doc.pdf╡aduser╡2021╡╡╡{$client}╡IMP-123╡2567217╡1╡1";
     Log::spy();
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    Str::random(256), // máximo 255 caracteres
-    null,             // obrigatório
+    Str::random(256), // maximum 255 characters
+    null,             // required
 ]);
 
-test('cria o log se o usuário for inválido na string de impressão', function ($username) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡{$username}╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
-    Log::spy();
-
-    PrintImporter::make()->import($print);
-
-    expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
-})->with([
-    Str::random(21), // máximo 21 caracteres
-    null,             // campo obrigatório
-]);
-
-test('cria o log se a impressora for inválida na string de impressão', function ($printer) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡{$printer}╡2567217╡1╡1";
+test('create log if user is invalid in print string', function ($username) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡foo-doc.pdf╡{$username}╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -85,12 +72,12 @@ test('cria o log se a impressora for inválida na string de impressão', functio
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    Str::random(256), // máximo 255 caracteres
-    null,             // campo obrigatório
+    Str::random(21), // maximum 21characters
+    null,            // required
 ]);
 
-test('cria o log se a lotação for inválida na string de impressão', function ($department) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡{$department}╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
+test('create log if printer is invalid in print string', function ($printer) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡foo-doc.pdf╡aduser╡2021╡╡╡CPU-10000╡{$printer}╡2567217╡1╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -98,12 +85,12 @@ test('cria o log se a lotação for inválida na string de impressão', function
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    'foo', // não conversível em inteiro
-    10,    // inexistente
+    Str::random(256), // maximum 255 characters
+    null,             // required
 ]);
 
-test('cria o log se a data da impressão for inválida na string de impressão', function ($date) {
-    $print = "server.dominio.gov.br╡{$date}╡07:35:35╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
+test('create log if department is invalid in print string', function ($department) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡foo-doc.pdf╡aduser╡2021╡{$department}╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -111,13 +98,12 @@ test('cria o log se a data da impressão for inválida na string de impressão',
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    '31/02/2020', // data inexistente
-    '28-02-2020', // deve ser no formato dd/mm/yyyy
-    null,         // obrigatório
+    'foo', // not convertible to integer
+    10,    // nonexistent
 ]);
 
-test('cria o log se a hora da impressão for inválida na string de impressão', function ($time) {
-    $print = "server.dominio.gov.br╡01/06/2020╡{$time}╡documento de teste.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
+test('create log if print date is invalid in print string', function ($date) {
+    $print = "server.domain.org.br╡{$date}╡07:35:35╡foo-doc.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -125,13 +111,13 @@ test('cria o log se a hora da impressão for inválida na string de impressão',
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    '23:61:59', // hora inexistente
-    '2:59:59',  // deve ser no formato hh:mm:ss
-    null,       // obrigatório
+    '31/02/2020', // non-existent date
+    '28-02-2020', // must be in dd/mm/yyyy format
+    null,         // required
 ]);
 
-test('cria o log se o nome do arquivo impresso for inválido na string de impressão', function ($filename) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡{$filename}╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
+test('create log if print time is invalid in print string', function ($time) {
+    $print = "server.domain.org.br╡01/06/2020╡{$time}╡foo-doc.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -139,21 +125,13 @@ test('cria o log se o nome do arquivo impresso for inválido na string de impres
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    Str::random(261), // máximo 260 caracteres
+    '23:61:59', // non-existent time
+    '2:59:59',  // must be in the format hh:mm:ss
+    null,       // required
 ]);
 
-test('o nome do arquivo é opcional', function () {
-    $filename = null;
-
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡{$filename}╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
-
-    PrintImporter::make()->import($print);
-
-    expect(Printing::count())->toBe(1);
-});
-
-test('cria o log se o número de páginas for inválido na string de impressão', function ($pages) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡arquivo.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡{$pages}╡1";
+test('creates the log if the printed filename is invalid in the print string', function ($filename) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡{$filename}╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -161,12 +139,11 @@ test('cria o log se o número de páginas for inválido na string de impressão'
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    'foo', // não conversível em inteiro
-    null,  // obrigatório
+    Str::random(261), // maximum 260 characters
 ]);
 
-test('cria o log se o número de cópias for inválido na string de impressão', function ($copies) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡arquivo.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡5╡{$copies}";
+test('create log if invalid page number in print string', function ($pages) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡arquivo.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡{$pages}╡1";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -174,12 +151,12 @@ test('cria o log se o número de cópias for inválido na string de impressão',
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    'foo', // não conversível em inteiro
-    null,  // obrigatório
+    'foo', // not convertible to integer
+    null,  // required
 ]);
 
-test('cria o log se o tamanho do arquivo for inválido na string de impressão', function ($file_size) {
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡arquivo.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡{$file_size}╡5╡2";
+test('create log if number of copies is invalid in print string', function ($copies) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡arquivo.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡5╡{$copies}";
     Log::spy();
 
     PrintImporter::make()->import($print);
@@ -187,14 +164,27 @@ test('cria o log se o tamanho do arquivo for inválido na string de impressão',
     expect(Printing::get())->toBeEmpty();
     Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
 })->with([
-    'foo', // não conversível em inteiro
+    'foo', // not convertible to integer
+    null,  // required
 ]);
 
-test('transação faz roolback em caso de exception na persistência da impressão', function () {
-    // Note que duas impressões com a mesma data, hora, cliente, impressora, usuário e servidor são considerais iguais.
-    // Nesse caso, os dados da segunda impressão não devem existir no banco de dados devido ao roolback.
-    $print_1 = 'server1.dominio.gov.br╡01/06/2020╡07:35:35╡documento1.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1';
-    $print_2 = 'server1.dominio.gov.br╡01/06/2020╡07:35:35╡documento2.pdf╡aduser╡2022╡╡╡CPU-10000╡IMP-123╡5567217╡2╡3';
+test('create log if file size is invalid in print string', function ($file_size) {
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡arquivo.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡{$file_size}╡5╡2";
+    Log::spy();
+
+    PrintImporter::make()->import($print);
+
+    expect(Printing::get())->toBeEmpty();
+    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+})->with([
+    'foo', // not convertible to integer
+]);
+
+test('transaction rollback in case of exception in print persistence', function () {
+    // Note that two prints with the same date, time, client, printer, user and server are considered equal.
+    // In this case, the second print data should not exist in the database due to rollback.
+    $print_1 = 'server1.domain.org.br╡01/06/2020╡07:35:35╡documento1.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1';
+    $print_2 = 'server1.domain.org.br╡01/06/2020╡07:35:35╡documento2.pdf╡aduser╡2022╡╡╡CPU-10000╡IMP-123╡5567217╡2╡3';
 
     PrintImporter::make()->import($print_1);
     PrintImporter::make()->import($print_2);
@@ -207,10 +197,10 @@ test('transação faz roolback em caso de exception na persistência da impress�
     ->and(Printing::where('filename', 'documento2.pdf')->first())->toBeNull();
 });
 
-test('cria o log se houver exception durante a persistência da impressão', function () {
-    // as impressões a seguir são consideradas iguais
-    $print_1 = 'server1.dominio.gov.br╡01/06/2020╡07:35:35╡documento1.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1';
-    $print_2 = 'server1.dominio.gov.br╡01/06/2020╡07:35:35╡documento2.pdf╡aduser╡2022╡╡╡CPU-10000╡IMP-123╡5567217╡2╡3';
+test('create log if there is exception during print persistence', function () {
+    // the following prints are considered equal
+    $print_1 = 'server1.domain.org.br╡01/06/2020╡07:35:35╡documento1.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1';
+    $print_2 = 'server1.domain.org.br╡01/06/2020╡07:35:35╡documento2.pdf╡aduser╡2022╡╡╡CPU-10000╡IMP-123╡5567217╡2╡3';
     Log::spy();
 
     PrintImporter::make()->import($print_1);
@@ -222,18 +212,28 @@ test('cria o log se houver exception durante a persistência da impressão', fun
 });
 
 // Happy path
-test('o tamanho do arquivo é opcional', function () {
-    $file_size = null;
+test('file name is optional', function () {
+    $filename = null;
 
-    $print = "server.dominio.gov.br╡01/06/2020╡07:35:35╡documento.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡{$file_size}╡1╡1";
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡{$filename}╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡2567217╡1╡1";
 
     PrintImporter::make()->import($print);
 
     expect(Printing::count())->toBe(1);
 });
 
-test('se a lotação existir, não acusará erro de validação', function () {
-    $print = 'server.dominio.gov.br╡01/06/2020╡07:35:35╡documento de teste.pdf╡aduser╡2021╡2╡╡CPU-10000╡IMP-123╡2567217╡1╡1';
+test('file size is optional', function () {
+    $file_size = null;
+
+    $print = "server.domain.org.br╡01/06/2020╡07:35:35╡documento.pdf╡aduser╡2021╡╡╡CPU-10000╡IMP-123╡{$file_size}╡1╡1";
+
+    PrintImporter::make()->import($print);
+
+    expect(Printing::count())->toBe(1);
+});
+
+test('if the department exists, it will not show a validation error', function () {
+    $print = 'server.domain.org.br╡01/06/2020╡07:35:35╡foo-doc.pdf╡aduser╡2021╡2╡╡CPU-10000╡IMP-123╡2567217╡1╡1';
     ImportCorporateStructure::dispatchSync();
 
     Log::spy();
@@ -244,12 +244,12 @@ test('se a lotação existir, não acusará erro de validação', function () {
     Log::shouldNotHaveReceived('log');
 });
 
-test('importa uma impressão', function () {
-    $server = 'server.dominio.gov.br';
+test('import an print', function () {
+    $server = 'server.domain.org.br';
     $client = 'CPU-10000';
     $username = 'aduser';
     $printer = 'IMP-123';
-    $filename = 'documento de teste.pdf';
+    $filename = 'foo-doc.pdf';
 
     $print = "{$server}╡01/06/2020╡07:35:35╡{$filename}╡{$username}╡2021╡╡╡{$client}╡{$printer}╡2567217╡4╡7";
 

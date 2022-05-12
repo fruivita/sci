@@ -1,5 +1,5 @@
 {{--
-    View para erro HTTP 429.
+    View for HTTP 429 error.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

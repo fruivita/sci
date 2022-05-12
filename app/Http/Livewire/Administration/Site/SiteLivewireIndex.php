@@ -21,14 +21,14 @@ class SiteLivewireIndex extends Component
     use WithPerPagePagination;
 
     /**
-     * Deve-se exibir o modal de exclusão da localidade?
+     * Should the modal for deleting the documentation be displayed?
      *
      * @var bool
      */
     public $show_delete_modal = false;
 
     /**
-     * Localidade que será excluída.
+     * Resource that will be deleted.
      *
      * @var \App\Models\Site|null
      */
@@ -58,7 +58,7 @@ class SiteLivewireIndex extends Component
     }
 
     /**
-     * Objeto em branco.
+     * Blank model.
      *
      * @return \App\Models\Site
      */
@@ -68,7 +68,7 @@ class SiteLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar as localidades paginados e seus servidores.
+     * Computed property to list the paginated sites and their servers.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -82,7 +82,7 @@ class SiteLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -94,7 +94,7 @@ class SiteLivewireIndex extends Component
     }
 
     /**
-     * Exibe o modal e define o site que será excluído.
+     * Displays the modal and defines the resource to be deleted.
      *
      * @param \App\Models\Site $site
      *
@@ -110,7 +110,7 @@ class SiteLivewireIndex extends Component
     }
 
     /**
-     * Deleta a localidade definida para exclusão.
+     * Remove the specified resource from storage.
      *
      * @return void
      */

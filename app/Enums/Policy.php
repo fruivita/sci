@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /*
- * Tipos de actions/métodos tratados por uma policy.
+ * Types of actions/methods handled by a policy.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  * @see https://laravel.com/docs/authorization

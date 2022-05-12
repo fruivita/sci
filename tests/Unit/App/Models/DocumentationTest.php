@@ -9,30 +9,30 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Str;
 
 // Exceptions
-test('lança exceção ao tentar cadastrar documentação em duplicidade, isto é, com rotas iguais', function () {
+test('throws exception when trying to create documentation in duplicate, that is, with equal routes', function () {
     expect(
         fn () => Documentation::factory(2)->create(['app_route_name' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
-test('lança exceção ao tentar cadastrar documentação com campo inválido', function ($field, $value, $message) {
+test('throws exception when trying to create documentation with invalid field', function ($field, $value, $message) {
     expect(
         fn () => Documentation::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['app_route_name', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
-    ['app_route_name', null,             'cannot be null'],           // obrigatório
-    ['doc_link',       Str::random(256), 'Data too long for column'], // máximo 255 caracteres
+    ['app_route_name', Str::random(256), 'Data too long for column'], // maximum 255 characters
+    ['app_route_name', null,             'cannot be null'],           // required
+    ['doc_link',       Str::random(256), 'Data too long for column'], // maximum 255 characters
 ]);
 
 // Happy path
-test('cadastra múltiplas documentações', function () {
+test('create many documentation', function () {
     Documentation::factory(30)->create();
 
     expect(Documentation::count())->toBe(30);
 });
 
-test('campos da documentação em seu tamanho máximo são aceitos', function () {
+test('Documentation fields in their maximum size are accepted', function () {
     Documentation::factory()->create([
         'app_route_name' => Str::random(255),
         'doc_link' => Str::random(255),
@@ -41,13 +41,13 @@ test('campos da documentação em seu tamanho máximo são aceitos', function ()
     expect(Documentation::count())->toBe(1);
 });
 
-test('campos opcionais da documentação são aceitos', function () {
+test('optional fields of documentation are accepted', function () {
     Documentation::factory()->create(['doc_link' => null]);
 
     expect(Documentation::count())->toBe(1);
 });
 
-test('retorna as localidades usando o escopo de ordenação default definido', function () {
+test('returns the documentations using the defined default sort scope', function () {
     $first = 'bar';
     $second = 'baz';
     $third = 'foo';

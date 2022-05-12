@@ -1,8 +1,8 @@
 {{--
-    Página padrão.
+    Default page.
 
     Props:
-    - header: título da página
+    - header: page header
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

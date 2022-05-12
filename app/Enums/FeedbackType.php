@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /*
- * Tipos de feedbacks dados aos usuários.
+ * Types of feedback given to users.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  */
@@ -12,7 +12,7 @@ enum FeedbackType: string
     case Success = 'success';
     case Error = 'error';
     /**
-     * Nome para exibição do tipo de mensagem.
+     * Display name of the message type.
      *
      * @return string
      */
@@ -25,7 +25,7 @@ enum FeedbackType: string
     }
 
     /**
-     * Icone svg para cada tipo de mensagem.
+     * Icon svg for each message type.
      *
      * @return string
      */

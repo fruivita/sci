@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Traits;
 use App\Traits\WithCaching;
 
 /**
- * Trait para definição do registro anterior e próximo.
+ * Trait for definition of previous and next record.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  * @see https://laravel-livewire.com/docs/2.x/traits
@@ -15,22 +15,22 @@ trait WithPreviousNext
     use WithCaching;
 
     /**
-     * Id do registro anterior.
+     * Previous record id.
      *
      * @var int|null
      */
     public $previous;
 
     /**
-     * Id do próximo registro.
+     * Next record id.
      *
      * @var int|null
      */
     public $next;
 
     /**
-     * Objeto base que será utilizado definir os ids do registro anterior do
-     * próximo.
+     * Base resource that will be used to define the ids of the previous record
+     * of the next one.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -50,7 +50,7 @@ trait WithPreviousNext
     }
 
     /**
-     * Define o id do registro anterior.
+     * Sets the previous record id.
      *
      * @return void
      */
@@ -70,7 +70,7 @@ trait WithPreviousNext
     }
 
     /**
-     * Define o id do próximo registro.
+     * Sets the id of the next record.
      *
      * @return void
      */

@@ -25,11 +25,11 @@ afterEach(function () {
 });
 
 // Forbidden
-test('usuário sem permissão não pode listar as delegações de sua lotação', function () {
+test("user without permission cannot list their department's delegations", function () {
     expect((new DelegationPolicy)->viewAny($this->user))->toBeFalse();
 });
 
-test('usuário não pode delegar perfil, se o perfil do destinatário for superior na aplicação', function () {
+test('user cannot delegate role, if delegated role is higher in application', function () {
     $department_a = Department::factory()->create();
     $department_b = Department::factory()->create();
 
@@ -47,7 +47,7 @@ test('usuário não pode delegar perfil, se o perfil do destinatário for superi
     expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeFalse();
 });
 
-test('usuário não pode delegar perfil para usuário de outra lotação', function () {
+test('user cannot delegate role to user from another department', function () {
     $department_a = Department::factory()->create();
     $department_b = Department::factory()->create();
 
@@ -65,7 +65,7 @@ test('usuário não pode delegar perfil para usuário de outra lotação', funct
     expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeFalse();
 });
 
-test('usuário não pode delegar perfil sem permissão específica', function () {
+test('user cannot delegate role without specific permission', function () {
     $department = Department::factory()->create();
 
     $this->user->department_id = $department->id;
@@ -80,7 +80,7 @@ test('usuário não pode delegar perfil sem permissão específica', function ()
     expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeFalse();
 });
 
-test('usuário não pode remover delegação inexistente', function () {
+test('user cannot remove non-existent delegation', function () {
     $department = Department::factory()->create();
 
     $this->user->department_id = $department->id;
@@ -95,7 +95,7 @@ test('usuário não pode remover delegação inexistente', function () {
     expect((new DelegationPolicy)->delete($this->user, $user_bar))->toBeFalse();
 });
 
-test('usuário não pode remover delegação de perfil superior', function () {
+test('user cannot remove higher role delegation', function () {
     $department = Department::factory()->create();
 
     $this->user->department_id = $department->id;
@@ -115,7 +115,7 @@ test('usuário não pode remover delegação de perfil superior', function () {
     expect((new DelegationPolicy)->delete($this->user, $user_taz))->toBeFalse();
 });
 
-test('usuário não pode remover delegação de usuário de outra lotação', function () {
+test('user cannot remove user delegation from another department', function () {
     $department_a = Department::factory()->create();
     $department_b = Department::factory()->create();
 
@@ -137,45 +137,45 @@ test('usuário não pode remover delegação de usuário de outra lotação', fu
 });
 
 // Happy path
-test('permissão de listar as delegações é persistida em cache por 5 segundos', function () {
+test('permission to list delegations is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::DelegationViewAny->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::DelegationViewAny->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new DelegationPolicy)->viewAny($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('usuário pode listar delegações de sua lotação se possuir permissão', function () {
+test('user can list delegations from his department if he has permission', function () {
     grantPermission(PermissionType::DelegationViewAny->value);
 
     expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue();
 });
 
-test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do destinatário for inferior na aplicação e tiver permissão', function () {
+test('user can delegate role within the same department, if delegated role is lower in application and has permission', function () {
     $department = Department::factory()->create();
 
     $this->user->department_id = $department->id;
@@ -192,7 +192,7 @@ test('usuário pode delegar perfil dentro da mesma lotação, se o perfil do des
     expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeTrue();
 });
 
-test('usuário pode remover delegação de usuário da mesma lotação, com perfil igual ou inferior, mesmo delegado por outrem', function () {
+test('user can remove user delegation from the same department, with the same or lower role, even delegated by someone else', function () {
     $department = Department::factory()->create();
 
     $this->user->department_id = $department->id;

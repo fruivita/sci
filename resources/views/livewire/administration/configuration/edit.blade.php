@@ -1,9 +1,8 @@
 {{--
-    View livewire para edição individual da configuração.
+    View livewire for individual configuration editing.
 
-    Configurações disponíveis:
-    - Superadmin: Usuário com permissões totais, não delegáveis e não
-    removíveis.
+    Available settings:
+    - Superadmin: User with full, non-delegable and non-removable permissions.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

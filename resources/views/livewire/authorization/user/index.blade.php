@@ -1,5 +1,5 @@
 {{--
-    View livewire para e atualização do perfil dos usuários.
+    View livewire for and update users' role.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

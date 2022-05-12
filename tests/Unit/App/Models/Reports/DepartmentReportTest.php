@@ -1,7 +1,8 @@
 <?php
 
 /**
- * As lotações e usuários usados nestes testes, são os previstos no template.
+ * The departments and users used in these tests are those provided for in the
+ * template.
  *
  * @see https://pestphp.com/docs/
  * @see \testes\template\Corporate.xml
@@ -20,20 +21,20 @@ beforeEach(function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->print_log_files = [
-        '30-06-2019.txt' => 'server1.domain.gov.br╡30/06/2019╡01:00:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡MLT-111╡1000╡3╡1' . PHP_EOL .
-            'server1.domain.gov.br╡30/06/2019╡10:30:00╡private.pdf╡Sigla 3╡╡3╡╡CPU-10000╡IMP-222╡5000╡8╡2' . PHP_EOL,
+        '30-06-2019.txt' => 'server1.domain.org.br╡30/06/2019╡01:00:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡MLT-111╡1000╡3╡1' . PHP_EOL .
+            'server1.domain.org.br╡30/06/2019╡10:30:00╡private.pdf╡Sigla 3╡╡3╡╡CPU-10000╡IMP-222╡5000╡8╡2' . PHP_EOL,
 
-        '02-12-2020.txt' => 'server1.domain.gov.br╡02/12/2020╡02:05:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡IMP-666╡3000╡10╡2' . PHP_EOL .
-            'server1.domain.gov.br╡02/12/2020╡13:15:15╡games.pdf╡Sigla 1╡╡1╡╡CPU-20000╡IMP-444╡1000╡3╡1' . PHP_EOL .
-            'server1.domain.gov.br╡02/12/2020╡18:01:50╡rules.pdf╡Sigla 1╡╡1╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
+        '02-12-2020.txt' => 'server1.domain.org.br╡02/12/2020╡02:05:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡IMP-666╡3000╡10╡2' . PHP_EOL .
+            'server1.domain.org.br╡02/12/2020╡13:15:15╡games.pdf╡Sigla 1╡╡1╡╡CPU-20000╡IMP-444╡1000╡3╡1' . PHP_EOL .
+            'server1.domain.org.br╡02/12/2020╡18:01:50╡rules.pdf╡Sigla 1╡╡1╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
 
-        '05-12-2020.txt' => 'server1.domain.gov.br╡05/12/2020╡03:00:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡IMP-555╡3000╡5╡3' . PHP_EOL .
-            'server1.domain.gov.br╡05/12/2020╡13:15:15╡games.pdf╡Sigla 1╡╡1╡╡CPU-20000╡IMP-444╡1000╡5╡7' . PHP_EOL .
-            'server1.domain.gov.br╡05/12/2020╡18:01:50╡rules.pdf╡Sigla 1╡╡1╡╡CPU-20000╡MLT-111╡2000╡3╡2' . PHP_EOL,
+        '05-12-2020.txt' => 'server1.domain.org.br╡05/12/2020╡03:00:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡IMP-555╡3000╡5╡3' . PHP_EOL .
+            'server1.domain.org.br╡05/12/2020╡13:15:15╡games.pdf╡Sigla 1╡╡1╡╡CPU-20000╡IMP-444╡1000╡5╡7' . PHP_EOL .
+            'server1.domain.org.br╡05/12/2020╡18:01:50╡rules.pdf╡Sigla 1╡╡1╡╡CPU-20000╡MLT-111╡2000╡3╡2' . PHP_EOL,
 
-        '25-12-2020.txt' => 'server1.domain.gov.br╡25/12/2020╡03:30:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡MLT-333╡3000╡1╡1' . PHP_EOL .
-            'server1.domain.gov.br╡25/12/2020╡13:15:15╡games.pdf╡Sigla 1╡╡1╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
-            'server1.domain.gov.br╡25/12/2020╡18:01:50╡rules.pdf╡Sigla 1╡╡1╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
+        '25-12-2020.txt' => 'server1.domain.org.br╡25/12/2020╡03:30:00╡report.pdf╡Sigla 2╡╡2╡╡CPU-10000╡MLT-333╡3000╡1╡1' . PHP_EOL .
+            'server1.domain.org.br╡25/12/2020╡13:15:15╡games.pdf╡Sigla 1╡╡1╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
+            'server1.domain.org.br╡25/12/2020╡18:01:50╡rules.pdf╡Sigla 1╡╡1╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
     ];
 
     $this->fake_disk = Storage::fake('print-log');
@@ -47,7 +48,7 @@ afterEach(function () {
     $this->fake_disk = Storage::fake('print-log');
 });
 
-test('relatório institucional traz informações sobre todas as lotações', function () {
+test('institutional report provides information on all the departments', function () {
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
 
@@ -98,7 +99,7 @@ test('relatório institucional traz informações sobre todas as lotações', fu
     ->and($department6->parent_department)->toBeNull();
 });
 
-test('relatório gerencial traz informações sobre pai e as filhas', function () {
+test('managerial report brings information about parent and child departments', function () {
     login('Sigla 1');
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
@@ -134,8 +135,8 @@ test('relatório gerencial traz informações sobre pai e as filhas', function (
     logout();
 });
 
-test('relatório gerencial não traz informação sobre lotação pai a partir da lotação filha', function () {
-    login('Sigla 3'); // usuário lotado na lotação 3, filha da lotação 1
+test('managerial report does not provide information about parent department from child department', function () {
+    login('Sigla 3'); // user assigned to department 3, child of department 1
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
 
@@ -158,8 +159,8 @@ test('relatório gerencial não traz informação sobre lotação pai a partir d
     logout();
 });
 
-test('relatório por lotação traz informações apenas da lotação da pessoa autenticada', function () {
-    login('Sigla 1'); // usuário lotado na lotação 1, mas não trará nenhuma das filhas
+test("report by department brings information only from the authenticated person's department", function () {
+    login('Sigla 1'); // user assigned to department 1, but will not bring any of the childs
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
 
@@ -180,7 +181,7 @@ test('relatório por lotação traz informações apenas da lotação da pessoa 
     ->and($department1->parent_department)->toBeNull();
 });
 
-test('relatório institucional com restrição de período', function () {
+test('institutional report with period constraint', function () {
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
 
@@ -213,7 +214,7 @@ test('relatório institucional com restrição de período', function () {
     ->and($department6->printer_count)->toBeNull();
 });
 
-test('relatório gerencial com restrição de período', function () {
+test('managerial report with period constraint', function () {
     login('Sigla 1');
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
@@ -239,7 +240,7 @@ test('relatório gerencial com restrição de período', function () {
     logout();
 });
 
-test('relatório por lotação com restrição de período', function () {
+test('report by department with period constraint', function () {
     login('Sigla 1');
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
@@ -259,7 +260,7 @@ test('relatório por lotação com restrição de período', function () {
     logout();
 });
 
-test('relatório institucional, mesmo sem impressão no período, traz o relatório completo', function () {
+test('institutional report, even without printing in the period, brings the complete report', function () {
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
 
@@ -292,7 +293,7 @@ test('relatório institucional, mesmo sem impressão no período, traz o relató
     ->and($department6->printer_count)->toBeNull();
 });
 
-test('relatório gerencial, mesmo sem impressão no período, traz o relatório completo', function () {
+test('managerial report, even without printing in the period, brings the complete report', function () {
     login('Sigla 1');
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
@@ -319,7 +320,7 @@ test('relatório gerencial, mesmo sem impressão no período, traz o relatório 
     logout();
 });
 
-test('relatório por lotação, mesmo sem impressão no período, traz o relatório completo', function () {
+test('report by department, even without printing in the period, brings the complete report', function () {
     login('Sigla 1');
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
@@ -339,7 +340,7 @@ test('relatório por lotação, mesmo sem impressão no período, traz o relató
     logout();
 });
 
-test('relatório institucional é ordenado pelo volume impressão desc e lotação asc', function () {
+test('institutional report is sorted by volume print desc and department asc', function () {
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();
 
@@ -372,7 +373,7 @@ test('relatório institucional é ordenado pelo volume impressão desc e lotaç�
     ->and($sixth->total_print)->toBeNull();
 });
 
-test('relatório gerencial é ordenado pelo volume impressão desc e lotação asc', function () {
+test('managerial report is sorted by print volume desc and department asc', function () {
     login('Sigla 1');
     ImportCorporateStructure::dispatchSync();
     PrintLogImporter::make()->import();

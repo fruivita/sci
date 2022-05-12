@@ -18,14 +18,14 @@ class DocumentationLivewireUpdate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Documentação da aplicação que está em edição.
+     * Editing resource.
      *
      * @var \App\Models\Documentation
      */
     public Documentation $doc;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -76,7 +76,7 @@ class DocumentationLivewireUpdate extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -86,7 +86,7 @@ class DocumentationLivewireUpdate extends Component
     }
 
     /**
-     * Atualiza a documentação da aplicação em edição.
+     * Update the specified resource in storage.
      *
      * @return void
      */

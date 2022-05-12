@@ -15,35 +15,35 @@ beforeEach(function () {
 });
 
 // Exceptions
-test('lança exceção ao tentar cadastrar clientes em duplicidade, isto é, com nomes iguais', function () {
+test('throws exception when trying to create clients in duplicate, that is, with the same names', function () {
     expect(
         fn () => Client::factory(2)->create(['name' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
-test('lança exceção ao tentar cadastrar cliente com campo inválido', function ($field, $value, $message) {
+test('throws exception when trying to create client with invalid field', function ($field, $value, $message) {
     expect(
         fn () => Client::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['name', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
-    ['name', null,             'cannot be null'],           // obrigatório
+    ['name', Str::random(256), 'Data too long for column'], // maximum 255 characters
+    ['name', null,             'cannot be null'],           // required
 ]);
 
 // Happy path
-test('cadastra múltiplos clientes', function () {
+test('create many clients', function () {
     Client::factory(30)->create();
 
     expect(Client::count())->toBe(30);
 });
 
-test('nome do cliente em seu tamanho máximo é aceito', function () {
+test('client name in its maximum size is accepted', function () {
     Client::factory()->create(['name' => Str::random(255)]);
 
     expect(Client::count())->toBe(1);
 });
 
-test('um cliente possui várias impressões', function () {
+test('one client has many prints', function () {
     Client::factory()
         ->has(Printing::factory(3), 'prints')
         ->create();

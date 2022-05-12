@@ -16,35 +16,35 @@ beforeEach(function () {
 });
 
 // Exceptions
-test('lança exceção ao tentar cadastrar servidores em duplicidade, isto é, com nomes iguais', function () {
+test('throws exception when trying to create servers in duplicate, that is, with the same names', function () {
     expect(
         fn () => Server::factory(2)->create(['name' => 'foo'])
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
-test('lança exceção ao tentar cadastrar servidor com campo inválido', function ($field, $value, $message) {
+test('throws exception when trying to create server with invalid field', function ($field, $value, $message) {
     expect(
         fn () => Server::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['name', Str::random(256), 'Data too long for column'], // máximo 255 caracteres
-    ['name', null,             'cannot be null'],           // obrigatório
+    ['name', Str::random(256), 'Data too long for column'], // maximum 255 characters
+    ['name', null,             'cannot be null'],           // required
 ]);
 
 // Happy path
-test('cadastra múltiplos servidores', function () {
+test('create many servers', function () {
     Server::factory(30)->create();
 
     expect(Server::count())->toBe(30);
 });
 
-test('nome do servidor em seu tamanho máximo é aceito', function () {
+test('server name at its maximum length is accepted', function () {
     Server::factory()->create(['name' => Str::random(255)]);
 
     expect(Server::count())->toBe(1);
 });
 
-test('um servidor possui várias impressões', function () {
+test('one server has many prints', function () {
     Server::factory()
         ->has(Printing::factory(3), 'prints')
         ->create();
@@ -54,7 +54,7 @@ test('um servidor possui várias impressões', function () {
     expect($server->prints)->toHaveCount(3);
 });
 
-test('um servidor controla várias localidades', function () {
+test('one server controls many sites', function () {
     Server::factory()
         ->has(Site::factory(3), 'sites')
         ->create();
@@ -64,7 +64,7 @@ test('um servidor controla várias localidades', function () {
     expect($server->sites)->toHaveCount(3);
 });
 
-test('previous retorna o registro anterior correto, mesmo sendo o primeiro', function () {
+test('previous returns the correct previous record, even if it is the first', function () {
     $server_1 = Server::factory()->create(['name' => 'bar']);
     $server_2 = Server::factory()->create(['name' => 'foo']);
 
@@ -72,7 +72,7 @@ test('previous retorna o registro anterior correto, mesmo sendo o primeiro', fun
     ->and($server_1->previous()->first())->toBeNull();
 });
 
-test('next retorna o registro posterior correto, mesmo sendo o último', function () {
+test('next returns the correct back record even though it is the last', function () {
     $server_1 = Server::factory()->create(['name' => 'bar']);
     $server_2 = Server::factory()->create(['name' => 'foo']);
 
@@ -80,7 +80,7 @@ test('next retorna o registro posterior correto, mesmo sendo o último', functio
     ->and($server_2->next()->first())->toBeNull();
 });
 
-test('retorna os servidores usando o escopo de ordenação default definido', function () {
+test('returns the servers using the defined default sort scope', function () {
     $first = 'bar';
     $second = 'baz';
     $third = 'foo';

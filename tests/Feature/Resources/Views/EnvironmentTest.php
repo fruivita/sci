@@ -7,12 +7,12 @@
 use Illuminate\Support\Facades\App;
 use function Pest\Laravel\get;
 
-test('a tarja do ambiente é exibida quando não se está em produção', function () {
+test('environment stripe is displayed when not in production', function () {
     get(route('login'))
     ->assertSee(__(str()->ucfirst(App::environment())));
 });
 
-test('a tarja do ambiente não é exibida quando se está em produção', function () {
+test('environment stripe is not displayed when in production', function () {
     App::shouldReceive('environment')
     ->andReturn('production');
 

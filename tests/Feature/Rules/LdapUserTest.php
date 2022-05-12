@@ -9,14 +9,14 @@ use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
 
 // Happy path
-test('valida se o usuário existe ou não no servidor LDAP', function ($value, $expect) {
+test('validates whether or not the user exists in the LDAP server', function ($value, $expect) {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
-    login('foo'); // garante a existência do usuário de samaccountname 'foo'
+    login('foo'); // ensures the existence of the user of samaccountname 'foo'
     $rule = new LdapUser();
 
     expect($rule->passes('username', $value))->toBe($expect);
 })->with([
-    ['foo', true],  // válido. usuário existente
-    ['bar', false], // usuário inexistente
+    ['foo', true],  // valid. existing user
+    ['bar', false], // non-existent user
 ]);

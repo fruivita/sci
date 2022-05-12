@@ -6,22 +6,21 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Verifica se o arquivo existe no storage informado.
+ * Checks if the file exists in the specified storage.
  *
  * @see https://laravel.com/docs/validation#custom-validation-rules
  */
 class FileExists implements Rule
 {
     /**
-     * Nome do storage onde será verificada a existência do arquivo.
+     * Storage name where the file's existence will be checked.
      *
      * @var string
      */
     public $disk;
 
     /**
-     * @param string $disk nome do storage para verficiar a existência do
-     *                     arquivo
+     * @param string $disk storage name
      *
      * @return void
      */

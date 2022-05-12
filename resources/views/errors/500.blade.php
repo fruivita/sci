@@ -1,5 +1,5 @@
 {{--
-    View para erro HTTP 500.
+    View for HTTP 500 error.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

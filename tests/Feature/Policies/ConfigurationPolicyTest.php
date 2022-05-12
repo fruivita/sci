@@ -22,7 +22,7 @@ afterEach(function () {
 });
 
 // Forbidden
-test('usuário sem permissão não pode visualizar individualmente uma configuração', function () {
+test('user without permission cannot individually view a configuration', function () {
     expect((new ConfigurationPolicy)->view($this->user))->toBeFalse();
 });
 
@@ -31,77 +31,77 @@ test('usuário sem permissão não pode atualizar uma configuração', function 
 });
 
 // Happy path
-test('permissão de visualizar individualmente uma configuração é persistida em cache por 5 segundos', function () {
+test('permission to individually view a configuration is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::ConfigurationView->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new ConfigurationPolicy)->view($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new ConfigurationPolicy)->view($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::ConfigurationView->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new ConfigurationPolicy)->view($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new ConfigurationPolicy)->view($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de atualizar individualmente uma configuração é persistida em cache por 5 segundos', function () {
+test('permission to individually update a configuration is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new ConfigurationPolicy)->update($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new ConfigurationPolicy)->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::ConfigurationUpdate->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new ConfigurationPolicy)->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new ConfigurationPolicy)->update($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('usuário com permissão pode visualizar individualmente uma configuração', function () {
+test('user with permission can individually view a configuration', function () {
     grantPermission(PermissionType::ConfigurationView->value);
 
     expect((new ConfigurationPolicy)->view($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode atualizar individualmente uma configuração', function () {
+test('user with permission can individually update a configuration', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     expect((new ConfigurationPolicy)->update($this->user))->toBeTrue();

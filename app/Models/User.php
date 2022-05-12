@@ -12,7 +12,7 @@ use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 
 /**
- * Os usuários são sincronizados com o servidor LDAP.
+ * Users are synchronized with the LDAP server.
  *
  * @see https://laravel.com/docs/eloquent
  * @see https://ldaprecord.com/docs/laravel/v2/auth/database
@@ -56,9 +56,9 @@ class User extends CorporateUser implements LdapAuthenticatable
     protected $with = ['role'];
 
     /**
-     * Perfil de um usuário.
+     * User's role.
      *
-     * Relacionamento usuário (N:1) perfil.
+     * Relationship user (N:1) role.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -68,9 +68,9 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Impressões feitas por um determinado usuário.
+     * Prints of a given user.
      *
-     * Relacionamento usuário (1:N) impressões.
+     * Relationship user (1:N) prints.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -80,9 +80,9 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Usuário que delegou o perfil para outrém.
+     * User who delegated the role to someone else.
      *
-     * Relacionamento delegados (N:1) delegante.
+     * Relationship delegatedUsers (N:1) delegator.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -92,9 +92,9 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Usuários com poderes (perfis) delegados por outrém.
+     * Users with roles delegated by someone else.
      *
-     * Relacionamento delegante (1:N) delegados.
+     * Relationship delegator (1:N) delegatedUsers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -104,7 +104,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Retorna o usuário autenticado para exibição em tela.
+     * Returns the authenticated user for screen display.
      *
      * @return string
      */
@@ -114,8 +114,8 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Revoga a delegação de perfil do usuário, bem como as que ele delegou,
-     * retornando todos ao perfil ordinário.
+     * Revokes the user's role delegation, as well as the ones he delegated,
+     * returning everyone to the ordinary role.
      *
      * @return bool
      */
@@ -127,7 +127,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Revoga as delegações feita pelo usuário.
+     * Revokes delegations made by the user.
      *
      * @return int
      */
@@ -142,8 +142,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Atualiza as propriedades do usuário e remove as delegações feitas por
-     * ele.
+     * Updates user properties and removes their delegations.
      *
      * @return bool
      */
@@ -176,12 +175,12 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Ordenação padrão do modelo.
+     * Default ordering of the model.
      *
-     * Ordem:
-     * - 1º Nome por ordem alfabética asc
-     * - 2º Nomes com valor nulo
-     * - Critério de desempate: username asc
+     * Order:
+     * - 1º Name in alphabetical order asc
+     * - 2º Names with null value
+     * - Tiebreaker: username asc
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *
@@ -198,7 +197,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Verifica se o usuário autenticado é um super adminitrador.
+     * Checks if the authenticated user is a super administrator.
      *
      * @return bool
      */
@@ -214,7 +213,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Retorna o id de todas as permissões do usuário.
+     * Returns the id of all user permissions.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -232,7 +231,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Verifica se o usuário possui a permissão informada.
+     * Checks if the user has the given permission.
      *
      * @param \App\Enums\PermissionType $permission
      *
@@ -257,7 +256,7 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Verifica se o usuário possui uma das permissões informadas.
+     * Checks if the user has one of the given permissions.
      *
      * @param \App\Enums\PermissionType[] $permissions
      *
@@ -282,9 +281,9 @@ class User extends CorporateUser implements LdapAuthenticatable
     }
 
     /**
-     * Registros filtrados pelo termo informado.
+     * Records filtered by the term entered.
      *
-     * O filtro se aplica à sigla e ao nome do usuário por meio de cláusula OR.
+     * The filter applies to the name and the username through the OR clause.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string|null                           $term

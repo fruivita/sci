@@ -27,33 +27,33 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível editar o servidor sem estar autenticado', function () {
+test('cannot edit server without being authenticated', function () {
     logout();
 
     get(route('administration.server.edit', $this->server))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de edição do servidor', function () {
+test('authenticated but without specific permission, unable to access server edit route', function () {
     get(route('administration.server.edit', $this->server))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de edição do servidor sem permissão específica', function () {
+test('cannot render server editing component without specific permission', function () {
     Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server])
     ->assertForbidden();
 });
 
-test('não é possível atualizar o servidor sem permissão específica', function () {
+test('cannot update server without specific permission', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
-    // concede permissão para abrir o página de edição
+    // grant permission to open the edit page
     $livewire = Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server]);
 
-    // remove a permissão
+    // remove permission
     revokePermission(PermissionType::ServerUpdate->value);
 
-    // expira o cache das permissões em 5 segundos
+    // cache expires in 5 seconds
     $this->travel(6)->seconds();
 
     $livewire
@@ -62,7 +62,7 @@ test('não é possível atualizar o servidor sem permissão específica', functi
 });
 
 // Rules
-test('ids das localidades que serão associadas ao servidor deve ser um array', function () {
+test('ids of the sites that will be associated with the server must be an array', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server])
@@ -71,7 +71,7 @@ test('ids das localidades que serão associadas ao servidor deve ser um array', 
     ->assertHasErrors(['selected' => 'array']);
 });
 
-test('ids das localidades que serão associadas ao servidor devem existir previamente no banco de dados', function () {
+test('ids of the sites that will be associated with the server must previously exist in the database', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server])
@@ -80,16 +80,16 @@ test('ids das localidades que serão associadas ao servidor devem existir previa
     ->assertHasErrors(['selected' => 'exists']);
 });
 
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server])
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('é possível renderizar o componente de edição do servidor com permissão específica', function () {
+test('render server edit component with specific permission', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     get(route('administration.server.edit', $this->server))
@@ -97,7 +97,7 @@ test('é possível renderizar o componente de edição do servidor com permissã
     ->assertSeeLivewire(ServerLivewireUpdate::class);
 });
 
-test('define as localidades que devem ser pre-selecionadas de acodo com os relacionamentos da entidade', function () {
+test('defines the sites that should be pre-selected according to entity relationships', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Site::factory(30)->create();
@@ -119,7 +119,7 @@ test('define as localidades que devem ser pre-selecionadas de acodo com os relac
     ->assertSet('selected', $selected);
 });
 
-test('actions de manipulação do checkbox das localidades funcionam como esperado', function () {
+test('site checkbox manipulation actions work as expected', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Site::factory(50)->create();
@@ -137,7 +137,7 @@ test('actions de manipulação do checkbox das localidades funcionam como espera
     ->assertCount('selected', 0);
 });
 
-test('paginação retorna a quantidade de localidades esperada', function () {
+test('pagination returns the number of sites expected', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Site::factory(120)->create();
@@ -154,7 +154,7 @@ test('paginação retorna a quantidade de localidades esperada', function () {
     ->assertCount('sites', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server])
@@ -169,7 +169,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('getCheckAllProperty é registrado em cache com expiração de um minuto', function () {
+test('getCheckAllProperty is cached with one minute expiration', function () {
     grantPermission(PermissionType::ServerUpdate->value);
     Site::factory(5)->create();
 
@@ -181,18 +181,18 @@ test('getCheckAllProperty é registrado em cache com expiração de um minuto', 
     $livewire->set('checkbox_action', CheckboxAction::CheckAll->value);
     testTime()->addSeconds(60);
 
-    // não serão contabilizados pois o cache já foi registrado por 1 minuto
+    // will not be counted as the cache has already been registered for 1 minute
     Site::factory(3)->create();
 
     expect(cache()->has('all-checkable' . $livewire->id))->toBeTrue()
     ->and(cache()->get('all-checkable' . $livewire->id))->toHaveCount(5);
 
-    // expirará o cache
+    // will expire cache
     testTime()->addSeconds(1);
     expect(cache()->missing('all-checkable' . $livewire->id))->toBeTrue();
 });
 
-test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', function () {
+test('getCheckAllProperty displays expected results according to cache', function () {
     grantPermission(PermissionType::ServerUpdate->value);
     Site::factory(5)->create();
 
@@ -201,23 +201,23 @@ test('getCheckAllProperty exibe os resultados esperados de acordo com o cache', 
     ->set('checkbox_action', CheckboxAction::CheckAll->value);
     testTime()->addSeconds(60);
 
-    // não serão contabilizados pois o cache já foi registrado por 1 minuto
+    // will not be counted as the cache has already been registered for 1 minute
     Site::factory(3)->create();
 
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
     ->assertCount('CheckAll', 5);
 
-    // expirará o cache
+    // will expire cache
     testTime()->addSeconds(1);
 
-    // contabiliza as novas inserções após expirado
+    // count new inserts after expired
     $livewire
     ->set('checkbox_action', CheckboxAction::CheckAll->value)
     ->assertCount('CheckAll', 5 + 3);
 });
 
-test('emite evento de feedback ao atualizar um servidor', function () {
+test('emits feedback event when updating a server', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server])
@@ -225,7 +225,7 @@ test('emite evento de feedback ao atualizar um servidor', function () {
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
-test('localidades associadas são opcionais na atualização do servidor', function () {
+test('Associated sites are optional in server update', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     $server = Server::factory()
@@ -244,7 +244,7 @@ test('localidades associadas são opcionais na atualização do servidor', funct
     expect($server->sites)->toBeEmpty();
 });
 
-test('é possível atualizar um servidor com permissão específica', function () {
+test('updates a server with specific permission', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     $this->server->load('sites');
@@ -262,7 +262,7 @@ test('é possível atualizar um servidor com permissão específica', function (
     expect($this->server->sites->first()->id)->toBe($site->id);
 });
 
-test('next e previous são registrados em cache com expiração de um minuto', function () {
+test('next and previous are cached with one minute expiration', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     $server_1 = Server::factory()->create(['name' => 'bar']);
@@ -277,29 +277,29 @@ test('next e previous são registrados em cache com expiração de um minuto', f
     ->and(cache()->has('next' . $livewire->id))->toBeTrue()
     ->and(cache()->get('next' . $livewire->id))->toBe($this->server->id);
 
-    // expirará o cache
+    // will expire cache
     testTime()->addSeconds(1);
     expect(cache()->missing('previous' . $livewire->id))->toBeTrue()
     ->and(cache()->missing('next' . $livewire->id))->toBeTrue();
 });
 
-test('next e previous estão definidos durante a edição individual dos servidores, inclusive em se tratando do primeiro ou último registros', function () {
+test('next and previous are defined during the individual edition of the servers, including in the case of the first or last record', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
     $server_1 = Server::factory()->create(['name' => 'bar']);
     $server_2 = Server::factory()->create(['name' => 'baz']);
 
-    // possui anterior e próximo
+    // has previous and next
     Livewire::test(ServerLivewireUpdate::class, ['server' => $server_2])
     ->assertSet('previous', $server_1->id)
     ->assertSet('next', $this->server->id);
 
-    // possui apenas próximo
+    // only has next
     Livewire::test(ServerLivewireUpdate::class, ['server' => $server_1])
     ->assertSet('previous', null)
     ->assertSet('next', $server_2->id);
 
-    // possui apenas anterior
+    // has only previous
     Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server])
     ->assertSet('previous', $server_2->id)
     ->assertSet('next', null);

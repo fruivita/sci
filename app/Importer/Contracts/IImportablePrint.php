@@ -5,26 +5,26 @@ namespace App\Importer\Contracts;
 interface IImportablePrint
 {
     /**
-     * Executa a importação da impressão informada.
+     * Executes the import of the informed print.
      *
-     * Formato da string de impressão:
-     * - servidor de impressão que controla a impressora
-     * - data no formato dd/mm/yyyy
-     * - hora no formato hh:mm:ss
-     * - nome do documento impresso
-     * - usuário do AD que realizou a impressão
-     * - id do cargo do usuário
-     * - id da lotação do usuário
-     * - id da função do usuário
-     * - cliente de onde partiu a solicitação
-     * - impressora que imprimiu
-     * - tamanho do arquivo impresso
-     * - quantidade de páginas
-     * - quantidade de cópias
+     * Print string format:
+     * - print server that controls the printer
+     * - date in dd/mm/yyyy format
+     * - time in hh:mm:ss format
+     * - printed document name
+     * - AD user who performed the print
+     * - user occupation (cargo) id
+     * - user department (lotação) id
+     * - user duly (função comissionada) id
+     * - client from which the request came
+     * - printer that printed
+     * - printed file size
+     * - number of pages
+     * - number of copies
      *
-     * Campos delimitados pelo caracter **╡**
+     * Fields delimited by the **╡** character
      *
-     * @param string $print string de impressão
+     * @param string $print print string
      *
      * @return void
      */

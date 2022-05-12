@@ -1,5 +1,5 @@
 {{--
-  Master Page para os relatórios em PDF.
+  Master Page for PDF reports.
 
   @see https://laravel.com/docs/blade
   @see https://github.com/barryvdh/laravel-dompdf
@@ -20,7 +20,7 @@
 
     <body>
 
-        {{--Cabeçalho do relatório--}}
+        {{-- report header --}}
         <div class="header">
 
             <img src="{{ resource_path('svg/colored-republic.svg') }}" alt="Logo">
@@ -60,7 +60,7 @@
         </div>
 
 
-        {{--Rodapé do relatório--}}
+        {{-- report footer --}}
         <div class="footer">
 
             <p>{{ __('Page') }} <span class="page"></span></p>

@@ -1,9 +1,9 @@
 {{--
-  Subview para exibir o relatório geral de impressão em pdf.
+    Subview to display the general print report in pdf.
 
-  @link https://laravel.com/docs/blade
-  @link https://github.com/barryvdh/laravel-dompdf
-  @link https://github.com/dompdf/dompdf
+    @see https://laravel.com/docs/blade
+    @see https://github.com/barryvdh/laravel-dompdf
+    @see https://github.com/dompdf/dompdf
 --}}
 
 @extends('layouts.pdf')
@@ -14,7 +14,7 @@
 
 <div class="content">
 
-    {{--Tabela para exibição do relatório--}}
+    {{-- report display table --}}
     <table style="table-layout:fixed;">
 
         <thead>

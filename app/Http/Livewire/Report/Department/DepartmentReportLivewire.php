@@ -26,31 +26,31 @@ class DepartmentReportLivewire extends Component
     use WithPerPagePagination;
 
     /**
-     * Ano inicial do relatório.
+     * Report initial date.
      *
      * @var string
      */
     public $initial_date;
 
     /**
-     * Ano final do relatório.
+     * Report final date.
      *
      * @var string
      */
     public $final_date;
 
     /**
-     * Tipo de relatório por departamento.
-     * - Departamento
-     * - Gerencial
-     * - Institucional.
+     * Report type by department.
+     * - Department
+     * - Management
+     * - Institutional.
      *
      * @var string
      */
     public $report_type;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -120,7 +120,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Título do relatório que será gerado.
+     * Title of the report that will be generated.
      *
      * @return string
      */
@@ -130,7 +130,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Nome da view utilizada para a geração do relatório em PDF.
+     * Name of the view used to generate the PDF report.
      *
      * @return string
      */
@@ -140,7 +140,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Filtro extra utilizado no relatório.
+     * Extra filter used in the report.
      *
      * @return string
      */
@@ -188,7 +188,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -213,7 +213,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Computed property para gerar o relatório.
+     * Computed property to generate the report.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -223,7 +223,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Action do usuário para solicitar o relatório.
+     * User action to request the report.
      *
      * @return void
      */
@@ -235,7 +235,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Relatório paginado, de acordo com as solicitações do usuário.
+     * Paginated report, as per user requests.
      *
      * @param int|null $per_page
      *
@@ -252,11 +252,11 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Define os valores iniciais dos atributos baseados nos valores presentes
-     * na query string.
+     * Sets the initial values of attributes based on the present values in the
+     * query string.
      *
-     * Útil para permitir que o usuário possa digitar na url os valores de seu
-     * interesse, favoritar e/ou compartilhar a página.
+     * Useful to allow the user to type in the url the values of his interest,
+     * favorite and/or share the page.
      *
      * @return void
      */
@@ -278,7 +278,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Valida os inputs e retorna a instância do validator.
+     * Validates inputs and returns the validator instance.
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -295,8 +295,8 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Define o tipo de relatório padrão (mais básico) de acordo com as
-     * permissões do usuário autenticado.
+     * Sets the default (most basic) report type according to the authenticated
+     * user's permissions.
      *
      * @return string
      */
@@ -325,7 +325,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Permissão para o relatório por lotação mais básico que o usuário possui.
+     * Permission for the most basic departmental report the user has.
      *
      * @return int
      */
@@ -344,7 +344,7 @@ class DepartmentReportLivewire extends Component
     }
 
     /**
-     * Permissões de geração de relatórios por lotação.
+     * Reporting permissions by department.
      *
      * @return \App\Enums\PermissionType[]
      */

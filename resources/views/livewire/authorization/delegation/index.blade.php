@@ -1,9 +1,9 @@
 {{--
-    View livewire para a delegação das permissões de um perfil.
+    View livewire for delegating permissions from a role.
 
-    A delegação é do perfil e não da permissão propriamente dita, isto é, o
-    delegado terá o mesmo perfil do usuário delegante e, portanto, as mesmas
-    permissões.
+    The delegation is for the role and not for the permission itself, that is,
+    the delegate will have the same role as the delegating user and, therefore,
+    the same permissions.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

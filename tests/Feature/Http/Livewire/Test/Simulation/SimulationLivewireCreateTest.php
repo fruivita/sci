@@ -27,34 +27,34 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível simular usuário sem estar autenticado', function () {
+test('it is not possible to simulate a user without being authenticated', function () {
     logout();
 
     get(route('test.simulation.create'))->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível desfazer simulação', function () {
+test("authenticated but without specific permission, can't undo simulation", function () {
     logout();
 
     delete(route('test.simulation.destroy'))->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de simulação', function () {
+test('authenticated but without specific permission, unable to access mock route', function () {
     get(route('test.simulation.create'))->assertForbidden();
 });
 
-test('não é possível executar a rota para desfazer a simulação se ela não existir', function () {
+test('cannot access route to undo the simulation if it does not exist', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
     delete(route('test.simulation.destroy'))->assertForbidden();
 });
 
-test('não é possível renderizar o componente de simulação sem permissão específica', function () {
+test('cannot render simulation component without specific permission', function () {
     Livewire::test(SimulationLivewireCreate::class)
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente com outra simulação em andamento', function () {
+test('unable to render component with another simulation in progress', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::SimulationCreate->value);
@@ -67,7 +67,7 @@ test('não é possível renderizar o componente com outra simulação em andamen
     get(route('test.simulation.create'))->assertForbidden();
 });
 
-test('não é possível simular usuário com outra simulação em andamento', function () {
+test('cannot simulate user with another simulation in progress', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::SimulationCreate->value);
@@ -81,7 +81,7 @@ test('não é possível simular usuário com outra simulação em andamento', fu
     ->assertForbidden();
 });
 
-test('não é possível desfazer simulação se ela não existir', function () {
+test('cannot undo simulation if it does not exist', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::SimulationCreate->value);
@@ -92,7 +92,7 @@ test('não é possível desfazer simulação se ela não existir', function () {
 });
 
 // Rules
-test('username do simulado é obrigatório', function () {
+test('username is required', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
@@ -101,7 +101,7 @@ test('username do simulado é obrigatório', function () {
     ->assertHasErrors(['username' => 'required']);
 });
 
-test('username do simulado deve ser uma string', function () {
+test('username must be a string', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
@@ -110,7 +110,7 @@ test('username do simulado deve ser uma string', function () {
     ->assertHasErrors(['username' => 'string']);
 });
 
-test('username do simulado deve ter no máximo 20 caracteres', function () {
+test('username must be a maximum of 20 characters', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
@@ -119,7 +119,7 @@ test('username do simulado deve ter no máximo 20 caracteres', function () {
     ->assertHasErrors(['username' => 'max']);
 });
 
-test('username do simulado deve ser diferente do usuário autenticado, pois não se pode simular o próprio usuário', function () {
+test('username of the simulated user must be different from the authenticated user, because the authenticated user cannot be simulated', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
@@ -128,7 +128,7 @@ test('username do simulado deve ser diferente do usuário autenticado, pois não
     ->assertHasErrors(['username' => NotCurrentUser::class]);
 });
 
-test('username do simulado deve existir no servidor LDAP', function () {
+test('username must exist on LDAP server', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
     Livewire::test(SimulationLivewireCreate::class)
@@ -138,7 +138,7 @@ test('username do simulado deve existir no servidor LDAP', function () {
 });
 
 // Happy path
-test('é possível renderizar o componente de simulação com permissão específica', function () {
+test('renders the simulation component with specific permission', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
     get(route('test.simulation.create'))
@@ -146,7 +146,7 @@ test('é possível renderizar o componente de simulação com permissão especí
     ->assertSeeLivewire(SimulationLivewireCreate::class);
 });
 
-test('simulação cria as variáveis de sessão e redireciona à pagina home', function () {
+test('simulation creates session variables and redirect to home page', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::SimulationCreate->value);
@@ -162,7 +162,7 @@ test('simulação cria as variáveis de sessão e redireciona à pagina home', f
     ->and(session()->get('simulator')->username)->toBe('bar');
 });
 
-test('feedback é exibido ao usuário quando a simulação está ativa e quando ela é finalizada', function () {
+test('feedback is displayed to the user when the simulation is active and when it is finished', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::SimulationCreate->value);
@@ -181,9 +181,9 @@ test('feedback é exibido ao usuário quando a simulação está ativa e quando 
     ->assertDontSee(__('Simulation activated by :attribute', ['attribute' => 'bar']));
 });
 
-test('simulação importa o usuário para o banco de dados', function () {
+test('simulation imports the user into the database', function () {
     logout();
-    // User foo já existe no fake LDAP, e também no BD. Exclui-se ele do BD.
+    // User foo already exists in fake LDAP, and also in DB. It is excluded from the DB.
     User::where('username', 'foo')->delete();
 
     login('bar');
@@ -199,7 +199,7 @@ test('simulação importa o usuário para o banco de dados', function () {
     expect(User::where('username', 'foo')->get())->toHaveCount(1);
 });
 
-test('simulação troca o usuário autenticado e ao finalizá-la, volta ao usuário anterior', function () {
+test('simulation changes the authenticated user and when it ends, it returns to the previous user', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::SimulationCreate->value);
@@ -210,7 +210,7 @@ test('simulação troca o usuário autenticado e ao finalizá-la, volta ao usuá
     ->set('username', 'foo')
     ->call('store');
 
-    // força a navegação para a troca dos usuários ocorrer.
+    // forces browsing for users to switch to occur.
     get(route('home'));
 
     expect(auth()->user()->username)->toBe('foo');

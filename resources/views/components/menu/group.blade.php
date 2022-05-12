@@ -1,8 +1,8 @@
 {{--
-    Agrupamento dos links do menu principal.
+    Grouping of main menu links.
 
     Props:
-    - name: nome do agrupamento do menu
+    - name: menu grouping name
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

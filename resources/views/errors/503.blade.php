@@ -1,5 +1,5 @@
 {{--
-    View para erro HTTP 503.
+    View for HTTP 503 error.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

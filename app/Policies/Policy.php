@@ -16,12 +16,11 @@ abstract class Policy
     use HandlesAuthorization;
 
     /**
-     * Verfica se o usuário possui uma das permissões informadas.
+     * Checks if the user has one of the given permissions.
      *
      * @param \App\Models\User            $user
      * @param \App\Enums\PermissionType[] $permissions
-     * @param bool                        $cache       pode usar o cache na
-     *                                                 consulta?
+     * @param bool                        $cache       can use cache in query?
      *
      * @return bool
      */
@@ -35,10 +34,10 @@ abstract class Policy
     }
 
     /**
-     * Todas as permissões do usuário.
+     * All user permissions.
      *
      * @param \App\Models\User $user
-     * @param bool             $cache pode usar o cache na consulta?
+     * @param bool             $cache can use cache in query?
      *
      * @return \Illuminate\Support\Collection
      */

@@ -19,14 +19,14 @@ class SimulationLivewireCreate extends Component
     use ImportableLdapUser;
 
     /**
-     * Usuário de rede que será simulado.
+     * Network user that will be simulated.
      *
      * @var string
      */
     public $username;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -68,7 +68,7 @@ class SimulationLivewireCreate extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -78,8 +78,8 @@ class SimulationLivewireCreate extends Component
     }
 
     /**
-     * Executa a substituição do usuário autenticado pelo informado para
-     * simulação de uso da aplicação.
+     * Performs the replacement of the authenticated user by the informed one
+     * to simulate the use of the application.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -96,8 +96,8 @@ class SimulationLivewireCreate extends Component
     }
 
     /**
-     * Desfaz a simulação, retornando o usuário autenticado ao que deu início à
-     * simulação.
+     * Undoes the simulation, returning the authenticated user to the one who
+     * started the simulation.
      *
      * @return \Illuminate\Http\RedirectResponse
      */

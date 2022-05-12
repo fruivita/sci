@@ -19,14 +19,14 @@ class ImportationLivewireCreate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Importações que serão executadas.
+     * Imports that will be performed.
      *
      * @var string[]
      */
     public $import = [];
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -66,7 +66,7 @@ class ImportationLivewireCreate extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -76,7 +76,7 @@ class ImportationLivewireCreate extends Component
     }
 
     /**
-     * Cria os jobs para importação dos dados solicitados.
+     * Creates jobs to import the requested data.
      *
      * @return void
      */

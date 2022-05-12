@@ -1,5 +1,5 @@
 {{--
-    View livewire para edição individual dos servidores.
+    View livewire for individual editing of servers.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

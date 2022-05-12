@@ -21,7 +21,7 @@ class Permission extends Model
     public $incrementing = false;
 
     /**
-     * Relacionamento permissão (M:N) perfis.
+     * Relationship permission (M:N) role.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -31,9 +31,9 @@ class Permission extends Model
     }
 
     /**
-     * Ordenação padrão do modelo.
+     * Default ordering of the model.
      *
-     * Ordem: Id asc
+     * ORder: Id asc
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *
@@ -45,7 +45,7 @@ class Permission extends Model
     }
 
     /**
-     * Registro anterior.
+     * Previous record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -58,7 +58,7 @@ class Permission extends Model
     }
 
     /**
-     * Registro posterior.
+     * Next record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -71,10 +71,10 @@ class Permission extends Model
     }
 
     /**
-     * Salva a permissão no banco de dados e syncroniza seus perfis em uma
-     * operação atômica, isto é, tudo ou nada.
+     * Saves the permission in the database and syncs the roles in an atomic
+     * operation i.e. all or nothing.
      *
-     * @param array|int|null $roles ids dos perfis
+     * @param array|int|null $roles roles id
      *
      * @return bool
      */

@@ -26,7 +26,7 @@ class Site extends Model
     protected $fillable = ['name'];
 
     /**
-     * Relacionamento site (N:M) server.
+     * Relationship site (N:M) servers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -36,9 +36,9 @@ class Site extends Model
     }
 
     /**
-     * Ordenação padrão do modelo.
+     * Default ordering of the model.
      *
-     * Ordem: name asc
+     * Order: name asc
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *
@@ -50,7 +50,7 @@ class Site extends Model
     }
 
     /**
-     * Registro anterior.
+     * Previous record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -63,7 +63,7 @@ class Site extends Model
     }
 
     /**
-     * Registro posterior.
+     * Next record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -76,10 +76,10 @@ class Site extends Model
     }
 
     /**
-     * Salva a localidade no banco de dados e syncroniza seus servidores em uma
-     * operação atômica, isto é, tudo ou nada.
+     * It saves the site in the database and synchronizes its servers in an
+     * atomic operation, that is, all or nothing.
      *
-     * @param array|int|null $servers ids dos servidores
+     * @param array|int|null $servers server ids
      *
      * @return bool
      */

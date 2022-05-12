@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Qualquer dispositivo capaz de solicitar uma impressão.
+ * Any device capable of requesting a print.
  *
- * Ex.: computador, notebook, tablet.
+ * Computer, notebook, tablet, etc.
  *
  * @see https://laravel.com/docs/eloquent
  */
@@ -26,9 +26,9 @@ class Client extends Model
     protected $fillable = ['name'];
 
     /**
-     * Impressões vindas de um determinado cliente.
+     * Prints from a particular client.
      *
-     * Relacionamento cliente (1:N) impressões.
+     * Relationship client (1:N) prints.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -1,12 +1,12 @@
 {{--
-    Componente Livewire para o datepicker.
+    Livewire component for datepicker.
 
     Props:
-    - error: mensagem de erro que será exibida
-    - icon: ícone svg que será exibido
-    - id: id do item
-    - text: texto de descrição/significado do item
-    - title: title do item
+    - error: error message that will be displayed
+    - icon: svg icon that will be displayed
+    - id: item id
+    - text: item description/meaning text
+    - title: item title
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -24,7 +24,7 @@
 @props(['error' => '', 'icon' => 'calendar-range', 'text', 'title'])
 
 
-{{-- container do input --}}
+{{-- input container --}}
 <div
     x-data="datepicker(
         @entangle($attributes->wire('model')),
@@ -35,7 +35,7 @@
     title="{{ $title }}"
 >
 
-    {{-- texto acima do input --}}
+    {{-- text above input --}}
     <label class="font-bold text-lg" :for="$id('date-picker-input')">
 
         {{ $text }}
@@ -52,7 +52,7 @@
 
     <div class="bg-primary-100 border-2 border-primary-300 flex items-center rounded">
 
-        {{-- ícone à frente do input --}}
+        {{-- icon in front of input --}}
         <label class="text-primary-900 p-2" :for="$id('date-picker-input')">
 
             <x-icon name="{{ $icon }}"/>
@@ -66,7 +66,7 @@
             'invalid' => $error
         ])>
 
-            {{-- input propriamente dito --}}
+            {{-- input itself --}}
             <input
                 wire:ignore
                 x-ref="picker"
@@ -89,7 +89,7 @@
 
     <div>
 
-        {{-- exibição de eventual mensagem de erro --}}
+        {{-- display of any error message --}}
         <x-error>{{ $error }}</x-error>
 
     </div>

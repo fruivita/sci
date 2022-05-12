@@ -3,8 +3,7 @@
 namespace App\Enums;
 
 /*
- * Tipos de agrupamentos mensais (quantidade de meses) para o relatório geral
- * de impressão.
+ * Monthly grouping types (number of months) for the general print report.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  */
@@ -17,7 +16,7 @@ enum MonthlyGroupingType: int
     case Semiannual = 6;
     case Yearly = 12;
     /**
-     * Nome para exibição do agrupamento mensal.
+     * Display name of the monthly grouping.
      *
      * @return string
      */
@@ -34,7 +33,7 @@ enum MonthlyGroupingType: int
     }
 
     /**
-     * Todos os valores possíveis para o value do enum.
+     * All possible values for the enum value.
      *
      * @return \Illuminate\Support\Collection
      */

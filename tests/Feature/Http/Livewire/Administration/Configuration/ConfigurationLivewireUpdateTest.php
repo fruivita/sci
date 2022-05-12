@@ -26,34 +26,34 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível editar a configuração sem estar autenticado', function () {
+test('cannot edit configuration without being authenticated', function () {
     logout();
 
     get(route('administration.configuration.edit'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de edição da configuração', function () {
+test('authenticated but without specific permission, unable to access configuration edit route', function () {
     get(route('administration.configuration.edit'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de edição da configuração sem permissão específica', function () {
+test('cannot render config editing component without specific permission', function () {
     Livewire::test(ConfigurationLivewireUpdate::class)
     ->assertForbidden();
 });
 
-test('não é possível atualizar a configuração sem permissão específica', function () {
+test('cannot update configuration without specific permission', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
-    // concede permissão para abrir o página de edição
+    // grant permission to open the edit page
     $livewire = Livewire::test(ConfigurationLivewireUpdate::class)
     ->set('configuration.superadmin', 'bar');
 
-    // remove a permissão
+    // remove permission
     revokePermission(PermissionType::ConfigurationUpdate->value);
 
-    // expira o cache dos servidores em 5 segundos
+    // cache expires in 5 seconds
     $this->travel(6)->seconds();
 
     $livewire
@@ -62,7 +62,7 @@ test('não é possível atualizar a configuração sem permissão específica', 
 });
 
 // Rules
-test('superadmin da configuração é obrigatório', function () {
+test('superadmin is required', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     Livewire::test(ConfigurationLivewireUpdate::class)
@@ -71,7 +71,7 @@ test('superadmin da configuração é obrigatório', function () {
     ->assertHasErrors(['configuration.superadmin' => 'required']);
 });
 
-test('superadmin da configuração deve ser uma string', function () {
+test('superadmin must be a string', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     Livewire::test(ConfigurationLivewireUpdate::class)
@@ -80,7 +80,7 @@ test('superadmin da configuração deve ser uma string', function () {
     ->assertHasErrors(['configuration.superadmin' => 'string']);
 });
 
-test('superadmin da configuração deve ter no máximo 20 caracteres', function () {
+test('superadmin must be a maximum of 20 characters', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     Livewire::test(ConfigurationLivewireUpdate::class)
@@ -89,7 +89,7 @@ test('superadmin da configuração deve ter no máximo 20 caracteres', function 
     ->assertHasErrors(['configuration.superadmin' => 'max']);
 });
 
-test('superadmin da configuração deve existir no servidor ldap', function () {
+test('superadmin must exist on the ldap server', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     Livewire::test(ConfigurationLivewireUpdate::class)
@@ -99,7 +99,7 @@ test('superadmin da configuração deve existir no servidor ldap', function () {
 });
 
 // Happy path
-test('é possível renderizar o componente de edição da configuração com permissão específica', function () {
+test('renders configuration editing component with specific permission', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     get(route('administration.configuration.edit'))
@@ -107,14 +107,14 @@ test('é possível renderizar o componente de edição da configuração com per
     ->assertSeeLivewire(ConfigurationLivewireUpdate::class);
 });
 
-test('a configuração carregada para atualização é a esperada, pois é única e pré-definida', function () {
+test('the configuration loaded for update is as expected as it is unique and predefined', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
     Livewire::test(ConfigurationLivewireUpdate::class)
     ->assertSet('configuration.id', Configuration::MAIN);
 });
 
-test('emite evento de feedback ao atualizar uma configuração', function () {
+test('emits feedback event when updating a configuration', function () {
     logout();
     login('dumb user');
     grantPermission(PermissionType::ConfigurationUpdate->value);
@@ -124,7 +124,7 @@ test('emite evento de feedback ao atualizar uma configuração', function () {
     ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
 });
 
-test('é possível atualizar uma configuração com permissão específica', function () {
+test('update a configuration with specific permission', function () {
     logout();
     login('bar');
     grantPermission(PermissionType::ConfigurationUpdate->value);

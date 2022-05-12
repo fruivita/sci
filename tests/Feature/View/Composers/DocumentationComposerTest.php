@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
  // Invalid
- test('retorna o link padrão se o nome da rota não for encontrada no banco de dados', function () {
+ test('returns the default link if the route name is not found in the database', function () {
      $composer = new DocumentationComposer();
 
      $view = $this->spy(View::class);
@@ -23,7 +23,7 @@ use Illuminate\View\View;
         ->once();
  });
 
- test('retorna o link padrão se a rota estiver cadastrada, porém, sem link definido para documentação', function () {
+ test('returns the default link if the route is created, however, without a defined link for documentation', function () {
      Documentation::factory()->create([
         'app_route_name' => 'report.printing.create',
         'doc_link' => null,
@@ -46,10 +46,10 @@ use Illuminate\View\View;
  });
 
 // Happy path
- test('retorna o link para  se a rota estiver cadastrada, porém, sem link definido para documentação', function () {
+ test('returns the link for if the route is created, however, without a defined link for documentation', function () {
      Documentation::factory()->create([
         'app_route_name' => 'report.printing.create',
-        'doc_link' => 'http://exemplo.com',
+        'doc_link' => 'http://foo.com',
     ]);
 
      Route::shouldReceive('currentRouteName')
@@ -64,6 +64,6 @@ use Illuminate\View\View;
 
      $view
         ->shouldHaveReceived('with')
-        ->with(['doc_link' => 'http://exemplo.com'])
+        ->with(['doc_link' => 'http://foo.com'])
         ->once();
  });

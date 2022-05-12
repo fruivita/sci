@@ -15,7 +15,7 @@ class ConfigurationLivewireShow extends Component
     use AuthorizesRequests;
 
     /**
-     * Configuração que está em exibição.
+     * Resource on display.
      *
      * @var \App\Models\Configuration
      */
@@ -45,7 +45,7 @@ class ConfigurationLivewireShow extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */

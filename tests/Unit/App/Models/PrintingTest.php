@@ -19,7 +19,7 @@ beforeEach(function () {
 });
 
 // Exceptions
-test('lança exceção ao tentar cadastrar impressões em duplicidade, isto é, com com data, hora, cliente, impressora, usuário e servidor iguais', function () {
+test('throws an exception when trying to create duplicate prints, that is, with the same date, time, client, printer, user and server', function () {
     expect(
         fn () => Printing::factory()
             ->for(Client::factory(), 'client')
@@ -34,54 +34,54 @@ test('lança exceção ao tentar cadastrar impressões em duplicidade, isto é, 
     )->toThrow(QueryException::class, 'Duplicate entry');
 });
 
-test('lança exceção ao tentar cadastrar impressão com campo inválido', function ($field, $value, $message) {
+test('throws exception when trying to create print with invalid field', function ($field, $value, $message) {
     expect(
         fn () => Printing::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['date',       '2000-02-31',     'Incorrect date value'],     // data inexistente
-    ['date',       'foo',            'Incorrect date value'],     // não conversível em data
-    ['date',       null,             'cannot be null'],           // obrigatório
-    ['time',       '10:59:60',       'Incorrect time value'],     // hora inexistente
-    ['time',       'foo',            'Incorrect time value'],     // não conversível em hora
-    ['time',       null,             'cannot be null'],           // obrigatório
-    ['filename',   Str::random(261), 'Data too long for column'], // máximo 260 caracteres
-    ['file_size',  'foo',            'Incorrect integer value'],  // não conversível em inteiro
-    ['file_size',  -1,               'Out of range value'],       // inteiro maior que zero
-    ['pages',      'foo',            'Incorrect integer value'],  // não conversível em inteiro
-    ['pages',      -1,               'Out of range value'],       // inteiro maior que zero
-    ['pages',      null,             'cannot be null'],           // obrigatório
-    ['copies',     'foo',            'Incorrect integer value'],  // não conversível em inteiro
-    ['copies',     -1,               'Out of range value'],       // inteiro maior que zero
-    ['copies',     null,             'cannot be null'],           // obrigatório
+    ['date',       '2000-02-31',     'Incorrect date value'],     // non-existent date
+    ['date',       'foo',            'Incorrect date value'],     // not convertible to date
+    ['date',       null,             'cannot be null'],           // required
+    ['time',       '10:59:60',       'Incorrect time value'],     // non-existent time
+    ['time',       'foo',            'Incorrect time value'],     // not convertible to hour
+    ['time',       null,             'cannot be null'],           // required
+    ['filename',   Str::random(261), 'Data too long for column'], // maximum 260 characters
+    ['file_size',  'foo',            'Incorrect integer value'],  // not convertible to integer
+    ['file_size',  -1,               'Out of range value'],       // integer greater than zero
+    ['pages',      'foo',            'Incorrect integer value'],  // not convertible to integer
+    ['pages',      -1,               'Out of range value'],       // integer greater than zero
+    ['pages',      null,             'cannot be null'],           // required
+    ['copies',     'foo',            'Incorrect integer value'],  // not convertible to integer
+    ['copies',     -1,               'Out of range value'],       // integer greater than zero
+    ['copies',     null,             'cannot be null'],           // required
 ]);
 
-test('lança exceção ao tentar definir relacionamento inválido', function ($field, $value, $message) {
+test('throws exception when trying to set invalid relationship', function ($field, $value, $message) {
     expect(
         fn () => Printing::factory()->create([$field => $value])
     )->toThrow(QueryException::class, $message);
 })->with([
-    ['client_id',     10, 'Cannot add or update a child row'], // inexistente
-    ['department_id', 10, 'Cannot add or update a child row'], // inexistente
-    ['printer_id',    10, 'Cannot add or update a child row'], // inexistente
-    ['server_id',     10, 'Cannot add or update a child row'], // inexistente
-    ['user_id',       10, 'Cannot add or update a child row'], // inexistente
+    ['client_id',     10, 'Cannot add or update a child row'], // nonexistent
+    ['department_id', 10, 'Cannot add or update a child row'], // nonexistent
+    ['printer_id',    10, 'Cannot add or update a child row'], // nonexistent
+    ['server_id',     10, 'Cannot add or update a child row'], // nonexistent
+    ['user_id',       10, 'Cannot add or update a child row'], // nonexistent
 ]);
 
 // Happy path
-test('cadastra múltiplas impressões', function () {
+test('create many prints', function () {
     Printing::factory(30)->create();
 
     expect(Printing::count())->toBe(30);
 });
 
-test('nome do arquivo impresso em seu tamanho máximo é aceito', function () {
+test('filename printed at its maximum size is accepted', function () {
     Printing::factory()->create(['filename' => Str::random(260)]);
 
     expect(Printing::count())->toBe(1);
 });
 
-test('campos opcionais definidos', function ($field) {
+test('optional fields defined', function ($field) {
     Printing::factory()
         ->create([$field => null]);
 
@@ -92,7 +92,7 @@ test('campos opcionais definidos', function ($field) {
     'department_id',
 ]);
 
-test('uma impressao pertente a um cliente, uma impressora, um usuário, uma lotação e um servidor', function () {
+test('a print belongs to one client, one printer, one user, one department and one server', function () {
     $client = Client::factory()->create();
     $department = Department::factory()->create();
     $user = User::factory()->create();

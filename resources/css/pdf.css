@@ -1,7 +1,6 @@
 @charset "UTF-8";
 /**
-* CSS utilizado na geração de arquivos PDF, visto que a biblioteca de geração
-* de PDF utiliza CSS 2.0.
+* CSS used in generating PDF files, as the PDF generation library uses CSS 2.0.
 *
 * @see https://www.youtube.com/watch?v=LQQk1ZSyqLM
 */
@@ -16,13 +15,13 @@ body {
 }
 
 .header {
-    /* Fixa o header no início de cada página. */
+    /* Fix header at the beginning of each page. */
     position: fixed;
     top: -6.3cm;
     left: 0;
     right: 0;
 
-    /* outros estilos apropriados */
+    /* other appropriate styles */
     width: 100%;
     text-align: center;
     padding-top: 10px;
@@ -33,13 +32,13 @@ body {
 }
 
 .footer {
-    /* Fixa o footer no fim de cada página */
+    /* Fix the footer at the bottom of each page */
     position: fixed;
     bottom: -1.27cm;
     left: 0;
     right: 0;
 
-    /* outros estilos apropriados */
+    /* other appropriate styles */
     width: 100%;
     padding: 0;
     text-align: center;
@@ -96,12 +95,12 @@ p {
 }
 
 #water-mark {
-    /* Fixa-se o posicionamento da marca d'água */
+    /* Fixed watermark placement */
     position: fixed;
     top: 20%;
     width: 100%;
 
-    /* outros estilos apropriados */
+    /* other appropriate styles */
     font-size: 120px;
     color: rgb(255,204,203);
     text-align: center;

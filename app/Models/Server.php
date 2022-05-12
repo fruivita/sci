@@ -26,9 +26,9 @@ class Server extends Model
     protected $fillable = ['name'];
 
     /**
-     * Impressões gerenciadas por um determinado servidor de impressão.
+     * Prints managed by a particular print server.
      *
-     * Relacionamento servidor de impressão (1:N) impressões.
+     * Relationship print server (1:N) prints.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -38,7 +38,7 @@ class Server extends Model
     }
 
     /**
-     * Relacionamento server (N:M) site.
+     * Relationship print server (N:M) sites.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -48,9 +48,9 @@ class Server extends Model
     }
 
     /**
-     * Ordenação padrão do modelo.
+     * Default ordering of the model.
      *
-     * Ordem: name asc
+     * Order: name asc
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *
@@ -62,7 +62,7 @@ class Server extends Model
     }
 
     /**
-     * Registro anterior.
+     * Previous record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -75,7 +75,7 @@ class Server extends Model
     }
 
     /**
-     * Registro posterior.
+     * Next record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -88,30 +88,30 @@ class Server extends Model
     }
 
     /**
-     * Gera o relatório de volume de impressão por servidor de acordo com o
-     * período informado.
+     * Generates the print volume report by server according to the informed
+     * period.
      *
-     * Inclui informações sobre as localidades permitindo, com ressalvas, usar
-     * esse relatório para verificar o volume de impressão por localidade.
+     * It includes information about the sites allowing, with caveats, to use
+     * this report to check the print volume by site.
      *
-     * O relatório traz as seguintes informações de acordo com os parâmetros
-     * informados:
-     * - total_print: volume de impressão
-     * - site: localidade geográfica controlada pelo servidor de impressão
-     * - server: servidor de impressão
-     * - printer_count: quantidade de impressoras utilizadas
-     * - percentage: percentual que o volume de impressão representa do total
+     * The report brings the following information according to the parameters
+     * informed:
+     * - total_print: print volume
+     * - site: geographic location controlled by the print server
+     * - server: print server
+     * - printer_count: number of printers used
+     * - percentage: percentage that the printing volume represents of the
+     * total
      *
-     * O retorno é ordenado pelo:
+     * The return is ordered by:
      * - total_print desc
      * - site asc
      *
-     * Regra de negócio: calcula o volume de impressão de todas os servidores,
-     * a quantidade de impressoras utilizadas, o percentual que a impressão
-     * represent, bem como as localidades (sites) que são controladas pelo
-     * servidor de impressão.
-     * Todos os servidores de impressão são trazidos no resultado, mesmo que
-     * seu volume de impressão venha zerado.
+     * Business rule: calculates the print volume of all servers, the number of
+     * printers used, the percentage that the print represents, as well as the
+     * sites that are controlled by the print server.
+     * All print servers are brought up in the result, even if their print
+     * volume is zero.
      *
      * @param \Carbon\Carbon $initial_date
      * @param \Carbon\Carbon $final_date
@@ -126,20 +126,20 @@ class Server extends Model
         $from = $initial_date->startOfDay();
         $until = $final_date->endOfDay();
 
-        // Prepara-se a query do total de impressão no período.
+        // Prepare the query of the total print in the period.
         $sum =
             DB::table('prints')
                 ->selectRaw('SUM(copies * pages) AS total')
                 ->whereBetween('date', [$from, $until]);
 
-        // Prepara-se a query das impressões agrupadas por servidor.
+        // Prepared the query of prints grouped by server.
         $printing =
             DB::table('prints')
                 ->selectRaw('server_id AS s_id, SUM(copies * pages) AS sum, COUNT(DISTINCT printer_id) AS printer')
                 ->whereBetween('date', [$from, $until])
                 ->groupBy('s_id');
 
-        // Executa a query juntando as query preparadas
+        // Execute the query by joining the prepared queries
         return
             DB::table('sites', 'l')
                 ->selectRaw('

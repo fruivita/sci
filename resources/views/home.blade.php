@@ -1,5 +1,5 @@
 {{--
-    View default para usuários autenticados.
+    View default for authenticated users.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

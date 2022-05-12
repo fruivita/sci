@@ -9,7 +9,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Impressão.
+ * Print.
  *
  * @see https://laravel.com/docs/eloquent
  */
@@ -34,9 +34,9 @@ class Printing extends Model
     ];
 
     /**
-     * Cliente que solicitou a impressão.
+     * Client who requested the print.
      *
-     * Relacionamento impressão (N:1) cliente.
+     * Relationship print (N:1) client.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -46,9 +46,9 @@ class Printing extends Model
     }
 
     /**
-     * Lotação do usuário que solicitou a impressão.
+     * Department of the user who requested the print.
      *
-     * Relacionamento impressão (N:1) lotação.
+     * Relationship print (N:1) department.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -58,9 +58,9 @@ class Printing extends Model
     }
 
     /**
-     * Impressora que realizou a impressão.
+     * Printer that performed the printing.
      *
-     * Relacionamento impressão (N:1) impressora.
+     * Relationship print (N:1) printer.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -70,9 +70,9 @@ class Printing extends Model
     }
 
     /**
-     * Usuário que solicitou a impressão.
+     * User who requested the print.
      *
-     * Relacionamento impressão (N:1) usuário.
+     * Relationship print (N:1) user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -82,9 +82,9 @@ class Printing extends Model
     }
 
     /**
-     * Servidor de impressão responsável pela impressão.
+     * Print server responsible for printing.
      *
-     * Relacionamento impressão (N:1) servidor.
+     * Relationship print (N:1) server.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -94,28 +94,27 @@ class Printing extends Model
     }
 
     /**
-     * Gera o relatório de impressão de acordo com o período e o agrupamento
-     * (mensal, bimestral, etc) informados.
+     * Generates the printing report according to the period and grouping
+     * (monthly, bimonthly, etc.).
      *
-     * O relatório traz as seguintes informações de acordo com os parâmetros
-     * informados:
-     * - year: ano do agrupamento
-     * - monthly_grouping: quantidade de meses de agrupamento
-     * - total_print: volume de impressão
-     * - printer_count: quantidade de impressoras utilizadas
+     * The report brings the following information according to the parameters
+     * informed:
+     * - year: grouping year
+     * - monthly_grouping: number of months of grouping
+     * - total_print: print volume
+     * - printer_count: number of printers used
      *
-     * O retorno é ordenado pelo:
+     * The return is ordered by:
      * - year asc
      * - monthly_grouping asc
      *
-     * Regra de negócio: calcula o volume de impressão e a quantidade de
-     * impressoras utilizadas de acordo com o agrupamento informado. A pesquisa
-     * é limitada ao range definido pelo initial_year e final_year.
-     * Nos anos passados, o agrupamento é calculado sem a necessidade de
-     * operações complexas. Contudo, no ano correte, o agrupamento depende do
-     * mês atual para que as datas futuras sejam descartadas.
-     * Todos os agrupamentos são exibidos mesmo que a impressão daquele período
-     * seja zero.
+     * Business rule: calculates the printing volume and the number of printers
+     * used according to the grouping informed. The search is limited to the
+     * range defined by initial_year and final_year.
+     * In years past, grouping is calculated without the need for complex
+     * operations. However, in the correct year, the grouping depends on the
+     * current month so that future dates are discarded.
+     * All groupings are displayed even if the prints for that period is zero.
      *
      * @param int                            $initial_year  ano inicial no padrão aaaa
      * @param int                            $final_year    ano final no padrão aaaa
@@ -192,9 +191,9 @@ class Printing extends Model
     }
 
     /**
-     * Prepara a string de agrupamento para ser exibida em tela.
+     * Prepares the grouping string to be displayed on screen.
      *
-     * @param mixed                          $row           linha do result set
+     * @param mixed                          $row           result set line
      * @param \App\Enums\MonthlyGroupingType $grouping_type
      *
      * @return mixed
@@ -223,10 +222,12 @@ class Printing extends Model
     }
 
     /**
-     * Calcula a quantidade total de registros do relatório (report).
+     * Calculates the total number of records in the report (report).
      *
-     * O cálculo leva em consideração o ano e o mês atual para o descarte de datas futuras.
-     * O total de registros é calculado para viabilizar a paginação dos resultados.
+     * The calculation takes into account the current year and month for
+     * discarding future dates.
+     * The total number of records is calculated to facilitate the pagination
+     * of the results.
      *
      * @param int                            $initial_year
      * @param int                            $final_year
@@ -241,13 +242,13 @@ class Printing extends Model
 
         $total = 0;
 
-        // regra própria para o ano corrente
+        // own rule for the current year
         if ($final_year == $current_year) {
             $total += ceil($current_month / $grouping_type->value);
             $final_year = $current_year - 1;
         }
 
-        // regra própria para os anos passados
+        // own rule for past years
         if ($initial_year < $current_year) {
             $total += ($final_year - $initial_year + 1) * 12 / $grouping_type->value;
         }

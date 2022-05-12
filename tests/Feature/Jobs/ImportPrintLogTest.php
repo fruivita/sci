@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
     $this->print_log_files = [
-        '01-12-2020.txt' => 'server1.domain.gov.br╡01/12/2020╡08:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡4╡2' . PHP_EOL .
-            'server2.domain.gov.br╡01/12/2020╡10:30:00╡private.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-222╡5000╡8╡2' . PHP_EOL,
+        '01-12-2020.txt' => 'server1.domain.org.br╡01/12/2020╡08:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-111╡1000╡4╡2' . PHP_EOL .
+            'server2.domain.org.br╡01/12/2020╡10:30:00╡private.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-222╡5000╡8╡2' . PHP_EOL,
 
-        '02-12-2020.txt' => 'server1.domain.gov.br╡02/12/2020╡11:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡3000╡4╡2' . PHP_EOL .
-            'server1.domain.gov.br╡02/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
-            'server2.domain.gov.br╡02/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-111╡2000╡9╡2' . PHP_EOL,
+        '02-12-2020.txt' => 'server1.domain.org.br╡02/12/2020╡11:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-333╡3000╡4╡2' . PHP_EOL .
+            'server1.domain.org.br╡02/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
+            'server2.domain.org.br╡02/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-111╡2000╡9╡2' . PHP_EOL,
 
         '03-12-2020.txt' => '',
     ];
@@ -37,7 +37,7 @@ afterEach(function () {
     $this->fake_disk = Storage::fake('print-log');
 });
 
-test('o job importa o log de impressão', function () {
+test('the job imports the print log', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
     ImportPrintLog::dispatchSync();
 

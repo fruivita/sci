@@ -23,25 +23,25 @@ afterEach(function () {
 });
 
 // Forbidden
-test('não é possível exibir o relatório geral de impressão sem estar autenticado', function () {
+test('unable to view general print report without being authenticated', function () {
     logout();
 
     get(route('report.printing.create'))
     ->assertRedirect(route('login'));
 });
 
-test('não é possível exibir o relatório geral de impressão sem permissão específica', function () {
+test('cannot view general print report without specific permission', function () {
     get(route('report.printing.create'))
     ->assertForbidden();
 });
 
-test('autenticado, mas sem permissão específica, não é possível renderizar o componente de relatório geral de impressão', function () {
+test('authenticated but without specific permission, unable to render general print report component', function () {
     Livewire::test(PrintingReportLivewire::class)
     ->assertForbidden();
 });
 
 // Failure
-test('se os valores de inicialização forem inválidos, eles serão definidas pelo sistema', function () {
+test('if the initialization values are invalid they will be set by the system', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class, [
@@ -55,15 +55,15 @@ test('se os valores de inicialização forem inválidos, eles serão definidas p
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
-test('data inicial é obrigatório', function () {
+test('inital date is mandatory', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -71,7 +71,7 @@ test('data inicial é obrigatório', function () {
     ->assertHasErrors(['initial_date' => 'required']);
 });
 
-test('data inicial deve ser um inteiro', function () {
+test('inital date must be an integer', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -79,7 +79,7 @@ test('data inicial deve ser um inteiro', function () {
     ->assertHasErrors(['initial_date' => 'integer']);
 });
 
-test('data inicial mínima é o ano de 100 anos atrás', function () {
+test('minimum inital date is the year 100 years ago', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -87,7 +87,7 @@ test('data inicial mínima é o ano de 100 anos atrás', function () {
     ->assertHasErrors(['initial_date' => 'gte']);
 });
 
-test('data inicial máxima é o ano atual', function () {
+test('maximum inital date is the current year', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -95,7 +95,7 @@ test('data inicial máxima é o ano atual', function () {
     ->assertHasErrors(['initial_date' => 'lte']);
 });
 
-test('data inicial está sujeita a validação em tempo real', function () {
+test('initial date is validated in real time', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -105,7 +105,7 @@ test('data inicial está sujeita a validação em tempo real', function () {
     ->assertHasErrors(['initial_date' => 'required']);
 });
 
-test('data final é obrigatório', function () {
+test('final date is required', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -113,7 +113,7 @@ test('data final é obrigatório', function () {
     ->assertHasErrors(['final_date' => 'required']);
 });
 
-test('data final deve ser um inteiro', function () {
+test('final date must be an integer', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -121,7 +121,7 @@ test('data final deve ser um inteiro', function () {
     ->assertHasErrors(['final_date' => 'integer']);
 });
 
-test('data final mínima é o ano de 100 anos atrás', function () {
+test('minimum final date is the year 100 years ago', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -129,7 +129,7 @@ test('data final mínima é o ano de 100 anos atrás', function () {
     ->assertHasErrors(['final_date' => 'gte']);
 });
 
-test('data final máxima é o ano atual', function () {
+test('maximum final date is the current year', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -137,7 +137,7 @@ test('data final máxima é o ano atual', function () {
     ->assertHasErrors(['final_date' => 'lte']);
 });
 
-test('data final está sujeita a validação em tempo real', function () {
+test('final date is validated in real time', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -147,7 +147,7 @@ test('data final está sujeita a validação em tempo real', function () {
     ->assertHasErrors(['final_date' => 'required']);
 });
 
-test('agrupamento deve ser uma das opções do enum MonthlyGroupingType', function () {
+test('grouping must be one of the MonthlyGroupingType enum options', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -155,7 +155,7 @@ test('agrupamento deve ser uma das opções do enum MonthlyGroupingType', functi
     ->assertHasErrors(['grouping' => 'in']);
 });
 
-test('agrupamento está sujeito a validação em tempo real', function () {
+test('grouping is subject to real-time validation', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -166,7 +166,7 @@ test('agrupamento está sujeito a validação em tempo real', function () {
 });
 
 // Happy path
-test('se autenticado, é possível renderizar o componente do relatório geral de impressão', function () {
+test('if authenticated it is possible to render the general print report component', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     get(route('report.printing.create'))
@@ -174,7 +174,7 @@ test('se autenticado, é possível renderizar o componente do relatório geral d
     ->assertSeeLivewire(PrintingReportLivewire::class);
 });
 
-test('paginação retorna a quantidade de resultados esperada', function () {
+test('pagination returns the amount of expected results', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class, [
@@ -193,7 +193,7 @@ test('paginação retorna a quantidade de resultados esperada', function () {
     ->assertCount('result', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class, [
@@ -211,7 +211,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('relatório retorna os resultados esperados', function () {
+test('report returns expected results', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -224,7 +224,7 @@ test('relatório retorna os resultados esperados', function () {
     ->assertCount('result', 24);
 });
 
-test('faz o download do relatório em formato pdf', function () {
+test('download the report in pdf format', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class)
@@ -234,7 +234,7 @@ test('faz o download do relatório em formato pdf', function () {
     ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
 });
 
-test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis', function () {
+test('if the initialization values are valid, they will be used to initialize the variables', function () {
     grantPermission(PermissionType::PrintingReport->value);
 
     Livewire::test(PrintingReportLivewire::class, [

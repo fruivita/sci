@@ -25,34 +25,34 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível visualizar individualmente uma permissão sem estar autenticado', function () {
+test('it is not possible to individually view a ticket without being authenticated', function () {
     logout();
 
     get(route('authorization.permission.show', $this->permission))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de visualização individual da permissão', function () {
+test("authenticated but without specific permission, can't access the permission's individual view route", function () {
     get(route('authorization.permission.show', $this->permission))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de visualização individual da permissão sem permissão específica', function () {
+test('cannot render individual permission view component without specific permission', function () {
     Livewire::test(PermissionLivewireShow::class, ['permission' => $this->permission])
     ->assertForbidden();
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::PermissionView->value);
 
     Livewire::test(PermissionLivewireShow::class, ['permission' => $this->permission])
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('é possível renderizar o componente de visualização individual da permissão com permissão específica', function () {
+test('renders individual permission view component with specific permission', function () {
     grantPermission(PermissionType::PermissionView->value);
 
     get(route('authorization.permission.show', $this->permission))
@@ -60,7 +60,7 @@ test('é possível renderizar o componente de visualização individual da permi
     ->assertSeeLivewire(PermissionLivewireShow::class);
 });
 
-test('paginação retorna a quantidade de perfis esperada', function () {
+test('pagination returns the expected number of roles', function () {
     grantPermission(PermissionType::PermissionView->value);
 
     Role::factory(120)->create();
@@ -80,7 +80,7 @@ test('paginação retorna a quantidade de perfis esperada', function () {
     ->assertCount('roles', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::PermissionView->value);
 
     Livewire::test(PermissionLivewireShow::class, ['permission' => $this->permission])
@@ -95,7 +95,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível visualizar individualmente uma permissão com permissão específica', function () {
+test('individually view a permission with specific permission', function () {
     grantPermission(PermissionType::PermissionView->value);
 
     get(route('authorization.permission.show', $this->permission))
@@ -103,7 +103,7 @@ test('é possível visualizar individualmente uma permissão com permissão espe
     ->assertSeeLivewire(PermissionLivewireShow::class);
 });
 
-test('next e previous estão disponíveis durante a visualização individual das permissões, inclusive em se tratando do primeiro ou último registros', function () {
+test('next and previous are available when viewing the individual permissions, even when dealing with the first or last record', function () {
     Permission::whereNotNull('id')->delete();
     grantPermission(PermissionType::PermissionView->value);
 
@@ -111,17 +111,17 @@ test('next e previous estão disponíveis durante a visualização individual da
     $permission_2 = Permission::find(PermissionType::PermissionView->value);
     $permission_3 = Permission::factory()->create(['id' => PermissionType::PermissionUpdate->value]);
 
-    // possui anterior e próximo
+    // has previous and next
     Livewire::test(PermissionLivewireShow::class, ['permission' => $permission_2])
     ->assertSet('previous', $permission_1->id)
     ->assertSet('next', $permission_3->id);
 
-    // possui apenas próximo
+    // only has next
     Livewire::test(PermissionLivewireShow::class, ['permission' => $permission_1])
     ->assertSet('previous', null)
     ->assertSet('next', $permission_2->id);
 
-    // possui apenas anterior
+    // has only previous
     Livewire::test(PermissionLivewireShow::class, ['permission' => $permission_3])
     ->assertSet('previous', $permission_2->id)
     ->assertSet('next', null);

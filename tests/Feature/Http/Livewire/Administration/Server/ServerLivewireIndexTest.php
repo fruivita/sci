@@ -23,33 +23,33 @@ afterEach(function () {
 });
 
 // Authorization
-test('não é possível listar os servidores sem estar autenticado', function () {
+test('cannot list servers without being authenticated', function () {
     logout();
 
     get(route('administration.server.index'))
     ->assertRedirect(route('login'));
 });
 
-test('autenticado, mas sem permissão específica, não é possível executar a rota de listagem dos servidores', function () {
+test('authenticated but without specific permission, unable to access servers listing route', function () {
     get(route('administration.server.index'))
     ->assertForbidden();
 });
 
-test('não é possível renderizar o componente de listagem dos servidores sem permissão específica', function () {
+test('cannot render servers listing component without specific permission', function () {
     Livewire::test(ServerLivewireIndex::class)->assertForbidden();
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::ServerViewAny->value);
 
     Livewire::test(ServerLivewireIndex::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
 // Happy path
-test('paginação retorna a quantidade de servidores esperada', function () {
+test('pagination returns the number of servers expected', function () {
     grantPermission(PermissionType::ServerViewAny->value);
 
     Server::factory(120)->create();
@@ -66,7 +66,7 @@ test('paginação retorna a quantidade de servidores esperada', function () {
     ->assertCount('servers', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::ServerViewAny->value);
 
     Livewire::test(ServerLivewireIndex::class)
@@ -81,7 +81,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('é possível listar os servidores com permissão específica', function () {
+test('list servers with specific permission', function () {
     grantPermission(PermissionType::ServerViewAny->value);
 
     get(route('administration.server.index'))

@@ -91,9 +91,9 @@ class ScheduledEventSubscriber
      * can be made by implementors is that if an Exception instance is given
      * to produce a stack trace, it MUST be in a key named "exception".
      *
-     * @param string               $level   nível do log
-     * @param string|\Stringable   $message sobre o ocorrido
-     * @param array<string, mixed> $context dados de contexto
+     * @param string               $level   log level
+     * @param string|\Stringable   $message about what happened
+     * @param array<string, mixed> $context context data
      *
      * @return void
      *

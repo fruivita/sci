@@ -15,14 +15,14 @@ use Illuminate\View\Component;
 class DatePicker extends Component
 {
     /**
-     * Data mínima do datepicker.
+     * Minimum date of the datepicker.
      *
      * @var string
      */
     private $min_date;
 
     /**
-     * Data máxima do datepicker.
+     * Datepicker maximum date.
      *
      * @var string
      */
@@ -31,8 +31,8 @@ class DatePicker extends Component
     /**
      * Create a new component instance.
      *
-     * @param string|null $min_date formato d-m-Y
-     * @param string|null $max_date formato d-m-Y
+     * @param string|null $min_date d-m-Y format
+     * @param string|null $max_date d-m-Y format
      *
      * @return void
      */
@@ -77,7 +77,7 @@ class DatePicker extends Component
     }
 
     /**
-     * Valida os parâmetros informados.
+     * Validates the informed parameters.
      *
      * @param string|null $min_date formato d-m-Y
      * @param string|null $max_date formato d-m-Y

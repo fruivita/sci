@@ -5,7 +5,7 @@ namespace App\Importer\Contracts;
 interface IImportablePrintLog
 {
     /**
-     * Importa os logs de impressão que estão no File System.
+     * Import the print logs that are in the File System.
      *
      * @return void
      */

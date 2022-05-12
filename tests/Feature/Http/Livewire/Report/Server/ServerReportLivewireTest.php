@@ -26,25 +26,25 @@ afterEach(function () {
 });
 
 // Forbidden
-test('não é possível exibir o relatório por servidor sem estar autenticado', function () {
+test('cannot view report per server without being authenticated', function () {
     logout();
 
     get(route('report.server.create'))
     ->assertRedirect(route('login'));
 });
 
-test('não é possível exibir o relatório por servidor sem permissão específica', function () {
+test('cannot view report by server without specific permission', function () {
     get(route('report.server.create'))
     ->assertForbidden();
 });
 
-test('autenticado, mas sem permissão específica, não é possível renderizar o componente de relatório por servidor', function () {
+test('authenticated but without specific permission, unable to render per-server report component', function () {
     Livewire::test(ServerReportLivewire::class)
     ->assertForbidden();
 });
 
 // Failure
-test('se os valores de inicialização forem inválidos, eles serão definidas pelo sistema', function () {
+test('if the initialization values are invalid they will be set by the system', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class, [
@@ -56,15 +56,15 @@ test('se os valores de inicialização forem inválidos, eles serão definidas p
 });
 
 // Rules
-test('não aceita paginação fora das opções oferecidas', function () {
+test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
-    ->set('per_page', 33) // valores possíveis: 10/25/50/100
+    ->set('per_page', 33) // possible values: 10/25/50/100
     ->assertHasErrors(['per_page' => 'in']);
 });
 
-test('data inicial é obrigatório', function () {
+test('inital date is mandatory', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -72,7 +72,7 @@ test('data inicial é obrigatório', function () {
     ->assertHasErrors(['initial_date' => 'required']);
 });
 
-test('data inicial deve ser no formato dd-mm-yyyy', function () {
+test('inital date must be in dd-mm-yyyy format', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -80,7 +80,7 @@ test('data inicial deve ser no formato dd-mm-yyyy', function () {
     ->assertHasErrors(['initial_date' => 'date_format']);
 });
 
-test('data inicial mínima é de 100 anos atrás', function () {
+test('minimum initial date is 100 years ago', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -88,7 +88,7 @@ test('data inicial mínima é de 100 anos atrás', function () {
     ->assertHasErrors(['initial_date' => DateMin::class]);
 });
 
-test('data inicial máxima é hoje', function () {
+test('maximum initial date is today', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -96,7 +96,7 @@ test('data inicial máxima é hoje', function () {
     ->assertHasErrors(['initial_date' => DateMax::class]);
 });
 
-test('data inicial está sujeita a validação em tempo real', function () {
+test('initial date is validated in real time', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -106,7 +106,7 @@ test('data inicial está sujeita a validação em tempo real', function () {
     ->assertHasErrors(['initial_date' => 'required']);
 });
 
-test('data final é obrigatório', function () {
+test('final date is required', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -114,7 +114,7 @@ test('data final é obrigatório', function () {
     ->assertHasErrors(['final_date' => 'required']);
 });
 
-test('data final deve ser no formato dd-mm-yyyy', function () {
+test('final date must be in dd-mm-yyyy format', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -122,7 +122,7 @@ test('data final deve ser no formato dd-mm-yyyy', function () {
     ->assertHasErrors(['final_date' => 'date_format']);
 });
 
-test('data final mínima é de 100 anos atrás', function () {
+test('minimum final date is 100 years ago', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -130,7 +130,7 @@ test('data final mínima é de 100 anos atrás', function () {
     ->assertHasErrors(['final_date' => DateMin::class]);
 });
 
-test('data final máxima é hoje', function () {
+test('maximum final date is today', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -138,7 +138,7 @@ test('data final máxima é hoje', function () {
     ->assertHasErrors(['final_date' => DateMax::class]);
 });
 
-test('data final está sujeita a validação em tempo real', function () {
+test('final date is validated in real time', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -149,7 +149,7 @@ test('data final está sujeita a validação em tempo real', function () {
 });
 
 // Happy path
-test('se autenticado, é possível renderizar o componente do relatório de servidor', function () {
+test('if authenticated it is possible to render server report component', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     get(route('report.server.create'))
@@ -157,7 +157,7 @@ test('se autenticado, é possível renderizar o componente do relatório de serv
     ->assertSeeLivewire(ServerReportLivewire::class);
 });
 
-test('paginação retorna a quantidade de servidores esperada', function () {
+test('pagination returns the number of servers expected', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Server::factory(120)
@@ -176,7 +176,7 @@ test('paginação retorna a quantidade de servidores esperada', function () {
     ->assertCount('result', 100);
 });
 
-test('paginação cria as variáveis de sessão', function () {
+test('pagination creates the session variables', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class)
@@ -191,7 +191,7 @@ test('paginação cria as variáveis de sessão', function () {
     ->assertSessionHas('per_page', 100);
 });
 
-test('faz o download do relatório em formato pdf', function () {
+test('download the report in pdf format', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Server::factory(30)
@@ -211,7 +211,7 @@ test('faz o download do relatório em formato pdf', function () {
     ->assertFileDownloaded('report-' . now()->format('d-m-Y') . '.pdf');
 });
 
-test('se os valores de inicialização forem válidos, eles serão utilizados para inicializar as variáveis', function () {
+test('if the initialization values are valid, they will be used to initialize the variables', function () {
     grantPermission(PermissionType::ServerReport->value);
 
     Livewire::test(ServerReportLivewire::class, [

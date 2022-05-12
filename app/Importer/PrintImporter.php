@@ -17,28 +17,28 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 /**
- * Importador destinado à importação da impressão.
+ * Importer for the import of printing.
  */
 final class PrintImporter implements IImportablePrint
 {
     /**
-     * Impressão que será importada.
+     * Print that will be imported.
      *
-     * Trata-se de impressão extraída do arquivo de log de impressão.
+     * This is a print extracted from the print log file.
      *
      * @var string
      */
     private $print;
 
     /**
-     * Delimitador de separação dos campos da impressão.
+     * Delimiter for separating the print fields.
      *
      * @var string
      */
     private $delimiter = '╡';
 
     /**
-     * Campos, sequenciados corretamente, que compõem uma impressão.
+     * Fields, correctly sequenced, that make up a print.
      *
      * @var string[]
      */
@@ -59,7 +59,7 @@ final class PrintImporter implements IImportablePrint
     ];
 
     /**
-     * Regras que serão aplicadas aos campos que serão importados.
+     * Rules that will be applied to the fields that will be imported.
      *
      * @var array<string, string[]>
      */
@@ -110,13 +110,13 @@ final class PrintImporter implements IImportablePrint
     }
 
     /**
-     * Retorna os inputs válidos para inserção de acordo com as rules de importação.
+     * Returns valid inputs for insertion according to import rules.
      *
-     * Em caso de falha de validação, retorna null e loga as falhas.
+     * In case of validation failure, it returns null and logs the failures.
      *
-     * @param array<string, string> $inputs para ser validado
+     * @param array<string, string> $inputs to be validated
      *
-     * @return array<string, string>|null validado
+     * @return array<string, string>|null validated
      */
     private function validateAndLogError(array $inputs)
     {
@@ -139,7 +139,7 @@ final class PrintImporter implements IImportablePrint
     }
 
     /**
-     * Faz a persistência da impressão.
+     * Makes print persistence.
      *
      * @param array<string, string> $validated
      *
@@ -205,16 +205,15 @@ final class PrintImporter implements IImportablePrint
      * can be made by implementors is that if an Exception instance is given
      * to produce a stack trace, it MUST be in a key named "exception".
      *
-     * Os dados de contexto informado são acrescentados aos seguintes dados da
-     * classe:
-     * - delimiter - delimitar dos campos da importação;
-     * - fields - ampos que compõem uma impressão;
-     * - print - impressão a ser importada;
-     * - rules - regras para importação dos campos;
+     * The given context data is appended to the following class data:
+     * - delimiter - delimiting the import fields;
+     * - fields - fields that make up a print;
+     * - print - print to be imported;
+     * - rules - rules for importing fields;
      *
-     * @param string               $level   nível do log
-     * @param string|\Stringable   $message sobre o ocorrido
-     * @param array<string, mixed> $context dados de contexto
+     * @param string               $level   log level
+     * @param string|\Stringable   $message about what happened
+     * @param array<string, mixed> $context context data
      *
      * @return void
      *

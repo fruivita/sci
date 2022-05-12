@@ -1,5 +1,5 @@
 {{--
-    Menu principal de navegação.
+    Main navigation menu.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

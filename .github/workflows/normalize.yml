@@ -1,14 +1,14 @@
 ###############################################################################
-# Sobre GitHub Actions                                                        #
+# About GitHub Actions                                                        #
 # https://docs.github.com/en/actions/learn-github-actions                     #
 # https://www.youtube.com/watch?v=TLB5MY9BBa4                                 #
 ###############################################################################
 #
-# Padroniza a formatação do arquivo composer.json de acordo com o esquema
-# proposto pelos desenvolvedores do composer
+# Standardizes the formatting of the composer.json file according to the scheme
+# proposed by the composers developers
 #
-# Motivação: https://localheinz.com/blog/2018/01/15/normalizing-composer.json/
-# Esquema: https://getcomposer.org/schema.json
+# Motivation: https://localheinz.com/blog/2018/01/15/normalizing-composer.json/
+# Schema: https://getcomposer.org/schema.json
 
 name: Normalize
 

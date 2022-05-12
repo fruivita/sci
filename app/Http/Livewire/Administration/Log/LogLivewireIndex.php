@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 /**
- * Componente para manipulação dos arquivos de log da aplicação.
+ * Component for handling application log files.
  *
  * @see https://laravel-livewire.com/docs/2.x/quickstart
  */
@@ -25,14 +25,14 @@ class LogLivewireIndex extends Component
     use WithPerPagePagination;
 
     /**
-     * Nome do arquivo de log em exibição.
+     * Resource on display.
      *
      * @var string
      */
     public $filename;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -100,7 +100,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar os arquivos de log.
+     * Computed property to list the log files.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -113,8 +113,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Computed property para gerar o conteúdo do arquivo de log de maneira
-     * paginada.
+     * Computed property to generate the log file contents in a paged manner.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      *
@@ -130,7 +129,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -143,7 +142,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Full path do arquivo de log em exibição.
+     * Full path of the log file displayed.
      *
      * @return string
      */
@@ -168,7 +167,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Download do arquivo de log.
+     * Download the specified resource.
      *
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
@@ -189,7 +188,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Exclui o arquivo de log.
+     * Remove the specified resource from storage.
      *
      * @return void
      */
@@ -207,7 +206,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Storage de armazenamento dos arquivos de log da aplicação.
+     * Storage for storing application log files.
      *
      * @return \Illuminate\Contracts\Filesystem\Filesystem
      */
@@ -217,11 +216,11 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Define os valores iniciais dos atributos baseados nos valores presentes
-     * na query string.
+     * Defines the initial values of attributes based on the values present in
+     * the query string.
      *
-     * Útil para permitir que o usuário possa digitar na url os valores de seu
-     * interesse, favoritar e/ou compartilhar a página.
+     * Useful to allow the user to type in the url the values of their
+     * interest, favorite and/or share the page.
      *
      * @return void
      */
@@ -235,7 +234,7 @@ class LogLivewireIndex extends Component
     }
 
     /**
-     * Valida os inputs e retorna a instância do validator.
+     * Validates inputs and returns the validator instance.
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */

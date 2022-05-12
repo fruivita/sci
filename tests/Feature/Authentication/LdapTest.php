@@ -15,7 +15,7 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
 // Authorization
-test('rotas privadas não são exibidas para usuários não autenticados', function () {
+test('private routes are not displayed to unauthenticated users', function () {
     get(route('login'))
     ->assertDontSee([
         route('logout'),
@@ -24,7 +24,7 @@ test('rotas privadas não são exibidas para usuários não autenticados', funct
 });
 
 // Rules
-test('username é campo obrigatório na autenticação', function () {
+test('username is required for authentication', function () {
     post(route('login'), [
         'username' => null,
         'password' => 'secret',
@@ -35,7 +35,7 @@ test('username é campo obrigatório na autenticação', function () {
     expect(authenticatedUser())->toBeNull();
 });
 
-test('senha é campo obrigatório na autenticação', function () {
+test('password is required for authentication', function () {
     post(route('login'), [
         'username' => 'foo',
         'password' => null,
@@ -47,7 +47,7 @@ test('senha é campo obrigatório na autenticação', function () {
 });
 
 // Happy path
-test('autenticação cria o objeto da classe user', function () {
+test('authentication creates user class object', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $samaccountname = 'foo';
@@ -59,7 +59,7 @@ test('autenticação cria o objeto da classe user', function () {
     logout();
 });
 
-test('username e name são sincronizados no banco de dados', function () {
+test('username and name are synchronized in the database', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     expect(User::count())->toBe(0);
@@ -76,7 +76,7 @@ test('username e name são sincronizados no banco de dados', function () {
     logout();
 });
 
-test('perfil ordinário (perfil padrão para novos usuários) é atribuído ao usuário ao ser sincronizado', function () {
+test('ordinary role (default role for new users) is assigned to the user when syncing', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
@@ -88,7 +88,7 @@ test('perfil ordinário (perfil padrão para novos usuários) é atribuído ao u
     logout();
 });
 
-test('se não for informada lotação, usuário receberá a lotação default (sem lotação)', function () {
+test('if no department is informed, the user will be in the default department (departmentless)', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
@@ -100,7 +100,7 @@ test('se não for informada lotação, usuário receberá a lotação default (s
     logout();
 });
 
-test('usuário ao fazer logout é redirecionado para a rota login', function () {
+test('user when logging out is redirected to the login route', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     login('foo');
@@ -113,15 +113,15 @@ test('usuário ao fazer logout é redirecionado para a rota login', function () 
 });
 
 /*
- * Teste de integração com o servidor LDAP.
+ * Test of integration with the LDAP server.
  *
- * Verifica, efetivamente, se a autenticação está funcionando.
+ * Effectively verifies that authentication is working.
  *
- * Para o teste, informe no arquivo .env, um usuário e senha com com permissão
- * de autenticação (e não apenas de leitura), no domínio. Após o teste apague
- * as dados.
+ * For the test, enter in the .env file, a username and password with
+ * authentication permission (and not just read) on the domain. After the test,
+ * erase the data.
  */
-test('teste real de funcionamento da autenticação (login e logout)', function () {
+test('real test of authentication working (login and logout)', function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $username = config('testing.username');

@@ -1,5 +1,5 @@
 {{--
-    Container padrão padrão da aplicação.
+    Default application container.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

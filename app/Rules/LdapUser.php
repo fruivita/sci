@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 use LdapRecord\Models\ActiveDirectory\User;
 
 /**
- * Verifica se o samaccountname é válido, isto é, se existe no servidor LDAP.
+ * Checks if the samaccountname is valid i.e. if it exists in the LDAP server.
  *
  * @see https://laravel.com/docs/validation#custom-validation-rules
  */

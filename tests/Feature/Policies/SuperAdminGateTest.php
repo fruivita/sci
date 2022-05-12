@@ -23,33 +23,33 @@ afterEach(function () {
 });
 
 // Happy path
-test('gate de verificação de super admin é persistido em cache por 5 segundos', function () {
+test('super admin check gate is persisted in cache for 5 seconds', function () {
     testTime()->freeze();
     $key = "{$this->user->username}-is-super-admin";
 
-    // sem cache
+    // no cache
     expect($this->user->role->permissions)->toBeEmpty()
     ->and(cache()->missing($key))->toBeTrue()
 
-    // criou o cache
+    // created the cache
     ->and($this->user->can(Policy::Update, Permission::class))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
-    // move o tempo para o limite da expiração
+    // move time to expiration limit
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect(cache()->has($key))->toBeTrue()
     ->and(cache()->get($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect(cache()->missing($key))->toBeTrue();
 });
 
-test('super admin possui todos os acessos, mesmo sem nenhuma permissão específica', function () {
+test('super admin has all access even without any specific permission', function () {
     expect($this->user->role->permissions)->toBeEmpty()
     ->and($this->user->can(Policy::Update, Permission::class))->toBeTrue();
 });

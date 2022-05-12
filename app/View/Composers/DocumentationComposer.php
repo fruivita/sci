@@ -33,8 +33,8 @@ class DocumentationComposer
     }
 
     /**
-     * Gera o link para a documentação de acordo com a rota visitada pelo
-     * usuário.
+     * Generates the link to the documentation according to the route visited
+     * by the user.
      *
      * @return string url para da documentação
      */

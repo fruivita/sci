@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /*
- * Lista de Queues presentes da aplicação.
+ * List of queues present in the application.
  *
  * @see https://www.php.net/manual/en/language.enumerations.php
  */

@@ -1,5 +1,5 @@
 {{--
-    View livewire para listagem das localidades.
+    View livewire for listing of sites.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -161,7 +161,7 @@
 
     @can(\App\Enums\Policy::Delete->value, \App\Models\Site::class)
 
-        {{-- Modal para confimar a exclusão da localidade --}}
+        {{-- Modal to confirm site deletion --}}
         <x-modal wire:model="show_delete_modal">
 
             <x-slot name="title">{{ __('Delete :attribute?', ['attribute' => $deleting->name]) }}</x-slot>

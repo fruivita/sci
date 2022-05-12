@@ -30,7 +30,7 @@ class PermissionLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar as permissões paginados e seus perfis.
+     * Computed property to list the paginated permissions and their roles.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -44,7 +44,7 @@ class PermissionLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */

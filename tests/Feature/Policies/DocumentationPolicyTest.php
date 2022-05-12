@@ -22,170 +22,170 @@ afterEach(function () {
 });
 
 // Forbidden
-test('usuário sem permissão não pode listar os registros da documentação', function () {
+test('user without permission cannot list documentation records', function () {
     expect((new DocumentationPolicy)->viewAny($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode criar um registro de documentação', function () {
+test('user without permission cannot create documentation record', function () {
     expect((new DocumentationPolicy)->create($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode atualizar um registro de documentação', function () {
+test('user without permission cannot update a documentation record', function () {
     expect((new DocumentationPolicy)->update($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode excluir um registro de documentação', function () {
+test('user without permission cannot delete a documentation record', function () {
     expect((new DocumentationPolicy)->delete($this->user))->toBeFalse();
 });
 
 // Happy path
-test('permissão de listagem dos registros da documentação é persistida em cache por 5 segundos', function () {
+test('permission to list documentation records is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new DocumentationPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new DocumentationPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::DocumentationViewAny->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new DocumentationPolicy)->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new DocumentationPolicy)->viewAny($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de criar um registro de documentação é persistida em cache por 5 segundos', function () {
+test('permission to create a documentation record is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::DocumentationCreate->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new DocumentationPolicy)->create($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new DocumentationPolicy)->create($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::DocumentationCreate->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new DocumentationPolicy)->create($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new DocumentationPolicy)->create($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de atualizar individualmente um registro de documentação é persistida em cache por 5 segundos', function () {
+test('permission to individually update a documentation record is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::DocumentationUpdate->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new DocumentationPolicy)->update($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new DocumentationPolicy)->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::DocumentationUpdate->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new DocumentationPolicy)->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new DocumentationPolicy)->update($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('permissão de excluir individualmente um registro de documentação é persistida em cache por 5 segundos', function () {
+test('permission to individually delete a documentation record is cached for 5 seconds', function () {
     testTime()->freeze();
     grantPermission(PermissionType::DocumentationDelete->value);
 
     $key = "{$this->user->username}-permissions";
 
-    // sem cache
+    // no cache
     expect((new DocumentationPolicy)->delete($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
-    // cria o cache das permissões ao fazer um request
+    // create the permissions cache when making a request
     get(route('home'));
 
-    // com cache
+    // with cache
     expect((new DocumentationPolicy)->delete($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // revoga a permissão e move o tempo para o limite da expiração
+    // revoke permission and move time to expiration limit
     revokePermission(PermissionType::DocumentationDelete->value);
     testTime()->addSeconds(5);
 
-    // permissão ainda está em cache
+    // permission is still cached
     expect((new DocumentationPolicy)->delete($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
-    // expira o cache
+    // expires cache
     testTime()->addSeconds(1);
 
     expect((new DocumentationPolicy)->delete($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
-test('usuário com permissão pode listar os registros da documentação', function () {
+test('user with permission can list documentation records', function () {
     grantPermission(PermissionType::DocumentationViewAny->value);
 
     expect((new DocumentationPolicy)->viewAny($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode criar um registro de documentação', function () {
+test('user with permission can create documentation record', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
     expect((new DocumentationPolicy)->create($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode atualizar individualmente um registro de documentação', function () {
+test('user with permission can individually update a documentation record', function () {
     grantPermission(PermissionType::DocumentationUpdate->value);
 
     expect((new DocumentationPolicy)->update($this->user))->toBeTrue();
 });
 
-test('usuário com permissão pode excluir individualmente um registro de documentação', function () {
+test('user with permission can individually delete a documentation record', function () {
     grantPermission(PermissionType::DocumentationDelete->value);
 
     expect((new DocumentationPolicy)->delete($this->user))->toBeTrue();

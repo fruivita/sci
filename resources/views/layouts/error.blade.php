@@ -1,5 +1,5 @@
 {{--
-    Master Page padrão para erros HTTP.
+    Default Master Page for HTTP errors.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

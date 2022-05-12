@@ -21,14 +21,14 @@ class DocumentationLivewireIndex extends Component
     use WithPerPagePagination;
 
     /**
-     * Deve-se exibir o modal de exclusão da documentação?
+     * Should the modal for deleting the documentation be displayed?
      *
      * @var bool
      */
     public $show_delete_modal = false;
 
     /**
-     * Documentação que será excluída.
+     * Resource that will be deleted.
      *
      * @var \App\Models\Documentation|null
      */
@@ -58,7 +58,7 @@ class DocumentationLivewireIndex extends Component
     }
 
     /**
-     * Objeto em branco.
+     * Blank model.
      *
      * @return \App\Models\Documentation
      */
@@ -68,7 +68,7 @@ class DocumentationLivewireIndex extends Component
     }
 
     /**
-     * Computed property para listar as documentações paginadas.
+     * Computed property to list paginated documentation.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -80,7 +80,7 @@ class DocumentationLivewireIndex extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -92,7 +92,7 @@ class DocumentationLivewireIndex extends Component
     }
 
     /**
-     * Exibe o modal e define a documentação que será excluída.
+     * Displays the modal and defines the resource to be deleted.
      *
      * @param \App\Models\Documentation $doc
      *
@@ -108,7 +108,7 @@ class DocumentationLivewireIndex extends Component
     }
 
     /**
-     * Deleta a documentação definida para exclusão.
+     * Remove the specified resource from storage.
      *
      * @return void
      */

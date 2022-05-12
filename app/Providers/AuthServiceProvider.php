@@ -44,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // verificação para super admin
+        // checking for super admin
         Gate::before(function (User $user) {
             $this->useCache();
 
@@ -69,7 +69,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Policy::LogDelete->value, [LogPolicy::class, 'delete']);
         Gate::define(Policy::LogDownload->value, [LogPolicy::class, 'download']);
 
-        // autenticação
+        // authentication
         Fortify::authenticateUsing(function ($request) {
             $validated = Auth::validate([
                 'samaccountname' => $request->input('username'),

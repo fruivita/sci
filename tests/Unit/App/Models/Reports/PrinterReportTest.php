@@ -15,20 +15,20 @@ beforeEach(function () {
     $this->seed([DepartmentSeeder::class, RoleSeeder::class]);
 
     $this->print_log_files = [
-        '30-06-2019.txt' => 'server1.domain.gov.br╡30/06/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡MLT-111╡1000╡3╡1' . PHP_EOL .
-            'server1.domain.gov.br╡30/06/2019╡10:30:00╡private.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-222╡5000╡8╡2' . PHP_EOL,
+        '30-06-2019.txt' => 'server1.domain.org.br╡30/06/2019╡01:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡MLT-111╡1000╡3╡1' . PHP_EOL .
+            'server1.domain.org.br╡30/06/2019╡10:30:00╡private.pdf╡aduser2╡2021╡╡╡CPU-10000╡IMP-222╡5000╡8╡2' . PHP_EOL,
 
-        '02-12-2020.txt' => 'server1.domain.gov.br╡02/12/2020╡02:05:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-666╡3000╡10╡2' . PHP_EOL .
-            'server1.domain.gov.br╡02/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡1000╡3╡1' . PHP_EOL .
-            'server1.domain.gov.br╡02/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
+        '02-12-2020.txt' => 'server1.domain.org.br╡02/12/2020╡02:05:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-666╡3000╡10╡2' . PHP_EOL .
+            'server1.domain.org.br╡02/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡1000╡3╡1' . PHP_EOL .
+            'server1.domain.org.br╡02/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
 
-        '05-12-2020.txt' => 'server1.domain.gov.br╡05/12/2020╡03:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-555╡3000╡5╡3' . PHP_EOL .
-            'server1.domain.gov.br╡05/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡1000╡5╡7' . PHP_EOL .
-            'server1.domain.gov.br╡05/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡3╡2' . PHP_EOL,
+        '05-12-2020.txt' => 'server1.domain.org.br╡05/12/2020╡03:00:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡IMP-555╡3000╡5╡3' . PHP_EOL .
+            'server1.domain.org.br╡05/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-444╡1000╡5╡7' . PHP_EOL .
+            'server1.domain.org.br╡05/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡3╡2' . PHP_EOL,
 
-        '25-12-2020.txt' => 'server1.domain.gov.br╡25/12/2020╡03:30:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡MLT-333╡3000╡1╡1' . PHP_EOL .
-            'server1.domain.gov.br╡25/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
-            'server1.domain.gov.br╡25/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
+        '25-12-2020.txt' => 'server1.domain.org.br╡25/12/2020╡03:30:00╡report.pdf╡aduser1╡2021╡╡╡CPU-10000╡MLT-333╡3000╡1╡1' . PHP_EOL .
+            'server1.domain.org.br╡25/12/2020╡13:15:15╡games.pdf╡aduser3╡2021╡╡╡CPU-20000╡IMP-222╡1000╡4╡1' . PHP_EOL .
+            'server1.domain.org.br╡25/12/2020╡18:01:50╡rules.pdf╡aduser3╡2021╡╡╡CPU-20000╡MLT-111╡2000╡9╡2' . PHP_EOL,
     ];
 
     $this->fake_disk = Storage::fake('print-log');
@@ -42,7 +42,7 @@ afterEach(function () {
     $this->fake_disk = Storage::fake('print-log');
 });
 
-test('relatório contabiliza e informa a data da última impressão', function () {
+test('report counts and informs the date of the last printing', function () {
     PrintLogImporter::make()->import();
 
     $result = Printer::report(
@@ -73,7 +73,7 @@ test('relatório contabiliza e informa a data da última impressão', function (
     ->and($imp666->last_print_date)->toBe('02-12-2020');
 });
 
-test('relatório por impressora com restrição de período', function () {
+test('per-printer report with period constraint', function () {
     PrintLogImporter::make()->import();
 
     $result = Printer::report(
@@ -98,7 +98,7 @@ test('relatório por impressora com restrição de período', function () {
     ->and($imp666->last_print_date)->toBe('02-12-2020');
 });
 
-test('relatório por impressora com restrição de impressoras', function () {
+test('per printer report with printer constraint', function () {
     PrintLogImporter::make()->import();
 
     $mlt111 = Printer::report(
@@ -121,7 +121,7 @@ test('relatório por impressora com restrição de impressoras', function () {
     ->and($imp555->last_print_date)->toBe('05-12-2020');
 });
 
-test('relatório por impressora com restrição parcial do nome da impressora', function () {
+test('per printer report with partial printer name constraint', function () {
     PrintLogImporter::make()->import();
 
     $result = Printer::report(
@@ -141,7 +141,7 @@ test('relatório por impressora com restrição parcial do nome da impressora', 
     ->and($mlt333->last_print_date)->toBe('25-12-2020');
 });
 
-test('relatório por impressora com pesquisando impressora existente, mas que não imprimiu no período', function () {
+test('report by printer with searching for existing printer, but not printing in period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printer::report(
@@ -153,7 +153,7 @@ test('relatório por impressora com pesquisando impressora existente, mas que n�
     expect($result)->toBeEmpty();
 });
 
-test('relatório por impressora é ordenado pelo volume impressão desc e impressora asc', function () {
+test('report by printer is sorted by volume print desc and printer asc', function () {
     PrintLogImporter::make()->import();
 
     $result = Printer::report(
@@ -184,7 +184,7 @@ test('relatório por impressora é ordenado pelo volume impressão desc e impres
     ->and($sixth->printer)->toBe('MLT-333');
 });
 
-test('relatório por impressora sem impressão no período', function () {
+test('report by printer without printing in the period', function () {
     PrintLogImporter::make()->import();
 
     $result = Printer::report(

@@ -1,8 +1,8 @@
 {{--
-    View para erro HTTP 4xx.
+    View for HTTP 4xx error.
 
-    Nota: Esse view é usada como view default para erros do range 400 ~ 499,
-    isto é, para quando não houver uma view específica para exibir o erro.
+    Note: This view is used as the default view for errors in the range 400 ~
+    499, that is, when there is no specific view to display the error.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

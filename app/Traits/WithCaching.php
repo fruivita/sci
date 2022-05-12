@@ -6,21 +6,21 @@ use Closure;
 use Illuminate\Support\Facades\Cache;
 
 /**
- * Trait para criar cache, bem como usá-lo quando necessário.
+ * Trait to create cache as well as use it when needed.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  */
 trait WithCaching
 {
     /**
-     * O cache deve ser utilizado?
+     * Should the cache be used?
      *
      * @var bool
      */
     private $use_cache = false;
 
     /**
-     * Define que o cache deve ser utilizado.
+     * Defines that the cache should be used.
      *
      * @return void
      */
@@ -30,14 +30,14 @@ trait WithCaching
     }
 
     /**
-     * Armazena o resultado do callback no cache, pelo tempo de vida e chave
-     * informada, e o retorna.
+     * Stores the result of the callback in the cache, for the given lifetime
+     * and key, and returns it.
      *
-     * Se a chave já existir no cache, o item será retornado, caso contrário
-     * o cache será criado e então retornado ao chamador.
+     * If the key already exists in the cache, the item will be returned,
+     * otherwise the cache will be created and then returned to the caller.
      *
-     * @param string   $key      chave do cache
-     * @param int      $seconds  tempo de vida do cache em segundos
+     * @param string   $key      cache key
+     * @param int      $seconds  cache lifetime in seconds
      * @param \Closure $callback
      *
      * @return mixed

@@ -1,10 +1,10 @@
 {{--
-    View livewire para executar a importação forçada de dados.
+    View livewire to perform forced data import.
 
-    A importação forçada ocorre por meio de requisição do usuário. É do tipo
-    forçada, pois a aplicação possui rotina de importação dos dados diária,
-    tornando desnecessário forçar a importação.
-    Contudo, em determinados cenários, ela se mostra útil.
+    Forced import occurs via user request. It is of the forced type, because
+    the application has a daily data import routine, making it unnecessary to
+    force the import.
+    However, in certain scenarios, it proves to be useful.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

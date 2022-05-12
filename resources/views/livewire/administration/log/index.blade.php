@@ -1,5 +1,5 @@
 {{--
-    View livewire para administração dos logs da aplicação.
+    View livewire for administration of application logs.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

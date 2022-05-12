@@ -1,6 +1,5 @@
 {{--
-    Elemento não clicável que imita, visualmente, os links do menu, isto é,
-    para ser exibido no menu por questões estéticas.
+    Menu link for logout.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

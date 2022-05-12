@@ -1,5 +1,5 @@
 {{--
-    View livewire para exibir o relatório de impressão por servidor.
+    View livewire to view the print report by server.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

@@ -1,5 +1,5 @@
 {{--
-    View livewire para listagem da documentação das rotas da aplicação.
+    View livewire for listing the application's route documentation.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/
@@ -126,7 +126,7 @@
 
     @can(\App\Enums\Policy::Delete->value, \App\Models\Documentation::class)
 
-        {{-- Modal para confimar a exclusão da documentação --}}
+        {{-- Modal to confirm the deletion of documentation --}}
         <x-modal wire:model="show_delete_modal">
 
             <x-slot name="title">{{ __('Delete :attribute?', ['attribute' => $deleting->app_route_name]) }}</x-slot>

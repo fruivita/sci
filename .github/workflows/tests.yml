@@ -1,17 +1,17 @@
 ###############################################################################
-# Sobre GitHub Actions                                                        #
+# About GitHub Actions                                                        #
 # https://docs.github.com/en/actions/learn-github-actions                     #
 # https://www.youtube.com/watch?v=TLB5MY9BBa4                                 #
 ###############################################################################
 #
-# Executa testes unitários e funcionais e gera a taxa de cobertura do código.
+# Run unit and functional tests and generate code coverage rate.
 # PestPhp: https://pestphp.com/docs/installation
 #
-# A taxa de cobertura é exportada para o serviço de análise de código 'Code
-# Climate'
+# Coverage rate is generated and exported to code analysis service 'Code
+# Climate' only in ubuntu-latest environment and php version 8.1
 #
-# - Sobre: https://codeclimate.com/
-# - Como fazer o upload: https://docs.codeclimate.com/docs/github-actions-test-coverage
+# - About: https://codeclimate.com/
+# - How to upload: https://docs.codeclimate.com/docs/github-actions-test-coverage
 
 name: Unit and Feature tests
 

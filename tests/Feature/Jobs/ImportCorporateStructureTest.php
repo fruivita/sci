@@ -12,7 +12,7 @@ use App\Models\User;
 use Database\Seeders\RoleSeeder;
 
 // Happy path
-test('job importa a estrutura corporativa', function () {
+test('imports corporate structure job', function () {
     $this->seed(RoleSeeder::class);
 
     ImportCorporateStructure::dispatchSync();

@@ -34,9 +34,9 @@ class DelegationPolicy extends Policy
     {
         return
             ! empty($user->role_id)
-            // usuário autenticado possui mais permissões que o destinatário
+            // authenticated user has more permissions than the receiver
             && $user->role_id < $delegated->role_id
-            // possuem a mesma lotação
+            // same department
             && $user->department_id == $delegated->department_id
             && $this->hasAnyPermission($user, [PermissionType::DelegationCreate]);
     }
@@ -53,9 +53,9 @@ class DelegationPolicy extends Policy
     {
         return
             ! empty($delegated->role_granted_by)
-            // usuário autenticado possui mais ou o mesmo nível de permissões que o destinatário
+            // authenticated user has more or the same level of permissions as the receiver
             && $user->role_id <= $delegated->role_id
-            // possuem a mesma lotação
+            // same department
             && $user->department_id == $delegated->department_id;
     }
 }

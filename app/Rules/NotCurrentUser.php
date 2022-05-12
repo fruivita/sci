@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 
 /**
- * Usuário informado não é o usuário autenticado.
+ * User informed is not the authenticated user.
  *
  * @see https://laravel.com/docs/validation#custom-validation-rules
  */

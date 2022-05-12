@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Traits;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
- * Trait para as tratativas de download do relatório.
+ * Trait for the report download negotiations.
  *
  * @see https://www.php.net/manual/en/language.oop5.traits.php
  * @see https://laravel-livewire.com/docs/2.x/traits
@@ -13,21 +13,21 @@ use Barryvdh\DomPDF\Facade\Pdf;
 trait WithDownloadableReport
 {
     /**
-     * Título do relatório que será gerado.
+     * Title of the report that will be generated.
      *
      * @return string
      */
     abstract private function reportHeader();
 
     /**
-     * Nome da view utilizada para a geração do relatório em PDF.
+     * Name of the view used to generate the PDF report.
      *
      * @return string
      */
     abstract private function pdfReportViewName();
 
     /**
-     * Relatório paginado, de acordo com as solicitações do usuário.
+     * Paginated report, as per user requests.
      *
      * @param int|null $per_page
      *
@@ -36,14 +36,14 @@ trait WithDownloadableReport
     abstract private function makeReport(int $per_page = null);
 
     /**
-     * Filtro extra utilizado no relatório.
+     * Extra filter used in the report.
      *
      * @return string|null
      */
     abstract private function filter();
 
     /**
-     * Action do usuário para solicitar o Download do relatório em formato PDF.
+     * User Action to request Download the report in PDF format.
      *
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
@@ -73,7 +73,7 @@ trait WithDownloadableReport
     }
 
     /**
-     * Dados para serem populados no relatório.
+     * Data to be populated in the report.
      *
      * @return array<string, mixed>
      */

@@ -6,7 +6,7 @@
 
 use App\Enums\MonthlyGroupingType;
 
-test('MonthlyGroupingType enum corretamente definidos', function () {
+test('MonthlyGroupingType enum correctly defined', function () {
     expect(MonthlyGroupingType::Monthly->value)->toBe(1)
     ->and(MonthlyGroupingType::Bimonthly->value)->toBe(2)
     ->and(MonthlyGroupingType::Trimonthly->value)->toBe(3)
@@ -15,7 +15,7 @@ test('MonthlyGroupingType enum corretamente definidos', function () {
     ->and(MonthlyGroupingType::Yearly->value)->toBe(12);
 });
 
-test('MonthlyGroupingType enum label definido', function () {
+test('MonthlyGroupingType enum label defined', function () {
     expect(MonthlyGroupingType::Monthly->label())->toBe(__('Monthly'))
     ->and(MonthlyGroupingType::Bimonthly->label())->toBe(__('Bimonthly'))
     ->and(MonthlyGroupingType::Trimonthly->label())->toBe(__('Trimonthly'))
@@ -24,6 +24,6 @@ test('MonthlyGroupingType enum label definido', function () {
     ->and(MonthlyGroupingType::Yearly->label())->toBe(__('Yearly'));
 });
 
-test('MonthlyGroupingType enum values definido', function () {
+test('MonthlyGroupingType enum values defined', function () {
     expect(MonthlyGroupingType::values()->toArray())->toBe([1, 2, 3, 4, 6, 12]);
 });

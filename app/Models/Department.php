@@ -9,24 +9,24 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Lotação de um determinado usuário.
+ * Department for a given user.
  *
  * @see https://laravel.com/docs/eloquent
  */
 class Department extends CorporateDepartment
 {
     /**
-     * Id da lotação dos usuários sem lotação. Em regra, usuários que existem
-     * apenas no servidor LDAP.
+     * Department ID of users with no department. As a rule, users that exist
+     * only on the LDAP server.
      *
      * @var int
      */
     public const DEPARTMENTLESS = 0;
 
     /**
-     * Impressões vindas de uma determinada lotação.
+     * Prints from a particular Department.
      *
-     * Relacionamento lotação (1:N) impressões.
+     * Relationship department (1:N) prints.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -36,28 +36,28 @@ class Department extends CorporateDepartment
     }
 
     /**
-     * Gera o relatório de impressão por lotação de acordo com o período
-     * informado.
+     * Generates the printing report by department according to the informed
+     * period.
      *
-     * O relatório traz as seguintes informações de acordo com os parâmetros
-     * informados:
-     * - department: nome da lotação
-     * - acronym: sigla da lotação
-     * - total_print: volume de impressão
-     * - printer_count: quantidade de impressoras utilizadas
-     * - parent_acronym: sigla da lotação pai
-     * - parent_department: nome da lotação pai
+     * The report brings the following information according to the parameters
+     * informed:
+     * - department: department name
+     * - acronym: department acronym
+     * - total_print: print volume
+     * - printer_count: number of printers used
+     * - parent_acronym: parent department acronym
+     * - parent_department: parent department name
      *
-     * O retorno é ordenado pelo:
+     * The report is ordered by:
      * - total_print desc
      * - department asc
      *
-     * Regra de negócio: Existem 3 tipos de relatórios de impressão por lotação
-     * - intitucional: relatório de todas as lotações cadastradas.
-     * - gerencial: relatório da lotação da pessoa autenticada e lotações filha
-     * - lotação: relatório apenas da lotação da pessoa autenticada.
+     * Business Rule: There are 3 types of print reports per department
+     * - institutional: report of all registered departments
+     * - managerial: authenticated user department report and child departments
+     * - departamento: report only from the authenticated user's department
      *
-     * O relatório inclui as lotações com impressões zeradas.
+     * The report includes departments with zero prints.
      *
      * @param \Carbon\Carbon                  $initial_date
      * @param \Carbon\Carbon                  $final_date
@@ -77,24 +77,24 @@ class Department extends CorporateDepartment
     }
 
     /**
-     * Gera o relatório intitucional de impressão por lotação de acordo com o
-     * período.
+     * Generates the institutional print report by department according to the
+     * period.
      *
-     * O relatório traz as seguintes informações de acordo com os parâmetros
-     * informados:
-     * - department: nome da lotação
-     * - acronym: sigla da lotação
-     * - total_print: volume de impressão
-     * - printer_count: quantidade de impressoras utilizadas
-     * - parent_acronym: sigla da lotação pai
-     * - parent_department: nome da lotação pai
+     * The report brings the following information according to the parameters
+     * informed:
+     * - department: department name
+     * - acronym: department acronym
+     * - total_print: print volume
+     * - printer_count: number of printers used
+     * - parent_acronym: parent department acronym
+     * - parent_department: parent department name
      *
-     * O retorno é ordenado pelo:
+     * The report is ordered by:
      * - total_print desc
      * - department asc
      *
-     * Regra de negócio: o relatório do tipo 'institucional' traz informações
-     * sobre todas as lotações existentes, inclusive, as com impressão zerada.
+     * Business rule: the 'institutional' type report brings information about
+     * all existing departments, including those with zero printing.
      *
      * @param \Carbon\Carbon $initial_date
      * @param \Carbon\Carbon $final_date
@@ -104,8 +104,8 @@ class Department extends CorporateDepartment
      */
     private static function institutional(Carbon $initial_date, Carbon $final_date, int $per_page)
     {
-        // prepara-se todas as impressões e quantidades de impressoras
-        // utilizadas no período informado.
+        // All prints and quantities of printers used in the informed period
+        // are prepared.
         $prints = DB::table('prints')
             ->selectRaw(
                 'department_id,
@@ -115,7 +115,7 @@ class Department extends CorporateDepartment
             ->whereBetween('date', [$initial_date, $final_date])
             ->groupBy('department_id');
 
-        // prepara-se todas as locações com a sigla da lotação pai right
+        // prepare all locations with the parent department acronym
         $department = DB::table('departments', 'd1')
             ->select(
                 'd1.acronym',
@@ -128,7 +128,7 @@ class Department extends CorporateDepartment
             ->leftJoin('departments AS d2', 'd2.id', '=', 'd1.parent_department')
             ->rightJoinSub($prints, 'tmp', 'tmp.department_id', '=', 'd1.id');
 
-        // junta as query e a prepara para a execução.
+        // join the queries and prepares it for execution.
         return
         DB::table('departments', 'd3')
             ->select(
@@ -148,24 +148,24 @@ class Department extends CorporateDepartment
     }
 
     /**
-     * Gera o relatório gerencial de impressão por lotação de acordo com o
-     * período.
+     * Generates the print management report by department according to the
+     * period.
      *
-     * O relatório traz as seguintes informações de acordo com os parâmetros
-     * informados:
-     * - department: nome da lotação
-     * - acronym: sigla da lotação
-     * - total_print: volume de impressão
-     * - printer_count: quantidade de impressoras utilizadas
-     * - parent_acronym: sigla da lotação pai
-     * - parent_department: nome da lotação pai
+     * The report brings the following information according to the parameters
+     * informed:
+     * - department: department name
+     * - acronym: department acronym
+     * - total_print: print volume
+     * - printer_count: number of printers used
+     * - parent_acronym: parent department acronym
+     * - parent_department: parent department name
      *
-     * O retorno é ordenado pelo:
+     * The report is ordered by:
      * - total_print desc
      * - department asc
      *
-     * Regra de negócio: o relatório do tipo 'gerencial' traz informações
-     * da lotação atual da pessoa autenticada bem como das suas filhas.
+     * Business rule: the 'managerial' type report brings information from the
+     * authenticated person's current department as well as their children.
      *
      * @param \Carbon\Carbon $initial_date
      * @param \Carbon\Carbon $final_date
@@ -239,19 +239,19 @@ class Department extends CorporateDepartment
     }
 
     /**
-     * Gera o relatório de impressão da lotação do usuário autenticado.
+     * Generates the authenticated user's department print report.
      *
-     * O relatório traz as seguintes informações de acordo com os parâmetros
-     * informados:
-     * - department: nome da lotação
-     * - acronym: sigla da lotação
-     * - total_print: volume de impressão
-     * - printer_count: quantidade de impressoras utilizadas
-     * - parent_acronym: sigla da lotação pai
-     * - parent_department: nome da lotação pai
+     * The report brings the following information according to the parameters
+     * informed:
+     * - department: department name
+     * - acronym: department acronym
+     * - total_print: print volume
+     * - printer_count: number of printers used
+     * - parent_acronym: parent department acronym
+     * - parent_department: parent department name
      *
-     * Regra de negócio: o relatório do tipo 'lotação' traz informações apenas
-     * da lotação da pessoa autenticada, não traz das lotações filha.
+     * Business rule: 'department' type report only brings information from the
+     * authenticated person's department, not from child departments.
      *
      * @param \Carbon\Carbon $initial_date
      * @param \Carbon\Carbon $final_date
@@ -283,7 +283,7 @@ class Department extends CorporateDepartment
     }
 
     /**
-     * Calcula a quantidade de registros retornada pelo relatório gerencial.
+     * Calculates the number of records returned by the management report.
      *
      * @param \Carbon\Carbon $initial_date
      * @param \Carbon\Carbon $final_date

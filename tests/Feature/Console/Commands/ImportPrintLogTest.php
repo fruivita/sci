@@ -8,7 +8,7 @@ use App\Jobs\ImportPrintLog;
 use Illuminate\Support\Facades\Bus;
 
 // Happy path
-test('comando import:print-log dispara o job de importação do log de impressão', function () {
+test('import:print-log command triggers the import print log job', function () {
     Bus::fake();
 
     $this

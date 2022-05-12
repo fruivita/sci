@@ -20,14 +20,14 @@ class ConfigurationLivewireUpdate extends Component
     use WithFeedbackEvents;
 
     /**
-     * Configuração que está em edição.
+     * Editing resource.
      *
      * @var \App\Models\Configuration
      */
     public Configuration $configuration;
 
     /**
-     * Regras para a validação dos inputs.
+     * Rules for validation of inputs.
      *
      * @return array<string, mixed>
      */
@@ -80,7 +80,7 @@ class ConfigurationLivewireUpdate extends Component
     }
 
     /**
-     * Renderiza o componente.
+     * Renders the component.
      *
      * @return \Illuminate\Http\Response
      */
@@ -90,8 +90,8 @@ class ConfigurationLivewireUpdate extends Component
     }
 
     /**
-     * Executa a substituição do usuário autenticado pelo informado para
-     * simulação de uso da aplicação.
+     * Performs the replacement of the authenticated user by the informed one
+     * to simulate the use of the application.
      *
      * @return void
      */

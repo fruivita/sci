@@ -1,6 +1,6 @@
 <!--
-    Os atributos width, height e class foram removidos, pois configurados nas
-    configurações core da aplicação
+    The width, height and class attributes were removed, as they are configured
+    in the application's core settings
 
     @see  /app/config/blade-icons.php
     @see https://github.com/blade-ui-kit/blade-icons

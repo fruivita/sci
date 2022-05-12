@@ -1,5 +1,5 @@
 {{--
-    View livewire para exibir o relatório de impressão por lotação.
+    View livewire to view the print report by department.
 
     @see https://laravel.com/docs/blade
     @see https://tailwindcss.com/

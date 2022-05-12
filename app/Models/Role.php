@@ -26,7 +26,7 @@ class Role extends Model
     public const ORDINARY = 1300;
 
     /**
-     * Relacionamento perfil (N:M) permissões.
+     * Relationship role (N:M) permissions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -36,7 +36,7 @@ class Role extends Model
     }
 
     /**
-     * Relacionamento perfil (1:N) usuários.
+     * Relationship role (1:N) users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -46,16 +46,16 @@ class Role extends Model
     }
 
     /**
-     * Ordenação padrão do modelo.
+     * Default ordering of the model.
      *
-     * Essa ordenação não deve ser alterada, visto que o processo de delegação
-     * a leva para determinar o perfil de maior privilégios (menor id) e o de
-     * menor privilégio (maior id).
+     * This ordering should not be changed, as the delegation process takes it
+     * to determine the most privileged (lowest id) and least privileged
+     * (highest id) roles.
      *
-     * Se essa ordenação for alterada, deve revisar o processo de delegação
-     * para os ajustes necessários.
+     * If this ordering changes, should review the delegation process for
+     * necessary adjustments.
      *
-     * Ordem: Id asc
+     * Order: Id asc
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *
@@ -67,7 +67,7 @@ class Role extends Model
     }
 
     /**
-     * Registro anterior.
+     * Previous record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -80,7 +80,7 @@ class Role extends Model
     }
 
     /**
-     * Registro posterior.
+     * Next record.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -93,10 +93,10 @@ class Role extends Model
     }
 
     /**
-     * Salva o perfil no banco de dados e syncroniza suas permissões em uma
-     * operação atômica, isto é, tudo ou nada.
+     * It saves the role in the database and synchronizes its permissions in an
+     * atomic operation, that is, all or nothing.
      *
-     * @param array|int|null $permissions ids das permissões
+     * @param array|int|null $permissions permissions ids
      *
      * @return bool
      */

@@ -6,8 +6,8 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Verifica se a rota informada existe na aplicação, isto é, se é uma rota
- * válida.
+ * Checks if the route exists in the application, that is, if it is a valid
+ * route.
  *
  * @see https://laravel.com/docs/validation#custom-validation-rules
  */

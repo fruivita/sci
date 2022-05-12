@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Configurações da aplicação.
+ * Application Configurations.
  *
  * @see https://laravel.com/docs/eloquent
  */
@@ -19,7 +19,7 @@ class Configuration extends Model
     public $incrementing = false;
 
     /**
-     * Id da configuração da aplicação.
+     * Application configuration id.
      *
      * @var int
      */

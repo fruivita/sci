@@ -40,7 +40,7 @@ class ImportPrintLog implements ShouldQueue, ShouldBeUnique
      *
      * @var int
      */
-    public $uniqueFor = 12 * 60 * 60;
+    public $uniqueFor = 12 * 60 * 60; // 12 hours
 
     /**
      * Create a new job instance.
