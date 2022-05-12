@@ -65,23 +65,25 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      # Gera o arquivo .env com base no .env.example
+      # Generate .env file based on .env.example
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Install dependencies
         run: composer update --${{ matrix.stability }} --prefer-stable --no-interaction --no-progress
 
-      # Gera a chave da aplicação
+      # Generate the application key
       - name: Generate key
         run: php artisan key:generate
 
-      # Concede full control na pasta de cache da aplicação
+      # Grants full control on the application's cache folder
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
       - name: Execute tests
-        run: ./vendor/bin/pest --coverage --colors=always --stop-on-failure --exclude-group=integration
+        run: |
+          php --version
+          ./vendor/bin/pest --coverage --colors=always --stop-on-failure --exclude-group=integration
 
       - name: Upload coverage to Code Climate
         uses: paambaati/codeclimate-action@v3.0.0
