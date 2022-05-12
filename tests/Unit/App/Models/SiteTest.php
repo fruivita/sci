@@ -53,9 +53,8 @@ test('atomicSaveWithServers method creates log if site update fails', function (
     $site->atomicSaveWithServers([1, 2]);
 
     Log::shouldHaveReceived('error')
-    ->withArgs(function ($message) {
-        return $message === __('Site update failed');
-    })->once();
+    ->withArgs(fn ($message) => $message === __('Site update failed'))
+    ->once();
 });
 
 // Happy path

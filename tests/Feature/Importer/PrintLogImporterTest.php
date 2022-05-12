@@ -63,17 +63,14 @@ test('creates the log to record the start, completion and import of each file in
     expect(Printing::count())->toBe(5);
 
     Log::shouldHaveReceived('log')
-    ->withArgs(function ($level, $message) {
-        return $level === 'notice' && $message === __('Print log import started');
-    })->once();
+    ->withArgs(fn ($level, $message) => $level === 'notice' && $message === __('Print log import started'))
+    ->once();
     Log::shouldHaveReceived('log')
-    ->withArgs(function ($level, $message) {
-        return $level === 'info' && $message === __('File processed correctly');
-    })->times(3); // 3 files
+    ->withArgs(fn ($level, $message) => $level === 'info' && $message === __('File processed correctly'))
+    ->times(3); // 3 files
     Log::shouldHaveReceived('log')
-    ->withArgs(function ($level, $message) {
-        return $level === 'notice' && $message === __('Print log import completed');
-    })->once();
+    ->withArgs(fn ($level, $message) => $level === 'notice' && $message === __('Print log import completed'))
+    ->once();
 });
 
 test('delete log files after they are imported', function () {
@@ -101,7 +98,9 @@ test('cache with timestamp of last import is updated on each successful import o
 
     PrintLogImporter::make()->import();
 
-    Cache::shouldHaveReceived('put')->times(3);
+    Cache::shouldHaveReceived('put')
+    ->withArgs(fn ($key) => $key === 'last_print_import')
+    ->times(3);
 });
 
 test('creates cache with the timestamp of the date and time when the import of the print log took place', function () {

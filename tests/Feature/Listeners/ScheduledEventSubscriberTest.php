@@ -18,11 +18,9 @@ test('logs the start and end of the task dispatched by the schedule', function (
     $this->artisan('schedule:run');
 
     Log::shouldHaveReceived('log')
-    ->withArgs(function ($level, $message) {
-        return $level === 'notice' && $message === 'ScheduledTaskStarting';
-    })->once();
+    ->withArgs(fn ($level, $message) => $level === 'notice' && $message === 'ScheduledTaskStarting')
+    ->once();
     Log::shouldHaveReceived('log')
-    ->withArgs(function ($level, $message) {
-        return $level === 'notice' && $message === 'ScheduledTaskFinished';
-    })->once();
+    ->withArgs(fn ($level, $message) => $level === 'notice' && $message === 'ScheduledTaskFinished')
+    ->once();
 });

@@ -45,7 +45,9 @@ test('create log if print server is invalid in print string', function ($server)
     PrintImporter::make()->import($print);
 
     expect(Printing::count())->toBe(0);
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     Str::random(256), // maximum 255 characters
     null,             // required
@@ -57,7 +59,9 @@ test('create log if client is invalid in print string', function ($client) {
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     Str::random(256), // maximum 255 characters
     null,             // required
@@ -70,7 +74,9 @@ test('create log if user is invalid in print string', function ($username) {
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     Str::random(21), // maximum 21characters
     null,            // required
@@ -83,7 +89,9 @@ test('create log if printer is invalid in print string', function ($printer) {
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     Str::random(256), // maximum 255 characters
     null,             // required
@@ -96,7 +104,9 @@ test('create log if department is invalid in print string', function ($departmen
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     'foo', // not convertible to integer
     10,    // nonexistent
@@ -109,7 +119,9 @@ test('create log if print date is invalid in print string', function ($date) {
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     '31/02/2020', // non-existent date
     '28-02-2020', // must be in dd/mm/yyyy format
@@ -123,7 +135,9 @@ test('create log if print time is invalid in print string', function ($time) {
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     '23:61:59', // non-existent time
     '2:59:59',  // must be in the format hh:mm:ss
@@ -137,7 +151,9 @@ test('creates the log if the printed filename is invalid in the print string', f
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     Str::random(261), // maximum 260 characters
 ]);
@@ -149,7 +165,9 @@ test('create log if invalid page number in print string', function ($pages) {
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     'foo', // not convertible to integer
     null,  // required
@@ -162,7 +180,9 @@ test('create log if number of copies is invalid in print string', function ($cop
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     'foo', // not convertible to integer
     null,  // required
@@ -175,7 +195,9 @@ test('create log if file size is invalid in print string', function ($file_size)
     PrintImporter::make()->import($print);
 
     expect(Printing::get())->toBeEmpty();
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'warning')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'warning' && $message === __('Validation failed'))
+    ->once();
 })->with([
     'foo', // not convertible to integer
 ]);
@@ -208,7 +230,9 @@ test('create log if there is exception during print persistence', function () {
     PrintImporter::make()->import($print_2);
 
     expect(Printing::count())->toBe(1);
-    Log::shouldHaveReceived('log')->withArgs(fn ($level) => $level === 'critical')->once();
+    Log::shouldHaveReceived('log')
+    ->withArgs(fn ($level, $message) => $level === 'critical' && $message === __('Possibly duplicate record'))
+    ->once();
 });
 
 // Happy path

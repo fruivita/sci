@@ -64,9 +64,8 @@ test('atomicSaveWithRoles method creates log on failed permission update', funct
     $permission->atomicSaveWithRoles([1, 2]);
 
     Log::shouldHaveReceived('error')
-    ->withArgs(function ($message) {
-        return $message === __('Permission update failed');
-    })->once();
+    ->withArgs(fn ($message) => $message === __('Permission update failed'))
+    ->once();
 });
 
 // Happy path

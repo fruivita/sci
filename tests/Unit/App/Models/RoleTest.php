@@ -74,9 +74,8 @@ test('atomic method Save With Permissions creates log home of failed role update
     $role->atomicSaveWithPermissions([1, 2]);
 
     Log::shouldHaveReceived('error')
-    ->withArgs(function ($message) {
-        return $message === __('Role update failed');
-    })->once();
+    ->withArgs(fn ($message) => $message === __('Role update failed'))
+    ->once();
 });
 
 // Happy path
