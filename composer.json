@@ -1,7 +1,8 @@
 {
     "name": "fruivita/sci",
-    "type": "project",
     "description": "Sistema de Contagem de Impressão.",
+    "license": "MIT",
+    "type": "project",
     "keywords": [
         "fruivita",
         "sci",
@@ -10,7 +11,6 @@
         "contagem",
         "count"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Fábio Cassiano",
@@ -19,12 +19,12 @@
             "role": "Developer"
         }
     ],
-    "support": {
-        "issues": "https://github.com/fruivita/sci/issues",
-        "source": "https://github.com/fruivita/sci",
-        "email": "fruivita.code@gmail.com"
-    },
     "homepage": "https://github.com/fruivita/sci",
+    "support": {
+        "email": "fruivita.code@gmail.com",
+        "issues": "https://github.com/fruivita/sci/issues",
+        "source": "https://github.com/fruivita/sci"
+    },
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^1.0",
@@ -55,6 +55,8 @@
         "spatie/laravel-ignition": "^1.2",
         "spatie/pest-plugin-test-time": "^1.0"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "App\\": "app/",
@@ -70,14 +72,28 @@
             "Tests\\": "tests/"
         }
     },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
     "scripts": {
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
             "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -90,21 +106,5 @@
         "csfix": "vendor/bin/php-cs-fixer fix -v --config=.php-cs-fixer.dist.php --allow-risky=yes",
         "nointegration": "composer test -- --exclude-group=integration",
         "test": "vendor/bin/pest -d memory_limit=2048M --colors=always --stop-on-failure"
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "process-timeout": 0,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
