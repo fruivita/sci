@@ -16,7 +16,7 @@ test('stringToArrayAssoc returns null if invalid values are given', function ($k
     expect(stringToArrayAssoc($keys, $delimiter, $string))->toBeNull();
 })->with([
     [
-        ['name', 'age', 'nationality', 'excess_key'], //qty of keys incompatible with string
+        ['name', 'age', 'nationality', 'excess_key'], // qty of keys incompatible with string
         ',',
         'foo,18,bar',
     ],

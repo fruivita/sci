@@ -14,7 +14,6 @@ class AbcController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -24,62 +23,61 @@ class AbcController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Configuration  $configuration
+     * @param \App\Models\Configuration $configuration
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Configuration $configuration)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Configuration  $configuration
+     * @param \App\Models\Configuration $configuration
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Configuration $configuration)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Configuration  $configuration
+     * @param \Illuminate\Http\Request  $request
+     * @param \App\Models\Configuration $configuration
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Configuration $configuration)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Configuration  $configuration
+     * @param \App\Models\Configuration $configuration
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Configuration $configuration)
     {
-        //
     }
 }
