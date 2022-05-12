@@ -2,7 +2,6 @@
     Links styled like button.
 
     Props:
-    - color: css style that should be applied to the button
     - icon: svg icon that will be displayed
     - prepend: if the text of the button must come before or after the icon
     - text: item description/meaning text
@@ -16,11 +15,11 @@
 --}}
 
 
-@props(['color' => 'btn-default', 'icon' => false, 'prepend' => false, 'text'])
+@props(['icon' => false, 'prepend' => false, 'text'])
 
 
 <a
-    {{ $attributes->merge(['class' => "btn {$color}"]) }}
+    {{ $attributes->merge(['class' => 'btn']) }}
     {{ $attributes->except('class') }}
 >
 
