@@ -10,7 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@ryangjchandler/alpine-mask": "^0.2.0",
+        "@alpinejs/mask": "^3.10.2",
         "alpinejs": "^3.9.1",
         "autoprefixer": "^10.4.3",
         "flatpickr": "^4.6.13",

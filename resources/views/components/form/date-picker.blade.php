@@ -13,11 +13,11 @@
     @see https://tailwindcss.com/docs/dark-mode
     @see https://laravel-livewire.com
     @see https://alpinejs.dev/
+    @see https://alpinejs.dev/plugins/mask
     @see https://icons.getbootstrap.com/
     @see https://flatpickr.js.org/
     @see https://www.youtube.com/watch?v=cLx40YxjXiw
     @see https://www.youtube.com/watch?v=lKg7AMeRtJY
-    @see https://github.com/ryangjchandler/alpine-mask
 --}}
 
 
@@ -70,11 +70,7 @@
             <input
                 wire:ignore
                 x-ref="picker"
-                x-mask="{
-                    date: true,
-                    datePattern: ['d', 'm', 'Y'],
-                    delimiter: '-'
-                }"
+                x-mask="99-99-9999"
                 :id="$id('date-picker-input')"
                 autocomplete="off"
                 maxlength="10"

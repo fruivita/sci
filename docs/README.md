@@ -267,8 +267,6 @@ Como esse projeto destina-se a um cliente específico, só serão implementadas 
 
 - ❤️ [Bootstrap](https://github.com/twbs) pelo package [twbs/icons](https://github.com/twbs/icons)
 
-- ❤️ [Ryan Chandler](https://github.com/ryangjchandler) pelo package [ryangjchandler/alpine-mask](https://github.com/ryangjchandler/alpine-mask)
-
 - ❤️ [Alpine.js](https://github.com/alpinejs) pelo package [alpinejs/alpine](https://github.com/alpinejs/alpine)
 
 - ❤️ [PostCSS](https://github.com/postcss) pelos packages:
