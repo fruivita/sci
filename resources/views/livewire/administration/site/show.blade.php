@@ -80,7 +80,7 @@
 
                     <x-slot name="head">
 
-                        <x-table.heading>{{ __('Servers') }}</x-table.heading>
+                        <x-table.heading>{{ __('Server') }}</x-table.heading>
 
                     </x-slot>
 

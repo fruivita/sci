@@ -253,14 +253,14 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::DocumentationUpdate->value,
                 'name' => __('Documentation: Update one'),
-                'description' => __('Permission to update documentation records individually.'),
+                'description' => __('Permission to upate application documentation records individually.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => PermissionType::DocumentationDelete->value,
                 'name' => __('Documentation: Delete one'),
-                'description' => __('Permission to delete documentation records individually.'),
+                'description' => __('Permission to delete application documentation records individually.'),
                 'created_at' => now()->format('Y-m-d H:i:s'),
                 'updated_at' => now()->format('Y-m-d H:i:s'),
             ],

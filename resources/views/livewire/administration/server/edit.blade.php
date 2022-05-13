@@ -101,7 +101,7 @@
                             </x-table.heading>
 
 
-                            <x-table.heading class="text-left">{{ __('Sites') }}</x-table.heading>
+                            <x-table.heading class="text-left">{{ __('Site') }}</x-table.heading>
 
                         </x-slot>
 
