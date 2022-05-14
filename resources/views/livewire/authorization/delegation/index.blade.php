@@ -85,7 +85,7 @@
                                             wire:loading.delay.attr="disabled"
                                             wire:loading.delay.class="cursor-not-allowed"
                                             class="btn-danger w-full"
-                                            icon="pencil-square"
+                                            icon="x-circle"
                                             text="{{ __('Revoke') }}"
                                             title="{{ __('Revoke user permissions') }}"
                                             type="submit"/>
@@ -101,7 +101,7 @@
                                             wire:loading.delay.attr="disabled"
                                             wire:loading.delay.class="cursor-not-allowed"
                                             class="btn-do w-full"
-                                            icon="pencil-square"
+                                            icon="check-circle"
                                             text="{{ __('Grant') }}"
                                             title="{{ __('Grant my permissions to the user') }}"
                                             type="submit"/>
