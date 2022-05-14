@@ -24,7 +24,7 @@ class PermissionRoleSeeder extends Seeder
 
         DB::table('permission_role')->insert(
             $this->allRolesPermissions()
-            ->map(function($item) use ($now) {
+            ->map(function ($item) use ($now) {
                 $item['created_at'] = $now;
                 $item['updated_at'] = $now;
 
@@ -45,7 +45,6 @@ class PermissionRoleSeeder extends Seeder
         ->concat($this->institutionalManagerPermissions())
         ->concat($this->departmentManagerPermissions())
         ->concat($this->ordinaryPermissions());
-
     }
 
     /**
@@ -91,7 +90,7 @@ class PermissionRoleSeeder extends Seeder
             PermissionType::DocumentationCreate->value,
             PermissionType::DocumentationUpdate->value,
             PermissionType::DocumentationDelete->value,
-        ])->map(function($item) {
+        ])->map(function ($item) {
             $new_item['role_id'] = Role::ADMINISTRATOR;
             $new_item['permission_id'] = $item;
 
@@ -107,8 +106,8 @@ class PermissionRoleSeeder extends Seeder
     private function institutionalManagerPermissions()
     {
         return LazyCollection::make([
-            //...
-        ])->map(function($item) {
+            // ...
+        ])->map(function ($item) {
             $new_item['role_id'] = Role::INSTITUTIONALMANAGER;
             $new_item['permission_id'] = $item;
 
@@ -124,8 +123,8 @@ class PermissionRoleSeeder extends Seeder
     private function departmentManagerPermissions()
     {
         return LazyCollection::make([
-            //...
-        ])->map(function($item) {
+            // ...
+        ])->map(function ($item) {
             $new_item['role_id'] = Role::DEPARTMENTMANAGER;
             $new_item['permission_id'] = $item;
 
@@ -141,8 +140,8 @@ class PermissionRoleSeeder extends Seeder
     private function ordinaryPermissions()
     {
         return LazyCollection::make([
-            //...
-        ])->map(function($item) {
+            // ...
+        ])->map(function ($item) {
             $new_item['role_id'] = Role::ORDINARY;
             $new_item['permission_id'] = $item;
 
