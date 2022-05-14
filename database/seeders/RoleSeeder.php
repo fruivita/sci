@@ -26,7 +26,7 @@ class RoleSeeder extends Seeder
 
         DB::table('roles')->insert(
             $this->allPermissions()
-            ->map(function($item) use ($now) {
+            ->map(function ($item) use ($now) {
                 $item['created_at'] = $now;
                 $item['updated_at'] = $now;
 
