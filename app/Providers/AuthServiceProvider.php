@@ -43,8 +43,17 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerGates();
+        $this->registerAuthentication();
+    }
 
-        // checking for super admin
+    /**
+     * Register all gate checks.
+     *
+     * @return void
+     */
+    private function registerGates()
+    {
         Gate::before(function (User $user) {
             $this->useCache();
 
@@ -68,7 +77,15 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Policy::LogViewAny->value, [LogPolicy::class, 'viewAny']);
         Gate::define(Policy::LogDelete->value, [LogPolicy::class, 'delete']);
         Gate::define(Policy::LogDownload->value, [LogPolicy::class, 'download']);
+    }
 
+    /**
+     * Register the authentication method.
+     *
+     * @return void
+     */
+    private function registerAuthentication()
+    {
         // authentication
         Fortify::authenticateUsing(function ($request) {
             $validated = Auth::validate([
