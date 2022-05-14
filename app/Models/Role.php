@@ -103,18 +103,14 @@ class Role extends Model
     public function atomicSaveWithPermissions(mixed $permissions)
     {
         try {
-            DB::beginTransaction();
+            DB::transaction(function () use ($permissions) {
+                $this->save();
 
-            $this->save();
-
-            $this->permissions()->sync($permissions);
-
-            DB::commit();
+                $this->permissions()->sync($permissions);
+            });
 
             return true;
         } catch (\Throwable $th) {
-            DB::rollBack();
-
             Log::error(
                 __('Role update failed'),
                 [

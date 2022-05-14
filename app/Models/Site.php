@@ -86,18 +86,14 @@ class Site extends Model
     public function atomicSaveWithServers(mixed $servers)
     {
         try {
-            DB::beginTransaction();
+            DB::transaction(function () use ($servers) {
+                $this->save();
 
-            $this->save();
-
-            $this->servers()->sync($servers);
-
-            DB::commit();
+                $this->servers()->sync($servers);
+            });
 
             return true;
         } catch (\Throwable $th) {
-            DB::rollBack();
-
             Log::error(
                 __('Site update failed'),
                 [
