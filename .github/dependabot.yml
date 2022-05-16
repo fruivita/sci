@@ -11,28 +11,6 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 15
-    target-branch: '1.x'
-    commit-message:
-      prefix: 'build'
-      prefix-development: 'build'
-      include: scope
-
-  - package-ecosystem: 'composer'
-    directory: '/'
-    schedule:
-      interval: 'daily'
-    open-pull-requests-limit: 15
-    target-branch: '1.x'
-    commit-message:
-      prefix: 'build'
-      prefix-development: 'build'
-      include: scope
-
-  - package-ecosystem: 'github-actions'
-    directory: '/'
-    schedule:
-      interval: 'daily'
-    open-pull-requests-limit: 15
     target-branch: 'main'
     commit-message:
       prefix: 'build'
