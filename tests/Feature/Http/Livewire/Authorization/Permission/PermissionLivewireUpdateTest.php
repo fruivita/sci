@@ -49,7 +49,6 @@ test('cannot render permission edit component without specific permission', func
 test('cannot update permission without specific permission', function () {
     grantPermission(PermissionType::PermissionUpdate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(PermissionLivewireUpdate::class, ['permission' => $this->permission])
     ->set('permission.name', 'new foo')
     ->set('permission.description', 'new bar');

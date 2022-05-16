@@ -46,7 +46,6 @@ test('cannot render config editing component without specific permission', funct
 test('cannot update configuration without specific permission', function () {
     grantPermission(PermissionType::ConfigurationUpdate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(ConfigurationLivewireUpdate::class)
     ->set('configuration.superadmin', 'bar');
 

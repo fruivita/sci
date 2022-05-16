@@ -48,7 +48,6 @@ test('cannot render site build component without specific permission', function 
 test('it is not possible to create the site without specific permission', function () {
     grantPermission(PermissionType::SiteCreate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(SiteLivewireCreate::class)
     ->set('site.name', 'new foo');
 

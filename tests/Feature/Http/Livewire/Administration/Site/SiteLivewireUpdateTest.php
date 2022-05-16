@@ -48,7 +48,6 @@ test('cannot render site editing component without specific permission', functio
 test('cannot update site without specific permission', function () {
     grantPermission(PermissionType::SiteUpdate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(SiteLivewireUpdate::class, ['site' => $this->site])
     ->set('site.name', 'new foo');
 

@@ -46,7 +46,6 @@ test('cannot render application documentation record creation component without 
 test('it is not possible to create an application documentation record without specific permission', function () {
     grantPermission(PermissionType::DocumentationCreate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(DocumentationLivewireCreate::class)
     ->set('doc.app_route_name', 'new foo');
 

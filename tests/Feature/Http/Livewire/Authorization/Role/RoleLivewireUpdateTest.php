@@ -48,7 +48,6 @@ test('cannot render role editing component without specific permission', functio
 test('unable to update role without specific permission', function () {
     grantPermission(PermissionType::RoleUpdate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $this->role])
     ->set('role.name', 'new foo')
     ->set('role.description', 'new bar');

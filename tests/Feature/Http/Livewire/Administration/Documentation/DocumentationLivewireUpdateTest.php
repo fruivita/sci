@@ -46,7 +46,6 @@ test('cannot render application documentation record editing component without s
 test('cannot update application documentation record without specific permission', function () {
     grantPermission(PermissionType::DocumentationUpdate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(DocumentationLivewireUpdate::class, ['doc' => $this->doc])
     ->set('doc.app_route_name', 'report.server.create');
 

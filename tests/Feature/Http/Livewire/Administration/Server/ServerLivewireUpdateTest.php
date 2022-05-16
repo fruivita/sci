@@ -47,7 +47,6 @@ test('cannot render server editing component without specific permission', funct
 test('cannot update server without specific permission', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
-    // grant permission to open the edit page
     $livewire = Livewire::test(ServerLivewireUpdate::class, ['server' => $this->server]);
 
     // remove permission
