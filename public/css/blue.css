@@ -2328,9 +2328,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-10{
   width: 2.5rem;
 }
-.w-1\/4{
-  width: 25%;
-}
 .flex-1{
   flex: 1 1 0%;
 }
@@ -2995,13 +2992,13 @@ Ensure the default browser behavior of the `hidden` attribute.
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
-  .lg\:px-6{
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
   .lg\:px-24{
     padding-left: 6rem;
     padding-right: 6rem;
+  }
+  .lg\:px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
