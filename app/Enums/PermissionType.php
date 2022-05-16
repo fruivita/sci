@@ -10,39 +10,53 @@ namespace App\Enums;
  */
 enum PermissionType: int
 {
-    case PermissionViewAny = 100001;
-    case PermissionView = 100002;
-    case PermissionUpdate = 100004;
-    case RoleViewAny = 110001;
-    case RoleView = 110002;
-    case RoleUpdate = 110004;
-    case UserViewAny = 120001;
-    case UserUpdate = 120004;
-    case SimulationCreate = 130003;
+    // Configuratio
+    case ConfigurationView = 100002;
+    case ConfigurationUpdate = 100004;
+    // Delegation
+    case DelegationViewAny = 110001;
+    case DelegationCreate = 110003;
+    // Department
+    case DepartmentReport = 120101;
+    case ManagerialReport = 120102;
+    case InstitutionalReport = 120103;
+    // Documentation
+    case DocumentationViewAny = 130001;
+    case DocumentationCreate = 130003;
+    case DocumentationUpdate = 130004;
+    case DocumentationDelete = 130006;
+    // Importation
     case ImportationCreate = 140003;
-    case DelegationViewAny = 150001;
-    case DelegationCreate = 150003;
-    case PrinterReport = 160101;
-    case PrintingReport = 170101;
-    case ServerViewAny = 180001;
-    case ServerView = 180002;
-    case ServerUpdate = 180004;
-    case ServerReport = 180101;
-    case DepartmentReport = 190101;
-    case ManagerialReport = 190102;
-    case InstitutionalReport = 190103;
-    case SiteViewAny = 200001;
-    case SiteView = 200002;
-    case SiteCreate = 200003;
-    case SiteUpdate = 200004;
-    case SiteDelete = 200006;
-    case ConfigurationView = 210002;
-    case ConfigurationUpdate = 210004;
-    case LogViewAny = 220001;
-    case LogDelete = 220006;
-    case LogDownload = 220101;
-    case DocumentationViewAny = 230001;
-    case DocumentationCreate = 230003;
-    case DocumentationUpdate = 230004;
-    case DocumentationDelete = 230006;
+    // Log
+    case LogViewAny = 150001;
+    case LogDelete = 150006;
+    case LogDownload = 150101;
+    // Permission
+    case PermissionViewAny = 160001;
+    case PermissionView = 160002;
+    case PermissionUpdate = 160004;
+    // Printer
+    case PrinterReport = 170101;
+    // Printing
+    case PrintingReport = 180101;
+    // Role
+    case RoleViewAny = 190001;
+    case RoleView = 190002;
+    case RoleUpdate = 190004;
+    // Server
+    case ServerViewAny = 200001;
+    case ServerView = 200002;
+    case ServerUpdate = 200004;
+    case ServerReport = 200101;
+    // Simulation
+    case SimulationCreate = 210003;
+    // Site
+    case SiteViewAny = 220001;
+    case SiteView = 220002;
+    case SiteCreate = 220003;
+    case SiteUpdate = 220004;
+    case SiteDelete = 220006;
+    // User
+    case UserViewAny = 230001;
+    case UserUpdate = 230004;
 }

@@ -17,6 +17,13 @@ enum Policy: string
     case Restore = 'restore';
     case Delete = 'delete';
     case ForceDelete = 'force-delete';
+    case DelegationViewAny = 'delegation-view-any';
+    case DelegationCreate = 'delegation-create';
+    case DelegationDelete = 'delegation-delete';
+    case ImportationCreate = 'importation-create';
+    case LogViewAny = 'log-view-any';
+    case LogDownload = 'log-download';
+    case LogDelete = 'log-delete';
     case Report = 'report';
     case ReportAny = 'report-any';
     case DepartmentReport = 'department-report';
@@ -24,11 +31,4 @@ enum Policy: string
     case InstitutionalReport = 'institutional-report';
     case SimulationCreate = 'simulation-create';
     case SimulationDelete = 'simulation-delete';
-    case ImportationCreate = 'importation-create';
-    case DelegationViewAny = 'delegation-view-any';
-    case DelegationCreate = 'delegation-create';
-    case DelegationDelete = 'delegation-delete';
-    case LogViewAny = 'log-view-any';
-    case LogDownload = 'log-download';
-    case LogDelete = 'log-delete';
 }
