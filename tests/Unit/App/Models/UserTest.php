@@ -207,7 +207,7 @@ test('returns users using the defined default sort scope', function () {
     ->and($users->get(3)->username)->toBe($fourth['username']);
 });
 
-test('the search, with partial term or not, returns the expected values', function () {
+test('search, with partial term or not, returns the expected values', function () {
     User::factory()->create(['username' => 'foo', 'name' => 'foo']);
     User::factory()->create(['username' => 'bar', 'name' => 'foo bar']);
     User::factory()->create(['username' => 'foo baz', 'name' => 'foo bar baz']);

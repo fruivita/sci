@@ -107,7 +107,7 @@ test('role fields at their maximum size are accepted', function () {
     expect(Role::count())->toBe(1);
 });
 
-test(']one role has many permissions', function () {
+test('one role has many permissions', function () {
     Role::factory()
     ->has(Permission::factory(3), 'permissions')
     ->create();

@@ -52,7 +52,7 @@ class ConfigurationLivewireUpdate extends Component
     protected function validationAttributes()
     {
         return [
-            'configuration.superadmin' => __('Super admin'),
+            'configuration.superadmin' => __('Super administrator'),
         ];
     }
 

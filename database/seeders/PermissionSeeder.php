@@ -345,7 +345,7 @@ class PermissionSeeder extends Seeder
             [
                 'id' => PermissionType::DocumentationUpdate->value,
                 'name' => __('Documentation: Update one'),
-                'description' => __('Permission to upate application documentation records individually.'),
+                'description' => __('Permission to update application documentation records individually.'),
             ],
             [
                 'id' => PermissionType::DocumentationDelete->value,

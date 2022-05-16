@@ -54,10 +54,10 @@ uses(
 */
 
 /**
- * Autentica-se na aplicação com o **samaccountname** informado.
+ * Log in to the application with the **samaccountname** provided.
  *
- * Notar que o usuário é primeiro criado no 'active directory', para depois ser
- * autenticado.
+ * Note that the user is first created in the 'active directory', and then
+ * authenticated.
  *
  * @param string $samaccountname
  *
@@ -84,8 +84,6 @@ function login(string $samaccountname)
 }
 
 /**
- * Usuário autenticado.
- *
  * @return \App\Models\User|null
  */
 function authenticatedUser()// @phpstan-ignore-line
@@ -94,8 +92,6 @@ function authenticatedUser()// @phpstan-ignore-line
 }
 
 /**
- * Faz o logout na aplicação.
- *
  * @return void
  */
 function logout()
@@ -104,7 +100,7 @@ function logout()
 }
 
 /**
- * Atribui a permissão informada ao usuário autenticado.
+ * Assigns the given permission to the authenticated user.
  *
  * @param int $permission_id
  *
@@ -124,7 +120,7 @@ function grantPermission(int $permission_id)
 }
 
 /**
- * Remove a permissão do usuário.
+ * Removes the authenticated user's permission.
  *
  * @param int $permission_id
  *

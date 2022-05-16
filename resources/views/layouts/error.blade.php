@@ -66,7 +66,7 @@
                         class="btn-do"
                         href="{{ auth()->check() ? route('home') : route('login') }}"
                         text="{{ config('app.name') }}"
-                        title="{{ __('Edit the record') }}"/>
+                        title="{{ __('Go to home page') }}"/>
 
                 </footer>
 

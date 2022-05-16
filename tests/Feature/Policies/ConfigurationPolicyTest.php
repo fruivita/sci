@@ -26,7 +26,7 @@ test('user without permission cannot individually view a configuration', functio
     expect((new ConfigurationPolicy)->view($this->user))->toBeFalse();
 });
 
-test('usuário sem permissão não pode atualizar uma configuração', function () {
+test('user without permission cannot update a configuration', function () {
     expect((new ConfigurationPolicy)->update($this->user))->toBeFalse();
 });
 
