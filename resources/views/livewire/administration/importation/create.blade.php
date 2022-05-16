@@ -21,7 +21,7 @@
 
         <form wire:key="form-import-data" wire:submit.prevent="store" method="POST">
 
-            <div class="space-y-6 w-1/4">
+            <div class="space-y-6">
 
                 <h6 class="font-bold">{{ __('Import') }}</h6>
 
