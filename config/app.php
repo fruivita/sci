@@ -26,6 +26,7 @@ return [
     | notification or any other location as required by the application or its
     | packages.
     */
+
     'full_name' => env('APP_FULL_NAME', 'Sistema de Contagem de Impressão'),
 
     /*
@@ -37,6 +38,7 @@ return [
     | framework needs to place the application's version in a notification or
     | any other location as required by the application or its packages.
     */
+
     'version' => '1.0.0',
 
     /*
@@ -49,7 +51,8 @@ return [
     | documentation in a notification or any other location as required by the
     | application or its packages.
     */
-    'doc_link_default' => 'https://github.com/fruivita/sci/wiki',
+
+    'doc_link_default' => 'https://github.com/fruivita/sci/wiki/pr%C3%B3logo',
 
     /*
     |--------------------------------------------------------------------------
