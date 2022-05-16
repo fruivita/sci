@@ -200,7 +200,7 @@ class LogLivewireIndex extends Component
 
         $deleted = $this->storage()->delete($this->filename);
 
-        $this->reset();
+        $this->setDefaultValuesBasedOnQueryString();
 
         $this->flashSelf($deleted);
     }
