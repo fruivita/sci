@@ -11,9 +11,12 @@
 --}}
 
 
-<footer class="bg-primary-100 px-3 py-6 text-center text-sm dark:bg-secondary-800 lg:ml-72 lg:px-6">
+<footer class="bg-primary-100 px-3 py-6 text-center text-sm dark:bg-secondary-800">
 
     <div class="space-y-3">
+
+        <p class="font-bold">{{ config('app.name') . ' - ' . config('app.full_name')}}</p>
+
 
         <p>{{ __('Updated data at :attribute', ['attribute' => cache('last_print_import', __('Never'))]) }}</p>
 
@@ -30,7 +33,7 @@
             </a>
 
 
-            <a href="#" class="space-x-1">
+            <a href="https://github.com/fruivita/sci" class="space-x-1">
 
                 <x-icon name="git" class="inline"/>
 

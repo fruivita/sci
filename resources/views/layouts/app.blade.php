@@ -46,7 +46,7 @@
 
     <body x-cloak class="bg-primary-50 duration-500 text-primary-900 text-xl transition dark:bg-secondary-900 dark:text-secondary-50">
 
-        <div class="flex flex-col min-h-screen">
+        <div>
 
             <div x-data="{ menuVisible : false }">
 
@@ -90,8 +90,7 @@
             </div>
 
 
-            {{-- main content --}}
-            <main class="flex-grow lg:ml-72 lg:px-6">
+            <div class="flex flex-col min-h-screen lg:ml-72">
 
                 {{-- application execution environment --}}
                 @production
@@ -110,13 +109,17 @@
                 @endif
 
 
-                {{ $slot }}
+                {{-- main content --}}
+                <main class="flex-grow flex flex-col lg:px-6">
 
-            </main>
+                    {{ $slot }}
+
+                </main>
 
 
-            @auth<x-footer/>@endauth
+                <x-footer/>
 
+            </div>
 
         </div>
 

@@ -13,7 +13,7 @@
 
 <x-layouts.app>
 
-    <article class="flex items-center justify-center min-h-screen">
+    <article class="flex items-center justify-center flex-grow">
 
         <x-container class="flex flex-col items-center justify-center rounded space-y-12">
 
