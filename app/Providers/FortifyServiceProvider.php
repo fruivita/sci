@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 
+/**
+ * @see https://laravel.com/docs/9.x/fortify
+ */
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
