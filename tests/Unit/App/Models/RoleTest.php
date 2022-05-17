@@ -200,6 +200,62 @@ test('admin role has all permissions', function ($permission) {
     PermissionType::DocumentationDelete,
 ]);
 
+test('initial institutional manager role permissions are set', function ($permission) {
+    $this->seed([
+        RoleSeeder::class,
+        PermissionSeeder::class,
+        PermissionRoleSeeder::class,
+    ]);
+
+    $user = User::factory()->create(['role_id' => Role::INSTITUTIONALMANAGER]);
+
+    expect($user->hasPermission($permission))->toBeTrue();
+})->with([
+    PermissionType::DelegationViewAny,
+    PermissionType::DelegationCreate,
+    PermissionType::PrinterReport,
+    PermissionType::PrintingReport,
+    PermissionType::ServerReport,
+    PermissionType::DepartmentReport,
+    PermissionType::ManagerialReport,
+    PermissionType::InstitutionalReport,
+]);
+
+test('initial department role permissions are set', function ($permission) {
+    $this->seed([
+        RoleSeeder::class,
+        PermissionSeeder::class,
+        PermissionRoleSeeder::class,
+    ]);
+
+    $user = User::factory()->create(['role_id' => Role::INSTITUTIONALMANAGER]);
+
+    expect($user->hasPermission($permission))->toBeTrue();
+})->with([
+    PermissionType::DelegationViewAny,
+    PermissionType::DelegationCreate,
+    PermissionType::PrinterReport,
+    PermissionType::PrintingReport,
+    PermissionType::ServerReport,
+    PermissionType::DepartmentReport,
+    PermissionType::ManagerialReport,
+]);
+
+test('initial ordinary role permissions are set', function ($permission) {
+    $this->seed([
+        RoleSeeder::class,
+        PermissionSeeder::class,
+        PermissionRoleSeeder::class,
+    ]);
+
+    $user = User::factory()->create(['role_id' => Role::INSTITUTIONALMANAGER]);
+
+    expect($user->hasPermission($permission))->toBeTrue();
+})->with([
+    PermissionType::PrintingReport,
+    PermissionType::ServerReport,
+]);
+
 test('previous returns the correct previous record, even if it is the first', function () {
     $role_1 = Role::factory()->create(['id' => 1]);
     $role_2 = Role::factory()->create(['id' => 2]);

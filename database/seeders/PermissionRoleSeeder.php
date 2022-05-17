@@ -106,7 +106,14 @@ class PermissionRoleSeeder extends Seeder
     private function institutionalManagerPermissions()
     {
         return LazyCollection::make([
-            // ...
+            PermissionType::DelegationViewAny->value,
+            PermissionType::DelegationCreate->value,
+            PermissionType::DepartmentReport->value,
+            PermissionType::ManagerialReport->value,
+            PermissionType::InstitutionalReport->value,
+            PermissionType::PrinterReport->value,
+            PermissionType::PrintingReport->value,
+            PermissionType::ServerReport->value,
         ])->map(function ($item) {
             $new_item['role_id'] = Role::INSTITUTIONALMANAGER;
             $new_item['permission_id'] = $item;
@@ -123,7 +130,13 @@ class PermissionRoleSeeder extends Seeder
     private function departmentManagerPermissions()
     {
         return LazyCollection::make([
-            // ...
+            PermissionType::DelegationViewAny->value,
+            PermissionType::DelegationCreate->value,
+            PermissionType::DepartmentReport->value,
+            PermissionType::ManagerialReport->value,
+            PermissionType::PrinterReport->value,
+            PermissionType::PrintingReport->value,
+            PermissionType::ServerReport->value,
         ])->map(function ($item) {
             $new_item['role_id'] = Role::DEPARTMENTMANAGER;
             $new_item['permission_id'] = $item;
@@ -140,7 +153,8 @@ class PermissionRoleSeeder extends Seeder
     private function ordinaryPermissions()
     {
         return LazyCollection::make([
-            // ...
+            PermissionType::PrintingReport->value,
+            PermissionType::ServerReport->value,
         ])->map(function ($item) {
             $new_item['role_id'] = Role::ORDINARY;
             $new_item['permission_id'] = $item;
