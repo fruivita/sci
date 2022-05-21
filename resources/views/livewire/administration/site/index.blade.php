@@ -173,7 +173,7 @@
             <x-slot name="footer">
 
                 <form
-                    wire:key="deleting-user-modal-{{ $deleting->id }}"
+                    wire:key="deleting-site-modal-{{ $deleting->id }}"
                     wire:submit.prevent="destroy"
                     method="POST"
                 >
