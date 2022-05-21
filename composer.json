@@ -35,7 +35,7 @@
         "fruivita/line-reader": "^1.0",
         "guzzlehttp/guzzle": "^7.4",
         "laravel/fortify": "^1.13",
-        "laravel/framework": "^9.12",
+        "laravel/framework": "^9.13",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "staudenmeir/eloquent-eager-limit": "^1.7"
