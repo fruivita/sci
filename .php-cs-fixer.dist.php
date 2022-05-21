@@ -19,7 +19,7 @@ $rules = [
     '@Symfony' => true,
     'yoda_style' => false,
     'concat_space' => ['spacing' => 'one'],
-    'new_with_braces' => false,
+    'new_with_braces' => ['anonymous_class' => false],
     'not_operator_with_successor_space' => true,
     'blank_line_before_statement' => [
         'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
