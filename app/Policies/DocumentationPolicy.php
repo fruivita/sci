@@ -47,7 +47,7 @@ class DocumentationPolicy extends Policy
     }
 
     /**
-     * Determine whether the user can delete any model.
+     * Determine whether the user can delete a model.
      *
      * @param \App\Models\User $user
      *

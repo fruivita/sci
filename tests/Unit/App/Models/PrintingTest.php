@@ -92,7 +92,7 @@ test('optional fields defined', function ($field) {
     'department_id',
 ]);
 
-test('a print belongs to one client, one printer, one user, one department and one server', function () {
+test('one print belongs to one client, one printer, one user, one department and one server', function () {
     $client = Client::factory()->create();
     $department = Department::factory()->create();
     $user = User::factory()->create();
