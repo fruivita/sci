@@ -2265,9 +2265,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-3{
   margin-top: 0.75rem;
 }
-.block{
-  display: block;
-}
 .inline{
   display: inline;
 }
@@ -2800,14 +2797,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .active\:text-primary-500:active{
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
-}
-
-.dark .dark\:inline{
-  display: inline;
-}
-
-.dark .dark\:hidden{
-  display: none;
 }
 
 .dark .dark\:divide-secondary-600 > :not([hidden]) ~ :not([hidden]){
