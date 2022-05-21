@@ -53,18 +53,9 @@
 
         <div class="space-y-6">
 
-            <div class="bg-primary-100 p-3 rounded dark:bg-secondary-800">
-
-                <p class="font-bold">{{ __('Site') }}</p>
-
-
-                <div>
-
-                    <p>{{ $site->name }}</p>
-
-                </div>
-
-            </div>
+            <x-show-value
+                key="{{ __('Site') }}"
+                value="{{ $site->name }}"/>
 
 
             <div class="overflow-x-auto">

@@ -19,18 +19,9 @@
 
         <div class="space-y-6">
 
-            <div class="bg-primary-100 p-3 rounded dark:bg-secondary-800">
-
-                <p class="font-bold">{{ __('Super administrator') }}</p>
-
-
-                <div>
-
-                    <p>{{ $configuration->superadmin }}</p>
-
-                </div>
-
-            </div>
+            <x-show-value
+                key="{{ __('Super administrator') }}"
+                value="{{ $configuration->superadmin }}"/>
 
 
             @can(\App\Enums\Policy::Update->value, \App\Models\Configuration::class)

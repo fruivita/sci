@@ -53,18 +53,9 @@
 
         <div class="space-y-6">
 
-            <div class="bg-primary-100 p-3 rounded dark:bg-secondary-800">
-
-                <p class="font-bold">{{ __('Description') }}</p>
-
-
-                <div>
-
-                    <p>{{ $permission->description }}</p>
-
-                </div>
-
-            </div>
+            <x-show-value
+                key="{{ __('Description') }}"
+                value="{{ $permission->description }}"/>
 
 
             <div class="overflow-x-auto">
