@@ -26,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         \App\Models\Configuration::class => \App\Policies\ConfigurationPolicy::class,
         \App\Models\Department::class => \App\Policies\DepartmentPolicy::class,
+        \App\Models\Documentation::class => \App\Policies\DocumentationPolicy::class,
         \App\Models\Permission::class => \App\Policies\PermissionPolicy::class,
         \App\Models\Printer::class => \App\Policies\PrinterPolicy::class,
         \App\Models\Printing::class => \App\Policies\PrintingPolicy::class,
@@ -72,11 +73,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Policy::DelegationCreate->value, [DelegationPolicy::class, 'create']);
         Gate::define(Policy::DelegationDelete->value, [DelegationPolicy::class, 'delete']);
         Gate::define(Policy::ImportationCreate->value, [ImportationPolicy::class, 'create']);
-        Gate::define(Policy::SimulationCreate->value, [SimulationPolicy::class, 'create']);
-        Gate::define(Policy::SimulationDelete->value, [SimulationPolicy::class, 'delete']);
         Gate::define(Policy::LogViewAny->value, [LogPolicy::class, 'viewAny']);
         Gate::define(Policy::LogDelete->value, [LogPolicy::class, 'delete']);
         Gate::define(Policy::LogDownload->value, [LogPolicy::class, 'download']);
+        Gate::define(Policy::SimulationCreate->value, [SimulationPolicy::class, 'create']);
+        Gate::define(Policy::SimulationDelete->value, [SimulationPolicy::class, 'delete']);
     }
 
     /**
