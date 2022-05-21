@@ -84,7 +84,7 @@ class DocumentationLivewireCreate extends Component
      */
     public function mount()
     {
-        $this->doc = new Documentation;
+        $this->doc = new Documentation();
     }
 
     /**

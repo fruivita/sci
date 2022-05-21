@@ -21,6 +21,6 @@ class DutyFactory extends Factory
      */
     public function definition()
     {
-        return (new CorporateDutyFactory)->definition();
+        return (new CorporateDutyFactory())->definition();
     }
 }

@@ -21,6 +21,6 @@ class OccupationFactory extends Factory
      */
     public function definition()
     {
-        return (new CorporateOccupationFactory)->definition();
+        return (new CorporateOccupationFactory())->definition();
     }
 }

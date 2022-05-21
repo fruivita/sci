@@ -23,7 +23,7 @@ afterEach(function () {
 
 // Forbidden
 test('user without permission cannot generate report by printer', function () {
-    expect((new PrinterPolicy)->report($this->user))->toBeFalse();
+    expect((new PrinterPolicy())->report($this->user))->toBeFalse();
 });
 
 // Happy path
@@ -34,14 +34,14 @@ test('permission to generate report per printer is persisted in cache for 5 seco
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new PrinterPolicy)->report($this->user))->toBeTrue()
+    expect((new PrinterPolicy())->report($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new PrinterPolicy)->report($this->user))->toBeTrue()
+    expect((new PrinterPolicy())->report($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -49,18 +49,18 @@ test('permission to generate report per printer is persisted in cache for 5 seco
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new PrinterPolicy)->report($this->user))->toBeTrue()
+    expect((new PrinterPolicy())->report($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new PrinterPolicy)->report($this->user))->toBeFalse()
+    expect((new PrinterPolicy())->report($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('user with permission can generate report by printer', function () {
     grantPermission(PermissionType::PrinterReport->value);
 
-    expect((new PrinterPolicy)->report($this->user))->toBeTrue();
+    expect((new PrinterPolicy())->report($this->user))->toBeTrue();
 });

@@ -23,11 +23,11 @@ afterEach(function () {
 
 // Forbidden
 test('user without permission cannot list users', function () {
-    expect((new UserPolicy)->viewAny($this->user))->toBeFalse();
+    expect((new UserPolicy())->viewAny($this->user))->toBeFalse();
 });
 
 test('user without permission cannot update a user', function () {
-    expect((new UserPolicy)->update($this->user))->toBeFalse();
+    expect((new UserPolicy())->update($this->user))->toBeFalse();
 });
 
 // Happy path
@@ -38,14 +38,14 @@ test('users listing permission is persisted in cache for 5 seconds', function ()
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new UserPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new UserPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new UserPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new UserPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -53,13 +53,13 @@ test('users listing permission is persisted in cache for 5 seconds', function ()
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new UserPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new UserPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new UserPolicy)->viewAny($this->user))->toBeFalse()
+    expect((new UserPolicy())->viewAny($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
@@ -70,14 +70,14 @@ test('permission to individually update a user is cached for 5 seconds', functio
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new UserPolicy)->update($this->user))->toBeTrue()
+    expect((new UserPolicy())->update($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new UserPolicy)->update($this->user))->toBeTrue()
+    expect((new UserPolicy())->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -85,24 +85,24 @@ test('permission to individually update a user is cached for 5 seconds', functio
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new UserPolicy)->update($this->user))->toBeTrue()
+    expect((new UserPolicy())->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new UserPolicy)->update($this->user))->toBeFalse()
+    expect((new UserPolicy())->update($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('user with permission can list users', function () {
     grantPermission(PermissionType::UserViewAny->value);
 
-    expect((new UserPolicy)->viewAny($this->user))->toBeTrue();
+    expect((new UserPolicy())->viewAny($this->user))->toBeTrue();
 });
 
 test('user with permission can individually update a user', function () {
     grantPermission(PermissionType::UserUpdate->value);
 
-    expect((new UserPolicy)->update($this->user))->toBeTrue();
+    expect((new UserPolicy())->update($this->user))->toBeTrue();
 });

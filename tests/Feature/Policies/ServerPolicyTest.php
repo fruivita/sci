@@ -23,19 +23,19 @@ afterEach(function () {
 
 // Forbidden
 test('user without permission cannot list servers', function () {
-    expect((new ServerPolicy)->viewAny($this->user))->toBeFalse();
+    expect((new ServerPolicy())->viewAny($this->user))->toBeFalse();
 });
 
 test('user without permission cannot individually view a server', function () {
-    expect((new ServerPolicy)->view($this->user))->toBeFalse();
+    expect((new ServerPolicy())->view($this->user))->toBeFalse();
 });
 
 test('user without permission cannot update a server', function () {
-    expect((new ServerPolicy)->update($this->user))->toBeFalse();
+    expect((new ServerPolicy())->update($this->user))->toBeFalse();
 });
 
 test('user without permission cannot generate report per server', function () {
-    expect((new ServerPolicy)->report($this->user))->toBeFalse();
+    expect((new ServerPolicy())->report($this->user))->toBeFalse();
 });
 
 // Happy path
@@ -46,14 +46,14 @@ test('server listing permission is cached for 5 seconds', function () {
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new ServerPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new ServerPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new ServerPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new ServerPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -61,13 +61,13 @@ test('server listing permission is cached for 5 seconds', function () {
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new ServerPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new ServerPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new ServerPolicy)->viewAny($this->user))->toBeFalse()
+    expect((new ServerPolicy())->viewAny($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
@@ -78,14 +78,14 @@ test('permission to individually view a server is cached for 5 seconds', functio
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new ServerPolicy)->view($this->user))->toBeTrue()
+    expect((new ServerPolicy())->view($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new ServerPolicy)->view($this->user))->toBeTrue()
+    expect((new ServerPolicy())->view($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -93,13 +93,13 @@ test('permission to individually view a server is cached for 5 seconds', functio
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new ServerPolicy)->view($this->user))->toBeTrue()
+    expect((new ServerPolicy())->view($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new ServerPolicy)->view($this->user))->toBeFalse()
+    expect((new ServerPolicy())->view($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
@@ -110,14 +110,14 @@ test('permission to individually update a server is cached for 5 seconds', funct
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new ServerPolicy)->update($this->user))->toBeTrue()
+    expect((new ServerPolicy())->update($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new ServerPolicy)->update($this->user))->toBeTrue()
+    expect((new ServerPolicy())->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -125,13 +125,13 @@ test('permission to individually update a server is cached for 5 seconds', funct
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new ServerPolicy)->update($this->user))->toBeTrue()
+    expect((new ServerPolicy())->update($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new ServerPolicy)->update($this->user))->toBeFalse()
+    expect((new ServerPolicy())->update($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
@@ -142,14 +142,14 @@ test('permission to generate the report per server is persisted in cache for 5 s
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new ServerPolicy)->report($this->user))->toBeTrue()
+    expect((new ServerPolicy())->report($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new ServerPolicy)->report($this->user))->toBeTrue()
+    expect((new ServerPolicy())->report($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -157,36 +157,36 @@ test('permission to generate the report per server is persisted in cache for 5 s
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new ServerPolicy)->report($this->user))->toBeTrue()
+    expect((new ServerPolicy())->report($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new ServerPolicy)->report($this->user))->toBeFalse()
+    expect((new ServerPolicy())->report($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('user with permission can list servers', function () {
     grantPermission(PermissionType::ServerViewAny->value);
 
-    expect((new ServerPolicy)->viewAny($this->user))->toBeTrue();
+    expect((new ServerPolicy())->viewAny($this->user))->toBeTrue();
 });
 
 test('user with permission can individually view a server', function () {
     grantPermission(PermissionType::ServerView->value);
 
-    expect((new ServerPolicy)->view($this->user))->toBeTrue();
+    expect((new ServerPolicy())->view($this->user))->toBeTrue();
 });
 
 test('user with permission can individually update a server', function () {
     grantPermission(PermissionType::ServerUpdate->value);
 
-    expect((new ServerPolicy)->update($this->user))->toBeTrue();
+    expect((new ServerPolicy())->update($this->user))->toBeTrue();
 });
 
 test('user with permission can generate report by server', function () {
     grantPermission(PermissionType::ServerReport->value);
 
-    expect((new ServerPolicy)->report($this->user))->toBeTrue();
+    expect((new ServerPolicy())->report($this->user))->toBeTrue();
 });

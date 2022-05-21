@@ -26,7 +26,7 @@ afterEach(function () {
 
 // Forbidden
 test("user without permission cannot list their department's delegations", function () {
-    expect((new DelegationPolicy)->viewAny($this->user))->toBeFalse();
+    expect((new DelegationPolicy())->viewAny($this->user))->toBeFalse();
 });
 
 test('user cannot delegate role, if delegated role is higher in application', function () {
@@ -44,7 +44,7 @@ test('user cannot delegate role, if delegated role is higher in application', fu
 
     grantPermission(PermissionType::DelegationCreate->value);
 
-    expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeFalse();
+    expect((new DelegationPolicy())->create($this->user, $user_bar))->toBeFalse();
 });
 
 test('user cannot delegate role to user from another department', function () {
@@ -62,7 +62,7 @@ test('user cannot delegate role to user from another department', function () {
         'role_id' => Role::ORDINARY,
     ]);
 
-    expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeFalse();
+    expect((new DelegationPolicy())->create($this->user, $user_bar))->toBeFalse();
 });
 
 test('user cannot delegate role without specific permission', function () {
@@ -77,7 +77,7 @@ test('user cannot delegate role without specific permission', function () {
         'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
-    expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeFalse();
+    expect((new DelegationPolicy())->create($this->user, $user_bar))->toBeFalse();
 });
 
 test('user cannot remove non-existent delegation', function () {
@@ -92,7 +92,7 @@ test('user cannot remove non-existent delegation', function () {
         'role_id' => Role::INSTITUTIONALMANAGER,
     ]);
 
-    expect((new DelegationPolicy)->delete($this->user, $user_bar))->toBeFalse();
+    expect((new DelegationPolicy())->delete($this->user, $user_bar))->toBeFalse();
 });
 
 test('user cannot remove higher role delegation', function () {
@@ -112,7 +112,7 @@ test('user cannot remove higher role delegation', function () {
         'role_granted_by' => $user_bar->id,
     ]);
 
-    expect((new DelegationPolicy)->delete($this->user, $user_taz))->toBeFalse();
+    expect((new DelegationPolicy())->delete($this->user, $user_taz))->toBeFalse();
 });
 
 test('user cannot remove user delegation from another department', function () {
@@ -133,7 +133,7 @@ test('user cannot remove user delegation from another department', function () {
         'role_granted_by' => $user_bar->id,
     ]);
 
-    expect((new DelegationPolicy)->delete($this->user, $user_taz))->toBeFalse();
+    expect((new DelegationPolicy())->delete($this->user, $user_taz))->toBeFalse();
 });
 
 // Happy path
@@ -144,14 +144,14 @@ test('permission to list delegations is cached for 5 seconds', function () {
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new DelegationPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new DelegationPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -159,20 +159,20 @@ test('permission to list delegations is cached for 5 seconds', function () {
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue()
+    expect((new DelegationPolicy())->viewAny($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new DelegationPolicy)->viewAny($this->user))->toBeFalse()
+    expect((new DelegationPolicy())->viewAny($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('user can list delegations from his department if he has permission', function () {
     grantPermission(PermissionType::DelegationViewAny->value);
 
-    expect((new DelegationPolicy)->viewAny($this->user))->toBeTrue();
+    expect((new DelegationPolicy())->viewAny($this->user))->toBeTrue();
 });
 
 test('user can delegate role within the same department, if delegated role is lower in application and has permission', function () {
@@ -189,7 +189,7 @@ test('user can delegate role within the same department, if delegated role is lo
         'role_id' => Role::ORDINARY,
     ]);
 
-    expect((new DelegationPolicy)->create($this->user, $user_bar))->toBeTrue();
+    expect((new DelegationPolicy())->create($this->user, $user_bar))->toBeTrue();
 });
 
 test('user can remove user delegation from the same department, with the same or lower role, even delegated by someone else', function () {
@@ -216,6 +216,6 @@ test('user can remove user delegation from the same department, with the same or
         'role_granted_by' => $user_bar->id,
     ]);
 
-    expect((new DelegationPolicy)->delete($this->user, $user_baz))->toBeTrue()
-    ->and((new DelegationPolicy)->delete($this->user, $user_taz))->toBeTrue();
+    expect((new DelegationPolicy())->delete($this->user, $user_baz))->toBeTrue()
+    ->and((new DelegationPolicy())->delete($this->user, $user_taz))->toBeTrue();
 });

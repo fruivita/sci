@@ -24,7 +24,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return array_merge(
-            (new CorporateUserFactory)->definition(),
+            (new CorporateUserFactory())->definition(),
             [
                 'name' => rand(0, 1)
                         ? null

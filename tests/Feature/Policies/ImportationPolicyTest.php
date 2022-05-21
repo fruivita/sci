@@ -23,7 +23,7 @@ afterEach(function () {
 
 // Forbidden
 test('user without permission cannot perform an import', function () {
-    expect((new ImportationPolicy)->create($this->user))->toBeFalse();
+    expect((new ImportationPolicy())->create($this->user))->toBeFalse();
 });
 
 // Happy path
@@ -34,14 +34,14 @@ test('permission to perform an import is cached persisted', function () {
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new ImportationPolicy)->create($this->user))->toBeTrue()
+    expect((new ImportationPolicy())->create($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new ImportationPolicy)->create($this->user))->toBeTrue()
+    expect((new ImportationPolicy())->create($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -49,18 +49,18 @@ test('permission to perform an import is cached persisted', function () {
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new ImportationPolicy)->create($this->user))->toBeTrue()
+    expect((new ImportationPolicy())->create($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new ImportationPolicy)->create($this->user))->toBeFalse()
+    expect((new ImportationPolicy())->create($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('user with permission can perform an import', function () {
     grantPermission(PermissionType::ImportationCreate->value);
 
-    expect((new ImportationPolicy)->create($this->user))->toBeTrue();
+    expect((new ImportationPolicy())->create($this->user))->toBeTrue();
 });

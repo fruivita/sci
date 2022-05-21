@@ -88,7 +88,7 @@ class SiteLivewireCreate extends Component
      */
     public function mount()
     {
-        $this->site = new Site;
+        $this->site = new Site();
     }
 
     /**

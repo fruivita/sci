@@ -21,11 +21,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule
-            ->job(new ImportCorporateStructure, QueueType::Corporate->value)
+            ->job(new ImportCorporateStructure(), QueueType::Corporate->value)
             ->dailyAt('1:00');
 
         $schedule
-            ->job(new ImportPrintLog, QueueType::PrintLog->value)
+            ->job(new ImportPrintLog(), QueueType::PrintLog->value)
             ->dailyAt('2:00');
     }
 

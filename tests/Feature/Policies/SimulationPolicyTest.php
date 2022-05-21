@@ -23,18 +23,18 @@ afterEach(function () {
 
 // Forbidden
 test('user without permission cannot create a simulation', function () {
-    expect((new SimulationPolicy)->create($this->user))->toBeFalse();
+    expect((new SimulationPolicy())->create($this->user))->toBeFalse();
 });
 
 test('user cannot simultaneously create two simulations in the same session', function () {
     grantPermission(PermissionType::SimulationCreate->value);
     session()->put('simulated', 'bar');
 
-    expect((new SimulationPolicy)->create($this->user))->toBeFalse();
+    expect((new SimulationPolicy())->create($this->user))->toBeFalse();
 });
 
 test('user cannot undo a simulation if it does not exist in their session', function () {
-    expect((new SimulationPolicy)->delete($this->user))->toBeFalse();
+    expect((new SimulationPolicy())->delete($this->user))->toBeFalse();
 });
 
 // Happy path
@@ -45,14 +45,14 @@ test('permission to create a simulation is cached for 5 seconds', function () {
     $key = "{$this->user->username}-permissions";
 
     // no cache
-    expect((new SimulationPolicy)->create($this->user))->toBeTrue()
+    expect((new SimulationPolicy())->create($this->user))->toBeTrue()
     ->and(cache()->missing($key))->toBeTrue();
 
     // create the permissions cache when making a request
     get(route('home'));
 
     // with cache
-    expect((new SimulationPolicy)->create($this->user))->toBeTrue()
+    expect((new SimulationPolicy())->create($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // revoke permission and move time to expiration limit
@@ -60,24 +60,24 @@ test('permission to create a simulation is cached for 5 seconds', function () {
     testTime()->addSeconds(5);
 
     // permission is still cached
-    expect((new SimulationPolicy)->create($this->user))->toBeTrue()
+    expect((new SimulationPolicy())->create($this->user))->toBeTrue()
     ->and(cache()->has($key))->toBeTrue();
 
     // expires cache
     testTime()->addSeconds(1);
 
-    expect((new SimulationPolicy)->create($this->user))->toBeFalse()
+    expect((new SimulationPolicy())->create($this->user))->toBeFalse()
     ->and(cache()->missing($key))->toBeTrue();
 });
 
 test('user with permission can create a simulation', function () {
     grantPermission(PermissionType::SimulationCreate->value);
 
-    expect((new SimulationPolicy)->create($this->user))->toBeTrue();
+    expect((new SimulationPolicy())->create($this->user))->toBeTrue();
 });
 
 test('user can undo a simulation if it exists in their session', function () {
     session()->put('simulator', 'bar');
 
-    expect((new SimulationPolicy)->delete($this->user))->toBeTrue();
+    expect((new SimulationPolicy())->delete($this->user))->toBeTrue();
 });

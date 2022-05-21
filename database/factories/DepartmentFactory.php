@@ -24,6 +24,6 @@ class DepartmentFactory extends Factory
         return
         // override id generation rule
         ['id' => $this->faker->unique()->numberBetween(1)]
-        + (new CorporateDepartmentFactory)->definition();
+        + (new CorporateDepartmentFactory())->definition();
     }
 }
