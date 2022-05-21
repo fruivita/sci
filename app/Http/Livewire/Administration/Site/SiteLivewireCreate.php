@@ -88,7 +88,17 @@ class SiteLivewireCreate extends Component
      */
     public function mount()
     {
-        $this->site = new Site();
+        $this->site = $this->blankModel();
+    }
+
+    /**
+     * Blank model.
+     *
+     * @return \App\Models\Site
+     */
+    private function blankModel()
+    {
+        return new Site();
     }
 
     /**
@@ -123,6 +133,8 @@ class SiteLivewireCreate extends Component
         $this->validate();
 
         $saved = $this->site->atomicSaveWithServers($this->selected);
+
+        $this->site = $this->blankModel();
 
         $this->flashSelf($saved);
     }

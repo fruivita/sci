@@ -84,7 +84,17 @@ class DocumentationLivewireCreate extends Component
      */
     public function mount()
     {
-        $this->doc = new Documentation();
+        $this->doc = $this->blankModel();
+    }
+
+    /**
+     * Blank model.
+     *
+     * @return \App\Models\Documentation
+     */
+    private function blankModel()
+    {
+        return new Documentation();
     }
 
     /**
@@ -107,6 +117,8 @@ class DocumentationLivewireCreate extends Component
         $this->validate();
 
         $saved = $this->doc->save();
+
+        $this->doc = $this->blankModel();
 
         $this->flashSelf($saved);
     }
