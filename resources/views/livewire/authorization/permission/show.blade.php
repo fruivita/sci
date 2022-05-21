@@ -108,7 +108,20 @@
 
             </div>
 
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-end">
+
+            <div class="flex flex-col space-x-0 space-y-3 lg:flex-row lg:items-center lg:justify-end lg:space-x-3 lg:space-y-0">
+
+                @can(\App\Enums\Policy::Update->value, \App\Models\Permission::class)
+
+                    <x-link-button
+                        class="btn-do"
+                        icon="pencil-square"
+                        href="{{ route('authorization.permission.edit', $permission) }}"
+                        text="{{ __('Edit') }}"
+                        title="{{ __('Edit the record') }}"/>
+
+                @endcan
+
 
                 <x-link-button
                     class="btn-do"
