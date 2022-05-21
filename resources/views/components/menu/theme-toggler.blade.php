@@ -14,29 +14,30 @@
 
     <button
         x-on:click="darkMode = ! darkMode"
-        class="border-primary-500 outline-none pl-3 text-left w-full focus:border-l-4 hover:border-l-4"
+        x-show="darkMode"
+        class="border-primary-500 flex items-center outline-none pl-3 space-x-3 text-left w-full focus:border-l-4 hover:border-l-4"
         title="{{ __('Toggle dark/light mode') }}">
 
         {{-- light --}}
-        <span class="hidden space-x-3 dark:inline">
-
-            <x-icon name="brightness-high" class="inline"/>
+        <x-icon name="brightness-high"/>
 
 
-            <span>{{ __('Light') }}</span>
+        <span>{{ __('Light') }}</span>
 
-        </span>
+    </button>
 
+
+    <button
+        x-on:click="darkMode = ! darkMode"
+        x-show="! darkMode"
+        class="border-primary-500 flex items-center outline-none pl-3 space-x-3 text-left w-full focus:border-l-4 hover:border-l-4"
+        title="{{ __('Toggle dark/light mode') }}">
 
         {{-- dark --}}
-        <span class="space-x-3 dark:hidden">
-
-            <x-icon name="moon-stars" class="inline"/>
+        <x-icon name="moon-stars"/>
 
 
-            <span>{{ __('Dark') }}</span>
-
-        </span>
+        <span>{{ __('Dark') }}</span>
 
     </button>
 
