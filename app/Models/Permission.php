@@ -51,7 +51,7 @@ class Permission extends Model
      */
     public function previous()
     {
-        return Permission::select('id')
+        return self::select('id')
         ->where('id', '<', $this->id)
         ->orderBy('id', 'desc')
         ->take(1);
@@ -64,7 +64,7 @@ class Permission extends Model
      */
     public function next()
     {
-        return Permission::select('id')
+        return self::select('id')
         ->where('id', '>', $this->id)
         ->orderBy('id', 'asc')
         ->take(1);

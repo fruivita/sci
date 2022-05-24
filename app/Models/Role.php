@@ -73,7 +73,7 @@ class Role extends Model
      */
     public function previous()
     {
-        return Role::select('id')
+        return self::select('id')
         ->where('id', '<', $this->id)
         ->orderBy('id', 'desc')
         ->take(1);
@@ -86,7 +86,7 @@ class Role extends Model
      */
     public function next()
     {
-        return Role::select('id')
+        return self::select('id')
         ->where('id', '>', $this->id)
         ->orderBy('id', 'asc')
         ->take(1);

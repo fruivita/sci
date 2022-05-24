@@ -56,7 +56,7 @@ class Site extends Model
      */
     public function previous()
     {
-        return Site::select('id')
+        return self::select('id')
         ->whereRaw('name < (select name from sites where id = ?)', [$this->id])
         ->orderBy('name', 'desc')
         ->take(1);
@@ -69,7 +69,7 @@ class Site extends Model
      */
     public function next()
     {
-        return Site::select('id')
+        return self::select('id')
         ->whereRaw('name > (select name from sites where id = ?)', [$this->id])
         ->orderBy('name', 'asc')
         ->take(1);

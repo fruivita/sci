@@ -68,7 +68,7 @@ class Server extends Model
      */
     public function previous()
     {
-        return Server::select('id')
+        return self::select('id')
         ->whereRaw('name < (select name from servers where id = ?)', [$this->id])
         ->orderBy('name', 'desc')
         ->take(1);
@@ -81,7 +81,7 @@ class Server extends Model
      */
     public function next()
     {
-        return Server::select('id')
+        return self::select('id')
         ->whereRaw('name > (select name from servers where id = ?)', [$this->id])
         ->orderBy('name', 'asc')
         ->take(1);
