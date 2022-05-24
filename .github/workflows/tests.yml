@@ -91,4 +91,4 @@ jobs:
           CC_TEST_REPORTER_ID: ${{ secrets.SCI_CC_TEST_REPORTER_ID }}
         with:
           debug: true
-        if: github.event.action != 'push'
+        if: github.event.action != 'pull_request'
