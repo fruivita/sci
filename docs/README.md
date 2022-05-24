@@ -2,11 +2,11 @@
 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fruivita/sci?logo=github)](/../../releases)
 [![GitHub Release Date](https://img.shields.io/github/release-date/fruivita/sci?logo=github)](/../../releases)
-[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/fruivita/sci/main?logo=github)](/../../commits/main)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Unit%20and%20Feature%20tests/main?label=tests&logo=github)](/../../actions/workflows/tests.yml?query=branch%3Amain)
+[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/fruivita/sci/1.x?logo=github)](/../../commits/1.x)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Unit%20and%20Feature%20tests/1.x?label=tests&logo=github)](/../../actions/workflows/tests.yml?query=branch%3Amain)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ce3fc9536abe326d5766/test_coverage)](https://codeclimate.com/github/fruivita/sci/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ce3fc9536abe326d5766/maintainability)](https://codeclimate.com/github/fruivita/sci/maintainability)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Static%20Analysis/main?label=code%20style&logo=github)](/../../actions/workflows/static.yml?query=branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/fruivita/sci/Static%20Analysis/1.x?label=code%20style&logo=github)](/../../actions/workflows/static.yml?query=branch%3A1.x)
 [![GitHub issues](https://img.shields.io/github/issues/fruivita/sci?logo=github)](/../../issues)
 ![GitHub repo size](https://img.shields.io/github/repo-size/fruivita/sci?logo=github)
 [![GitHub all releases](https://img.shields.io/github/downloads/fruivita/sci/total?logo=github)](/../../releases)
@@ -157,7 +157,7 @@ A versão mais recente receberá suporte e atualizações sempre que houver nece
 
 | Version | PHP     | Release    | End of Life |
 |---------|---------|------------|-------------|
-| 1.0     | ^8.1    | dd-mm-yyyy | dd-mm-yyyy  |
+| 1.0     | ^8.1    | 24-05-2022 | dd-mm-yyyy  |
 
 🐛 Encontrou um bug?!?! Abra um **[issue](/../../issues/new?assignees=fcno&labels=bug%2Ctriage&template=bug_report.yml&title=%5BA+concise+title+for+the+bug%5D)**.
 
