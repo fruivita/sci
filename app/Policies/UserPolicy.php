@@ -29,8 +29,12 @@ class UserPolicy extends Policy
      *
      * @return bool|\Illuminate\Auth\Access\Response
      */
-    public function update(User $user)
+    public function update(User $user, User $editing = null)
     {
-        return $this->hasAnyPermission($user, [PermissionType::UserUpdate]);
+        return (
+                $editing === null // Loading the page
+                || $user->role_id <= $editing->role_id // performing the update
+            )
+            && $this->hasAnyPermission($user, [PermissionType::UserUpdate]);
     }
 }

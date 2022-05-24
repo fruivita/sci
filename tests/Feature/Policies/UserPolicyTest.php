@@ -5,6 +5,8 @@
  */
 
 use App\Enums\PermissionType;
+use App\Models\Role;
+use App\Models\User;
 use App\Policies\UserPolicy;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RoleSeeder;
@@ -28,6 +30,19 @@ test('user without permission cannot list users', function () {
 
 test('user without permission cannot update a user', function () {
     expect((new UserPolicy())->update($this->user))->toBeFalse();
+});
+
+test("user cannot update user's role of higher level", function () {
+    $this->user->role_id = Role::BUSINESSMANAGER;
+    $this->user->save();
+
+    grantPermission(PermissionType::UserUpdate->value);
+
+    $user_bar = User::factory()->create([
+        'role_id' => Role::ADMINISTRATOR,
+    ]);
+
+    expect((new UserPolicy())->update($this->user, $user_bar))->toBeFalse();
 });
 
 // Happy path
@@ -105,4 +120,30 @@ test('user with permission can individually update a user', function () {
     grantPermission(PermissionType::UserUpdate->value);
 
     expect((new UserPolicy())->update($this->user))->toBeTrue();
+});
+
+test("user can update user's role of the same level", function () {
+    $this->user->role_id = Role::BUSINESSMANAGER;
+    $this->user->save();
+
+    grantPermission(PermissionType::UserUpdate->value);
+
+    $user_bar = User::factory()->create([
+        'role_id' => Role::BUSINESSMANAGER,
+    ]);
+
+    expect((new UserPolicy())->update($this->user, $user_bar))->toBeTrue();
+});
+
+test("user can update user's role of the lower level", function () {
+    $this->user->role_id = Role::BUSINESSMANAGER;
+    $this->user->save();
+
+    grantPermission(PermissionType::UserUpdate->value);
+
+    $user_bar = User::factory()->create([
+        'role_id' => Role::DEPARTMENTMANAGER,
+    ]);
+
+    expect((new UserPolicy())->update($this->user, $user_bar))->toBeTrue();
 });

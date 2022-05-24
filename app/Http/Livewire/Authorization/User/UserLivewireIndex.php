@@ -170,11 +170,14 @@ class UserLivewireIndex extends Component
      */
     public function edit(User $user)
     {
-        $this->authorize(Policy::Update->value, User::class);
+        $this->authorize(Policy::Update->value, $user);
 
         $this->editing = $user;
 
-        $this->roles = Role::select('id', 'name')->defaultOrder()->get();
+        $this->roles = Role::select('id', 'name')
+                        ->where('id', '>=', auth()->user()->role_id)
+                        ->defaultOrder()
+                        ->get();
 
         $this->show_edit_modal = true;
     }
@@ -186,9 +189,9 @@ class UserLivewireIndex extends Component
      */
     public function update()
     {
-        $this->authorize(Policy::Update->value, User::class);
-
         $this->validate();
+
+        $this->authorize(Policy::Update->value, $this->editing);
 
         $saved = $this->editing->updateAndRevokeDelegatedUsers();
 

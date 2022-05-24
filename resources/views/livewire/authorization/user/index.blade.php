@@ -71,7 +71,7 @@
 
                             <div class="flex flex-col justify-center space-y-3">
 
-                                @can(\App\Enums\Policy::Update->value, \App\Models\User::class)
+                                @can(\App\Enums\Policy::Update->value, $user)
 
                                     <x-button
                                         wire:click="edit({{ $user->id }})"
@@ -112,7 +112,7 @@
     {{ $users->links() }}
 
 
-    @can(\App\Enums\Policy::Update->value, \App\Models\User::class)
+    @can(\App\Enums\Policy::Update->value, $editing)
 
         <form
             wire:key="editing-user-form-{{ $editing->id }}"
