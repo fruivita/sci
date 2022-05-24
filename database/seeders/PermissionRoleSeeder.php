@@ -42,6 +42,7 @@ class PermissionRoleSeeder extends Seeder
     private function allRolesPermissions()
     {
         return $this->administratorPermissions()
+        ->concat($this->businessManagerPermissions())
         ->concat($this->institutionalManagerPermissions())
         ->concat($this->departmentManagerPermissions())
         ->concat($this->ordinaryPermissions());
@@ -92,6 +93,40 @@ class PermissionRoleSeeder extends Seeder
             PermissionType::UserUpdate->value,
         ])->map(function ($item) {
             $new_item['role_id'] = Role::ADMINISTRATOR;
+            $new_item['permission_id'] = $item;
+
+            return $new_item;
+        });
+    }
+
+    /**
+     * Initial business manager role permissions.
+     *
+     * @return \Illuminate\Support\LazyCollection
+     */
+    private function businessManagerPermissions()
+    {
+        return LazyCollection::make([
+            PermissionType::DelegationViewAny->value,
+            PermissionType::DelegationCreate->value,
+            PermissionType::DepartmentReport->value,
+            PermissionType::ManagerialReport->value,
+            PermissionType::InstitutionalReport->value,
+            PermissionType::PermissionViewAny->value,
+            PermissionType::PermissionView->value,
+            PermissionType::PrinterReport->value,
+            PermissionType::PrintingReport->value,
+            PermissionType::RoleViewAny->value,
+            PermissionType::RoleView->value,
+            PermissionType::ServerViewAny->value,
+            PermissionType::ServerView->value,
+            PermissionType::ServerReport->value,
+            PermissionType::SiteViewAny->value,
+            PermissionType::SiteView->value,
+            PermissionType::UserViewAny->value,
+            PermissionType::UserUpdate->value,
+        ])->map(function ($item) {
+            $new_item['role_id'] = Role::BUSINESSMANAGER;
             $new_item['permission_id'] = $item;
 
             return $new_item;

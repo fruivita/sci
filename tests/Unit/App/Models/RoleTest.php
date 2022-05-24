@@ -81,9 +81,10 @@ test('atomic method Save With Permissions creates log home of failed role update
 // Happy path
 test('role ids are set', function () {
     expect(Role::ADMINISTRATOR)->toBe(1000)
-    ->and(Role::INSTITUTIONALMANAGER)->toBe(1100)
-    ->and(Role::DEPARTMENTMANAGER)->toBe(1200)
-    ->and(Role::ORDINARY)->toBe(1300);
+    ->and(Role::BUSINESSMANAGER)->toBe(1100)
+    ->and(Role::INSTITUTIONALMANAGER)->toBe(1200)
+    ->and(Role::DEPARTMENTMANAGER)->toBe(1300)
+    ->and(Role::ORDINARY)->toBe(1400);
 });
 
 test('create many roles', function () {
@@ -200,6 +201,37 @@ test('admin role has all permissions', function ($permission) {
     PermissionType::DocumentationDelete,
 ]);
 
+test('initial business manager role permissions are set', function ($permission) {
+    $this->seed([
+        RoleSeeder::class,
+        PermissionSeeder::class,
+        PermissionRoleSeeder::class,
+    ]);
+
+    $user = User::factory()->create(['role_id' => Role::BUSINESSMANAGER]);
+
+    expect($user->hasPermission($permission))->toBeTrue();
+})->with([
+    PermissionType::DelegationViewAny,
+    PermissionType::DelegationCreate,
+    PermissionType::DepartmentReport,
+    PermissionType::ManagerialReport,
+    PermissionType::InstitutionalReport,
+    PermissionType::PermissionViewAny,
+    PermissionType::PermissionView,
+    PermissionType::PrinterReport,
+    PermissionType::PrintingReport,
+    PermissionType::RoleViewAny,
+    PermissionType::RoleView,
+    PermissionType::ServerViewAny,
+    PermissionType::ServerView,
+    PermissionType::ServerReport,
+    PermissionType::SiteViewAny,
+    PermissionType::SiteView,
+    PermissionType::UserViewAny,
+    PermissionType::UserUpdate,
+]);
+
 test('initial institutional manager role permissions are set', function ($permission) {
     $this->seed([
         RoleSeeder::class,
@@ -290,7 +322,8 @@ test('returns roles using the defined default sort scope', function () {
 
 test('roles are in the correct hierarchical order', function () {
     // role with lower id has higher functional hierarchy in the application
-    expect(Role::ADMINISTRATOR)->toBeLessThan(Role::INSTITUTIONALMANAGER)
+    expect(Role::ADMINISTRATOR)->toBeLessThan(Role::BUSINESSMANAGER)
+    ->and(Role::BUSINESSMANAGER)->toBeLessThan(Role::INSTITUTIONALMANAGER)
     ->and(Role::INSTITUTIONALMANAGER)->toBeLessThan(Role::DEPARTMENTMANAGER)
     ->and(Role::DEPARTMENTMANAGER)->toBeLessThan(Role::ORDINARY);
 });

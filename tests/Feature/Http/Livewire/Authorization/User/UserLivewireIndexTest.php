@@ -209,14 +209,12 @@ test('roles are available if modal can be loaded', function () {
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
-    expect(Role::count())->toBe(4);
-
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('roles', null)
     ->call('edit', $this->user->id)
-    ->assertCount('roles', 4);
+    ->assertCount('roles', 5);
 
-    expect(Role::count())->toBe(4);
+    expect(Role::count())->toBe(5);
 });
 
 test('emits feedback event when updating a user', function () {

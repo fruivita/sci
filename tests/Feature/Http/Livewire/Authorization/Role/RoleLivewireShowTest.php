@@ -108,18 +108,18 @@ test('next and previous are available when viewing individual roles, even when d
     grantPermission(PermissionType::RoleView->value);
 
     $first = Role::find(Role::ADMINISTRATOR);
-    $second = Role::find(Role::INSTITUTIONALMANAGER);
+    $second = Role::find(Role::BUSINESSMANAGER);
     $last = Role::find(Role::ORDINARY);
 
     // has previous and next
     Livewire::test(RoleLivewireShow::class, ['role' => $second])
     ->assertSet('previous', Role::ADMINISTRATOR)
-    ->assertSet('next', Role::DEPARTMENTMANAGER);
+    ->assertSet('next', Role::INSTITUTIONALMANAGER);
 
     // only has next
     Livewire::test(RoleLivewireShow::class, ['role' => $first])
     ->assertSet('previous', null)
-    ->assertSet('next', Role::INSTITUTIONALMANAGER);
+    ->assertSet('next', Role::BUSINESSMANAGER);
 
     // has only previous
     Livewire::test(RoleLivewireShow::class, ['role' => $last])
