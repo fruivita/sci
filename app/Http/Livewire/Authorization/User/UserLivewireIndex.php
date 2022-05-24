@@ -175,7 +175,7 @@ class UserLivewireIndex extends Component
         $this->editing = $user;
 
         $this->roles = Role::select('id', 'name')
-                        ->where('id', '>=', auth()->user()->role_id)
+                        ->avaiableToAssign()
                         ->defaultOrder()
                         ->get();
 

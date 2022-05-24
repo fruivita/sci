@@ -20,11 +20,11 @@ class Role extends Model
 
     public $incrementing = false;
 
-    public const ADMINISTRATOR = 1000;
-    public const BUSINESSMANAGER = 1100;
-    public const INSTITUTIONALMANAGER = 1200;
-    public const DEPARTMENTMANAGER = 1300;
-    public const ORDINARY = 1400;
+    public const ADMINISTRATOR = 9000;
+    public const BUSINESSMANAGER = 8000;
+    public const INSTITUTIONALMANAGER = 7000;
+    public const DEPARTMENTMANAGER = 6000;
+    public const ORDINARY = 1000;
 
     /**
      * Relationship role (N:M) permissions.
@@ -56,7 +56,7 @@ class Role extends Model
      * If this ordering changes, should review the delegation process for
      * necessary adjustments.
      *
-     * Order: Id asc
+     * Order: Id desc
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      *
@@ -64,7 +64,19 @@ class Role extends Model
      */
     public function scopeDefaultOrder($query)
     {
-        return $query->orderBy('id', 'asc');
+        return $query->orderBy('id', 'desc');
+    }
+
+    /**
+     * Roles available to assign to another user.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAvaiableToAssign($query)
+    {
+        return $query->where('id', '<=', auth()->user()->role_id);
     }
 
     /**

@@ -33,7 +33,7 @@ class UserPolicy extends Policy
     {
         return (
                 $editing === null // Loading the page
-                || $user->role_id <= $editing->role_id // performing the update
+                || $user->role_id >= $editing->role_id // performing the update
             )
             && $this->hasAnyPermission($user, [PermissionType::UserUpdate]);
     }
