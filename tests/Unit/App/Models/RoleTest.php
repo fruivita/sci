@@ -92,7 +92,7 @@ test('create many roles', function () {
     expect(Role::count())->toBe(30);
 });
 
-test('optional role fields are accepted', function () {
+test('optional fields are set', function () {
     Role::factory()->create(['description' => null]);
 
     expect(Role::count())->toBe(1);

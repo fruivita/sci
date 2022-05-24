@@ -75,7 +75,7 @@ test('create many permissions', function () {
     expect(Permission::count())->toBe(30);
 });
 
-test('optional permission fields are accepted', function () {
+test('optional fields are set', function () {
     Permission::factory()->create(['description' => null]);
 
     expect(Permission::count())->toBe(1);

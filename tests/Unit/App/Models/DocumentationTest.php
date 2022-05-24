@@ -41,7 +41,7 @@ test('Documentation fields in their maximum size are accepted', function () {
     expect(Documentation::count())->toBe(1);
 });
 
-test('optional fields of documentation are accepted', function () {
+test('optional fields are set', function () {
     Documentation::factory()->create(['doc_link' => null]);
 
     expect(Documentation::count())->toBe(1);

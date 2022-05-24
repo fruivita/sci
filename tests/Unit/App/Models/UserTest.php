@@ -59,7 +59,7 @@ test('create many users', function () {
     expect(User::count())->toBe(30);
 });
 
-test('optional user fields are accepted', function () {
+test('optional fields are set', function () {
     User::factory()->create(['name' => null]);
 
     expect(User::count())->toBe(1);

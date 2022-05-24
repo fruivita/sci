@@ -14,7 +14,7 @@
 
     <x-page header="{{ __('Home') }}">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
 
             @can(\App\Enums\Policy::Report->value, \App\Models\Printing::class)
 

@@ -81,7 +81,7 @@ test('filename printed at its maximum size is accepted', function () {
     expect(Printing::count())->toBe(1);
 });
 
-test('optional fields defined', function ($field) {
+test('optional fields are set', function ($field) {
     Printing::factory()
         ->create([$field => null]);
 
