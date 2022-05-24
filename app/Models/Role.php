@@ -21,9 +21,10 @@ class Role extends Model
     public $incrementing = false;
 
     public const ADMINISTRATOR = 1000;
-    public const INSTITUTIONALMANAGER = 1100;
-    public const DEPARTMENTMANAGER = 1200;
-    public const ORDINARY = 1300;
+    public const BUSINESSMANAGER = 1100;
+    public const INSTITUTIONALMANAGER = 1200;
+    public const DEPARTMENTMANAGER = 1300;
+    public const ORDINARY = 1400;
 
     /**
      * Relationship role (N:M) permissions.

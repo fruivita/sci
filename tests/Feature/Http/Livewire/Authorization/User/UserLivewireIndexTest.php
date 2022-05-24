@@ -85,6 +85,27 @@ test('roles are not available if modal cannot be loaded', function () {
     expect(Role::count())->toBeGreaterThan(1);
 });
 
+test("cannot update user's role of higher level", function () {
+    $this->user->role_id = Role::BUSINESSMANAGER;
+    $this->user->save();
+
+    logout();
+    login('bar');
+
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->call('edit', $this->user->id)
+    ->set('editing.role_id', Role::INSTITUTIONALMANAGER)
+    ->call('update')
+    ->assertForbidden();
+
+    $this->user->refresh();
+
+    expect($this->user->role_id)->toBe(Role::BUSINESSMANAGER);
+});
+
 // Rules
 test('does not accept pagination outside the options offered', function () {
     grantPermission(PermissionType::UserViewAny->value);
@@ -205,18 +226,19 @@ test('display user edit modal with specific permission', function () {
     ->assertSet('show_edit_modal', true);
 });
 
-test('roles are available if modal can be loaded', function () {
+test('only roles of the same or lower level are available', function () {
+    $this->user->role_id = Role::BUSINESSMANAGER;
+    $this->user->save();
+
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
-
-    expect(Role::count())->toBe(4);
 
     Livewire::test(UserLivewireIndex::class)
     ->assertSet('roles', null)
     ->call('edit', $this->user->id)
     ->assertCount('roles', 4);
 
-    expect(Role::count())->toBe(4);
+    expect(Role::count())->toBe(5);
 });
 
 test('emits feedback event when updating a user', function () {
@@ -231,22 +253,24 @@ test('emits feedback event when updating a user', function () {
 
 test('updates a user with specific permission', function () {
     logout();
-    login('bar');
+    $user = login('bar');
+
+    $user->role_id = Role::BUSINESSMANAGER;
+    $user->save();
+
     grantPermission(PermissionType::UserViewAny->value);
     grantPermission(PermissionType::UserUpdate->value);
 
-    $user = User::where('username', 'foo')->first();
-
     Livewire::test(UserLivewireIndex::class)
-    ->call('edit', $user)
+    ->call('edit', $this->user)
     ->assertSet('editing.role_id', Role::ORDINARY)
-    ->set('editing.role_id', Role::ADMINISTRATOR)
+    ->set('editing.role_id', Role::INSTITUTIONALMANAGER)
     ->call('update')
     ->assertOk();
 
-    $user->refresh();
+    $this->user->refresh();
 
-    expect($user->role->id)->toBe(Role::ADMINISTRATOR);
+    expect($this->user->role->id)->toBe(Role::INSTITUTIONALMANAGER);
 });
 
 test('role update removes eventual delegation', function () {
@@ -299,4 +323,52 @@ test('search returns expected results', function () {
     ->assertCount('users', 1)
     ->set('term', 'fulano')
     ->assertCount('users', 2);
+});
+
+test("can update user's role of the same level", function () {
+    $this->user->role_id = Role::BUSINESSMANAGER;
+    $this->user->save();
+
+    logout();
+    $user = login('bar');
+
+    $user->role_id = Role::BUSINESSMANAGER;
+    $user->save();
+
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->call('edit', $this->user->id)
+    ->set('editing.role_id', Role::INSTITUTIONALMANAGER)
+    ->call('update')
+    ->assertOk();
+
+    $this->user->refresh();
+
+    expect($this->user->role_id)->toBe(Role::INSTITUTIONALMANAGER);
+});
+
+test("can update user's role of the lower level", function () {
+    $this->user->role_id = Role::INSTITUTIONALMANAGER;
+    $this->user->save();
+
+    logout();
+    $user = login('bar');
+
+    $user->role_id = Role::BUSINESSMANAGER;
+    $user->save();
+
+    grantPermission(PermissionType::UserViewAny->value);
+    grantPermission(PermissionType::UserUpdate->value);
+
+    Livewire::test(UserLivewireIndex::class)
+    ->call('edit', $this->user->id)
+    ->set('editing.role_id', Role::DEPARTMENTMANAGER)
+    ->call('update')
+    ->assertOk();
+
+    $this->user->refresh();
+
+    expect($this->user->role_id)->toBe(Role::DEPARTMENTMANAGER);
 });

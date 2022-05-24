@@ -48,6 +48,11 @@ class RoleSeeder extends Seeder
                 'description' => __('Role with access to all application operations.'),
             ],
             [
+                'id' => Role::BUSINESSMANAGER,
+                'name' => __('Business manager'),
+                'description' => __("Role with access to all the application's business functions, to view some administration settings and to update user roles."),
+            ],
+            [
                 'id' => Role::INSTITUTIONALMANAGER,
                 'name' => __('Institutional manager'),
                 'description' => __("Role with access to all the application's business functions. Does not have access to administration functions."),
