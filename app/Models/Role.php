@@ -49,13 +49,6 @@ class Role extends Model
     /**
      * Default ordering of the model.
      *
-     * This ordering should not be changed, as the delegation process takes it
-     * to determine the most privileged (lowest id) and least privileged
-     * (highest id) roles.
-     *
-     * If this ordering changes, should review the delegation process for
-     * necessary adjustments.
-     *
      * Order: Id desc
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -87,8 +80,8 @@ class Role extends Model
     public function previous()
     {
         return self::select('id')
-        ->where('id', '<', $this->id)
-        ->orderBy('id', 'desc')
+        ->where('id', '>', $this->id)
+        ->orderBy('id', 'asc')
         ->take(1);
     }
 
@@ -100,8 +93,8 @@ class Role extends Model
     public function next()
     {
         return self::select('id')
-        ->where('id', '>', $this->id)
-        ->orderBy('id', 'asc')
+        ->where('id', '<', $this->id)
+        ->orderBy('id', 'desc')
         ->take(1);
     }
 

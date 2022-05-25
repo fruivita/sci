@@ -333,9 +333,9 @@ test('updates a role with specific permission', function () {
 test('next and previous are cached with one minute expiration', function () {
     grantPermission(PermissionType::RoleUpdate->value);
 
-    $role_1 = Role::factory()->create(['id' => 1]);
+    $role_1 = Role::factory()->create(['id' => 3]);
     $role_2 = Role::factory()->create(['id' => 2]);
-    $role_3 = Role::factory()->create(['id' => 3]);
+    $role_3 = Role::factory()->create(['id' => 1]);
 
     testTime()->freeze();
     $livewire = Livewire::test(RoleLivewireUpdate::class, ['role' => $role_2]);

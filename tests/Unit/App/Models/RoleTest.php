@@ -289,16 +289,16 @@ test('initial ordinary role permissions are set', function ($permission) {
 ]);
 
 test('previous returns the correct previous record, even if it is the first', function () {
-    $role_1 = Role::factory()->create(['id' => 1]);
-    $role_2 = Role::factory()->create(['id' => 2]);
+    $role_1 = Role::factory()->create(['id' => 2]);
+    $role_2 = Role::factory()->create(['id' => 1]);
 
     expect($role_2->previous()->first()->id)->toBe($role_1->id)
     ->and($role_1->previous()->first())->toBeNull();
 });
 
 test('next returns the correct back record even though it is the last', function () {
-    $role_1 = Role::factory()->create(['id' => 1]);
-    $role_2 = Role::factory()->create(['id' => 2]);
+    $role_1 = Role::factory()->create(['id' => 2]);
+    $role_2 = Role::factory()->create(['id' => 1]);
 
     expect($role_1->next()->first()->id)->toBe($role_2->id)
     ->and($role_2->next()->first())->toBeNull();

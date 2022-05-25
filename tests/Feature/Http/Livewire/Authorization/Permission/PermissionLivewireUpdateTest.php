@@ -164,18 +164,8 @@ test('define the roles that should be pre-selected according to the permission r
             ->has(Role::factory(20), 'roles')
             ->create();
 
-    $permission->load('roles');
-
-    $selected = $permission
-                ->roles
-                ->pluck('id')
-                ->map(fn ($id) => (string) $id)
-                ->values()
-                ->toArray();
-
     Livewire::test(PermissionLivewireUpdate::class, ['permission' => $permission])
-    ->assertCount('selected', 20)
-    ->assertSet('selected', $selected);
+    ->assertCount('selected', 20);
 });
 
 test('Roles checkbox manipulation actions work as expected', function () {
