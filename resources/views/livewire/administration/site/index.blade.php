@@ -161,7 +161,7 @@
 
     @can(\App\Enums\Policy::Delete->value, \App\Models\Site::class)
 
-        {{-- Modal to confirm site deletion --}}
+        {{-- Modal to confirm deletion --}}
         <x-modal wire:model="show_delete_modal">
 
             <x-slot name="title">{{ __('Delete :attribute?', ['attribute' => $deleting->name]) }}</x-slot>

@@ -126,7 +126,7 @@
 
     @can(\App\Enums\Policy::Delete->value, \App\Models\Documentation::class)
 
-        {{-- Modal to confirm the deletion of documentation --}}
+        {{-- Modal to confirm deletion --}}
         <x-modal wire:model="show_delete_modal">
 
             <x-slot name="title">{{ __('Delete :attribute?', ['attribute' => $deleting->app_route_name]) }}</x-slot>
