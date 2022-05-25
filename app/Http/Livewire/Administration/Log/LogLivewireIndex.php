@@ -25,6 +25,13 @@ class LogLivewireIndex extends Component
     use WithPerPagePagination;
 
     /**
+     * Should the modal for deleting the log be displayed?
+     *
+     * @var bool
+     */
+    public $show_delete_modal = false;
+
+    /**
      * Resource on display.
      *
      * @var string
@@ -202,7 +209,9 @@ class LogLivewireIndex extends Component
 
         $this->setDefaultValuesBasedOnQueryString();
 
-        $this->flashSelf($deleted);
+        $this->reset('show_delete_modal');
+
+        $this->notify($deleted);
     }
 
     /**

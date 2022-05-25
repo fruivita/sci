@@ -79,7 +79,7 @@
                     @can(\App\Enums\Policy::LogDelete->value)
 
                         <x-button
-                            wire:click="destroy"
+                            wire:click="$toggle('show_delete_modal')"
                             wire:key="btn-delete"
                             wire:loading.delay.attr="disabled"
                             wire:loading.delay.class="cursor-not-allowed"
@@ -132,5 +132,40 @@
 
 
     {{ optional($file_content)->links() }}
+
+
+    @can(\App\Enums\Policy::LogDelete->value)
+
+        {{-- Modal to confirm deletion --}}
+        <x-modal wire:model="show_delete_modal">
+
+            <x-slot name="title">{{ __('Delete :attribute?', ['attribute' => $filename]) }}</x-slot>
+
+
+            <x-slot name="content">{{ __('This operation is irreversible. Are you sure you wish to proceed?') }}</x-slot>
+
+
+            <x-slot name="footer">
+
+                <form
+                    wire:key="deleting-logs-modal-{{ $filename }}"
+                    wire:submit.prevent="destroy"
+                    method="POST"
+                >
+
+                    <x-button
+                        class="btn-danger w-full"
+                        icon="check-circle"
+                        text="{{ __('Confirm') }}"
+                        title="{{ __('Confirm the operation') }}"
+                        type="submit"/>
+
+                </form>
+
+            </x-slot>
+
+        </x-modal>
+
+    @endcan
 
 </x-page>

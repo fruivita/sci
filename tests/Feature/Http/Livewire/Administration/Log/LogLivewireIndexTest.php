@@ -217,7 +217,13 @@ test('emits feedback event when updating a role', function () {
         'filename' => $this->log_files[1],
     ])
     ->call('destroy')
-    ->assertEmitted('feedback', FeedbackType::Success, __('Success!'));
+    ->assertDispatchedBrowserEvent('notify', [
+        'type' => FeedbackType::Success->value,
+        'icon' => FeedbackType::Success->icon(),
+        'header' => FeedbackType::Success->label(),
+        'message' => null,
+        'timeout' => 3000,
+    ]);
 });
 
 test('even with no file to be displayed, the component loads without errors', function () {
