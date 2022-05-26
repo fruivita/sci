@@ -10,7 +10,7 @@ namespace App\Enums;
  */
 enum PermissionType: int
 {
-    // Configuratio
+    // Configuration
     case ConfigurationView = 100002;
     case ConfigurationUpdate = 100004;
     // Delegation
