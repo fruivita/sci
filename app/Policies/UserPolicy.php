@@ -25,7 +25,8 @@ class UserPolicy extends Policy
     /**
      * Determine whether the user can update a model.
      *
-     * @param \App\Models\User $user
+     * @param \App\Models\User      $user
+     * @param \App\Models\User|null $editing
      *
      * @return bool|\Illuminate\Auth\Access\Response
      */

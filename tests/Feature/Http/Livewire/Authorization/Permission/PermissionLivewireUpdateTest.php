@@ -168,7 +168,7 @@ test('define the roles that should be pre-selected according to the permission r
     ->assertCount('selected', 20);
 });
 
-test('Roles checkbox manipulation actions work as expected', function () {
+test('roles checkbox manipulation actions work as expected', function () {
     grantPermission(PermissionType::PermissionUpdate->value);
     $count = Role::count();
 
