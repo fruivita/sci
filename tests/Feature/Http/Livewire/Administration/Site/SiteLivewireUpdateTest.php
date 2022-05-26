@@ -144,18 +144,8 @@ test('defines servers that should be pre-selected according to entity relationsh
             ->has(Server::factory(20), 'servers')
             ->create();
 
-    $site->load('servers');
-
-    $selected = $site
-                ->servers
-                ->pluck('id')
-                ->map(fn ($id) => (string) $id)
-                ->values()
-                ->toArray();
-
     Livewire::test(SiteLivewireUpdate::class, ['site' => $site])
-    ->assertCount('selected', 20)
-    ->assertSet('selected', $selected);
+    ->assertCount('selected', 20);
 });
 
 test('server checkbox manipulation actions work as expected', function () {

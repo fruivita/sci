@@ -163,18 +163,8 @@ test('defines the permissions that must be pre-selected according to entity rela
             ->has(Permission::factory(20), 'permissions')
             ->create();
 
-    $role->load('permissions');
-
-    $selected = $role
-                ->permissions
-                ->pluck('id')
-                ->map(fn ($id) => (string) $id)
-                ->values()
-                ->toArray();
-
     Livewire::test(RoleLivewireUpdate::class, ['role' => $role])
-    ->assertCount('selected', 20)
-    ->assertSet('selected', $selected);
+    ->assertCount('selected', 20);
 });
 
 test('permissions checkbox manipulation actions work as expected', function () {
